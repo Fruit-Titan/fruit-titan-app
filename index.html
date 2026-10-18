@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit Titan</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #071c33 0%, #0c3559 100%);
+      color: #ffffff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      margin: 25px 0 10px 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #38ef7d;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #a0c4e2;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 20px;
+      width: 85%;
+      max-width: 340px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .icon {
+      font-size: 65px;
+      margin-bottom: 10px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      font-size: 15px;
+      color: #e0e0e0;
+    }
+    .btn {
+      background: #0088cc;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      width: 100%;
+      margin-top: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">🚢 Fruit Titan 🍎</div>
+  <div class="subtitle">استثمر بالفواكه واجنِ أرباح TON</div>
+
+  <div class="card">
+    <div class="icon">🍎</div>
+    <div class="title">خطة التفاح (Apple Plan)</div>
+    
+    <div class="info-row">
+      <span>التكلفة:</span>
+      <b>0.1 TON</b>
+    </div>
+    <div class="info-row">
+      <span>الدورة:</span>
+      <b>24 ساعة</b>
+    </div>
+    <div class="info-row">
+      <span>العائد:</span>
+      <b style="color: #38ef7d;">0.05 TON (50%)</b>
+    </div>
+
+    <button class="btn" onclick="invest()">استثمار الآن</button>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    function invest() {
+      tg.showAlert("تم بدء خطة التفاح بنجاح! سيتم احتساب العائد خلال 24 ساعة.");
+    }
+  </script>
+</body>
+</html>
