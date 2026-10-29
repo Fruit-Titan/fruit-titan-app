@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>ROLE Mining App</title>
+  <title>ROL Mining App</title>
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <!-- TonConnect UI SDK -->
@@ -11,13 +11,12 @@
   
   <style>
     :root {
-      --bg-color: #0b0e14;
-      --card-bg: #151a24;
-      --gold: #d4af37;
-      --gold-glow: rgba(212, 175, 55, 0.35);
-      --cyan: #00d2ff;
+      --bg-color: #070b12;
+      --card-bg: #0f172a;
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
       --text: #ffffff;
-      --text-muted: #8e9cae;
+      --text-muted: #94a3b8;
     }
 
     * {
@@ -60,16 +59,15 @@
       transform-origin: left center;
     }
 
-    /* كرت الرصيد ومعدل التعدين */
     .balance-card {
       background: var(--card-bg);
-      border: 1px solid rgba(212, 175, 55, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: 20px;
       padding: 18px;
       width: 100%;
       max-width: 360px;
       text-align: center;
-      box-shadow: 0 0 25px var(--gold-glow);
+      box-shadow: 0 0 25px var(--cyan-glow);
       margin-bottom: 20px;
     }
 
@@ -82,7 +80,7 @@
     .balance-amount {
       font-size: 34px;
       font-weight: 800;
-      color: var(--gold);
+      color: var(--cyan);
       margin: 6px 0;
       display: flex;
       align-items: center;
@@ -92,16 +90,15 @@
 
     .rate-badge {
       display: inline-block;
-      background: rgba(0, 210, 255, 0.1);
+      background: rgba(56, 189, 248, 0.1);
       color: var(--cyan);
-      border: 1px solid rgba(0, 210, 255, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.3);
       padding: 4px 12px;
       border-radius: 12px;
       font-size: 12px;
       font-weight: 600;
     }
 
-    /* عملة التعدين المركزية */
     .coin-container {
       position: relative;
       margin: 15px 0 25px 0;
@@ -112,17 +109,16 @@
       width: 210px;
       height: 210px;
       border-radius: 50%;
-      border: 3px solid var(--gold);
-      box-shadow: 0 0 35px var(--gold-glow);
+      border: 3px solid var(--cyan);
+      box-shadow: 0 0 35px var(--cyan-glow);
       transition: transform 0.08s ease;
-      background: url('https://i.postimg.cc/752VXMdG/watermarked-img-13507290328771564715.jpg') center/cover no-repeat;
+      background: url('https://i.postimg.cc/3RjLNYXC/1793303091528.jpg') center/cover no-repeat;
     }
 
     .coin:active {
       transform: scale(0.94);
     }
 
-    /* أزرار التحكم السفلية */
     .actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -135,7 +131,7 @@
 
     .btn {
       background: var(--card-bg);
-      border: 1px solid #242c3d;
+      border: 1px solid #1e293b;
       color: var(--text);
       padding: 14px;
       border-radius: 14px;
@@ -150,22 +146,22 @@
     }
 
     .btn:active {
-      background: #1c2331;
-      border-color: var(--gold);
+      background: #1e293b;
+      border-color: var(--cyan);
     }
 
     .btn-claim {
       grid-column: span 2;
-      background: linear-gradient(135deg, #d4af37, #b8860b);
-      color: #0b0e14;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
       font-size: 16px;
       font-weight: 700;
       border: none;
-      box-shadow: 0 4px 16px var(--gold-glow);
+      box-shadow: 0 4px 16px var(--cyan-glow);
     }
 
     .btn-claim:active {
-      background: linear-gradient(135deg, #b8860b, #996f08);
+      background: linear-gradient(135deg, #0369a1, #075985);
     }
   </style>
 </head>
@@ -180,9 +176,9 @@
     <div class="balance-title">رصيدك المتاح للتعدين</div>
     <div class="balance-amount">
       <span id="balance">0.0000</span>
-      <span style="font-size: 18px;">ROLE</span>
+      <span style="font-size: 18px;">ROL</span>
     </div>
-    <div class="rate-badge">معدل الإنتاج: <span id="hashrate">0.50</span> ROLE / ثانية</div>
+    <div class="rate-badge">معدل الإنتاج: <span id="hashrate">0.50</span> ROL / ثانية</div>
   </div>
 
   <div class="coin-container" id="mine-btn">
@@ -204,7 +200,6 @@
   </div>
 
   <script>
-    // تهيئة Telegram WebApp
     const tg = window.Telegram?.WebApp;
     if (tg) {
       tg.expand();
@@ -213,12 +208,11 @@
       }
     }
 
-    // عقد عملة ROLE
-    const JETTON_MASTER_ADDRESS = "EQAt6WsnTNMJSufbhUHLOZmNd7RMfeH2x5CZHqY4fK7k82LE";
+    // عقد عملة ROL
+    const JETTON_MASTER_ADDRESS = "EQCFMvwMZqiUQL5pLxdOaSRbVSez50QMyjZv";
 
-    // المتغيرات وحساب الرصيد
-    let userBalance = parseFloat(localStorage.getItem('role_balance') || '0');
-    let hashrate = parseFloat(localStorage.getItem('role_hashrate') || '0.0005');
+    let userBalance = parseFloat(localStorage.getItem('rol_balance') || '0');
+    let hashrate = parseFloat(localStorage.getItem('rol_hashrate') || '0.0005');
     let minedAccumulated = 0;
 
     const balanceEl = document.getElementById('balance');
@@ -233,19 +227,16 @@
       hashrateEl.innerText = (hashrate * 1000).toFixed(2) + " / ثانية";
     }
 
-    // عداد التعدين التلقائي بالوقت
     setInterval(() => {
       minedAccumulated += hashrate / 10;
       updateUI();
     }, 100);
 
-    // حفظ الرصيد محلياً
     setInterval(() => {
-      localStorage.setItem('role_balance', userBalance.toString());
-      localStorage.setItem('role_hashrate', hashrate.toString());
+      localStorage.setItem('rol_balance', userBalance.toString());
+      localStorage.setItem('rol_hashrate', hashrate.toString());
     }, 4000);
 
-    // نقر التعدين الإضافي
     mineBtn.addEventListener('click', () => {
       minedAccumulated += 0.05;
       updateUI();
@@ -254,27 +245,21 @@
       }
     });
 
-    // زر الحصاد
     claimBtn.addEventListener('click', () => {
       if (minedAccumulated <= 0) return;
       userBalance += minedAccumulated;
       minedAccumulated = 0;
-      localStorage.setItem('role_balance', userBalance.toString());
+      localStorage.setItem('rol_balance', userBalance.toString());
       updateUI();
-      if (tg?.showAlert) {
-        tg.showAlert('تم حصاد ونقل الأرباح إلى رصيدك بنجاح!');
-      } else {
-        alert('تم حصاد ونقل الأرباح إلى رصيدك بنجاح!');
-      }
+      const msg = 'تم نقل العملات المعدّنة إلى رصيدك بنجاح!';
+      tg?.showAlert ? tg.showAlert(msg) : alert(msg);
     });
 
-    // ربط محفظة Tonkeeper عبر TonConnect
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
       buttonRootId: 'ton-connect-btn'
     });
 
-    // زر السحب
     withdrawBtn.addEventListener('click', () => {
       const currentWallet = tonConnectUI.account?.address;
       if (!currentWallet) {
@@ -283,17 +268,16 @@
         return;
       }
       if (userBalance < 10) {
-        const msg = 'الحد الأدنى للسحب هو 10 ROLE.';
+        const msg = 'الحد الأدنى للسحب هو 10 ROL.';
         tg?.showAlert ? tg.showAlert(msg) : alert(msg);
         return;
       }
-      const msg = `طلب السحب قيد المعالجة لمحفظتك:\n${currentWallet}\nالكمية: ${userBalance.toFixed(2)} ROLE`;
+      const msg = `طلب السحب قيد المعالجة:\nالمحفظة: ${currentWallet}\nالكمية: ${userBalance.toFixed(2)} ROL`;
       tg?.showAlert ? tg.showAlert(msg) : alert(msg);
     });
 
-    // زر الترقية
     boostBtn.addEventListener('click', () => {
-      const msg = 'ميزة ترقية سرعة التعدين عبر دفع TON أو ROLE ستكون متاحة مباشرة عبر العقد الذكي.';
+      const msg = 'ميزة ترقية سرعة التعدين عبر TON قادمة في التحديث القادم.';
       tg?.showAlert ? tg.showAlert(msg) : alert(msg);
     });
 
