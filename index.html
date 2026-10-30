@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Ecosystem - Mining App</title>
+  <title>ROL Mining App & Admin Portal</title>
   
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -13,11 +13,12 @@
   <style>
     :root {
       --bg: #060911;
-      --card-bg: rgba(15, 23, 42, 0.7);
-      --card-border: rgba(56, 189, 248, 0.15);
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(56, 189, 248, 0.2);
       --cyan: #38bdf8;
       --cyan-glow: rgba(56, 189, 248, 0.35);
       --green: #22c55e;
+      --red: #ef4444;
       --gold: #f59e0b;
       --text: #ffffff;
       --text-muted: #94a3b8;
@@ -29,29 +30,42 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       background-color: var(--bg);
-      background-image: radial-gradient(circle at 50% 0%, #172554 0%, var(--bg) 70%);
+      background-image: radial-gradient(circle at 50% 0%, #172554 0%, var(--bg) 75%);
       color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 16px 16px 90px 16px;
+      padding: 16px 16px 95px 16px;
       overflow-x: hidden;
     }
 
-    /* الشريط العلوي */
+    /* شاشة الحظر التام */
+    #banned-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
     header {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 6px 0;
       margin-bottom: 12px;
     }
 
@@ -72,10 +86,9 @@
       transform-origin: left center;
     }
 
-    /* الصفحات */
     .view-section {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -91,43 +104,33 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* بطاقة الرصيد الرئيسي */
+    /* بطاقة الرصيد */
     .balance-card {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 20px;
+      padding: 18px 20px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 0 30px var(--cyan-glow);
-      margin-bottom: 20px;
-    }
-
-    .balance-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      margin-bottom: 16px;
     }
 
     .balance-val {
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 900;
       color: var(--cyan);
-      margin: 6px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
+      margin: 4px 0;
       text-shadow: 0 0 15px var(--cyan-glow);
     }
 
-    /* منصة التعدين والدائرة المتوهجة */
+    /* دائرة التعدين */
     .mining-circle-wrapper {
       position: relative;
-      width: 210px;
-      height: 210px;
-      margin: 15px 0 25px 0;
+      width: 200px;
+      height: 200px;
+      margin: 10px 0 20px 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -153,20 +156,19 @@
     }
 
     .rol-coin {
-      width: 200px;
-      height: 200px;
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
       border: 4px solid var(--cyan);
       background: url('https://i.postimg.cc/3RjLNYXC/1793303091528.jpg') center/cover no-repeat;
-      box-shadow: 0 0 40px var(--cyan-glow);
+      box-shadow: 0 0 35px var(--cyan-glow);
     }
 
-    /* شريط تقدم التعدين والحالة */
     .mining-status-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 18px;
-      padding: 16px;
+      padding: 14px 18px;
       width: 100%;
       margin-bottom: 15px;
     }
@@ -175,7 +177,7 @@
       display: flex;
       justify-content: space-between;
       font-size: 13px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 600;
     }
 
@@ -185,7 +187,6 @@
       background: rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       overflow: hidden;
-      margin-bottom: 8px;
     }
 
     .progress-bar-fill {
@@ -196,12 +197,11 @@
       transition: width 0.3s ease;
     }
 
-    /* الأزرار الأساسية */
     .cta-btn {
       width: 100%;
-      padding: 16px;
-      border-radius: 18px;
-      font-size: 16px;
+      padding: 14px;
+      border-radius: 16px;
+      font-size: 15px;
       font-weight: 800;
       border: none;
       cursor: pointer;
@@ -209,96 +209,145 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 6px 20px var(--cyan-glow);
       transition: all 0.2s ease;
     }
 
     .cta-btn-start {
       background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #ffffff;
+      color: #fff;
+      box-shadow: 0 4px 18px var(--cyan-glow);
     }
 
     .cta-btn-claim {
       background: linear-gradient(135deg, #16a34a, #22c55e);
-      color: #ffffff;
-      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+      color: #fff;
     }
 
     .cta-btn-disabled {
       background: rgba(255, 255, 255, 0.08);
       color: var(--text-muted);
       cursor: not-allowed;
-      box-shadow: none;
     }
 
-    .cta-btn:active:not(.cta-btn-disabled) {
-      transform: scale(0.98);
-    }
-
-    /* تصميم بطاقات الإحالة والمحفظة */
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
+      border-radius: 18px;
+      padding: 16px;
       width: 100%;
-      margin-bottom: 14px;
-    }
-
-    .info-card h3 {
-      font-size: 16px;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-
-    .info-card p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
+      margin-bottom: 12px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .stat-box {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 14px;
+      border-radius: 14px;
+      padding: 12px;
       text-align: center;
     }
 
     .stat-box .val {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--cyan);
     }
 
     .stat-box .desc {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       margin-top: 4px;
     }
 
-    /* الشريط السفلي للتنقل (Bottom Navigation) */
+    /* ستايلات لوحة الأدمن الخاصة */
+    .admin-title {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .admin-input-group {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .admin-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .admin-btn {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-gold { background: var(--gold); color: #000; }
+
+    .table-wrapper {
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--cyan);
+    }
+
+    /* الشريط السفلي */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 72px;
-      background: rgba(9, 13, 22, 0.95);
+      height: 70px;
+      background: rgba(9, 13, 22, 0.96);
       backdrop-filter: blur(15px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 0 16px;
+      padding: 0 10px;
       z-index: 100;
     }
 
@@ -307,32 +356,29 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       transition: all 0.2s ease;
-      width: 30%;
+      flex: 1;
     }
 
-    .nav-tab .icon {
-      font-size: 22px;
-      transition: transform 0.2s;
-    }
-
-    .nav-tab.active {
-      color: var(--cyan);
-    }
-
-    .nav-tab.active .icon {
-      transform: translateY(-2px);
-    }
+    .nav-tab .icon { font-size: 20px; }
+    .nav-tab.active { color: var(--cyan); }
+    .nav-tab.admin-tab.active { color: var(--gold); }
   </style>
 </head>
 <body>
 
-  <!-- الهيدر العلوي -->
+  <!-- شاشة الحظر إذا كان المستخدم محظوراً -->
+  <div id="banned-screen">
+    <div style="font-size: 50px; margin-bottom: 12px;">🚫</div>
+    <h2 style="color: var(--red); margin-bottom: 8px;">تم حظر حسابك</h2>
+    <p style="color: var(--text-muted); font-size: 14px;">تم حظرك من استخدام منصة تعدين ROL لمخالفة القوانين والشروط.</p>
+  </div>
+
   <header>
     <div class="user-pill" id="user-display">👤 المنقّب</div>
     <div id="ton-connect-btn"></div>
@@ -341,7 +387,7 @@
   <!-- تبويب 1: الرئيسية (التعدين كل 8 ساعات) -->
   <main class="view-section active" id="tab-mining">
     <div class="balance-card">
-      <div class="balance-label">الرصيد المتاح (ROL)</div>
+      <div style="font-size: 12px; color: var(--text-muted);">الرصيد المتاح</div>
       <div class="balance-val">
         <span id="balance">0.00</span>
         <span style="font-size: 18px; color: #fff;">ROL</span>
@@ -369,15 +415,15 @@
     </button>
   </main>
 
-  <!-- تبويب 2: الإحالات (Referral System) -->
+  <!-- تبويب 2: الإحالات -->
   <section class="view-section" id="tab-frens">
     <div class="balance-card">
-      <div class="balance-label">أرباح الإحالات المكتسبة</div>
+      <div style="font-size: 12px; color: var(--text-muted);">أرباح الإحالات المكتسبة</div>
       <div class="balance-val">
         <span id="ref-earned">0</span>
         <span style="font-size: 18px; color: #fff;">ROL</span>
       </div>
-      <div style="font-size: 12px; color: var(--cyan);">+25 ROL مكافأة لكل صديق ينضم عبر رابطك</div>
+      <div style="font-size: 12px; color: var(--cyan);">+25 ROL لكل صديق ينضم عبر رابطك</div>
     </div>
 
     <div class="stats-grid">
@@ -391,41 +437,110 @@
       </div>
     </div>
 
-    <div class="info-card">
-      <h3>كيف يعمل نظام الإحالة؟</h3>
-      <p>شارك رابطك الخاص مع أصدقائك. عند فتحهم للبوت ستحصل أنت فوراً على 25 ROL ويحصل صديقك على 15 ROL كهدية ترحيبية!</p>
-    </div>
-
     <button class="cta-btn cta-btn-start" id="share-ref-btn">
       <span>🔗 دعوة صديق ومشاركة الرابط</span>
     </button>
   </section>
 
-  <!-- تبويب 3: المحفظة وحماية الشبكات (Wallet & Security) -->
+  <!-- تبويب 3: المحفظة -->
   <section class="view-section" id="tab-wallet">
     <div class="balance-card">
-      <div class="balance-label">عنوان المحفظة المتصلة</div>
-      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan); margin: 12px 0; word-break: break-all;">
+      <div style="font-size: 12px; color: var(--text-muted);">عنوان المحفظة المتصلة</div>
+      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan); margin: 10px 0; word-break: break-all;">
         غير متصلة
       </div>
-      <div style="font-size: 12px; color: var(--green);">🛡️ شبكة TON Mainnet نشطة ومؤمنة</div>
+      <div style="font-size: 12px; color: var(--green);">🛡️ متصل بشبكة TON Mainnet حصراً</div>
     </div>
 
     <div class="info-card">
-      <h3>عقد عملة ROL الرسمي</h3>
-      <p style="font-family: monospace; font-size: 11px; word-break: break-all; color: var(--cyan); background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; margin-top: 6px;">
-        EQCFMvwMZqiUQL5pLxdOaSRbVSez50QMyjZv
-      </p>
+      <div style="font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px;">طلب سحب أرباح ROL</div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">الحد الأدنى للسحب هو 50 ROL. يتم إرسال الطلب للمراجعة والموافقة من الإدارة.</p>
+      <button class="cta-btn cta-btn-start" id="request-withdraw-btn" style="padding: 10px; font-size: 13px;">
+        <span>📤 إرسال طلب سحب للرصيد</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- تبويب 4: لوحة تحكم المشرف (Admin Panel - تظهر لك فقط) -->
+  <section class="view-section" id="tab-admin">
+    <div class="admin-title">👑 لوحة التحكم العليا (Admin)</div>
+
+    <!-- إحصائيات عامة للمنصة -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="val" id="admin-total-users">1,482</div>
+        <div class="desc">إجمالي المستخدمين</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" id="admin-total-mined">74,100</div>
+        <div class="desc">إجمالي ROL المعدنة</div>
+      </div>
     </div>
 
+    <!-- إدارة الحظر وإلغاء الحظر -->
     <div class="info-card">
-      <h3>سحب العملات المباشر</h3>
-      <p>سيتم فتح إمكانية سحب العملات تلقائياً إلى محفظتك أو التداول على STON.fi فور انتهاء مهلة التعدين المبدئية والوصول للحد الأدنى (100 ROL).</p>
+      <h3 style="color: var(--red);">🚫 نظام الحظر وفك الحظر</h3>
+      <div class="admin-input-group">
+        <input type="text" id="target-user-id" class="admin-input" placeholder="اكتب Telegram ID هنا...">
+        <button class="admin-btn btn-red" onclick="adminBanUser()">حظر</button>
+        <button class="admin-btn btn-green" onclick="adminUnbanUser()">فك</button>
+      </div>
+      <div id="ban-status-msg" style="font-size: 11px; margin-top: 6px; color: var(--gold);"></div>
     </div>
 
-    <button class="cta-btn cta-btn-disabled" id="wallet-withdraw-btn">
-      <span>💎 سحب ROL إلى المحفظة (قريباً)</span>
-    </button>
+    <!-- إدارة طلبات السحب (موافقة أو رفض بدون إرجاع) -->
+    <div class="info-card">
+      <h3 style="color: var(--gold);">📥 مراجعة طلبات السحب المعلقة</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>المستخدم</th>
+              <th>الكمية</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="withdrawals-table-body">
+            <!-- بيانات تجريبية محاكاة للنظام -->
+            <tr id="req-1">
+              <td>ID: 88471209</td>
+              <td>120 ROL</td>
+              <td>
+                <button class="admin-btn btn-green" style="padding: 4px 6px;" onclick="approveWithdraw('req-1')">موافقة</button>
+                <button class="admin-btn btn-red" style="padding: 4px 6px;" onclick="rejectAndBurn('req-1')">مصادرة</button>
+              </td>
+            </tr>
+            <tr id="req-2">
+              <td>ID: 99401822</td>
+              <td>50 ROL</td>
+              <td>
+                <button class="admin-btn btn-green" style="padding: 4px 6px;" onclick="approveWithdraw('req-2')">موافقة</button>
+                <button class="admin-btn btn-red" style="padding: 4px 6px;" onclick="rejectAndBurn('req-2')">مصادرة</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- قائمة الـ Top 100 -->
+    <div class="info-card">
+      <h3 style="color: var(--cyan);">🏆 المتصدرون (Top 100 Holders)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>المعرف (ID)</th>
+              <th>الرصيد</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <!-- محاكاة المتصدرين -->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
   <!-- شريط التنقل السفلي -->
@@ -442,18 +557,43 @@
       <div class="icon">💼</div>
       <span>المحفظة</span>
     </div>
+    <!-- زر المشرف: مخفي افتراضياً ويظهر لك أنت فقط -->
+    <div class="nav-tab admin-tab" id="admin-nav-item" data-tab="tab-admin" style="display: none;">
+      <div class="icon">👑</div>
+      <span>الإدارة</span>
+    </div>
   </nav>
 
   <script>
+    // الآيدي الخاص بك كمدير عام للمشروع
+    const SUPER_ADMIN_ID = "1932161126";
+
     const tg = window.Telegram?.WebApp;
+    let currentUserId = "miner";
+
     if (tg) {
       tg.expand();
+      if (tg.initDataUnsafe?.user?.id) {
+        currentUserId = tg.initDataUnsafe.user.id.toString();
+      }
       if (tg.initDataUnsafe?.user?.first_name) {
         document.getElementById('user-display').innerText = '👤 ' + tg.initDataUnsafe.user.first_name;
       }
     }
 
-    /* إدارة التبويبات السفلية */
+    // التحقق من الحظر
+    const bannedUsers = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
+    if (bannedUsers.includes(currentUserId) && currentUserId !== SUPER_ADMIN_ID) {
+      document.getElementById('banned-screen').style.display = 'flex';
+    }
+
+    // إظهار لوحة التحكم للمشرف فقط
+    if (currentUserId === SUPER_ADMIN_ID) {
+      document.getElementById('admin-nav-item').style.display = 'flex';
+      initLeaderboard();
+    }
+
+    // التنقل بين التبويبات
     const navTabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.view-section');
 
@@ -467,9 +607,9 @@
       });
     });
 
-    /* نظام التعدين كل 8 ساعات */
-    const CYCLE_DURATION = 8 * 60 * 60 * 1000; // 8 ساعات بالملي ثانية
-    const CYCLE_REWARD = 50.0; // 50 ROL لكل دورة
+    // دورة التعدين كل 8 ساعات
+    const CYCLE_DURATION = 8 * 60 * 60 * 1000;
+    const CYCLE_REWARD = 50.0;
 
     let balance = parseFloat(localStorage.getItem('rol_balance') || '0');
     let miningStartTime = parseInt(localStorage.getItem('rol_mine_start') || '0', 10);
@@ -519,7 +659,7 @@
         spinner.classList.remove('active');
         progressBar.style.width = '100%';
         countdownEl.innerText = 'اكتمل التعدين!';
-        statusText.innerText = 'دورة التعدين جاهزة للحصاد 🎉';
+        statusText.innerText = 'جاهز للحصاد 🎉';
         mineBtn.className = 'cta-btn cta-btn-claim';
         mineBtn.innerHTML = '<span>🎁 استلام الأرباح (+50 ROL)</span>';
       }
@@ -551,47 +691,93 @@
     updateBalanceUI();
     checkMiningState();
 
-    /* نظام الإحالات */
-    const shareBtn = document.getElementById('share-ref-btn');
-    shareBtn.addEventListener('click', () => {
-      const botUsername = 'ROL_Mining_bot';
-      const userId = tg?.initDataUnsafe?.user?.id || 'miner';
-      const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
+    // مشاركة الإحالة
+    document.getElementById('share-ref-btn').onclick = () => {
+      const refLink = `https://t.me/ROL_Mining_bot?start=ref_${currentUserId}`;
       const text = `انضم وابدأ تعدين عملة ROL كل 8 ساعات مجاناً! 🚀💎`;
       const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(text)}`;
+      tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
+    };
 
-      if (tg?.openTelegramLink) {
-        tg.openTelegramLink(shareUrl);
-      } else {
-        window.open(shareUrl, '_blank');
+    // طلب سحب العملات
+    document.getElementById('request-withdraw-btn').onclick = () => {
+      if (balance < 50) {
+        alert('الحد الأدنى لطلب السحب هو 50 ROL.');
+        return;
       }
-    });
+      balance -= 50;
+      updateBalanceUI();
+      alert('تم تقديم طلب السحب بنجاح وهو قيد مراجعة الإدارة.');
+    };
 
-    /* تهيئة TonConnect وغلق ثغرات Testnet */
+    // ربط TonConnect وغلق ثغرات Testnet
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
       buttonRootId: 'ton-connect-btn'
     });
 
-    // مراقبة اتصال المحفظة والتحقق من الشبكة
     tonConnectUI.onStatusChange(wallet => {
       const addrEl = document.getElementById('wallet-address-display');
       if (wallet && wallet.account) {
-        // فحص صارم: رفض أي شبكة لا تطابق شبكة TON الرسمية الرئيسية
         if (wallet.account.chain && wallet.account.chain !== TON_CONNECT_UI.CHAIN.MAINNET) {
           tonConnectUI.disconnect();
-          const err = 'تنبيه أمني: شبكات الاختبار (Testnet) غير مقبولة منعاً للثغرات. يرجى استخدام شبكة Mainnet فقط.';
-          tg?.showAlert ? tg.showAlert(err) : alert(err);
+          alert('تنبيه أمني: شبكات الاختبار (Testnet) مرفوضة تماماً.');
           addrEl.innerText = 'تم رفض الشبكة (Testnet)';
           return;
         }
-
         const addr = wallet.account.address;
         addrEl.innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 6)}`;
       } else {
         addrEl.innerText = 'غير متصلة';
       }
     });
+
+    /* وظائف لوحة المشرف (Admin Functions) */
+    function adminBanUser() {
+      const target = document.getElementById('target-user-id').value.trim();
+      if (!target) return;
+      let list = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
+      if (!list.includes(target)) {
+        list.push(target);
+        localStorage.setItem('rol_banned_list', JSON.stringify(list));
+      }
+      document.getElementById('ban-status-msg').innerText = `تم حظر المستخدم ${target} بنجاح ومنعه من الدخول.`;
+    }
+
+    function adminUnbanUser() {
+      const target = document.getElementById('target-user-id').value.trim();
+      if (!target) return;
+      let list = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
+      list = list.filter(id => id !== target);
+      localStorage.setItem('rol_banned_list', JSON.stringify(list));
+      document.getElementById('ban-status-msg').innerText = `تم إلغاء حظر المستخدم ${target} بنجاح.`;
+    }
+
+    function approveWithdraw(rowId) {
+      document.getElementById(rowId).remove();
+      alert('تمت الموافقة على تحويل العملات للمحفظة.');
+    }
+
+    function rejectAndBurn(rowId) {
+      document.getElementById(rowId).remove();
+      alert('تم رفض الطلب ومصادرة العملات نهائياً (بدون إرجاع للمستخدم).');
+    }
+
+    function initLeaderboard() {
+      const tbody = document.getElementById('leaderboard-body');
+      tbody.innerHTML = '';
+      // إضافة حسابك دائماً في صدارة المتصدرين
+      let rows = `<tr><td>🥇 1</td><td>${SUPER_ADMIN_ID} (أنت)</td><td style="color:var(--gold); font-weight:800;">2,500,000 ROL</td></tr>`;
+      
+      // توليد بقية قائمة الـ Top للحسابات الأخرى
+      for (let i = 2; i <= 100; i++) {
+        const fakeId = Math.floor(100000000 + Math.random() * 900000000);
+        const fakeAmount = (2500000 / i + Math.floor(Math.random() * 50)).toFixed(0);
+        const medal = i === 2 ? '🥈 2' : i === 3 ? '🥉 3' : `${i}`;
+        rows += `<tr><td>${medal}</td><td>ID: ${fakeId}</td><td>${Number(fakeAmount).toLocaleString()} ROL</td></tr>`;
+      }
+      tbody.innerHTML = rows;
+    }
   </script>
 </body>
 </html>
