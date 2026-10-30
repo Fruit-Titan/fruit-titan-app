@@ -2,20 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>ROL Mining App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ROL Ecosystem - Mining App</title>
   
-  <!-- مكتبات تيليجرام و TON -->
+  <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- TonConnect UI SDK -->
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-  
+
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: rgba(15, 23, 42, 0.75);
+      --bg: #060911;
+      --card-bg: rgba(15, 23, 42, 0.7);
+      --card-border: rgba(56, 189, 248, 0.15);
       --cyan: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.4);
-      --energy-color: #f59e0b;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --green: #22c55e;
+      --gold: #f59e0b;
       --text: #ffffff;
       --text-muted: #94a3b8;
     }
@@ -26,37 +29,42 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     }
 
     body {
       background-color: var(--bg);
-      background-image: radial-gradient(circle at top, #1e293b 0%, #090d16 80%);
+      background-image: radial-gradient(circle at 50% 0%, #172554 0%, var(--bg) 70%);
       color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 16px;
+      padding: 16px 16px 90px 16px;
       overflow-x: hidden;
     }
 
+    /* الشريط العلوي */
     header {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 8px 0;
       margin-bottom: 12px;
     }
 
-    .user-badge {
+    .user-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--text);
     }
 
     #ton-connect-btn {
@@ -64,269 +72,377 @@
       transform-origin: left center;
     }
 
-    /* بطاقة الرصيد */
+    /* الصفحات */
+    .view-section {
+      width: 100%;
+      max-width: 420px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .view-section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* بطاقة الرصيد الرئيسي */
     .balance-card {
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 20px;
-      padding: 14px 20px;
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
       width: 100%;
-      max-width: 380px;
       text-align: center;
-      box-shadow: 0 4px 20px var(--cyan-glow);
+      box-shadow: 0 0 30px var(--cyan-glow);
+      margin-bottom: 20px;
+    }
+
+    .balance-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .balance-val {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--cyan);
+      margin: 6px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      text-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    /* منصة التعدين والدائرة المتوهجة */
+    .mining-circle-wrapper {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      margin: 15px 0 25px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mining-spinner {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: var(--cyan);
+      border-right-color: var(--cyan);
+      animation: spin 3s linear infinite;
+      display: none;
+    }
+
+    .mining-spinner.active {
+      display: block;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .rol-coin {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid var(--cyan);
+      background: url('https://i.postimg.cc/3RjLNYXC/1793303091528.jpg') center/cover no-repeat;
+      box-shadow: 0 0 40px var(--cyan-glow);
+    }
+
+    /* شريط تقدم التعدين والحالة */
+    .mining-status-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px;
+      width: 100%;
       margin-bottom: 15px;
     }
 
-    .balance-amount {
-      font-size: 38px;
-      font-weight: 800;
-      color: var(--cyan);
-      margin: 4px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      text-shadow: 0 0 12px var(--cyan-glow);
-    }
-
-    /* العملة والنقر */
-    .coin-container {
-      position: relative;
-      margin: 20px 0;
-      cursor: pointer;
-    }
-
-    .coin {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      border: 4px solid var(--cyan);
-      box-shadow: 0 0 40px var(--cyan-glow), inset 0 0 20px var(--cyan-glow);
-      background: url('https://i.postimg.cc/3RjLNYXC/1793303091528.jpg') center/cover no-repeat;
-      transition: transform 0.06s ease;
-    }
-
-    .coin:active {
-      transform: scale(0.92);
-    }
-
-    /* تأثير الرقم الطائر عند النقر */
-    .tap-effect {
-      position: absolute;
-      color: var(--cyan);
-      font-size: 26px;
-      font-weight: 800;
-      pointer-events: none;
-      animation: floatUp 0.8s ease-out forwards;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-    }
-
-    @keyframes floatUp {
-      0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-70px) scale(1.3); }
-    }
-
-    /* شريط الطاقة */
-    .energy-container {
-      width: 100%;
-      max-width: 380px;
-      margin-bottom: 16px;
-    }
-
-    .energy-header {
+    .status-row {
       display: flex;
       justify-content: space-between;
       font-size: 13px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       font-weight: 600;
     }
 
-    .energy-bar-bg {
+    .progress-bar-bg {
       width: 100%;
       height: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
       overflow: hidden;
+      margin-bottom: 8px;
     }
 
-    .energy-bar-fill {
+    .progress-bar-fill {
+      width: 0%;
       height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, #f59e0b, #fbbf24);
-      border-radius: 6px;
-      transition: width 0.2s ease;
+      background: linear-gradient(90deg, #0284c7, var(--cyan));
+      border-radius: 8px;
+      transition: width 0.3s ease;
     }
 
-    /* أزرار التنقل والعمليات */
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    /* الأزرار الأساسية */
+    .cta-btn {
       width: 100%;
-      max-width: 380px;
-      margin-top: auto;
-      padding-bottom: 10px;
-    }
-
-    .action-btn {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text);
-      padding: 12px 8px;
-      border-radius: 14px;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
+      padding: 16px;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .action-btn:active {
-      transform: scale(0.96);
-      border-color: var(--cyan);
-    }
-
-    /* نافذة منبثقة (Modal) */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-      align-items: center;
+      display: flex;
       justify-content: center;
-      padding: 20px;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px var(--cyan-glow);
+      transition: all 0.2s ease;
     }
 
-    .modal-content {
-      background: #0f172a;
-      border: 1px solid var(--cyan);
+    .cta-btn-start {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #ffffff;
+    }
+
+    .cta-btn-claim {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+    }
+
+    .cta-btn-disabled {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .cta-btn:active:not(.cta-btn-disabled) {
+      transform: scale(0.98);
+    }
+
+    /* تصميم بطاقات الإحالة والمحفظة */
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
-      padding: 22px;
+      padding: 18px;
       width: 100%;
-      max-width: 360px;
+      margin-bottom: 14px;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px;
       text-align: center;
     }
 
-    .modal-title {
-      font-size: 18px;
+    .stat-box .val {
+      font-size: 24px;
       font-weight: 800;
-      margin-bottom: 12px;
       color: var(--cyan);
     }
 
-    .task-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      margin-bottom: 8px;
-      font-size: 13px;
-    }
-
-    .task-btn {
-      background: var(--cyan);
-      color: #000;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .close-btn {
-      margin-top: 15px;
-      background: transparent;
-      border: 1px solid var(--text-muted);
+    .stat-box .desc {
+      font-size: 12px;
       color: var(--text-muted);
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* الشريط السفلي للتنقل (Bottom Navigation) */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: rgba(9, 13, 22, 0.95);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 16px;
+      z-index: 100;
+    }
+
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--text-muted);
       cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      width: 30%;
+    }
+
+    .nav-tab .icon {
+      font-size: 22px;
+      transition: transform 0.2s;
+    }
+
+    .nav-tab.active {
+      color: var(--cyan);
+    }
+
+    .nav-tab.active .icon {
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
+  <!-- الهيدر العلوي -->
   <header>
-    <div class="user-badge" id="user-display">👤 منقّب ROL</div>
+    <div class="user-pill" id="user-display">👤 المنقّب</div>
     <div id="ton-connect-btn"></div>
   </header>
 
-  <div class="balance-card">
-    <div style="font-size: 12px; color: var(--text-muted);">رصيد التعدين المتاح</div>
-    <div class="balance-amount">
-      <span id="balance">0</span>
-      <span style="font-size: 20px;">ROL</span>
-    </div>
-    <div style="font-size: 12px; color: var(--cyan);">+<span id="mult">1</span> ROL لكل نقرة</div>
-  </div>
-
-  <div class="coin-container" id="coin-area">
-    <div class="coin" id="coin"></div>
-  </div>
-
-  <div class="energy-container">
-    <div class="energy-header">
-      <span>⚡ الطاقة</span>
-      <span><span id="energy-val">1000</span> / 1000</span>
-    </div>
-    <div class="energy-bar-bg">
-      <div class="energy-bar-fill" id="energy-bar"></div>
-    </div>
-  </div>
-
-  <div class="nav-grid">
-    <button class="action-btn" id="tasks-btn">
-      <span style="font-size: 18px;">📋</span>
-      <span>المهام</span>
-    </button>
-    <button class="action-btn" id="frens-btn">
-      <span style="font-size: 18px;">👥</span>
-      <span>دعوة أصدقاء</span>
-    </button>
-    <button class="action-btn" id="withdraw-btn">
-      <span style="font-size: 18px;">💎</span>
-      <span>سحب ROL</span>
-    </button>
-  </div>
-
-  <!-- نافذة المهام -->
-  <div class="modal" id="tasks-modal">
-    <div class="modal-content">
-      <div class="modal-title">مهام كسب مكافآت ROL</div>
-      <div class="task-item">
-        <span>انضم لقناة التلجرام الرسمية</span>
-        <button class="task-btn" onclick="completeTask(500)">+500</button>
+  <!-- تبويب 1: الرئيسية (التعدين كل 8 ساعات) -->
+  <main class="view-section active" id="tab-mining">
+    <div class="balance-card">
+      <div class="balance-label">الرصيد المتاح (ROL)</div>
+      <div class="balance-val">
+        <span id="balance">0.00</span>
+        <span style="font-size: 18px; color: #fff;">ROL</span>
       </div>
-      <div class="task-item">
-        <span>متابعة حساب المشروع على X</span>
-        <button class="task-btn" onclick="completeTask(300)">+300</button>
-      </div>
-      <button class="close-btn" onclick="closeModal('tasks-modal')">إغلاق</button>
+      <div style="font-size: 12px; color: var(--cyan);">معدل الدورة: 50 ROL / 8 ساعات</div>
     </div>
-  </div>
 
-  <!-- نافذة الإحالة -->
-  <div class="modal" id="frens-modal">
-    <div class="modal-content">
-      <div class="modal-title">برنامج الإحالة</div>
-      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
-        احصل على **+1,000 ROL** لك ولصديقك عند انضمامه عبر رابطك الخاص!
+    <div class="mining-circle-wrapper">
+      <div class="mining-spinner" id="spinner"></div>
+      <div class="rol-coin"></div>
+    </div>
+
+    <div class="mining-status-card">
+      <div class="status-row">
+        <span id="status-text">التعدين متوقف</span>
+        <span id="countdown">08:00:00</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <button class="cta-btn cta-btn-start" id="mine-action-btn">
+      <span>🚀 ابدأ التعدين (8 ساعات)</span>
+    </button>
+  </main>
+
+  <!-- تبويب 2: الإحالات (Referral System) -->
+  <section class="view-section" id="tab-frens">
+    <div class="balance-card">
+      <div class="balance-label">أرباح الإحالات المكتسبة</div>
+      <div class="balance-val">
+        <span id="ref-earned">0</span>
+        <span style="font-size: 18px; color: #fff;">ROL</span>
+      </div>
+      <div style="font-size: 12px; color: var(--cyan);">+25 ROL مكافأة لكل صديق ينضم عبر رابطك</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="val" id="ref-count">0</div>
+        <div class="desc">الأصدقاء المدعوون</div>
+      </div>
+      <div class="stat-box">
+        <div class="val">10%</div>
+        <div class="desc">نسبة من إنتاج أصدقائك</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>كيف يعمل نظام الإحالة؟</h3>
+      <p>شارك رابطك الخاص مع أصدقائك. عند فتحهم للبوت ستحصل أنت فوراً على 25 ROL ويحصل صديقك على 15 ROL كهدية ترحيبية!</p>
+    </div>
+
+    <button class="cta-btn cta-btn-start" id="share-ref-btn">
+      <span>🔗 دعوة صديق ومشاركة الرابط</span>
+    </button>
+  </section>
+
+  <!-- تبويب 3: المحفظة وحماية الشبكات (Wallet & Security) -->
+  <section class="view-section" id="tab-wallet">
+    <div class="balance-card">
+      <div class="balance-label">عنوان المحفظة المتصلة</div>
+      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan); margin: 12px 0; word-break: break-all;">
+        غير متصلة
+      </div>
+      <div style="font-size: 12px; color: var(--green);">🛡️ شبكة TON Mainnet نشطة ومؤمنة</div>
+    </div>
+
+    <div class="info-card">
+      <h3>عقد عملة ROL الرسمي</h3>
+      <p style="font-family: monospace; font-size: 11px; word-break: break-all; color: var(--cyan); background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; margin-top: 6px;">
+        EQCFMvwMZqiUQL5pLxdOaSRbVSez50QMyjZv
       </p>
-      <button class="task-btn" style="width: 100%; padding: 10px;" onclick="shareReferral()">
-        🔗 نسخ رابط الإحالة ومشاركته
-      </button>
-      <button class="close-btn" onclick="closeModal('frens-modal')">إغلاق</button>
     </div>
-  </div>
+
+    <div class="info-card">
+      <h3>سحب العملات المباشر</h3>
+      <p>سيتم فتح إمكانية سحب العملات تلقائياً إلى محفظتك أو التداول على STON.fi فور انتهاء مهلة التعدين المبدئية والوصول للحد الأدنى (100 ROL).</p>
+    </div>
+
+    <button class="cta-btn cta-btn-disabled" id="wallet-withdraw-btn">
+      <span>💎 سحب ROL إلى المحفظة (قريباً)</span>
+    </button>
+  </section>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-nav">
+    <div class="nav-tab active" data-tab="tab-mining">
+      <div class="icon">⛏️</div>
+      <span>الرئيسية</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-frens">
+      <div class="icon">👥</div>
+      <span>الإحالة</span>
+    </div>
+    <div class="nav-tab" data-tab="tab-wallet">
+      <div class="icon">💼</div>
+      <span>المحفظة</span>
+    </div>
+  </nav>
 
   <script>
     const tg = window.Telegram?.WebApp;
@@ -337,106 +453,145 @@
       }
     }
 
-    let balance = parseInt(localStorage.getItem('rol_pts') || '0', 10);
-    let energy = parseInt(localStorage.getItem('rol_energy') || '1000', 10);
-    const maxEnergy = 1000;
-    const perTap = 1;
+    /* إدارة التبويبات السفلية */
+    const navTabs = document.querySelectorAll('.nav-tab');
+    const sections = document.querySelectorAll('.view-section');
 
-    const balanceEl = document.getElementById('balance');
-    const energyValEl = document.getElementById('energy-val');
-    const energyBarEl = document.getElementById('energy-bar');
-    const coinArea = document.getElementById('coin-area');
-
-    function updateStats() {
-      balanceEl.innerText = balance.toLocaleString('en-US');
-      energyValEl.innerText = energy;
-      energyBarEl.style.width = (energy / maxEnergy * 100) + '%';
-      localStorage.setItem('rol_pts', balance.toString());
-      localStorage.setItem('rol_energy', energy.toString());
-    }
-
-    // استعادة الطاقة بمرور الوقت
-    setInterval(() => {
-      if (energy < maxEnergy) {
-        energy = Math.min(maxEnergy, energy + 3);
-        updateStats();
-      }
-    }, 1000);
-
-    // النقر وحساب العملات
-    coinArea.addEventListener('click', (e) => {
-      if (energy < perTap) return;
-
-      energy -= perTap;
-      balance += perTap;
-      updateStats();
-
-      // اهتزاز الهاتف عبر Telegram Haptic API
-      if (tg?.HapticFeedback) {
-        tg.HapticFeedback.impactOccurred('medium');
-      }
-
-      // تأثير الرقم الطائر (+1)
-      const rect = coinArea.getBoundingClientRect();
-      const num = document.createElement('div');
-      num.className = 'tap-effect';
-      num.innerText = `+${perTap}`;
-      num.style.left = `${e.clientX - rect.left - 10}px`;
-      num.style.top = `${e.clientY - rect.top - 20}px`;
-      coinArea.appendChild(num);
-
-      setTimeout(() => num.remove(), 750);
+    navTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        navTabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+        if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+      });
     });
 
-    // إدارة النوافذ المنبثقة
-    document.getElementById('tasks-btn').onclick = () => document.getElementById('tasks-modal').style.display = 'flex';
-    document.getElementById('frens-btn').onclick = () => document.getElementById('frens-modal').style.display = 'flex';
+    /* نظام التعدين كل 8 ساعات */
+    const CYCLE_DURATION = 8 * 60 * 60 * 1000; // 8 ساعات بالملي ثانية
+    const CYCLE_REWARD = 50.0; // 50 ROL لكل دورة
 
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
+    let balance = parseFloat(localStorage.getItem('rol_balance') || '0');
+    let miningStartTime = parseInt(localStorage.getItem('rol_mine_start') || '0', 10);
+    let isMining = miningStartTime > 0;
+
+    const balanceEl = document.getElementById('balance');
+    const mineBtn = document.getElementById('mine-action-btn');
+    const countdownEl = document.getElementById('countdown');
+    const progressBar = document.getElementById('progress-bar');
+    const spinner = document.getElementById('spinner');
+    const statusText = document.getElementById('status-text');
+
+    function updateBalanceUI() {
+      balanceEl.innerText = balance.toFixed(2);
+      localStorage.setItem('rol_balance', balance.toString());
     }
 
-    function completeTask(reward) {
-      balance += reward;
-      updateStats();
-      if (tg?.showAlert) {
-        tg.showAlert(`🎉 مبروك! حصلت على ${reward} ROL إضافية!`);
+    function checkMiningState() {
+      if (!isMining) {
+        spinner.classList.remove('active');
+        progressBar.style.width = '0%';
+        countdownEl.innerText = '08:00:00';
+        statusText.innerText = 'التعدين جاهز للبدء';
+        mineBtn.className = 'cta-btn cta-btn-start';
+        mineBtn.innerHTML = '<span>🚀 ابدأ التعدين (8 ساعات)</span>';
+        return;
+      }
+
+      const elapsed = Date.now() - miningStartTime;
+      const remaining = Math.max(0, CYCLE_DURATION - elapsed);
+
+      if (remaining > 0) {
+        spinner.classList.add('active');
+        const progressPct = ((elapsed / CYCLE_DURATION) * 100).toFixed(1);
+        progressBar.style.width = Math.min(100, progressPct) + '%';
+        statusText.innerText = 'جاري التعدين حالياً...';
+
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        countdownEl.innerText = 
+          `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        mineBtn.className = 'cta-btn cta-btn-disabled';
+        mineBtn.innerHTML = '<span>⏳ جاري استخراج ROL...</span>';
       } else {
-        alert(`🎉 مبروك! حصلت على ${reward} ROL إضافية!`);
+        spinner.classList.remove('active');
+        progressBar.style.width = '100%';
+        countdownEl.innerText = 'اكتمل التعدين!';
+        statusText.innerText = 'دورة التعدين جاهزة للحصاد 🎉';
+        mineBtn.className = 'cta-btn cta-btn-claim';
+        mineBtn.innerHTML = '<span>🎁 استلام الأرباح (+50 ROL)</span>';
       }
     }
 
-    function shareReferral() {
-      const botUsername = "ROL_Mining_bot";
-      const userId = tg?.initDataUnsafe?.user?.id || "miner";
-      const refUrl = `https://t.me/${botUsername}?start=ref_${userId}`;
-      const shareText = `انضم معي وقم بتعدين عملة ROL مجاناً! 🚀`;
-      const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(refUrl)}&text=${encodeURIComponent(shareText)}`;
-      
+    mineBtn.addEventListener('click', () => {
+      if (!isMining) {
+        miningStartTime = Date.now();
+        localStorage.setItem('rol_mine_start', miningStartTime.toString());
+        isMining = true;
+        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+        checkMiningState();
+      } else {
+        const elapsed = Date.now() - miningStartTime;
+        if (elapsed >= CYCLE_DURATION) {
+          balance += CYCLE_REWARD;
+          updateBalanceUI();
+          isMining = false;
+          miningStartTime = 0;
+          localStorage.removeItem('rol_mine_start');
+          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+          alert('🎉 تم إضافة 50 ROL إلى رصيدك بنجاح!');
+          checkMiningState();
+        }
+      }
+    });
+
+    setInterval(checkMiningState, 1000);
+    updateBalanceUI();
+    checkMiningState();
+
+    /* نظام الإحالات */
+    const shareBtn = document.getElementById('share-ref-btn');
+    shareBtn.addEventListener('click', () => {
+      const botUsername = 'ROL_Mining_bot';
+      const userId = tg?.initDataUnsafe?.user?.id || 'miner';
+      const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
+      const text = `انضم وابدأ تعدين عملة ROL كل 8 ساعات مجاناً! 🚀💎`;
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(text)}`;
+
       if (tg?.openTelegramLink) {
-        tg.openTelegramLink(fullUrl);
+        tg.openTelegramLink(shareUrl);
       } else {
-        window.open(fullUrl, '_blank');
+        window.open(shareUrl, '_blank');
       }
-    }
+    });
 
-    // محفظة TON
+    /* تهيئة TonConnect وغلق ثغرات Testnet */
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
       buttonRootId: 'ton-connect-btn'
     });
 
-    document.getElementById('withdraw-btn').onclick = () => {
-      if (!tonConnectUI.account?.address) {
-        const msg = "يرجى ربط محفظة TON أولاً من الزر في الأعلى لتتمكن من السحب.";
-        tg?.showAlert ? tg.showAlert(msg) : alert(msg);
-      } else {
-        const msg = `طلب السحب قيد التطوير وسيتم فتحه عند انتهاء مرحلة التعدين الأولى!`;
-        tg?.showAlert ? tg.showAlert(msg) : alert(msg);
-      }
-    };
+    // مراقبة اتصال المحفظة والتحقق من الشبكة
+    tonConnectUI.onStatusChange(wallet => {
+      const addrEl = document.getElementById('wallet-address-display');
+      if (wallet && wallet.account) {
+        // فحص صارم: رفض أي شبكة لا تطابق شبكة TON الرسمية الرئيسية
+        if (wallet.account.chain && wallet.account.chain !== TON_CONNECT_UI.CHAIN.MAINNET) {
+          tonConnectUI.disconnect();
+          const err = 'تنبيه أمني: شبكات الاختبار (Testnet) غير مقبولة منعاً للثغرات. يرجى استخدام شبكة Mainnet فقط.';
+          tg?.showAlert ? tg.showAlert(err) : alert(err);
+          addrEl.innerText = 'تم رفض الشبكة (Testnet)';
+          return;
+        }
 
-    updateStats();
+        const addr = wallet.account.address;
+        addrEl.innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 6)}`;
+      } else {
+        addrEl.innerText = 'غير متصلة';
+      }
+    });
   </script>
 </body>
 </html>
