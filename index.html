@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Mining App & Admin Portal</title>
+  <title>ROL Ecosystem - Official Mining</title>
   
-  <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- TonConnect UI SDK -->
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
   <style>
@@ -45,23 +43,9 @@
       overflow-x: hidden;
     }
 
-    /* شاشة الحظر التام */
-    #banned-screen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 9999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-    }
-
     header {
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -88,7 +72,7 @@
 
     .view-section {
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -104,7 +88,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* بطاقة الرصيد */
     .balance-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
@@ -125,7 +108,6 @@
       text-shadow: 0 0 15px var(--cyan-glow);
     }
 
-    /* دائرة التعدين */
     .mining-circle-wrapper {
       position: relative;
       width: 200px;
@@ -266,75 +248,6 @@
       margin-top: 4px;
     }
 
-    /* ستايلات لوحة الأدمن الخاصة */
-    .admin-title {
-      color: var(--gold);
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .admin-input-group {
-      display: flex;
-      gap: 8px;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .admin-input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .admin-btn {
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-red { background: var(--red); color: #fff; }
-    .btn-green { background: var(--green); color: #fff; }
-    .btn-gold { background: var(--gold); color: #000; }
-
-    .table-wrapper {
-      width: 100%;
-      max-height: 250px;
-      overflow-y: auto;
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      margin-top: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      text-align: right;
-    }
-
-    th, td {
-      padding: 8px 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    th {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--cyan);
-    }
-
-    /* الشريط السفلي */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -359,32 +272,24 @@
       gap: 3px;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       transition: all 0.2s ease;
       flex: 1;
     }
 
-    .nav-tab .icon { font-size: 20px; }
+    .nav-tab .icon { font-size: 22px; }
     .nav-tab.active { color: var(--cyan); }
-    .nav-tab.admin-tab.active { color: var(--gold); }
   </style>
 </head>
 <body>
-
-  <!-- شاشة الحظر إذا كان المستخدم محظوراً -->
-  <div id="banned-screen">
-    <div style="font-size: 50px; margin-bottom: 12px;">🚫</div>
-    <h2 style="color: var(--red); margin-bottom: 8px;">تم حظر حسابك</h2>
-    <p style="color: var(--text-muted); font-size: 14px;">تم حظرك من استخدام منصة تعدين ROL لمخالفة القوانين والشروط.</p>
-  </div>
 
   <header>
     <div class="user-pill" id="user-display">👤 المنقّب</div>
     <div id="ton-connect-btn"></div>
   </header>
 
-  <!-- تبويب 1: الرئيسية (التعدين كل 8 ساعات) -->
+  <!-- تبويب 1: الرئيسية -->
   <main class="view-section active" id="tab-mining">
     <div class="balance-card">
       <div style="font-size: 12px; color: var(--text-muted);">الرصيد المتاح</div>
@@ -420,7 +325,7 @@
     <div class="balance-card">
       <div style="font-size: 12px; color: var(--text-muted);">أرباح الإحالات المكتسبة</div>
       <div class="balance-val">
-        <span id="ref-earned">0</span>
+        <span id="ref-earned">0.00</span>
         <span style="font-size: 18px; color: #fff;">ROL</span>
       </div>
       <div style="font-size: 12px; color: var(--cyan);">+25 ROL لكل صديق ينضم عبر رابطك</div>
@@ -449,97 +354,15 @@
       <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan); margin: 10px 0; word-break: break-all;">
         غير متصلة
       </div>
-      <div style="font-size: 12px; color: var(--green);">🛡️ متصل بشبكة TON Mainnet حصراً</div>
+      <div style="font-size: 12px; color: var(--green);">🛡️ شبكة TON Mainnet نشطة ومؤمنة</div>
     </div>
 
     <div class="info-card">
       <div style="font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px;">طلب سحب أرباح ROL</div>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">الحد الأدنى للسحب هو 50 ROL. يتم إرسال الطلب للمراجعة والموافقة من الإدارة.</p>
-      <button class="cta-btn cta-btn-start" id="request-withdraw-btn" style="padding: 10px; font-size: 13px;">
-        <span>📤 إرسال طلب سحب للرصيد</span>
+      <button class="cta-btn cta-btn-disabled" id="request-withdraw-btn" style="padding: 10px; font-size: 13px;">
+        <span>🔒 السحب مغلق حتى الإطلاق الرسمي</span>
       </button>
-    </div>
-  </section>
-
-  <!-- تبويب 4: لوحة تحكم المشرف (Admin Panel - تظهر لك فقط) -->
-  <section class="view-section" id="tab-admin">
-    <div class="admin-title">👑 لوحة التحكم العليا (Admin)</div>
-
-    <!-- إحصائيات عامة للمنصة -->
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="val" id="admin-total-users">1,482</div>
-        <div class="desc">إجمالي المستخدمين</div>
-      </div>
-      <div class="stat-box">
-        <div class="val" id="admin-total-mined">74,100</div>
-        <div class="desc">إجمالي ROL المعدنة</div>
-      </div>
-    </div>
-
-    <!-- إدارة الحظر وإلغاء الحظر -->
-    <div class="info-card">
-      <h3 style="color: var(--red);">🚫 نظام الحظر وفك الحظر</h3>
-      <div class="admin-input-group">
-        <input type="text" id="target-user-id" class="admin-input" placeholder="اكتب Telegram ID هنا...">
-        <button class="admin-btn btn-red" onclick="adminBanUser()">حظر</button>
-        <button class="admin-btn btn-green" onclick="adminUnbanUser()">فك</button>
-      </div>
-      <div id="ban-status-msg" style="font-size: 11px; margin-top: 6px; color: var(--gold);"></div>
-    </div>
-
-    <!-- إدارة طلبات السحب (موافقة أو رفض بدون إرجاع) -->
-    <div class="info-card">
-      <h3 style="color: var(--gold);">📥 مراجعة طلبات السحب المعلقة</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>المستخدم</th>
-              <th>الكمية</th>
-              <th>الإجراء</th>
-            </tr>
-          </thead>
-          <tbody id="withdrawals-table-body">
-            <!-- بيانات تجريبية محاكاة للنظام -->
-            <tr id="req-1">
-              <td>ID: 88471209</td>
-              <td>120 ROL</td>
-              <td>
-                <button class="admin-btn btn-green" style="padding: 4px 6px;" onclick="approveWithdraw('req-1')">موافقة</button>
-                <button class="admin-btn btn-red" style="padding: 4px 6px;" onclick="rejectAndBurn('req-1')">مصادرة</button>
-              </td>
-            </tr>
-            <tr id="req-2">
-              <td>ID: 99401822</td>
-              <td>50 ROL</td>
-              <td>
-                <button class="admin-btn btn-green" style="padding: 4px 6px;" onclick="approveWithdraw('req-2')">موافقة</button>
-                <button class="admin-btn btn-red" style="padding: 4px 6px;" onclick="rejectAndBurn('req-2')">مصادرة</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- قائمة الـ Top 100 -->
-    <div class="info-card">
-      <h3 style="color: var(--cyan);">🏆 المتصدرون (Top 100 Holders)</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>المعرف (ID)</th>
-              <th>الرصيد</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-body">
-            <!-- محاكاة المتصدرين -->
-          </tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -557,16 +380,15 @@
       <div class="icon">💼</div>
       <span>المحفظة</span>
     </div>
-    <!-- زر المشرف: مخفي افتراضياً ويظهر لك أنت فقط -->
-    <div class="nav-tab admin-tab" id="admin-nav-item" data-tab="tab-admin" style="display: none;">
-      <div class="icon">👑</div>
-      <span>الإدارة</span>
-    </div>
   </nav>
 
   <script>
-    // الآيدي الخاص بك كمدير عام للمشروع
-    const SUPER_ADMIN_ID = "1932161126";
+    // نظام فحص الإصدار وتصفير أي بيانات سابقة
+    const RESET_VERSION = "v2_official_clean";
+    if (localStorage.getItem("rol_clean_version") !== RESET_VERSION) {
+      localStorage.clear();
+      localStorage.setItem("rol_clean_version", RESET_VERSION);
+    }
 
     const tg = window.Telegram?.WebApp;
     let currentUserId = "miner";
@@ -581,19 +403,7 @@
       }
     }
 
-    // التحقق من الحظر
-    const bannedUsers = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
-    if (bannedUsers.includes(currentUserId) && currentUserId !== SUPER_ADMIN_ID) {
-      document.getElementById('banned-screen').style.display = 'flex';
-    }
-
-    // إظهار لوحة التحكم للمشرف فقط
-    if (currentUserId === SUPER_ADMIN_ID) {
-      document.getElementById('admin-nav-item').style.display = 'flex';
-      initLeaderboard();
-    }
-
-    // التنقل بين التبويبات
+    // التنقل بين الأقسام
     const navTabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.view-section');
 
@@ -607,7 +417,7 @@
       });
     });
 
-    // دورة التعدين كل 8 ساعات
+    // دورة الـ 8 ساعات
     const CYCLE_DURATION = 8 * 60 * 60 * 1000;
     const CYCLE_REWARD = 50.0;
 
@@ -691,7 +501,6 @@
     updateBalanceUI();
     checkMiningState();
 
-    // مشاركة الإحالة
     document.getElementById('share-ref-btn').onclick = () => {
       const refLink = `https://t.me/ROL_Mining_bot?start=ref_${currentUserId}`;
       const text = `انضم وابدأ تعدين عملة ROL كل 8 ساعات مجاناً! 🚀💎`;
@@ -699,18 +508,6 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
-    // طلب سحب العملات
-    document.getElementById('request-withdraw-btn').onclick = () => {
-      if (balance < 50) {
-        alert('الحد الأدنى لطلب السحب هو 50 ROL.');
-        return;
-      }
-      balance -= 50;
-      updateBalanceUI();
-      alert('تم تقديم طلب السحب بنجاح وهو قيد مراجعة الإدارة.');
-    };
-
-    // ربط TonConnect وغلق ثغرات Testnet
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
       buttonRootId: 'ton-connect-btn'
@@ -731,53 +528,6 @@
         addrEl.innerText = 'غير متصلة';
       }
     });
-
-    /* وظائف لوحة المشرف (Admin Functions) */
-    function adminBanUser() {
-      const target = document.getElementById('target-user-id').value.trim();
-      if (!target) return;
-      let list = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
-      if (!list.includes(target)) {
-        list.push(target);
-        localStorage.setItem('rol_banned_list', JSON.stringify(list));
-      }
-      document.getElementById('ban-status-msg').innerText = `تم حظر المستخدم ${target} بنجاح ومنعه من الدخول.`;
-    }
-
-    function adminUnbanUser() {
-      const target = document.getElementById('target-user-id').value.trim();
-      if (!target) return;
-      let list = JSON.parse(localStorage.getItem('rol_banned_list') || '[]');
-      list = list.filter(id => id !== target);
-      localStorage.setItem('rol_banned_list', JSON.stringify(list));
-      document.getElementById('ban-status-msg').innerText = `تم إلغاء حظر المستخدم ${target} بنجاح.`;
-    }
-
-    function approveWithdraw(rowId) {
-      document.getElementById(rowId).remove();
-      alert('تمت الموافقة على تحويل العملات للمحفظة.');
-    }
-
-    function rejectAndBurn(rowId) {
-      document.getElementById(rowId).remove();
-      alert('تم رفض الطلب ومصادرة العملات نهائياً (بدون إرجاع للمستخدم).');
-    }
-
-    function initLeaderboard() {
-      const tbody = document.getElementById('leaderboard-body');
-      tbody.innerHTML = '';
-      // إضافة حسابك دائماً في صدارة المتصدرين
-      let rows = `<tr><td>🥇 1</td><td>${SUPER_ADMIN_ID} (أنت)</td><td style="color:var(--gold); font-weight:800;">2,500,000 ROL</td></tr>`;
-      
-      // توليد بقية قائمة الـ Top للحسابات الأخرى
-      for (let i = 2; i <= 100; i++) {
-        const fakeId = Math.floor(100000000 + Math.random() * 900000000);
-        const fakeAmount = (2500000 / i + Math.floor(Math.random() * 50)).toFixed(0);
-        const medal = i === 2 ? '🥈 2' : i === 3 ? '🥉 3' : `${i}`;
-        rows += `<tr><td>${medal}</td><td>ID: ${fakeId}</td><td>${Number(fakeAmount).toLocaleString()} ROL</td></tr>`;
-      }
-      tbody.innerHTML = rows;
-    }
   </script>
 </body>
 </html>
