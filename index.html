@@ -3,22 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Ecosystem - Official Mining</title>
+  <title>ROL Ecosystem - NextGen Mining</title>
   
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-
   <style>
+    /* منع الوميض الأبيض */
+    html, body {
+      background-color: #030712 !important;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
     :root {
-      --bg: #060911;
-      --card-bg: rgba(15, 23, 42, 0.75);
-      --card-border: rgba(56, 189, 248, 0.2);
+      --bg: #030712;
+      --card-bg: rgba(10, 20, 38, 0.7);
+      --card-border: rgba(56, 189, 248, 0.25);
       --cyan: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.35);
-      --green: #22c55e;
-      --red: #ef4444;
-      --gold: #f59e0b;
-      --text: #ffffff;
+      --cyan-bright: #00f0ff;
+      --cyan-glow: rgba(0, 240, 255, 0.4);
+      --green: #10b981;
+      --text: #f8fafc;
       --text-muted: #94a3b8;
     }
 
@@ -31,16 +38,20 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
+    /* خلفية سيبرانية متطورة مع شبكة ضوئية Web3 */
     body {
-      background-color: var(--bg);
-      background-image: radial-gradient(circle at 50% 0%, #172554 0%, var(--bg) 75%);
-      color: var(--text);
+      background: 
+        radial-gradient(circle at 50% 10%, rgba(0, 150, 255, 0.2) 0%, transparent 60%),
+        radial-gradient(circle at 50% 90%, rgba(14, 165, 233, 0.12) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        #030712;
+      background-size: 100% 100%, 100% 100%, 35px 35px, 35px 35px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       padding: 16px 16px 95px 16px;
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
     header {
@@ -49,20 +60,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
-      margin-bottom: 12px;
+      padding: 4px 0;
+      margin-bottom: 14px;
     }
 
     .user-pill {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      padding: 6px 14px;
+      backdrop-filter: blur(16px);
+      padding: 7px 16px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     #ton-connect-btn {
@@ -76,7 +89,7 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      animation: fadeIn 0.25s ease-in-out;
+      animation: fadeIn 0.25s ease-out;
     }
 
     .view-section.active {
@@ -84,35 +97,38 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* بطاقة الرصيد */
     .balance-card {
       background: var(--card-bg);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 18px 20px;
+      border-radius: 26px;
+      padding: 20px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 0 25px var(--cyan-glow);
-      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(56, 189, 248, 0.1);
+      margin-bottom: 18px;
     }
 
     .balance-val {
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 900;
-      color: var(--cyan);
+      color: var(--cyan-bright);
       margin: 4px 0;
-      text-shadow: 0 0 15px var(--cyan-glow);
+      text-shadow: 0 0 20px var(--cyan-glow);
+      letter-spacing: -0.5px;
     }
 
+    /* منصة الشعار وعملة ROL */
     .mining-circle-wrapper {
       position: relative;
-      width: 200px;
-      height: 200px;
-      margin: 10px 0 20px 0;
+      width: 230px;
+      height: 230px;
+      margin: 12px 0 24px 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -120,12 +136,13 @@
 
     .mining-spinner {
       position: absolute;
-      inset: -6px;
+      inset: -8px;
       border-radius: 50%;
       border: 3px solid transparent;
-      border-top-color: var(--cyan);
+      border-top-color: var(--cyan-bright);
       border-right-color: var(--cyan);
-      animation: spin 3s linear infinite;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      animation: spin 3.5s linear infinite;
       display: none;
     }
 
@@ -137,53 +154,64 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* عملة ROL الرسمية من صورتك ثلاثية الأبعاد */
     .rol-coin {
-      width: 190px;
-      height: 190px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      border: 4px solid var(--cyan);
-      background: url('https://i.postimg.cc/3RjLNYXC/1793303091528.jpg') center/cover no-repeat;
-      box-shadow: 0 0 35px var(--cyan-glow);
+      border: 3px solid rgba(0, 240, 255, 0.6);
+      background: url('https://i.postimg.cc/k4kCsmjS/1000106614.jpg') center/cover no-repeat;
+      box-shadow: 0 0 35px rgba(0, 180, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.3);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    .mining-circle-wrapper:active .rol-coin {
+      transform: scale(0.96);
+    }
+
+    /* حالة التعدين والتقدم */
     .mining-status-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 14px 18px;
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 16px 20px;
       width: 100%;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .status-row {
       display: flex;
       justify-content: space-between;
       font-size: 13px;
-      margin-bottom: 8px;
-      font-weight: 600;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
     }
 
     .progress-bar-bg {
       width: 100%;
       height: 10px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 8px;
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .progress-bar-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #0284c7, var(--cyan));
+      background: linear-gradient(90deg, #0284c7, var(--cyan-bright));
+      box-shadow: 0 0 10px var(--cyan-glow);
       border-radius: 8px;
       transition: width 0.3s ease;
     }
 
     .cta-btn {
       width: 100%;
-      padding: 14px;
-      border-radius: 16px;
-      font-size: 15px;
+      padding: 16px;
+      border-radius: 18px;
+      font-size: 16px;
       font-weight: 800;
       border: none;
       cursor: pointer;
@@ -195,18 +223,19 @@
     }
 
     .cta-btn-start {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #fff;
-      box-shadow: 0 4px 18px var(--cyan-glow);
+      background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
+      color: #030712;
+      box-shadow: 0 6px 25px rgba(0, 240, 255, 0.35);
     }
 
     .cta-btn-claim {
-      background: linear-gradient(135deg, #16a34a, #22c55e);
+      background: linear-gradient(135deg, #059669, #10b981);
       color: #fff;
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
     }
 
     .cta-btn-disabled {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text-muted);
       cursor: not-allowed;
     }
@@ -214,32 +243,33 @@
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 16px;
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 18px;
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .stat-box {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px;
+      border-radius: 16px;
+      padding: 14px;
       text-align: center;
     }
 
     .stat-box .val {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--cyan);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--cyan-bright);
     }
 
     .stat-box .desc {
@@ -248,20 +278,22 @@
       margin-top: 4px;
     }
 
+    /* الشريط السفلي المتطور (Cyberpunk Glassmorphism Bar) */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 70px;
-      background: rgba(9, 13, 22, 0.96);
-      backdrop-filter: blur(15px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      height: 76px;
+      background: rgba(6, 11, 25, 0.88);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 0 10px;
+      padding: 0 16px 6px 16px;
       z-index: 100;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
     }
 
     .nav-tab {
@@ -269,35 +301,54 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      color: var(--text-muted);
+      gap: 5px;
+      color: #64748b;
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: all 0.2s ease;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       flex: 1;
+      height: 100%;
     }
 
-    .nav-tab .icon { font-size: 22px; }
-    .nav-tab.active { color: var(--cyan); }
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      transition: all 0.25s ease;
+    }
+
+    .nav-tab.active {
+      color: var(--cyan-bright);
+    }
+
+    .nav-tab.active .nav-icon {
+      transform: translateY(-3px) scale(1.1);
+      filter: drop-shadow(0 0 8px var(--cyan-bright));
+    }
   </style>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
   <header>
-    <div class="user-pill" id="user-display">👤 المنقّب</div>
+    <div class="user-pill" id="user-display">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>المنقّب</span>
+    </div>
     <div id="ton-connect-btn"></div>
   </header>
 
   <!-- تبويب 1: الرئيسية -->
   <main class="view-section active" id="tab-mining">
     <div class="balance-card">
-      <div style="font-size: 12px; color: var(--text-muted);">الرصيد المتاح</div>
+      <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">الرصيد المتاح</div>
       <div class="balance-val">
         <span id="balance">0.00</span>
         <span style="font-size: 18px; color: #fff;">ROL</span>
       </div>
-      <div style="font-size: 12px; color: var(--cyan);">معدل الدورة: 50 ROL / 8 ساعات</div>
+      <div style="font-size: 12px; color: var(--cyan); font-weight: 600;">معدل الدورة: 50 ROL / 8 ساعات</div>
     </div>
 
     <div class="mining-circle-wrapper">
@@ -307,8 +358,8 @@
 
     <div class="mining-status-card">
       <div class="status-row">
-        <span id="status-text">التعدين متوقف</span>
-        <span id="countdown">08:00:00</span>
+        <span id="status-text">التعدين جاهز للبدء</span>
+        <span id="countdown" style="color: var(--cyan-bright); font-family: monospace; font-size: 15px;">08:00:00</span>
       </div>
       <div class="progress-bar-bg">
         <div class="progress-bar-fill" id="progress-bar"></div>
@@ -323,12 +374,12 @@
   <!-- تبويب 2: الإحالات -->
   <section class="view-section" id="tab-frens">
     <div class="balance-card">
-      <div style="font-size: 12px; color: var(--text-muted);">أرباح الإحالات المكتسبة</div>
+      <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">أرباح الإحالات المكتسبة</div>
       <div class="balance-val">
         <span id="ref-earned">0.00</span>
         <span style="font-size: 18px; color: #fff;">ROL</span>
       </div>
-      <div style="font-size: 12px; color: var(--cyan);">+25 ROL لكل صديق ينضم عبر رابطك</div>
+      <div style="font-size: 12px; color: var(--cyan); font-weight: 600;">+25 ROL لكل صديق ينضم عبر رابطك</div>
     </div>
 
     <div class="stats-grid">
@@ -350,58 +401,67 @@
   <!-- تبويب 3: المحفظة -->
   <section class="view-section" id="tab-wallet">
     <div class="balance-card">
-      <div style="font-size: 12px; color: var(--text-muted);">عنوان المحفظة المتصلة</div>
-      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan); margin: 10px 0; word-break: break-all;">
+      <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">عنوان المحفظة المتصلة</div>
+      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan-bright); margin: 12px 0; word-break: break-all; font-family: monospace;">
         غير متصلة
       </div>
-      <div style="font-size: 12px; color: var(--green);">🛡️ شبكة TON Mainnet نشطة ومؤمنة</div>
+      <div style="font-size: 12px; color: var(--green); font-weight: 600;">🛡️ شبكة TON Mainnet نشطة ومؤمنة</div>
     </div>
 
     <div class="info-card">
-      <div style="font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px;">طلب سحب أرباح ROL</div>
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">الحد الأدنى للسحب هو 50 ROL. يتم إرسال الطلب للمراجعة والموافقة من الإدارة.</p>
-      <button class="cta-btn cta-btn-disabled" id="request-withdraw-btn" style="padding: 10px; font-size: 13px;">
+      <div style="font-size: 14px; font-weight: 700; color: var(--cyan-bright); margin-bottom: 6px;">طلب سحب أرباح ROL</div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">الحد الأدنى للسحب هو 50 ROL. يتم تدقيق العمليات من الإدارة وحمايتها من الثغرات.</p>
+      <button class="cta-btn cta-btn-disabled" id="request-withdraw-btn" style="padding: 12px; font-size: 13px;">
         <span>🔒 السحب مغلق حتى الإطلاق الرسمي</span>
       </button>
     </div>
   </section>
 
-  <!-- شريط التنقل السفلي -->
+  <!-- شريط التنقل المتطور مع أيقونات رقمية حديثة -->
   <nav class="bottom-nav">
     <div class="nav-tab active" data-tab="tab-mining">
-      <div class="icon">⛏️</div>
+      <svg class="nav-icon" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
       <span>الرئيسية</span>
     </div>
     <div class="nav-tab" data-tab="tab-frens">
-      <div class="icon">👥</div>
+      <svg class="nav-icon" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+      </svg>
       <span>الإحالة</span>
     </div>
     <div class="nav-tab" data-tab="tab-wallet">
-      <div class="icon">💼</div>
+      <svg class="nav-icon" viewBox="0 0 24 24">
+        <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
       <span>المحفظة</span>
     </div>
   </nav>
 
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js" defer></script>
+
   <script>
-    // نظام فحص الإصدار وتصفير أي بيانات سابقة
-    const RESET_VERSION = "v2_official_clean";
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      try {
+        tg.ready();
+        tg.expand();
+        if (tg.initDataUnsafe?.user?.first_name) {
+          document.querySelector('#user-display span').innerText = tg.initDataUnsafe.user.first_name;
+        }
+      } catch (e) {
+        console.error("Telegram init:", e);
+      }
+    }
+
+    const RESET_VERSION = "v4_cyber_edition";
     if (localStorage.getItem("rol_clean_version") !== RESET_VERSION) {
       localStorage.clear();
       localStorage.setItem("rol_clean_version", RESET_VERSION);
     }
 
-    const tg = window.Telegram?.WebApp;
-    let currentUserId = "miner";
-
-    if (tg) {
-      tg.expand();
-      if (tg.initDataUnsafe?.user?.id) {
-        currentUserId = tg.initDataUnsafe.user.id.toString();
-      }
-      if (tg.initDataUnsafe?.user?.first_name) {
-        document.getElementById('user-display').innerText = '👤 ' + tg.initDataUnsafe.user.first_name;
-      }
-    }
+    let currentUserId = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
 
     // التنقل بين الأقسام
     const navTabs = document.querySelectorAll('.nav-tab');
@@ -417,7 +477,7 @@
       });
     });
 
-    // دورة الـ 8 ساعات
+    // منطق التعدين كل 8 ساعات
     const CYCLE_DURATION = 8 * 60 * 60 * 1000;
     const CYCLE_REWARD = 50.0;
 
@@ -508,24 +568,32 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
-      buttonRootId: 'ton-connect-btn'
-    });
+    window.addEventListener('load', () => {
+      try {
+        if (window.TON_CONNECT_UI) {
+          const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
+            buttonRootId: 'ton-connect-btn'
+          });
 
-    tonConnectUI.onStatusChange(wallet => {
-      const addrEl = document.getElementById('wallet-address-display');
-      if (wallet && wallet.account) {
-        if (wallet.account.chain && wallet.account.chain !== TON_CONNECT_UI.CHAIN.MAINNET) {
-          tonConnectUI.disconnect();
-          alert('تنبيه أمني: شبكات الاختبار (Testnet) مرفوضة تماماً.');
-          addrEl.innerText = 'تم رفض الشبكة (Testnet)';
-          return;
+          tonConnectUI.onStatusChange(wallet => {
+            const addrEl = document.getElementById('wallet-address-display');
+            if (wallet && wallet.account) {
+              if (wallet.account.chain && wallet.account.chain !== TON_CONNECT_UI.CHAIN.MAINNET) {
+                tonConnectUI.disconnect();
+                alert('تنبيه: شبكات الاختبار مرفوضة.');
+                addrEl.innerText = 'تم رفض الشبكة (Testnet)';
+                return;
+              }
+              const addr = wallet.account.address;
+              addrEl.innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 6)}`;
+            } else {
+              addrEl.innerText = 'غير متصلة';
+            }
+          });
         }
-        const addr = wallet.account.address;
-        addrEl.innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 6)}`;
-      } else {
-        addrEl.innerText = 'غير متصلة';
+      } catch (err) {
+        console.warn("TonConnect UI deferred safely:", err);
       }
     });
   </script>
