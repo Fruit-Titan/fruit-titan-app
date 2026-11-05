@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Ecosystem - NextGen Mining</title>
+  <title>ROL Ecosystem - Official Mining</title>
   
   <style>
-    /* منع الوميض الأبيض */
+    /* منع الوميض الأبيض وضبط الخلفية */
     html, body {
       background-color: #030712 !important;
       color: #ffffff;
@@ -19,7 +19,7 @@
 
     :root {
       --bg: #030712;
-      --card-bg: rgba(10, 20, 38, 0.7);
+      --card-bg: rgba(10, 20, 38, 0.75);
       --card-border: rgba(56, 189, 248, 0.25);
       --cyan: #38bdf8;
       --cyan-bright: #00f0ff;
@@ -38,7 +38,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* خلفية سيبرانية متطورة مع شبكة Web3 النيون */
+    /* خلفية سيبرانية متطورة مع شبكة Web3 نيون */
     body {
       background: 
         radial-gradient(circle at 50% 10%, rgba(0, 150, 255, 0.2) 0%, transparent 60%),
@@ -154,17 +154,17 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* عملة ROL الرسمية عبر المسار المحلي */
+    /* ربط صورة العملة المرفوعة في المستودع مباشرة */
     .rol-coin {
       width: 220px;
       height: 220px;
       border-radius: 50%;
       border: 3px solid rgba(0, 240, 255, 0.6);
-      background-image: url('coin.jpg');
+      background-image: url('IMG_20261029_212618_959.jpg');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      background-color: #0f172a;
+      background-color: #030712;
       box-shadow: 0 0 35px rgba(0, 180, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.3);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -282,7 +282,7 @@
       margin-top: 4px;
     }
 
-    /* الشريط السفلي المتطور */
+    /* شريط التنقل السفلي */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -459,7 +459,7 @@
       }
     }
 
-    const RESET_VERSION = "v5_clean_production";
+    const RESET_VERSION = "v6_production_final";
     if (localStorage.getItem("rol_clean_version") !== RESET_VERSION) {
       localStorage.clear();
       localStorage.setItem("rol_clean_version", RESET_VERSION);
@@ -481,7 +481,7 @@
       });
     });
 
-    // منطق دورة التعدين كل 8 ساعات
+    // دورة التعدين كل 8 ساعات
     const CYCLE_DURATION = 8 * 60 * 60 * 1000;
     const CYCLE_REWARD = 50.0;
 
