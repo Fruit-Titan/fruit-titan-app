@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Ecosystem - NextGen Mining</title>
+  <title>ROL Ecosystem - Mining Terminal</title>
   
   <style>
     /* منع الوميض الأبيض */
     html, body {
-      background-color: #020617 !important;
+      background-color: #030712 !important;
       color: #f8fafc;
       margin: 0;
       padding: 0;
@@ -18,8 +18,8 @@
     }
 
     :root {
-      --bg: #020617;
-      --card-bg: rgba(15, 23, 42, 0.65);
+      --bg: #030712;
+      --card-bg: rgba(10, 18, 36, 0.75);
       --card-border: rgba(56, 189, 248, 0.22);
       --cyan: #38bdf8;
       --cyan-bright: #00f0ff;
@@ -38,15 +38,15 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* خلفية سيبرانية متطورة مع هالات نيون ضوئية */
+    /* خلفية سيبرانية متقدمة مع شبكة فضاء عميقة وأشعة نيون */
     body {
       background: 
-        radial-gradient(circle at 50% -10%, rgba(0, 240, 255, 0.22) 0%, transparent 55%),
-        radial-gradient(circle at 10% 45%, rgba(14, 165, 233, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 90% 70%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% -10%, rgba(0, 240, 255, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 10% 50%, rgba(14, 165, 233, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 75%, rgba(99, 102, 241, 0.15) 0%, transparent 55%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        #020617;
+        #030712;
       background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
       display: flex;
       flex-direction: column;
@@ -73,9 +73,9 @@
 
     /* محدد اللغات */
     .lang-select {
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.85);
       border: 1px solid var(--card-border);
-      color: var(--cyan);
+      color: var(--cyan-bright);
       font-size: 12px;
       font-weight: 700;
       padding: 6px 10px;
@@ -126,7 +126,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* بطاقة الرصيد الرقمية المتطورة */
+    /* بطاقة الرصيد الرقمية العليا (HUD Balance) */
     .balance-hud {
       position: relative;
       background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(7, 13, 26, 0.75));
@@ -157,7 +157,7 @@
       letter-spacing: 1px;
       color: var(--text-muted);
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .balance-val {
@@ -230,7 +230,7 @@
       transform: scale(0.96);
     }
 
-    /* شريط التعدين النقي والمطور بدون أي كتابات جانبية */
+    /* شريط التعدين النقي (بدون أي نصوص جانبية) */
     .circuit-progress-card {
       width: 100%;
       background: rgba(10, 20, 38, 0.65);
@@ -247,7 +247,7 @@
     .circuit-timer-display {
       text-align: center;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--cyan-bright);
       letter-spacing: 2px;
@@ -306,7 +306,7 @@
       cursor: not-allowed;
     }
 
-    /* بطاقات بقية الأقسام */
+    /* بطاقات الأقسام */
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -345,7 +345,7 @@
       margin-top: 4px;
     }
 
-    /* شريط التنقل السفلي المتطور */
+    /* شريط التنقل السفلي الحديث */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -429,7 +429,7 @@
       <div class="rol-coin"></div>
     </div>
 
-    <!-- شريط التعدين النقي والمطور دون كتابات جانبية -->
+    <!-- شريط التعدين النقي دون نصوص جانبية -->
     <div class="circuit-progress-card">
       <div class="circuit-timer-display" id="countdown">08:00:00</div>
       <div class="progress-bar-bg">
@@ -512,7 +512,6 @@
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js" defer></script>
 
   <script>
-    // قاموس اللغات الثلاث
     const translations = {
       ar: {
         withdrawable_balance: "الرصيد المتاح للسحب",
@@ -616,7 +615,7 @@
 
     let currentUserId = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
 
-    // التنقل بين التبويبات
+    // التنقل بين الأقسام
     const navTabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.view-section');
 
@@ -713,7 +712,7 @@
     updateBalanceUI();
     setLanguage(currentLang);
 
-    // مشاركة رابط الإحالة
+    // رابط الإحالة
     document.getElementById('share-ref-btn').onclick = () => {
       const t = translations[currentLang];
       const refLink = `https://t.me/ROL_Mining_bot?start=ref_${currentUserId}`;
@@ -721,7 +720,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
-    // ربط TonConnect الآمن على Mainnet
+    // ربط TonConnect
     window.addEventListener('load', () => {
       try {
         if (window.TON_CONNECT_UI) {
