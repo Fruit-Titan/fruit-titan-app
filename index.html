@@ -38,7 +38,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* خلفية سيبرانية متطورة مع شبكة ضوئية Web3 */
+    /* خلفية سيبرانية متطورة مع شبكة Web3 النيون */
     body {
       background: 
         radial-gradient(circle at 50% 10%, rgba(0, 150, 255, 0.2) 0%, transparent 60%),
@@ -154,13 +154,17 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* عملة ROL الرسمية من صورتك ثلاثية الأبعاد */
+    /* عملة ROL الرسمية عبر المسار المحلي */
     .rol-coin {
       width: 220px;
       height: 220px;
       border-radius: 50%;
       border: 3px solid rgba(0, 240, 255, 0.6);
-      background: url('https://i.postimg.cc/k4kCsmjS/1000106614.jpg') center/cover no-repeat;
+      background-image: url('coin.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #0f172a;
       box-shadow: 0 0 35px rgba(0, 180, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.3);
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -169,7 +173,7 @@
       transform: scale(0.96);
     }
 
-    /* حالة التعدين والتقدم */
+    /* شريط تقدم التعدين */
     .mining-status-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -278,14 +282,14 @@
       margin-top: 4px;
     }
 
-    /* الشريط السفلي المتطور (Cyberpunk Glassmorphism Bar) */
+    /* الشريط السفلي المتطور */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       height: 76px;
-      background: rgba(6, 11, 25, 0.88);
+      background: rgba(6, 11, 25, 0.92);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(56, 189, 248, 0.2);
       display: flex;
@@ -417,7 +421,7 @@
     </div>
   </section>
 
-  <!-- شريط التنقل المتطور مع أيقونات رقمية حديثة -->
+  <!-- أزرار التنقل السفلية -->
   <nav class="bottom-nav">
     <div class="nav-tab active" data-tab="tab-mining">
       <svg class="nav-icon" viewBox="0 0 24 24">
@@ -455,7 +459,7 @@
       }
     }
 
-    const RESET_VERSION = "v4_cyber_edition";
+    const RESET_VERSION = "v5_clean_production";
     if (localStorage.getItem("rol_clean_version") !== RESET_VERSION) {
       localStorage.clear();
       localStorage.setItem("rol_clean_version", RESET_VERSION);
@@ -463,7 +467,7 @@
 
     let currentUserId = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
 
-    // التنقل بين الأقسام
+    // التنقل بين التبويبات
     const navTabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.view-section');
 
@@ -477,7 +481,7 @@
       });
     });
 
-    // منطق التعدين كل 8 ساعات
+    // منطق دورة التعدين كل 8 ساعات
     const CYCLE_DURATION = 8 * 60 * 60 * 1000;
     const CYCLE_REWARD = 50.0;
 
@@ -561,6 +565,7 @@
     updateBalanceUI();
     checkMiningState();
 
+    // مشاركة رابط الإحالة
     document.getElementById('share-ref-btn').onclick = () => {
       const refLink = `https://t.me/ROL_Mining_bot?start=ref_${currentUserId}`;
       const text = `انضم وابدأ تعدين عملة ROL كل 8 ساعات مجاناً! 🚀💎`;
@@ -568,6 +573,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
+    // ربط TonConnect الآمن على Mainnet
     window.addEventListener('load', () => {
       try {
         if (window.TON_CONNECT_UI) {
