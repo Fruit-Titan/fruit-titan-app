@@ -24,8 +24,9 @@
       --cyan: #38bdf8;
       --cyan-bright: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
-      --gold: #f59e0b;
-      --gold-glow: rgba(245, 158, 11, 0.5);
+      --gold: #ffb703;
+      --gold-bright: #ffd166;
+      --gold-glow: rgba(255, 183, 3, 0.65);
       --green: #10b981;
       --green-glow: rgba(16, 185, 129, 0.4);
       --text: #f8fafc;
@@ -265,7 +266,7 @@
       transform: scale(0.96);
     }
 
-    /* بطاقة شريط التعدين مع الفأس الذهبي */
+    /* بطاقة شريط التعدين مع فأس النيون الذهبي */
     .circuit-progress-card {
       width: 100%;
       background: linear-gradient(180deg, rgba(10, 20, 42, 0.85), rgba(4, 9, 22, 0.95));
@@ -286,24 +287,24 @@
       gap: 12px;
     }
 
+    /* صندوق الفأس الشفاف والمضيء بدقة */
     .pickaxe-box {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 14px;
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      background: radial-gradient(circle, rgba(255, 183, 3, 0.22) 0%, rgba(255, 183, 3, 0.05) 75%);
+      border: 1px solid rgba(255, 183, 3, 0.45);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px var(--gold-glow);
-      overflow: hidden;
+      box-shadow: 0 0 20px var(--gold-glow);
     }
 
-    .gold-pickaxe-img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
+    /* الفأس الذهبي النيون بدون أي خلفية سوداء */
+    .gold-neon-pickaxe {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 8px var(--gold-bright)) drop-shadow(0 0 14px var(--gold));
     }
 
     .mining-status-info {
@@ -423,7 +424,7 @@
       cursor: not-allowed;
     }
 
-    /* بقية الأقسام */
+    /* بطاقات الأقسام */
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -496,12 +497,12 @@
     }
 
     .nav-tab.active {
-      color: var(--gold);
+      color: var(--gold-bright);
     }
 
-    .nav-tab.active .gold-pickaxe-img {
-      transform: translateY(-2px) scale(1.1);
-      filter: drop-shadow(0 0 10px var(--gold-glow));
+    .nav-tab.active .gold-neon-pickaxe {
+      transform: translateY(-2px) scale(1.15);
+      filter: drop-shadow(0 0 10px var(--gold-bright)) drop-shadow(0 0 18px var(--gold));
     }
   </style>
 
@@ -543,11 +544,26 @@
       <div class="rol-coin"></div>
     </div>
 
-    <!-- بطاقة التعدين النشط مع فأس التعدين الذهبي الحقيقي المرفوع -->
+    <!-- بطاقة التعدين النشط مع فأس النيون الذهبي المتوهج -->
     <div class="circuit-progress-card">
       <div class="mining-header-badge">
         <div class="pickaxe-box">
-          <img src="file_000000009b9c81f4b48797f364d3c093.png" alt="Pickaxe" class="gold-pickaxe-img">
+          <svg class="gold-neon-pickaxe" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff7cd" />
+                <stop offset="40%" stop-color="#ffd166" />
+                <stop offset="80%" stop-color="#ffb703" />
+                <stop offset="100%" stop-color="#fb8500" />
+              </linearGradient>
+            </defs>
+            <!-- مقبض الفأس المائل والسميك -->
+            <polygon points="20,86 14,80 54,40 60,46" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+            <!-- كتلة التثبيت المركزية -->
+            <polygon points="51,43 59,35 67,43 59,51" fill="url(#goldGrad)" stroke="#ffffff" stroke-width="1.5" />
+            <!-- رأس الفأس المقوس الحاد المضيء -->
+            <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+          </svg>
         </div>
         <div class="mining-status-info">
           <span class="mining-title-txt" data-i18n="mining_active_title">التعدين النشط</span>
@@ -613,10 +629,17 @@
     </div>
   </section>
 
-  <!-- شريط التنقل السفلي مع صورة الفأس الذهبي المرفوع -->
+  <!-- شريط التنقل السفلي مع فأس النيون الذهبي الشفاف المضيء -->
   <nav class="bottom-nav">
     <div class="nav-tab active" data-tab="tab-mining">
-      <img src="file_000000009b9c81f4b48797f364d3c093.png" alt="Mining" class="gold-pickaxe-img" style="width: 24px; height: 24px;">
+      <svg class="gold-neon-pickaxe" style="width: 24px; height: 24px;" viewBox="0 0 100 100">
+        <!-- مقبض الفأس -->
+        <polygon points="20,86 14,80 54,40 60,46" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+        <!-- المركز -->
+        <polygon points="51,43 59,35 67,43 59,51" fill="url(#goldGrad)" stroke="#ffffff" stroke-width="1.5" />
+        <!-- الرأس الحاد المقوس -->
+        <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+      </svg>
       <span data-i18n="nav_mining">التعدين</span>
     </div>
     <div class="nav-tab" data-tab="tab-frens">
@@ -862,7 +885,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
-    // ربط TonConnect الآمن على Mainnet
+    // ربط TonConnect
     window.addEventListener('load', () => {
       try {
         if (window.TON_CONNECT_UI) {
