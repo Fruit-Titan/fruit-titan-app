@@ -25,7 +25,7 @@
       --cyan-bright: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
       --gold: #f59e0b;
-      --gold-glow: rgba(245, 158, 11, 0.4);
+      --gold-glow: rgba(245, 158, 11, 0.5);
       --green: #10b981;
       --green-glow: rgba(16, 185, 129, 0.4);
       --text: #f8fafc;
@@ -58,7 +58,6 @@
       position: relative;
     }
 
-    /* خط المسح الضوئي */
     body::before {
       content: "";
       position: fixed;
@@ -106,7 +105,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
-    /* محدد اللغة المصغر بالأعلام */
     .lang-wrapper {
       position: relative;
     }
@@ -128,7 +126,6 @@
       text-align: center;
     }
 
-    /* زر المحفظة النيون المتوهج */
     .wallet-container {
       position: relative;
       border-radius: 18px;
@@ -168,7 +165,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* بطاقة الرصيد الرقمية العليا (HUD Balance) */
+    /* بطاقة الرصيد الرقمية العليا */
     .balance-hud {
       position: relative;
       background: linear-gradient(145deg, rgba(9, 20, 44, 0.88), rgba(4, 10, 24, 0.8));
@@ -268,7 +265,7 @@
       transform: scale(0.96);
     }
 
-    /* وحدة شريط التعدين مع فأس التعدين وحالة النشاط */
+    /* بطاقة شريط التعدين مع الفأس الذهبي */
     .circuit-progress-card {
       width: 100%;
       background: linear-gradient(180deg, rgba(10, 20, 42, 0.85), rgba(4, 9, 22, 0.95));
@@ -290,26 +287,23 @@
     }
 
     .pickaxe-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.35);
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+      box-shadow: 0 0 15px var(--gold-glow);
+      overflow: hidden;
     }
 
-    .pickaxe-icon-svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--gold);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: none;
-      filter: drop-shadow(0 0 6px var(--gold-glow));
+    .gold-pickaxe-img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
     }
 
     .mining-status-info {
@@ -429,7 +423,7 @@
       cursor: not-allowed;
     }
 
-    /* بطاقات الأقسام الأخرى */
+    /* بقية الأقسام */
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -505,8 +499,7 @@
       color: var(--gold);
     }
 
-    .nav-tab.active .pickaxe-icon-svg {
-      stroke: var(--gold);
+    .nav-tab.active .gold-pickaxe-img {
       transform: translateY(-2px) scale(1.1);
       filter: drop-shadow(0 0 10px var(--gold-glow));
     }
@@ -522,7 +515,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span id="user-name-text">...</span>
       </div>
-      <!-- محدد اللغة المصغر بعلم السعودية والرموز -->
       <div class="lang-wrapper">
         <select id="lang-switch" class="lang-select">
           <option value="ar" selected>🇸🇦 AR</option>
@@ -531,7 +523,6 @@
         </select>
       </div>
     </div>
-    <!-- حاوية ربط المحفظة بتأثير نيون متوهج -->
     <div class="wallet-container">
       <div id="ton-connect-btn"></div>
     </div>
@@ -552,17 +543,11 @@
       <div class="rol-coin"></div>
     </div>
 
-    <!-- شريط التعدين المطور مع بطاقة فأس التعدين وحالة النشاط -->
+    <!-- بطاقة التعدين النشط مع فأس التعدين الذهبي الحقيقي المرفوع -->
     <div class="circuit-progress-card">
       <div class="mining-header-badge">
         <div class="pickaxe-box">
-          <!-- أيقونة فأس التعدين المعتمدة بدقة عالية -->
-          <svg class="pickaxe-icon-svg" viewBox="0 0 24 24">
-            <path d="M14 6l4-4 4 4-4 4" />
-            <path d="M15 9l-9.5 9.5a2.12 2.12 0 01-3-3L12 6" />
-            <path d="M8 13l3 3" />
-            <path d="M18 2l2 2" />
-          </svg>
+          <img src="file_000000009b9c81f4b48797f364d3c093.png" alt="Pickaxe" class="gold-pickaxe-img">
         </div>
         <div class="mining-status-info">
           <span class="mining-title-txt" data-i18n="mining_active_title">التعدين النشط</span>
@@ -628,15 +613,10 @@
     </div>
   </section>
 
-  <!-- شريط التنقل السفلي مع فأس التعدين -->
+  <!-- شريط التنقل السفلي مع صورة الفأس الذهبي المرفوع -->
   <nav class="bottom-nav">
     <div class="nav-tab active" data-tab="tab-mining">
-      <svg class="pickaxe-icon-svg" style="width: 22px; height: 22px;" viewBox="0 0 24 24">
-        <path d="M14 6l4-4 4 4-4 4" />
-        <path d="M15 9l-9.5 9.5a2.12 2.12 0 01-3-3L12 6" />
-        <path d="M8 13l3 3" />
-        <path d="M18 2l2 2" />
-      </svg>
+      <img src="file_000000009b9c81f4b48797f364d3c093.png" alt="Mining" class="gold-pickaxe-img" style="width: 24px; height: 24px;">
       <span data-i18n="nav_mining">التعدين</span>
     </div>
     <div class="nav-tab" data-tab="tab-frens">
@@ -882,7 +862,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
     };
 
-    // ربط TonConnect الآمن على شبكة Mainnet
+    // ربط TonConnect الآمن على Mainnet
     window.addEventListener('load', () => {
       try {
         if (window.TON_CONNECT_UI) {
