@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -52,14 +52,13 @@
       pointer-events: none;
     }
 
-    /* 2. زر تبديل اللغة - متمركز تماماً */
+    /* 2. زر تبديل اللغة - متمركز بدقة في كبسولة الكرة الأرضية */
     .lang-touch-zone {
       position: absolute;
-      top: 1.1%;
-      left: 67%;
-      width: 9%;
-      height: 3.2%;
-      border-radius: 8px;
+      top: 1.4%;
+      left: 68.2%;
+      width: 8.5%;
+      height: 3.6%;
       cursor: pointer;
       z-index: 60;
       display: flex;
@@ -71,14 +70,13 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
     }
 
-    /* 3. زر المحفظة العلوي - متمركز ومصحح تماماً */
+    /* 3. زر المحفظة العلوي - متمركز ومقروء تماماً داخل كبسولة المحفظة */
     .wallet-touch-zone {
       position: absolute;
-      top: 1.1%;
-      left: 85.5%;
-      width: 11.5%;
-      height: 3.2%;
-      border-radius: 8px;
+      top: 1.4%;
+      left: 84.8%;
+      width: 13%;
+      height: 3.6%;
       cursor: pointer;
       z-index: 60;
       display: flex;
@@ -87,15 +85,14 @@
     }
 
     .wallet-btn-label {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
       pointer-events: none;
+      display: block;
+      text-align: center;
     }
 
     #ton-connect-btn {
@@ -169,7 +166,7 @@
       direction: ltr;
     }
 
-    /* 6. المكافآت اليومية تحت الهدية */
+    /* 6. المكافآت اليومية تحت الهدية (مرفوعة وموزونة تحت الصندوق مباشرة) */
     .gift-touch-zone {
       position: absolute;
       top: 6.8%;
@@ -182,7 +179,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 3px;
+      padding-bottom: 7px;
     }
 
     .gift-title {
@@ -479,7 +476,7 @@
 
     <!-- كبسولة المحفظة -->
     <div class="wallet-touch-zone" id="wallet-action-container">
-      <span class="wallet-btn-label" id="wallet-btn-label"></span>
+      <span class="wallet-btn-label" id="wallet-btn-label">Connect</span>
       <div id="ton-connect-btn"></div>
     </div>
 
@@ -847,10 +844,10 @@
     }
 
     langBtn.onclick = () => {
-      let nextLang = 'ar';
-      if (curLang === 'ar') nextLang = 'en';
-      else if (curLang === 'en') nextLang = 'ru';
-      else nextLang = 'ar';
+      let nextLang = 'en';
+      if (curLang === 'en') nextLang = 'ar';
+      else if (curLang === 'ar') nextLang = 'ru';
+      else nextLang = 'en';
 
       localStorage.setItem(KEY_LANG, nextLang);
       applyLanguage(nextLang);
@@ -1011,7 +1008,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     };
 
-    // ربط المحفظة
+    // ربط TonConnect
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
