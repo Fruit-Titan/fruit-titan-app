@@ -35,7 +35,7 @@
       overflow: hidden;
     }
 
-    /* 1. اسم ROL Mining */
+    /* 1. اسم ROL Mining بجانب علامة التوثيق */
     .brand-title {
       position: absolute;
       top: 1.8%;
@@ -48,19 +48,19 @@
       letter-spacing: 0.5px;
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.4);
-      z-index: 60;
+      z-index: 20;
       pointer-events: none;
     }
 
     /* 2. زر تبديل اللغة (الكرة الأرضية) */
     .lang-touch-zone {
       position: absolute;
-      top: 1.4%;
-      left: 68.2%;
-      width: 8.5%;
-      height: 3.6%;
+      top: 1.3%;
+      left: 68%;
+      width: 9%;
+      height: 3.8%;
       cursor: pointer;
-      z-index: 80;
+      z-index: 50;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -70,44 +70,29 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
     }
 
-    /* 3. كبسولة المحفظة: نص ديناميكي حر لا تلمسه المكتبة */
-    .wallet-label-box {
+    /* 3. زر كبسولة المحفظة العلوي */
+    .wallet-touch-zone {
       position: absolute;
-      top: 1.4%;
-      left: 84.8%;
-      width: 13%;
-      height: 3.6%;
+      top: 1.3%;
+      left: 84.5%;
+      width: 13.5%;
+      height: 3.8%;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 50;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .wallet-btn-label {
       font-size: 10px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
       pointer-events: none;
-      z-index: 70;
       white-space: nowrap;
-    }
-
-    /* طبقة TonConnect غير مرئية ومستقلة تماماً في الأعلى للنقر فقط */
-    .wallet-click-layer {
-      position: absolute;
-      top: 1.4%;
-      left: 78%;
-      width: 20%;
-      height: 4%;
-      z-index: 90;
-      cursor: pointer;
-    }
-
-    #ton-connect-btn {
-      position: absolute;
-      inset: 0;
-      opacity: 0.001;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
     }
 
     /* 4. المستوى الذهبي داخل الإكليل الأيسر */
@@ -172,7 +157,7 @@
       direction: ltr;
     }
 
-    /* 6. المكافآت اليومية تحت الهدية */
+    /* 6. زر المكافآت اليومية (الهدية العلوية) */
     .gift-touch-zone {
       position: absolute;
       top: 6.8%;
@@ -181,7 +166,7 @@
       height: 9.8%;
       border-radius: 16px;
       cursor: pointer;
-      z-index: 40;
+      z-index: 45;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -248,7 +233,7 @@
       pointer-events: none;
     }
 
-    /* 9. عداد التعدين */
+    /* 9. عداد التعدين الحي */
     .live-timer-overlay {
       position: absolute;
       top: 59.4%;
@@ -284,7 +269,7 @@
       transition: width 0.3s ease;
     }
 
-    /* 11. قواعد مستويات التعدين */
+    /* 11. زر قواعد مستويات التعدين */
     .rules-touch-zone {
       position: absolute;
       top: 69.8%;
@@ -294,7 +279,7 @@
       height: 6.8%;
       border-radius: 16px;
       cursor: pointer;
-      z-index: 30;
+      z-index: 45;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -312,7 +297,7 @@
       pointer-events: none;
     }
 
-    /* 12. زر التعدين الذهبي */
+    /* 12. زر التعدين الذهبي التفاعلي */
     .mine-touch-btn {
       position: absolute;
       top: 77.8%;
@@ -325,7 +310,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 35;
+      z-index: 45;
     }
 
     .mine-btn-txt {
@@ -353,7 +338,7 @@
       50% { transform: scale(1.06); }
     }
 
-    /* 13. الشريط السفلي */
+    /* 13. أزرار الشريط السفلي */
     .footer-bar-zone {
       position: absolute;
       bottom: 0;
@@ -361,7 +346,7 @@
       right: 0;
       height: 9%;
       display: flex;
-      z-index: 45;
+      z-index: 55;
     }
 
     .nav-target {
@@ -385,7 +370,7 @@
       color: #facc15;
     }
 
-    /* النوافذ المنبثقة */
+    /* النوافذ المنبثقة التفاعلية */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -477,43 +462,40 @@
     <!-- اسم المشروع -->
     <div class="brand-title">ROL Mining</div>
 
-    <!-- زر اللغة (الكرة الأرضية) -->
-    <div class="lang-touch-zone" id="lang-btn">RU</div>
+    <!-- زر تبديل اللغة (الكرة الأرضية) -->
+    <div class="lang-touch-zone" id="lang-btn">EN</div>
 
-    <!-- نص كبسولة المحفظة الحر والمستقل تماماً -->
-    <div class="wallet-label-box" id="wallet-btn-label">Кошелек</div>
-
-    <!-- طبقة النقر الخاصة بمحفظة TON -->
-    <div class="wallet-click-layer">
-      <div id="ton-connect-btn"></div>
+    <!-- زر المحفظة العلوي -->
+    <div class="wallet-touch-zone" id="wallet-action-container">
+      <span class="wallet-btn-label" id="wallet-btn-label">Connect</span>
     </div>
 
     <!-- المستوى الذهبي -->
     <div class="vip-container">
-      <span class="vip-label" id="txt-vip-label">Золотой уровень</span>
+      <span class="vip-label" id="txt-vip-label">Gold Tier</span>
       <span class="vip-num" id="vip-level-display">VIP 1</span>
     </div>
 
     <!-- معدل التعدين -->
     <div class="rate-container">
-      <span class="rate-title" id="txt-rate-label">Скорость майнинга</span>
+      <span class="rate-title" id="txt-rate-label">Mining Rate</span>
       <span class="rate-val" id="rate-display">+1.250 ROL / h</span>
     </div>
 
-    <!-- المكافآت اليومية -->
+    <!-- المكافآت اليومية (الهدية العلوية) -->
     <div class="gift-touch-zone" id="open-checkin-btn">
-      <span class="gift-title" id="txt-gift-label">Награды</span>
+      <span class="gift-title" id="txt-gift-label">Rewards</span>
     </div>
 
     <!-- الرصيد الحي -->
     <div class="balance-container">
-      <span class="balance-title" id="txt-balance-label">Текущий баланс</span>
+      <span class="balance-title" id="txt-balance-label">Current Balance</span>
       <span class="balance-val" id="balance-display">0.000 ROL</span>
     </div>
 
     <!-- مؤشر النشاط، العداد، وشريط التقدم -->
     <div class="live-status-pill" id="live-status-indicator">
-      <span>⚡</span> <span id="txt-active-label">Активен</span>
+      <span>⚡</span> <span id="txt-active-label">Active</span>
     </div>
     <div class="live-timer-overlay" id="timer-val">08:00:00</div>
     <div class="progress-bar-container">
@@ -522,88 +504,89 @@
 
     <!-- قواعد مستويات التعدين -->
     <div class="rules-touch-zone" id="open-rules-btn">
-      <span class="rules-label" id="txt-rules-btn">Правила уровней</span>
+      <span class="rules-label" id="txt-rules-btn">Mining Tier Rules</span>
     </div>
 
     <!-- زر التعدين الذهبي -->
     <div class="mine-touch-btn" id="start-mine-btn">
-      <span class="mine-btn-txt" id="mine-btn-text">Начать майнинг</span>
+      <span class="mine-btn-txt" id="mine-btn-text">Start Mining</span>
     </div>
 
     <!-- الشريط السفلي -->
     <div class="footer-bar-zone">
       <div class="nav-target active" id="nav-home">
-        <span class="nav-label" id="txt-nav-home">Главная</span>
+        <span class="nav-label" id="txt-nav-home">Home</span>
       </div>
       <div class="nav-target" id="nav-tasks">
-        <span class="nav-label" id="txt-nav-tasks">Задания</span>
+        <span class="nav-label" id="txt-nav-tasks">Tasks</span>
       </div>
       <div class="nav-target" id="nav-refs">
-        <span class="nav-label" id="txt-nav-refs">Друзья</span>
+        <span class="nav-label" id="txt-nav-refs">Referrals</span>
       </div>
       <div class="nav-target" id="nav-wallet">
-        <span class="nav-label" id="txt-nav-wallet">Кошелек</span>
+        <span class="nav-label" id="txt-nav-wallet">Wallet</span>
       </div>
     </div>
   </div>
 
-  <!-- نافذة المكافآت اليومية -->
+  <!-- نافذة المكافآت اليومية (30 يوماً) -->
   <div class="modal-overlay" id="checkin-modal">
     <div class="modal-content">
-      <h3 style="color: #fff; margin-bottom: 4px;" id="txt-modal-checkin-title">🎁 Ежедневный бонус (30 дней)</h3>
-      <p style="font-size: 11px; color: #94a3b8;" id="txt-modal-checkin-desc">Заходите ежедневно и получайте до 250 ROL. Пропуск >48 часов сбрасывает серию!</p>
+      <h3 style="color: #fff; margin-bottom: 4px;" id="txt-modal-checkin-title">🎁 Daily Rewards (30 Days)</h3>
+      <p style="font-size: 11px; color: #94a3b8;" id="txt-modal-checkin-desc">Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!</p>
       
       <div class="days-grid" id="days-grid-container"></div>
 
-      <button class="modal-btn" id="claim-daily-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712;">Забрать награду</button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-1">Закрыть</button>
+      <button class="modal-btn" id="claim-daily-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712;">Claim</button>
+      <button class="modal-btn close-modal-trigger" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-1">Close</button>
     </div>
   </div>
 
   <!-- نافذة قواعد المستويات -->
   <div class="modal-overlay" id="rules-modal">
     <div class="modal-content">
-      <h3 style="color: #facc15; margin-bottom: 8px;" id="txt-rules-title">📈 Система уровней (Hold-to-Earn)</h3>
+      <h3 style="color: #facc15; margin-bottom: 8px;" id="txt-rules-title">📈 Tier System (Hold-to-Earn)</h3>
       <div class="rules-list" id="rules-content"></div>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-2">Понятно</button>
+      <button class="modal-btn close-modal-trigger" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-2">Understood</button>
     </div>
   </div>
 
   <!-- نافذة المهام -->
   <div class="modal-overlay" id="tasks-modal">
     <div class="modal-content">
-      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-tasks-title">📋 Задания и бонусы</h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-tasks-title">📋 Tasks & Rewards</h3>
       <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; padding: 12px; margin: 12px 0; display: flex; justify-content: space-between; align-items: center;">
         <div style="text-align: start;">
-          <div style="font-size: 13px; font-weight: 800;" id="txt-task-1">Подписаться на канал</div>
+          <div style="font-size: 13px; font-weight: 800;" id="txt-task-1">Join Official Channel</div>
           <div style="font-size: 11px; color: #fbbf24;">+20 ROL</div>
         </div>
-        <button style="background: #00f0ff; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 900; color: #020712; cursor: pointer;" id="txt-join-btn">Войти</button>
+        <button style="background: #00f0ff; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 900; color: #020712; cursor: pointer;" id="txt-join-btn">Join</button>
       </div>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-3">Закрыть</button>
+      <button class="modal-btn close-modal-trigger" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-3">Close</button>
     </div>
   </div>
 
   <!-- نافذة الإحالات -->
   <div class="modal-overlay" id="refs-modal">
     <div class="modal-content">
-      <h3 style="color: #fbbf24; margin-bottom: 8px;" id="txt-refs-title">👥 Реферальная система</h3>
-      <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;" id="txt-refs-desc">Приглашайте друзей и получайте 25 ROL + 10% от их добычи.</p>
-      <button id="share-ref-btn" class="modal-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712; margin-bottom: 8px;" id="txt-share-btn">Поделиться ссылкой</button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-4">Закрыть</button>
+      <h3 style="color: #fbbf24; margin-bottom: 8px;" id="txt-refs-title">👥 Referral Program</h3>
+      <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;" id="txt-refs-desc">Share your link to earn 25 ROL per friend + 10% of their mining rewards.</p>
+      <button id="share-ref-btn" class="modal-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712; margin-bottom: 8px;" id="txt-share-btn">Share Invite Link</button>
+      <button class="modal-btn close-modal-trigger" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-4">Close</button>
     </div>
   </div>
 
   <!-- نافذة المحفظة -->
   <div class="modal-overlay" id="wallet-modal">
     <div class="modal-content">
-      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-wallet-title">💼 Кошелек TON и вывод</h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-wallet-title">💼 TON Wallet & Cashout</h3>
       <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; padding: 12px; margin-bottom: 14px;">
-        <div style="font-size: 11px; color: #94a3b8;" id="txt-wallet-sub">Адрес кошелька</div>
-        <div id="wallet-status-lbl" style="font-size: 13px; font-weight: 800; color: #fbbf24; font-family: monospace; margin-top: 4px;">Не подключен</div>
+        <div style="font-size: 11px; color: #94a3b8;" id="txt-wallet-sub">Connected Wallet Address</div>
+        <div id="wallet-status-lbl" style="font-size: 13px; font-weight: 800; color: #fbbf24; font-family: monospace; margin-top: 4px;">Not Connected</div>
       </div>
-      <button class="modal-btn" style="background: rgba(255,255,255,0.06); color: #64748b; cursor: not-allowed; margin-bottom: 8px;" id="txt-withdraw-btn">🔒 Вывод закрыт до завершения этапа</button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-5">Закрыть</button>
+      <button class="modal-btn" id="modal-ton-connect-action" style="background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; font-weight: 900; margin-bottom: 8px;">Connect TON Wallet</button>
+      <button class="modal-btn" style="background: rgba(255,255,255,0.06); color: #64748b; cursor: not-allowed; margin-bottom: 8px;" id="txt-withdraw-btn">🔒 Withdrawals locked until launch phase</button>
+      <button class="modal-btn close-modal-trigger" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-5">Close</button>
     </div>
   </div>
 
@@ -627,6 +610,48 @@
     const KEY_VIP = `rol_${uid}_vip`;
 
     const dictionary = {
+      en: {
+        code: "EN",
+        walletConnect: "Connect",
+        vip: "Gold Tier",
+        rate: "Mining Rate",
+        gift: "Rewards",
+        balance: "Current Balance",
+        active: "Active",
+        rulesBtn: "Mining Tier Rules",
+        start: "Start Mining",
+        mining: "Mining Now...",
+        claim: "Claim Rewards",
+        navHome: "Home",
+        navTasks: "Tasks",
+        navRefs: "Referrals",
+        navWallet: "Wallet",
+        modalCheckinTitle: "🎁 Daily Rewards (30 Days)",
+        modalCheckinDesc: "Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!",
+        claimDay: "Claim",
+        claimedDone: "Come back tomorrow",
+        close: "Close",
+        understand: "Understood",
+        rulesTitle: "📈 Tier System (Hold-to-Earn)",
+        rulesContent: `
+          <p>• <b>Tier 1 (VIP 1):</b> Base rate 1.250 ROL/hour for free.</p>
+          <p>• <b>Tier 2 - 10:</b> Holding 400 - 4,000 ROL in your wallet doubles your mining speed.</p>
+          <p>• <b>Tier 11 - 50:</b> Holding 10,000+ ROL grants speeds starting from +20 ROL/hour.</p>
+          <p>• <b>Tier 100 (Supreme VIP):</b> Top holders gain maximal output and instant withdrawal access.</p>
+        `,
+        tasksTitle: "📋 Tasks & Rewards",
+        task1: "Join Official Channel",
+        joinBtn: "Join",
+        refsTitle: "👥 Referral Program",
+        refsDesc: "Share your link to earn 25 ROL per friend + 10% of their mining rewards.",
+        shareBtn: "Share Invite Link",
+        walletTitle: "💼 TON Wallet & Cashout",
+        walletSub: "Connected Wallet Address",
+        walletBtnModal: "Connect TON Wallet",
+        notConnected: "Not Connected",
+        withdrawLocked: "🔒 Withdrawals locked until launch phase",
+        dayLabel: "Day"
+      },
       ar: {
         code: "AR",
         walletConnect: "ربط",
@@ -664,95 +689,14 @@
         shareBtn: "مشاركة رابط الإحالة",
         walletTitle: "💼 محفظة TON والسحب",
         walletSub: "عنوان المحفظة المتصلة",
+        walletBtnModal: "ربط محفظة TON",
         notConnected: "غير متصلة",
         withdrawLocked: "🔒 السحب مقفل حتى اكتمال جولة الإطلاق",
         dayLabel: "يوم"
-      },
-      en: {
-        code: "EN",
-        walletConnect: "Connect",
-        vip: "Gold Tier",
-        rate: "Mining Rate",
-        gift: "Rewards",
-        balance: "Current Balance",
-        active: "Active",
-        rulesBtn: "Mining Tier Rules",
-        start: "Start Mining",
-        mining: "Mining Now...",
-        claim: "Claim Rewards",
-        navHome: "Home",
-        navTasks: "Tasks",
-        navRefs: "Referrals",
-        navWallet: "Wallet",
-        modalCheckinTitle: "🎁 Daily Rewards (30 Days)",
-        modalCheckinDesc: "Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!",
-        claimDay: "Claim Today's Reward",
-        claimedDone: "Come back tomorrow",
-        close: "Close",
-        understand: "Understood",
-        rulesTitle: "📈 Tier System (Hold-to-Earn)",
-        rulesContent: `
-          <p>• <b>Tier 1 (VIP 1):</b> Base rate 1.250 ROL/hour for free.</p>
-          <p>• <b>Tier 2 - 10:</b> Holding 400 - 4,000 ROL in your wallet doubles your mining speed.</p>
-          <p>• <b>Tier 11 - 50:</b> Holding 10,000+ ROL grants speeds starting from +20 ROL/hour.</p>
-          <p>• <b>Tier 100 (Supreme VIP):</b> Top holders gain maximal output and instant withdrawal access.</p>
-        `,
-        tasksTitle: "📋 Tasks & Rewards",
-        task1: "Join Official Channel",
-        joinBtn: "Join",
-        refsTitle: "👥 Referral Program",
-        refsDesc: "Share your link to earn 25 ROL per friend + 10% of their mining rewards.",
-        shareBtn: "Share Invite Link",
-        walletTitle: "💼 TON Wallet & Cashout",
-        walletSub: "Connected Wallet Address",
-        notConnected: "Not Connected",
-        withdrawLocked: "🔒 Withdrawals locked until launch phase",
-        dayLabel: "Day"
-      },
-      ru: {
-        code: "RU",
-        walletConnect: "Кошелек",
-        vip: "Золотой уровень",
-        rate: "Скорость майнинга",
-        gift: "Награды",
-        balance: "Текущий баланс",
-        active: "Активен",
-        rulesBtn: "Правила уровней",
-        start: "Начать майнинг",
-        mining: "Майнинг...",
-        claim: "Забрать прибыль",
-        navHome: "Главная",
-        navTasks: "Задания",
-        navRefs: "Друзья",
-        navWallet: "Кошелек",
-        modalCheckinTitle: "🎁 Ежедневный бонус (30 дней)",
-        modalCheckinDesc: "Заходите ежедневно и получайте до 250 ROL. Пропуск >48 часов сбрасывает серию!",
-        claimDay: "Забрать награду",
-        claimedDone: "Приходите завтра",
-        close: "Закрыть",
-        understand: "Понятно",
-        rulesTitle: "📈 Система уровней (Hold-to-Earn)",
-        rulesContent: `
-          <p>• <b>Уровень 1 (VIP 1):</b> Базовая скорость 1.250 ROL/час бесплатно.</p>
-          <p>• <b>Уровень 2 - 10:</b> Хранение 400 - 4,000 ROL в кошельке удваивает скорость.</p>
-          <p>• <b>Уровень 11 - 50:</b> Хранение 10,000+ ROL дает от +20 ROL/час.</p>
-          <p>• <b>Уровень 100 (Supreme VIP):</b> Максимальный доход и мгновенный вывод.</p>
-        `,
-        tasksTitle: "📋 Задания и бонусы",
-        task1: "Подписаться на канал",
-        joinBtn: "Войти",
-        refsTitle: "👥 Реферальная система",
-        refsDesc: "Приглашайте друзей и получайте 25 ROL + 10% от их добычи.",
-        shareBtn: "Поделиться ссылкой",
-        walletTitle: "💼 Кошелек TON и вывод",
-        walletSub: "Адрес кошелька",
-        notConnected: "Не подключен",
-        withdrawLocked: "🔒 Вывод закрыт до завершения этапа",
-        dayLabel: "День"
       }
     };
 
-    let curLang = localStorage.getItem(KEY_LANG) || 'ru';
+    let curLang = localStorage.getItem(KEY_LANG) || 'en';
     let connectedWalletAddr = null;
 
     const DAILY_REWARDS = [
@@ -771,6 +715,7 @@
     let isMining = startTime > 0;
     let lock = false;
 
+    // عناصر الشاشة
     const langBtn = document.getElementById('lang-btn');
     const walletBtnLabel = document.getElementById('wallet-btn-label');
     const balanceDisplay = document.getElementById('balance-display');
@@ -839,6 +784,7 @@
 
       document.getElementById('txt-wallet-title').innerText = t.walletTitle;
       document.getElementById('txt-wallet-sub').innerText = t.walletSub;
+      document.getElementById('modal-ton-connect-action').innerText = t.walletBtnModal;
       document.getElementById('txt-withdraw-btn').innerText = t.withdrawLocked;
 
       document.getElementById('txt-close-1').innerText = t.close;
@@ -852,17 +798,15 @@
       renderMining();
     }
 
-    langBtn.onclick = () => {
-      let nextLang = 'ar';
-      if (curLang === 'ar') nextLang = 'en';
-      else if (curLang === 'en') nextLang = 'ru';
-      else nextLang = 'ar';
-
+    // زر تبديل اللغة (EN <-> AR)
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let nextLang = (curLang === 'en') ? 'ar' : 'en';
       localStorage.setItem(KEY_LANG, nextLang);
       applyLanguage(nextLang);
       renderDaysGrid();
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-    };
+    });
 
     function renderMining() {
       const t = dictionary[curLang];
@@ -896,6 +840,7 @@
       }
     }
 
+    // زر التعدين
     document.getElementById('start-mine-btn').addEventListener('click', () => {
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       const t = dictionary[curLang];
@@ -928,6 +873,7 @@
     updateBalance();
     renderMining();
 
+    // فحص سلسلة الأيام
     function verifyStreak() {
       const now = Date.now();
       const hoursSinceLast = (now - lastCheckinTime) / (1000 * 60 * 60);
@@ -968,16 +914,63 @@
       }
     }
 
-    document.getElementById('open-checkin-btn').onclick = () => {
+    // فتح وإغلاق النوافذ المنبثقة
+    function openModal(id) {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+      closeAllModals();
+      const m = document.getElementById(id);
+      if (m) m.classList.add('active');
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+
+    document.querySelectorAll('.close-modal-trigger').forEach(btn => {
+      btn.addEventListener('click', closeAllModals);
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeAllModals();
+      });
+    });
+
+    // 1. فتح المكافآت اليومية
+    document.getElementById('open-checkin-btn').addEventListener('click', () => {
       renderDaysGrid();
-      document.getElementById('checkin-modal').classList.add('active');
-    };
+      openModal('checkin-modal');
+    });
 
-    document.getElementById('open-rules-btn').onclick = () => {
-      document.getElementById('rules-modal').classList.add('active');
-    };
+    // 2. فتح قواعد المستويات
+    document.getElementById('open-rules-btn').addEventListener('click', () => {
+      openModal('rules-modal');
+    });
 
-    document.getElementById('claim-daily-btn').onclick = () => {
+    // 3. فتح نافذة المحفظة من الزر العلوي
+    document.getElementById('wallet-action-container').addEventListener('click', () => {
+      openModal('wallet-modal');
+    });
+
+    // 4. أزرار الشريط السفلي
+    document.getElementById('nav-home').addEventListener('click', () => {
+      closeAllModals();
+    });
+
+    document.getElementById('nav-tasks').addEventListener('click', () => {
+      openModal('tasks-modal');
+    });
+
+    document.getElementById('nav-refs').addEventListener('click', () => {
+      openModal('refs-modal');
+    });
+
+    document.getElementById('nav-wallet').addEventListener('click', () => {
+      openModal('wallet-modal');
+    });
+
+    // استلام المكافأة اليومية
+    document.getElementById('claim-daily-btn').addEventListener('click', () => {
       if (isCheckinAvailable()) {
         const reward = DAILY_REWARDS[checkinDay];
         balance += reward;
@@ -989,42 +982,22 @@
         alert(`🎉 +${reward} ROL!`);
         renderDaysGrid();
       }
-    };
+    });
 
-    renderDaysGrid();
-
-    function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-    }
-
-    document.getElementById('nav-home').onclick = closeAllModals;
-    document.getElementById('nav-tasks').onclick = () => {
-      closeAllModals();
-      document.getElementById('tasks-modal').classList.add('active');
-    };
-    document.getElementById('nav-refs').onclick = () => {
-      closeAllModals();
-      document.getElementById('refs-modal').classList.add('active');
-    };
-    document.getElementById('nav-wallet').onclick = () => {
-      closeAllModals();
-      document.getElementById('wallet-modal').classList.add('active');
-    };
-
-    document.getElementById('share-ref-btn').onclick = () => {
+    // مشاركة رابط الإحالة
+    document.getElementById('share-ref-btn').addEventListener('click', () => {
       const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
       const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Mine ROL tokens & claim daily rewards! 🚀💎')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
-    };
+    });
 
-    // ربط المحفظة
+    // تشغيل TonConnectUI داخل نافذة المحفظة بدون أن يعطل الشاشة الرئيسية
+    let tonConnectUI = null;
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
-          const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect-btn',
-            uiPreferences: { theme: TON_CONNECT_UI.THEME.DARK },
             actionsConfiguration: { twaReturnUrl: 'https://t.me/ROL_Miner_Bot' }
           });
 
@@ -1036,9 +1009,8 @@
               updateWalletButtonUI();
               statusLbl.innerText = `${raw.substring(0, 6)}...${raw.substring(raw.length - 6)}`;
 
-              // حساب رصيد المحفظة وترقية المستوى تلقائياً
-              const walletTokens = 500;
-              if (walletTokens >= 400 && currentVip === 1) {
+              // ترقية المستوى تلقائياً عند اتصال محفظة بها رصيد
+              if (currentVip === 1) {
                 currentVip = 2;
                 updateVIPDisplay();
               }
@@ -1048,9 +1020,17 @@
               statusLbl.innerText = dictionary[curLang].notConnected;
             }
           });
+
+          document.getElementById('modal-ton-connect-action').addEventListener('click', async () => {
+            if (tonConnectUI.connected) {
+              await tonConnectUI.disconnect();
+            } else {
+              await tonConnectUI.openModal();
+            }
+          });
         }
       } catch (err) {
-        console.warn("Wallet initialization fallback active");
+        console.warn("Wallet initialization safe fallback", err);
       }
     });
   </script>
