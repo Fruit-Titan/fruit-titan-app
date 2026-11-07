@@ -6,7 +6,7 @@
   <title>ROL Ecosystem - Mining Terminal</title>
 
   <style>
-    /* تهيئة الشاشة ومنع الوميض الأبيض */
+    /* منع الوميض وتجهيز البيئة الداكنة */
     html, body {
       background-color: #030a16 !important;
       color: #f8fafc;
@@ -19,7 +19,7 @@
 
     :root {
       --bg-dark: #030a16;
-      --card-bg: rgba(6, 17, 38, 0.75);
+      --card-bg: rgba(6, 17, 38, 0.78);
       --border-blue: rgba(0, 210, 255, 0.45);
       --neon-cyan: #00f0ff;
       --neon-blue: #0284c7;
@@ -73,23 +73,6 @@
       gap: 8px;
     }
 
-    .menu-icon {
-      width: 22px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      cursor: pointer;
-    }
-
-    .menu-icon span {
-      display: block;
-      height: 2px;
-      width: 100%;
-      background: #ffffff;
-      border-radius: 2px;
-    }
-
     .brand-title {
       display: flex;
       flex-direction: column;
@@ -128,29 +111,45 @@
       border: 1px solid var(--border-blue);
       border-radius: 20px;
       padding: 4px 10px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
       font-size: 11px;
       font-weight: 700;
       color: #fff;
     }
 
-    .wallet-pill {
-      background: rgba(10, 25, 50, 0.7);
-      border: 1px solid var(--border-blue);
-      border-radius: 20px;
-      padding: 4px 10px;
+    .wallet-container {
+      position: relative;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(56, 189, 248, 0.15), rgba(16, 185, 129, 0.4));
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
     }
 
-    /* منطقة مؤشرات VIP والمكافآت */
+    #ton-connect-btn {
+      transform: scale(0.8);
+      transform-origin: center;
+    }
+
+    .view-section {
+      width: 100%;
+      max-width: 420px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .view-section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* مؤشرات VIP والمكافآت */
     .top-widgets {
       width: 100%;
       max-width: 420px;
@@ -170,7 +169,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
     }
 
     .vip-crown {
@@ -231,6 +229,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      cursor: pointer;
     }
 
     .gift-badge {
@@ -261,7 +260,7 @@
       margin-top: 2px;
     }
 
-    /* كرت الرصيد الرقمي */
+    /* محطة الرصيد */
     .balance-terminal {
       width: 100%;
       max-width: 420px;
@@ -295,7 +294,7 @@
       letter-spacing: -0.5px;
     }
 
-    /* منصة العملة ثلاثية الأبعاد مع قاعدة الشحن الذهبية */
+    /* منصة العملة ثلاثية الأبعاد */
     .podium-stage {
       position: relative;
       width: 240px;
@@ -347,7 +346,7 @@
       z-index: 1;
     }
 
-    /* شريط التعدين الحركي */
+    /* شريط تقدم التعدين */
     .mine-track-box {
       width: 100%;
       max-width: 420px;
@@ -430,58 +429,74 @@
       transition: width 0.3s ease;
     }
 
-    /* شبكة بطاقات الأنشطة (المهام، الترقية) */
-    .action-grid {
+    /* بطاقة التسجيل اليومي المصممة خصيصاً */
+    .daily-checkin-banner {
       width: 100%;
       max-width: 420px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .action-card {
-      background: rgba(6, 20, 45, 0.7);
+      background: linear-gradient(135deg, rgba(6, 20, 48, 0.85), rgba(3, 10, 26, 0.9));
       border: 1px solid var(--border-blue);
       border-radius: 16px;
-      padding: 10px 12px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 0 15px rgba(0, 150, 255, 0.15);
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.25);
       cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
     }
 
-    .action-info {
+    .daily-checkin-banner:active {
+      transform: scale(0.98);
+    }
+
+    .checkin-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calendar-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid rgba(0, 210, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    }
+
+    .checkin-txts {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
-    .action-h1 {
-      font-size: 12px;
-      font-weight: 800;
+    .checkin-title {
+      font-size: 14px;
+      font-weight: 900;
       color: #ffffff;
     }
 
-    .action-sub {
-      font-size: 10px;
+    .checkin-desc {
+      font-size: 11px;
       color: var(--neon-cyan);
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .action-icon-box {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: rgba(0, 210, 255, 0.12);
-      border: 1px solid rgba(0, 210, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .checkin-claim-badge {
+      background: linear-gradient(135deg, #0284c7, var(--neon-cyan));
+      color: #030a16;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
     }
 
-    /* زر بدء التعدين الذهبي الفخم */
+    /* زر بدء التعدين الذهبي */
     .mine-execute-btn {
       width: 100%;
       max-width: 420px;
@@ -528,6 +543,122 @@
       font-weight: 900;
     }
 
+    /* نافذة منبثقة لنظام الـ 30 يوماً */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 380px;
+      background: linear-gradient(180deg, #07152d, #020614);
+      border: 1px solid var(--border-blue);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 210, 255, 0.4);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .day-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 6px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .day-box.claimed {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--green-live);
+    }
+
+    .day-box.today {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    .day-num {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .day-reward {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--gold-light);
+    }
+
+    .modal-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .modal-btn-claim {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: #000;
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    .modal-btn-close {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    /* كروت بقية الأقسام */
+    .subpage-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-blue);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
     /* شريط التنقل السفلي */
     .footer-bar {
       position: fixed;
@@ -535,7 +666,7 @@
       left: 0;
       right: 0;
       height: 68px;
-      background: rgba(2, 6, 16, 0.94);
+      background: rgba(2, 6, 16, 0.95);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(0, 210, 255, 0.25);
       display: flex;
@@ -555,6 +686,7 @@
       color: #64748b;
       cursor: pointer;
       flex: 1;
+      transition: all 0.2s ease;
     }
 
     .foot-item.active {
@@ -580,9 +712,6 @@
   <!-- الرأس -->
   <header>
     <div class="brand-group">
-      <div class="menu-icon">
-        <span></span><span></span><span></span>
-      </div>
       <div class="brand-title">
         <span class="brand-name">
           ROL 
@@ -595,124 +724,191 @@
       <div class="lang-btn">
         <span>🇸🇦 AR</span>
       </div>
-      <div class="wallet-pill" id="connect-wallet-btn">
-        <span>Wallet</span>
+      <div class="wallet-container">
+        <div id="ton-connect-btn"></div>
       </div>
     </div>
   </header>
 
-  <!-- بطاقات VIP ومعدل التعدين والهدية -->
-  <section class="top-widgets">
-    <div class="vip-card">
-      <svg class="vip-crown" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z"/></svg>
-      <span class="vip-title">المستوى الذهبي</span>
-      <span class="vip-badge">VIP 1 &gt;</span>
-    </div>
-
-    <div class="rate-card">
-      <div class="rate-label">
-        <span>🚀</span> معدل التعدين الحالي
+  <!-- الصفحة 1: الرئيسية -->
+  <main class="view-section active" id="tab-home">
+    <!-- بطاقات VIP ومعدل التعدين -->
+    <section class="top-widgets">
+      <div class="vip-card">
+        <svg class="vip-crown" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z"/></svg>
+        <span class="vip-title">المستوى الذهبي</span>
+        <span class="vip-badge">VIP 1 &gt;</span>
       </div>
-      <div class="rate-val">+1.250 ROL <span style="font-size: 11px; font-weight: normal; color: var(--text-muted);">/ ساعة</span></div>
-    </div>
 
-    <div class="gift-card">
-      <div class="gift-badge">3</div>
-      <span class="gift-icon">🎁</span>
-      <span class="gift-label">المكافآت اليومية</span>
-    </div>
-  </section>
+      <div class="rate-card">
+        <div class="rate-label">
+          <span>🚀</span> معدل التعدين الحالي
+        </div>
+        <div class="rate-val">+1.250 ROL <span style="font-size: 11px; font-weight: normal; color: var(--text-muted);">/ ساعة</span></div>
+      </div>
 
-  <!-- محطة الرصيد الرقمي -->
-  <section class="balance-terminal">
-    <div class="terminal-sub">
-      <span>💳</span> رصيدك الحالي
-    </div>
-    <div class="terminal-num" id="balance-display">0.00 ROL</div>
-  </section>
+      <div class="gift-card" id="open-checkin-btn-top">
+        <div class="gift-badge" id="gift-badge-val">!</div>
+        <span class="gift-icon">🎁</span>
+        <span class="gift-label">المكافآت اليومية</span>
+      </div>
+    </section>
 
-  <!-- منصة العملة ثلاثية الأبعاد -->
-  <section class="podium-stage">
-    <div class="orbit-ring"></div>
-    <div class="coin-core"></div>
-    <div class="podium-base"></div>
-  </section>
+    <!-- محطة الرصيد -->
+    <section class="balance-terminal">
+      <div class="terminal-sub">
+        <span>💳</span> رصيدك الحالي
+      </div>
+      <div class="terminal-num" id="balance-display">0.00 ROL</div>
+    </section>
 
-  <!-- شريط تقدم التعدين -->
-  <section class="mine-track-box">
-    <div class="track-meta">
-      <div class="track-left">
-        <div class="pickaxe-avatar">
-          <svg style="width: 18px; height: 18px; fill: var(--gold-main);" viewBox="0 0 100 100">
-            <polygon points="20,86 14,80 54,40 60,46"/>
-            <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
-            <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
+    <!-- منصة العملة ثلاثية الأبعاد -->
+    <section class="podium-stage">
+      <div class="orbit-ring"></div>
+      <div class="coin-core"></div>
+      <div class="podium-base"></div>
+    </section>
+
+    <!-- شريط تقدم التعدين -->
+    <section class="mine-track-box">
+      <div class="track-meta">
+        <div class="track-left">
+          <div class="pickaxe-avatar">
+            <svg style="width: 18px; height: 18px; fill: var(--gold-main);" viewBox="0 0 100 100">
+              <polygon points="20,86 14,80 54,40 60,46"/>
+              <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
+              <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
+            </svg>
+          </div>
+          <span class="track-title" id="track-status-txt">التعدين جاهز للبدء</span>
+        </div>
+        <div class="live-chip">
+          <span>●</span> <span id="indicator-live-txt">خامل</span>
+        </div>
+      </div>
+      <div class="time-stream" id="timer-val">08:00:00</div>
+      <div class="progress-trough">
+        <div class="progress-laser" id="progress-line"></div>
+      </div>
+    </section>
+
+    <!-- بطاقة التسجيل اليومي المتطورة (بدل البطاقات المشطوبة) -->
+    <section class="daily-checkin-banner" id="open-checkin-card">
+      <div class="checkin-left">
+        <div class="calendar-icon-box">
+          <svg style="width: 22px; height: 22px; fill: var(--neon-cyan);" viewBox="0 0 24 24">
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
           </svg>
         </div>
-        <span class="track-title" id="track-status-txt">التعدين مستمر...</span>
+        <div class="checkin-txts">
+          <span class="checkin-title">التسجيل اليومي</span>
+          <span class="checkin-desc">مكافآت 30 يوم متصاعدة حتى 250 ROL</span>
+        </div>
       </div>
-      <div class="live-chip">
-        <span>●</span> نشط ⚡
+      <div class="checkin-claim-badge" id="checkin-badge-state">استلام اليوم</div>
+    </section>
+
+    <!-- زر بدء التعدين الذهبي -->
+    <button class="mine-execute-btn" id="start-mine-btn">
+      <svg style="width: 26px; height: 26px; fill: #000;" viewBox="0 0 100 100">
+        <polygon points="20,86 14,80 54,40 60,46"/>
+        <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
+        <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
+      </svg>
+      <div class="btn-center">
+        <span class="btn-main-txt" id="mine-btn-title">بدء التعدين الآن</span>
+        <span class="btn-sub-txt">اضغط لزيادة رصيدك</span>
       </div>
-    </div>
-    <div class="time-stream" id="timer-val">08:00:00</div>
-    <div class="progress-trough">
-      <div class="progress-laser" id="progress-line"></div>
+      <span class="btn-arrow">&gt;&gt;</span>
+    </button>
+  </main>
+
+  <!-- الصفحة 2: المكافآت -->
+  <section class="view-section" id="tab-tasks">
+    <div class="subpage-card">
+      <h3 style="color: var(--neon-cyan); margin-bottom: 6px;">🎁 مركز المكافآت والمهام</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">أكمل المهام اليومية للحصول على رصيد ROL إضافي فوري.</p>
+      
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-blue); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 800;">انضم لقناة التحديثات</div>
+          <div style="font-size: 11px; color: var(--gold-light);">+15 ROL</div>
+        </div>
+        <button style="background: var(--neon-cyan); border: none; border-radius: 8px; padding: 6px 12px; font-weight: 900; font-size: 11px; cursor: pointer;">انضم</button>
+      </div>
     </div>
   </section>
 
-  <!-- شبكة الإجراءات (المهام، الترقية) -->
-  <section class="action-grid">
-    <div class="action-card">
-      <div class="action-info">
-        <span class="action-h1">المهام اليومية</span>
-        <span class="action-sub">مكافآت إضافية</span>
+  <!-- الصفحة 3: الإحالات -->
+  <section class="view-section" id="tab-refs">
+    <div class="subpage-card">
+      <h3 style="color: var(--gold-light); margin-bottom: 6px;">👥 نظام الإحالات</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">احصل على 10% من أرباح تعدين أصدقائك و25 ROL لكل دعوة.</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-blue); border-radius: 12px; padding: 10px; text-align: center;">
+          <div style="font-size: 20px; font-weight: 900; color: var(--neon-cyan);" id="ref-count-val">0</div>
+          <div style="font-size: 10px; color: var(--text-muted);">الأصدقاء</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-blue); border-radius: 12px; padding: 10px; text-align: center;">
+          <div style="font-size: 20px; font-weight: 900; color: var(--gold-light);" id="ref-earned-val">0.00</div>
+          <div style="font-size: 10px; color: var(--text-muted);">أرباح الإحالة</div>
+        </div>
       </div>
-      <div class="action-icon-box">
-        <svg style="width: 18px; height: 18px; fill: var(--neon-cyan);" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-      </div>
-    </div>
 
-    <div class="action-card">
-      <div class="action-info">
-        <span class="action-h1">ترقية المستوى</span>
-        <span class="action-sub">مزايا أكبر</span>
-      </div>
-      <div class="action-icon-box">
-        <svg style="width: 18px; height: 18px; fill: var(--neon-cyan);" viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
-      </div>
+      <button id="share-ref-link-btn" class="mine-execute-btn" style="margin-bottom: 0;">
+        <span class="btn-main-txt" style="width: 100%; text-align: center;">دعوة الأصدقاء ومشاركة الرابط</span>
+      </button>
     </div>
   </section>
 
-  <!-- زر بدء التعدين الذهبي -->
-  <button class="mine-execute-btn" id="start-mine-btn">
-    <svg style="width: 26px; height: 26px; fill: #000;" viewBox="0 0 100 100">
-      <polygon points="20,86 14,80 54,40 60,46"/>
-      <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
-      <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
-    </svg>
-    <div class="btn-center">
-      <span class="btn-main-txt" id="mine-btn-title">بدء التعدين الآن</span>
-      <span class="btn-sub-txt">اضغط لزيادة رصيدك</span>
+  <!-- الصفحة 4: الإعدادات والمحفظة -->
+  <section class="view-section" id="tab-settings">
+    <div class="subpage-card">
+      <h3 style="color: var(--neon-cyan); margin-bottom: 6px;">⚙️ الإعدادات والمحفظة</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">إدارة محفظة TON وعمليات السحب الخاصة برصيد ROL.</p>
+      
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-blue); border-radius: 14px; padding: 12px; margin-bottom: 12px;">
+        <div style="font-size: 11px; color: var(--text-muted);">عنوان المحفظة المتصلة</div>
+        <div id="wallet-status-lbl" style="font-size: 13px; font-weight: 800; color: var(--gold-light); font-family: monospace; margin: 4px 0;">غير متصلة</div>
+      </div>
+
+      <button style="width: 100%; padding: 12px; border-radius: 14px; border: none; background: rgba(255,255,255,0.08); color: var(--text-muted); font-weight: 800; font-size: 12px; cursor: not-allowed;">
+        🔒 السحب مغلق حتى انتهاء جولة التعدين
+      </button>
     </div>
-    <span class="btn-arrow">&gt;&gt;</span>
-  </button>
+  </section>
+
+  <!-- نافذة التسجيل اليومي المنبثقة (30 يوم) -->
+  <div class="modal-overlay" id="checkin-modal">
+    <div class="modal-content">
+      <div class="modal-title">📅 التسجيل اليومي (30 يوماً)</div>
+      <div class="modal-subtitle">سجل حضورك كل 24 ساعة للحصول على مكافآت ROL متصاعدة!</div>
+      
+      <div class="days-grid" id="days-grid-container">
+        <!-- توليد الأيام الـ 30 برمجياً -->
+      </div>
+
+      <button class="modal-btn modal-btn-claim" id="claim-daily-btn">استلام مكافأة اليوم</button>
+      <button class="modal-btn modal-btn-close" id="close-modal-btn">إغلاق</button>
+    </div>
+  </div>
 
   <!-- شريط التنقل السفلي -->
   <footer class="footer-bar">
-    <div class="foot-item active">
+    <div class="foot-item active" data-tab="tab-home">
       <svg class="foot-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       <span>الرئيسية</span>
     </div>
-    <div class="foot-item">
+    <div class="foot-item" data-tab="tab-tasks">
       <svg class="foot-icon" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 003.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
       <span>المكافآت</span>
     </div>
-    <div class="foot-item">
+    <div class="foot-item" data-tab="tab-refs">
       <svg class="foot-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
       <span>الإحالات</span>
     </div>
-    <div class="foot-item">
+    <div class="foot-item" data-tab="tab-settings">
       <svg class="foot-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
       <span>الإعدادات</span>
     </div>
@@ -729,35 +925,50 @@
       }
     }
 
-    const uid = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "pilot";
-    const KEY_BALANCE = `rol_v3_${uid}_bal`;
-    const KEY_START = `rol_v3_${uid}_start`;
+    const uid = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
+    const KEY_BALANCE = `rol_${uid}_balance`;
+    const KEY_START = `rol_${uid}_mine_start`;
+    const KEY_CHECKIN_DAY = `rol_${uid}_checkin_day`;
+    const KEY_CHECKIN_TIME = `rol_${uid}_checkin_time`;
 
-    const CYCLE = 8 * 60 * 60 * 1000;
-    const REWARD = 50.0;
+    // جدول مكافآت الأيام الـ 30 (اليوم 1: 5، اليوم 2: 8، اليوم 30: 250)
+    const DAILY_REWARDS = [
+      5, 8, 12, 16, 20, 25, 30, 35, 40, 48,
+      56, 64, 72, 80, 90, 100, 110, 120, 130, 142,
+      155, 168, 180, 192, 205, 218, 228, 238, 245, 250
+    ];
 
     let balance = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
     let startTime = parseInt(localStorage.getItem(KEY_START) || '0', 10);
+    let checkinDay = parseInt(localStorage.getItem(KEY_CHECKIN_DAY) || '0', 10);
+    let lastCheckinTime = parseInt(localStorage.getItem(KEY_CHECKIN_TIME) || '0', 10);
+
+    const CYCLE = 8 * 60 * 60 * 1000;
+    const MINE_REWARD = 50.0;
     let isMining = startTime > 0;
     let lock = false;
 
+    // عناصر الواجهة
     const balanceDisplay = document.getElementById('balance-display');
     const timerVal = document.getElementById('timer-val');
     const progressLine = document.getElementById('progress-line');
     const mineBtn = document.getElementById('start-mine-btn');
     const mineBtnTitle = document.getElementById('mine-btn-title');
     const trackStatusTxt = document.getElementById('track-status-txt');
+    const liveTxt = document.getElementById('indicator-live-txt');
 
     function updateBalance() {
       balanceDisplay.innerText = balance.toFixed(2) + " ROL";
       localStorage.setItem(KEY_BALANCE, balance.toString());
     }
 
-    function renderEngine() {
+    // محرك التعدين 8 ساعات
+    function renderMining() {
       if (!isMining) {
         progressLine.style.width = '0%';
         timerVal.innerText = '08:00:00';
-        trackStatusTxt.innerText = 'التعدين جاهز';
+        trackStatusTxt.innerText = 'التعدين جاهز للبدء';
+        liveTxt.innerText = 'خامل';
         mineBtnTitle.innerText = 'بدء التعدين الآن';
         return;
       }
@@ -776,12 +987,14 @@
         timerVal.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 
         trackStatusTxt.innerText = 'التعدين مستمر...';
+        liveTxt.innerText = 'نشط ⚡';
         mineBtnTitle.innerText = 'جاري التعدين...';
       } else {
         progressLine.style.width = '100%';
         timerVal.innerText = 'جاهز للحصاد!';
         trackStatusTxt.innerText = 'اكتملت الدورة';
-        mineBtnTitle.innerText = 'استلام المكافأة (+50 ROL)';
+        liveTxt.innerText = 'مكتمل';
+        mineBtnTitle.innerText = 'استلام الأرباح (+50 ROL)';
       }
     }
 
@@ -791,42 +1004,155 @@
         localStorage.setItem(KEY_START, startTime.toString());
         isMining = true;
         if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        renderEngine();
+        renderMining();
       } else {
         const elapsed = Date.now() - startTime;
         if (elapsed >= CYCLE) {
           if (lock) return;
           lock = true;
-          balance += REWARD;
+          balance += MINE_REWARD;
           updateBalance();
           isMining = false;
           startTime = 0;
           localStorage.removeItem(KEY_START);
           if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-          alert('🎉 تم استلام 50 ROL بنجاح!');
-          renderEngine();
+          alert('🎉 تم إضافة 50 ROL بنجاح!');
+          renderMining();
           lock = false;
         }
       }
     });
 
-    setInterval(renderEngine, 1000);
+    setInterval(renderMining, 1000);
     updateBalance();
-    renderEngine();
+    renderMining();
 
-    // تشغيل TonConnect
+    // نظام التسجيل اليومي 30 يوم
+    const checkinModal = document.getElementById('checkin-modal');
+    const daysGrid = document.getElementById('days-grid-container');
+    const claimDailyBtn = document.getElementById('claim-daily-btn');
+    const badgeState = document.getElementById('checkin-badge-state');
+
+    function isCheckinAvailable() {
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
+      return (now - lastCheckinTime) >= oneDay;
+    }
+
+    function renderDaysGrid() {
+      daysGrid.innerHTML = '';
+      const canClaim = isCheckinAvailable();
+
+      for (let i = 0; i < 30; i++) {
+        const box = document.createElement('div');
+        box.className = 'day-box';
+        
+        if (i < checkinDay) {
+          box.classList.add('claimed');
+        } else if (i === checkinDay && canClaim) {
+          box.classList.add('today');
+        }
+
+        box.innerHTML = `
+          <span class="day-num">يوم ${i + 1}</span>
+          <span class="day-reward">+${DAILY_REWARDS[i]}</span>
+        `;
+        daysGrid.appendChild(box);
+      }
+
+      if (canClaim) {
+        badgeState.innerText = 'متاح للحصاد!';
+        badgeState.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        claimDailyBtn.disabled = false;
+        claimDailyBtn.className = 'modal-btn modal-btn-claim';
+        claimDailyBtn.innerText = `استلام مكافأة اليوم (${DAILY_REWARDS[checkinDay]} ROL)`;
+      } else {
+        badgeState.innerText = 'تم الاستلام';
+        badgeState.style.background = 'rgba(255,255,255,0.08)';
+        claimDailyBtn.disabled = true;
+        claimDailyBtn.className = 'modal-btn';
+        claimDailyBtn.style.background = 'rgba(255,255,255,0.08)';
+        claimDailyBtn.style.color = 'var(--text-muted)';
+        claimDailyBtn.innerText = 'عد غداً للاستلام';
+      }
+    }
+
+    function openModal() {
+      renderDaysGrid();
+      checkinModal.classList.add('active');
+    }
+
+    document.getElementById('open-checkin-card').onclick = openModal;
+    document.getElementById('open-checkin-btn-top').onclick = openModal;
+    document.getElementById('close-modal-btn').onclick = () => checkinModal.classList.remove('active');
+
+    claimDailyBtn.onclick = () => {
+      if (isCheckinAvailable()) {
+        const reward = DAILY_REWARDS[checkinDay];
+        balance += reward;
+        updateBalance();
+
+        checkinDay = (checkinDay + 1) % 30;
+        lastCheckinTime = Date.now();
+        localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
+        localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
+
+        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+        alert(`🎉 تم استلام مكافأة اليوم ${checkinDay}: +${reward} ROL!`);
+        renderDaysGrid();
+      }
+    };
+
+    renderDaysGrid();
+
+    // التنقل بين الأقسام السفلية
+    const footItems = document.querySelectorAll('.foot-item');
+    const sections = document.querySelectorAll('.view-section');
+
+    footItems.forEach(item => {
+      item.addEventListener('click', () => {
+        footItems.forEach(i => i.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        item.classList.add('active');
+        const target = item.dataset.tab;
+        document.getElementById(target).classList.add('active');
+
+        if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+      });
+    });
+
+    // مشاركة رابط الإحالة
+    document.getElementById('share-ref-link-btn').onclick = () => {
+      const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
+      const text = `انضم وابدأ تعدين عملة ROL وسجل حضورك يومياً لمكافآت تصل إلى 250 ROL! 🚀💎`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+      tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
+    };
+
+    // ربط المحفظة TonConnect
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
           const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json',
-            buttonRootId: 'connect-wallet-btn',
+            buttonRootId: 'ton-connect-btn',
             uiPreferences: { theme: TON_CONNECT_UI.THEME.DARK },
             actionsConfiguration: { twaReturnUrl: 'https://t.me/ROL_Miner_Bot' }
           });
+
+          tonConnectUI.onStatusChange(wallet => {
+            const statusLbl = document.getElementById('wallet-status-lbl');
+            if (wallet && wallet.account) {
+              const raw = wallet.account.address;
+              statusLbl.innerText = `${raw.substring(0,6)}...${raw.substring(raw.length-6)}`;
+            } else {
+              statusLbl.innerText = 'غير متصلة';
+            }
+          });
         }
-      } catch (e) {
-        console.warn("Wallet fallback active");
+      } catch (err) {
+        console.warn("Wallet initialization safe fallback");
       }
     });
   </script>
