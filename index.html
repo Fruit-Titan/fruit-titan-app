@@ -3,86 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Miner Bot</title>
-  
+  <title>ROL Ecosystem - Mining Terminal</title>
+
   <style>
+    /* تهيئة الشاشة ومنع الوميض الأبيض */
     html, body {
-      background-color: #020713 !important;
-      color: #ffffff;
+      background-color: #030a16 !important;
+      color: #f8fafc;
       margin: 0;
       padding: 0;
       width: 100%;
       min-height: 100vh;
       overflow-x: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      user-select: none;
-      -webkit-user-select: none;
     }
 
     :root {
-      --cyan: #00f0ff;
-      --cyan-glow: rgba(0, 240, 255, 0.45);
-      --gold: #ffbe0b;
-      --gold-bright: #ffdf70;
-      --gold-glow: rgba(255, 190, 11, 0.55);
-      --card-bg: rgba(6, 17, 38, 0.85);
-      --card-border: rgba(0, 240, 255, 0.3);
-      --green: #10b981;
+      --bg-dark: #030a16;
+      --card-bg: rgba(6, 17, 38, 0.75);
+      --border-blue: rgba(0, 210, 255, 0.45);
+      --neon-cyan: #00f0ff;
+      --neon-blue: #0284c7;
+      --gold-main: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-glow: rgba(245, 158, 11, 0.6);
+      --green-live: #10b981;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-    /* خلفية المنجم والبلورات الزرقاء النيون */
+    /* خلفية بيئة كهف التعدين النيون ثلاثية الأبعاد */
     body {
       background: 
-        radial-gradient(circle at 50% 12%, rgba(0, 200, 255, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 10% 45%, rgba(0, 140, 255, 0.2) 0%, transparent 45%),
-        radial-gradient(circle at 90% 70%, rgba(0, 100, 255, 0.2) 0%, transparent 50%),
-        linear-gradient(180deg, #020713 0%, #030e24 40%, #020713 100%);
+        radial-gradient(circle at 50% 32%, rgba(0, 180, 255, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 10% 20%, rgba(0, 100, 255, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(0, 100, 255, 0.2) 0%, transparent 40%),
+        repeating-linear-gradient(0deg, rgba(0, 240, 255, 0.02) 0px, rgba(0, 240, 255, 0.02) 1px, transparent 1px, transparent 24px),
+        linear-gradient(180deg, #020712 0%, #030e20 40%, #020611 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 10px 14px 85px 14px;
       min-height: 100vh;
-      position: relative;
     }
 
-    /* الشريط العلوي للتحكم */
-    .header-bar {
+    /* الشريط العلوي */
+    header {
       width: 100%;
-      max-width: 430px;
+      max-width: 420px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 2px;
-      margin-bottom: 10px;
+      padding: 4px 0;
+      margin-bottom: 8px;
     }
 
-    .brand-box {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .menu-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      cursor: pointer;
+    }
+
+    .menu-icon span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2px;
     }
 
     .brand-title {
-      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 16px;
       font-weight: 900;
       letter-spacing: 1px;
-      color: #fff;
       display: flex;
       align-items: center;
       gap: 4px;
+      color: #ffffff;
     }
 
     .verified-badge {
-      width: 16px;
-      height: 16px;
-      fill: var(--cyan);
+      width: 14px;
+      height: 14px;
+      fill: var(--neon-cyan);
     }
 
-    .brand-sub {
+    .bot-tag {
       font-size: 10px;
-      color: #94a3b8;
+      color: var(--text-muted);
+      font-family: monospace;
     }
 
     .top-actions {
@@ -91,83 +123,122 @@
       gap: 6px;
     }
 
-    .lang-pill, .wallet-pill {
-      background: rgba(8, 24, 52, 0.85);
-      border: 1px solid var(--card-border);
-      border-radius: 999px;
-      padding: 5px 12px;
+    .lang-btn {
+      background: rgba(10, 25, 50, 0.7);
+      border: 1px solid var(--border-blue);
+      border-radius: 20px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       font-size: 11px;
       font-weight: 700;
       color: #fff;
+    }
+
+    .wallet-pill {
+      background: rgba(10, 25, 50, 0.7);
+      border: 1px solid var(--border-blue);
+      border-radius: 20px;
+      padding: 4px 10px;
       display: flex;
       align-items: center;
       gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
     }
 
-    /* الصف العلوي: VIP + معدل التعدين + المكافأة */
-    .top-stats-row {
+    /* منطقة مؤشرات VIP والمكافآت */
+    .top-widgets {
       width: 100%;
-      max-width: 430px;
+      max-width: 420px;
       display: grid;
-      grid-template-columns: 80px 1fr 80px;
-      gap: 8px;
-      margin-bottom: 10px;
-      align-items: stretch;
+      grid-template-columns: 85px 1fr 85px;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .vip-card {
+      background: rgba(10, 25, 50, 0.6);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 14px;
+      padding: 6px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+    }
+
+    .vip-crown {
+      width: 18px;
+      height: 18px;
+      fill: var(--gold-main);
+      filter: drop-shadow(0 0 4px var(--gold-glow));
+    }
+
+    .vip-title {
+      font-size: 9px;
+      color: var(--gold-light);
+      font-weight: 700;
+      margin-top: 2px;
     }
 
     .vip-badge {
-      background: linear-gradient(135deg, rgba(255, 190, 11, 0.15), rgba(7, 20, 44, 0.9));
-      border: 1px solid rgba(255, 190, 11, 0.4);
-      border-radius: 16px;
-      padding: 6px 4px;
+      font-size: 10px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-top: 1px;
+    }
+
+    .rate-card {
+      background: rgba(5, 20, 45, 0.75);
+      border: 1px solid var(--border-blue);
+      border-radius: 14px;
+      padding: 6px 8px;
       text-align: center;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    }
+
+    .rate-label {
+      font-size: 10px;
+      color: var(--neon-cyan);
+      font-weight: 700;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 12px rgba(255, 190, 11, 0.2);
+      gap: 4px;
     }
 
-    .vip-label { font-size: 9px; color: var(--gold-bright); font-weight: 700; }
-    .vip-val { font-size: 11px; font-weight: 900; color: #fff; margin-top: 2px; }
+    .rate-val {
+      font-size: 16px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-top: 2px;
+      text-shadow: 0 0 10px var(--neon-cyan);
+    }
 
-    .rate-badge {
-      background: linear-gradient(180deg, rgba(0, 150, 255, 0.2), rgba(3, 16, 38, 0.9));
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 6px 10px;
+    .gift-card {
+      background: rgba(10, 25, 50, 0.6);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      border-radius: 14px;
+      padding: 6px 4px;
       text-align: center;
+      position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+      align-items: center;
     }
-
-    .rate-title { font-size: 10px; color: #94a3b8; font-weight: 700; }
-    .rate-val { font-size: 15px; font-weight: 900; color: var(--gold); text-shadow: 0 0 10px var(--gold-glow); }
 
     .gift-badge {
-      position: relative;
-      background: linear-gradient(135deg, rgba(0, 150, 255, 0.15), rgba(7, 20, 44, 0.9));
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 6px 4px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .gift-badge-notif {
       position: absolute;
       top: -4px;
-      left: -4px;
+      right: -4px;
       background: #ef4444;
-      color: #fff;
+      color: #ffffff;
       font-size: 9px;
       font-weight: 900;
       width: 16px;
@@ -176,499 +247,588 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #fff;
+      border: 1px solid #ffffff;
     }
 
-    .gift-title { font-size: 8px; color: #94a3b8; font-weight: 700; margin-top: 2px; }
+    .gift-icon {
+      font-size: 16px;
+    }
 
-    /* بطاقة الرصيد الفخمة (HUD) */
-    .balance-box {
+    .gift-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* كرت الرصيد الرقمي */
+    .balance-terminal {
       width: 100%;
-      max-width: 430px;
-      background: linear-gradient(180deg, rgba(3, 22, 54, 0.85) 0%, rgba(2, 10, 28, 0.9) 100%);
-      border: 1px solid var(--card-border);
+      max-width: 420px;
+      background: rgba(4, 15, 35, 0.75);
+      border: 1px solid var(--border-blue);
+      backdrop-filter: blur(20px);
       border-radius: 20px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       text-align: center;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 25px rgba(0, 180, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
       margin-bottom: 12px;
-      position: relative;
     }
 
-    .balance-label {
+    .terminal-sub {
       font-size: 11px;
-      font-weight: 800;
-      color: #cbd5e1;
+      color: var(--text-muted);
+      font-weight: 700;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       gap: 6px;
     }
 
-    .balance-amount {
-      font-size: 36px;
+    .terminal-num {
+      font-size: 34px;
       font-weight: 900;
-      color: var(--cyan);
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-      text-shadow: 0 0 20px var(--cyan-glow);
+      color: var(--neon-cyan);
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.65);
+      margin: 2px 0;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      letter-spacing: -0.5px;
     }
 
-    /* منصة العملة ثلاثية الأبعاد */
-    .coin-stage {
+    /* منصة العملة ثلاثية الأبعاد مع قاعدة الشحن الذهبية */
+    .podium-stage {
       position: relative;
-      width: 210px;
-      height: 210px;
-      margin: 4px 0 16px 0;
+      width: 240px;
+      height: 230px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      margin: 2px 0 14px 0;
     }
 
-    .coin-img {
-      width: 190px;
-      height: 190px;
+    .orbit-ring {
+      position: absolute;
+      width: 215px;
+      height: 215px;
       border-radius: 50%;
-      border: 3px solid rgba(0, 240, 255, 0.75);
+      border: 2px solid transparent;
+      border-top-color: var(--neon-cyan);
+      border-bottom-color: var(--gold-main);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+      animation: spinRing 6s linear infinite;
+    }
+
+    @keyframes spinRing {
+      100% { transform: rotate(360deg); }
+    }
+
+    .coin-core {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid rgba(245, 158, 11, 0.7);
       background-image: url('IMG_20261029_212618_959.jpg');
       background-position: center;
       background-size: cover;
-      box-shadow: 0 0 35px rgba(0, 200, 255, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.4);
-      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 0 35px rgba(0, 210, 255, 0.5), inset 0 0 20px rgba(245, 158, 11, 0.4);
+      z-index: 2;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
+    .podium-base {
+      position: absolute;
+      bottom: -6px;
+      width: 190px;
+      height: 26px;
+      background: linear-gradient(180deg, #f59e0b 0%, #78350f 100%);
+      border-radius: 50%;
+      border: 2px solid #fbbf24;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.7);
+      z-index: 1;
     }
 
-    /* شريط التعدين المستمر */
-    .mining-card {
+    /* شريط التعدين الحركي */
+    .mine-track-box {
       width: 100%;
-      max-width: 430px;
-      background: linear-gradient(180deg, rgba(5, 20, 48, 0.88), rgba(2, 9, 24, 0.95));
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 12px 16px;
-      margin-bottom: 10px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      max-width: 420px;
+      background: rgba(4, 15, 35, 0.85);
+      border: 1px solid var(--border-blue);
+      border-radius: 18px;
+      padding: 10px 14px;
+      box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+      margin-bottom: 12px;
     }
 
-    .mining-card-header {
+    .track-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 6px;
     }
 
-    .miner-info {
+    .track-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .pickaxe-icon-box {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: rgba(255, 190, 11, 0.12);
-      border: 1px solid rgba(255, 190, 11, 0.35);
+    .pickaxe-avatar {
+      width: 32px;
+      height: 32px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px var(--gold-glow);
     }
 
-    .status-badge-active {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      border-radius: 999px;
-      padding: 3px 10px;
+    .track-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .live-chip {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid var(--green-live);
+      color: #a7f3d0;
       font-size: 11px;
       font-weight: 800;
-      color: #10b981;
+      padding: 2px 8px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
-    .mining-timer {
-      text-align: center;
-      font-family: ui-monospace, Consolas, monospace;
-      font-size: 24px;
+    .time-stream {
+      font-family: monospace;
+      font-size: 22px;
       font-weight: 900;
-      color: var(--gold);
+      color: var(--gold-light);
+      text-align: center;
+      text-shadow: 0 0 10px var(--gold-glow);
       letter-spacing: 2px;
-      text-shadow: 0 0 12px var(--gold-glow);
+      margin: 4px 0;
     }
 
-    .progress-bar-bg {
+    .progress-trough {
       width: 100%;
       height: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.2);
     }
 
-    .progress-bar-fill {
+    .progress-laser {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #0284c7, var(--cyan));
-      box-shadow: 0 0 10px var(--cyan-glow);
-      border-radius: 8px;
+      background: linear-gradient(90deg, #0284c7, var(--neon-cyan));
+      box-shadow: 0 0 10px var(--neon-cyan);
       transition: width 0.3s ease;
     }
 
-    /* صف الأزرار: التسجيل اليومي + ترقية المستوى */
-    .buttons-grid {
+    /* شبكة بطاقات الأنشطة (المهام، الترقية) */
+    .action-grid {
       width: 100%;
-      max-width: 430px;
+      max-width: 420px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 12px;
     }
 
-    .action-tile {
-      background: linear-gradient(135deg, rgba(7, 24, 58, 0.85), rgba(3, 12, 32, 0.9));
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 12px 14px;
+    .action-card {
+      background: rgba(6, 20, 45, 0.7);
+      border: 1px solid var(--border-blue);
+      border-radius: 16px;
+      padding: 10px 12px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .action-tile:active { transform: scale(0.97); }
-
-    .tile-left {
-      display: flex;
       align-items: center;
-      gap: 10px;
+      box-shadow: 0 0 15px rgba(0, 150, 255, 0.15);
+      cursor: pointer;
     }
 
-    .tile-icon-box {
-      width: 36px;
-      height: 36px;
+    .action-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .action-h1 {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .action-sub {
+      font-size: 10px;
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .action-icon-box {
+      width: 32px;
+      height: 32px;
       border-radius: 10px;
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid var(--card-border);
+      background: rgba(0, 210, 255, 0.12);
+      border: 1px solid rgba(0, 210, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .tile-texts {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tile-title { font-size: 13px; font-weight: 800; color: #fff; }
-    .tile-sub { font-size: 10px; color: #94a3b8; font-weight: 600; }
-
-    /* زر بدء التعدين الذهبي الفاخر */
-    .btn-mine-golden {
+    /* زر بدء التعدين الذهبي الفخم */
+    .mine-execute-btn {
       width: 100%;
-      max-width: 430px;
-      background: linear-gradient(90deg, #f59e0b 0%, #ffbe0b 50%, #f59e0b 100%);
-      border: 1px solid #ffdf70;
+      max-width: 420px;
+      background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
+      color: #000000;
+      border: none;
       border-radius: 20px;
-      padding: 14px 20px;
+      padding: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 0 30px var(--gold-glow);
       cursor: pointer;
-      box-shadow: 0 0 25px var(--gold-glow);
-      transition: transform 0.2s;
-      margin-bottom: 10px;
+      font-weight: 900;
+      transition: all 0.2s ease;
+      margin-bottom: 14px;
     }
 
-    .btn-mine-golden:active { transform: scale(0.98); }
+    .mine-execute-btn:active {
+      transform: scale(0.98);
+    }
 
-    .golden-btn-content {
+    .btn-center {
       display: flex;
       flex-direction: column;
-      text-align: right;
+      align-items: center;
+      text-align: center;
     }
 
-    .golden-btn-title { font-size: 17px; font-weight: 900; color: #000; }
-    .golden-btn-sub { font-size: 11px; font-weight: 700; color: #451a03; }
+    .btn-main-txt {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
 
-    /* الشريط السفلي للتنقل */
-    .bottom-bar {
+    .btn-sub-txt {
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .btn-arrow {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    /* شريط التنقل السفلي */
+    .footer-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 70px;
-      background: rgba(3, 9, 22, 0.95);
-      border-top: 1px solid var(--card-border);
+      height: 68px;
+      background: rgba(2, 6, 16, 0.94);
       backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0, 210, 255, 0.25);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      z-index: 100;
       padding: 0 10px 4px 10px;
+      z-index: 100;
     }
 
-    .nav-item {
+    .foot-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 3px;
-      color: #64748b;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
+      color: #64748b;
       cursor: pointer;
       flex: 1;
     }
 
-    .nav-item.active {
-      color: var(--gold);
+    .foot-item.active {
+      color: var(--gold-main);
     }
 
-    .nav-item.active svg {
-      fill: var(--gold);
+    .foot-icon {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .foot-item.active .foot-icon {
       filter: drop-shadow(0 0 8px var(--gold-glow));
-    }
-
-    /* نافذة التسجيل اليومي المنبثقة (30 يوم) */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(14px);
-      z-index: 200;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .modal-overlay.active { display: flex; }
-
-    .modal-content {
-      width: 100%;
-      max-width: 390px;
-      max-height: 85vh;
-      background: linear-gradient(180deg, #071738 0%, #030a1a 100%);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .modal-title { font-size: 16px; font-weight: 900; color: var(--gold); }
-    .close-btn { background: none; border: none; font-size: 20px; color: #94a3b8; cursor: pointer; }
-
-    .days-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      overflow-y: auto;
-      padding: 6px 2px 14px 2px;
-    }
-
-    .day-tile {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 4px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-    }
-
-    .day-tile.claimed {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: #10b981;
-    }
-
-    .day-tile.current {
-      background: rgba(255, 190, 11, 0.2);
-      border-color: var(--gold);
-      box-shadow: 0 0 12px var(--gold-glow);
-    }
-
-    .day-num { font-size: 10px; color: #94a3b8; font-weight: 700; }
-    .day-reward { font-size: 11px; font-weight: 900; color: var(--cyan); }
-    .day-tile.current .day-reward { color: var(--gold); }
-
-    .claim-daily-btn {
-      width: 100%;
-      background: linear-gradient(90deg, #10b981, #059669);
-      color: #fff;
-      border: none;
-      border-radius: 16px;
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 900;
-      cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-    }
-
-    .claim-daily-btn:disabled {
-      background: rgba(255, 255, 255, 0.1);
-      color: #64748b;
-      box-shadow: none;
-      cursor: not-allowed;
     }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
 </head>
 <body>
 
-  <!-- شريط التحكم العلوي -->
-  <header class="header-bar">
-    <div class="brand-box">
-      <div class="brand-title">
-        ROL
-        <svg class="verified-badge" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+  <!-- الرأس -->
+  <header>
+    <div class="brand-group">
+      <div class="menu-icon">
+        <span></span><span></span><span></span>
       </div>
-      <span class="brand-sub">@ROL_Miner_Bot</span>
+      <div class="brand-title">
+        <span class="brand-name">
+          ROL 
+          <svg class="verified-badge" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </span>
+        <span class="bot-tag">@ROL_Miner_Bot</span>
+      </div>
     </div>
     <div class="top-actions">
-      <div class="lang-pill" id="lang-btn">🌐 AR ▾</div>
-      <div class="wallet-pill" id="wallet-btn">👛 Wallet ▾</div>
+      <div class="lang-btn">
+        <span>🇸🇦 AR</span>
+      </div>
+      <div class="wallet-pill" id="connect-wallet-btn">
+        <span>Wallet</span>
+      </div>
     </div>
   </header>
 
-  <!-- صف الإحصاءات: VIP + معدل التعدين + المكافأة اليومية -->
-  <div class="top-stats-row">
-    <div class="vip-badge">
-      <span class="vip-label">المستوى الذهبي</span>
-      <span class="vip-val">VIP 1 ›</span>
+  <!-- بطاقات VIP ومعدل التعدين والهدية -->
+  <section class="top-widgets">
+    <div class="vip-card">
+      <svg class="vip-crown" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z"/></svg>
+      <span class="vip-title">المستوى الذهبي</span>
+      <span class="vip-badge">VIP 1 &gt;</span>
     </div>
 
-    <div class="rate-badge">
-      <span class="rate-title">🚀 معدل التعدين الحالي</span>
-      <span class="rate-val">+1.250 ROL/ساعة</span>
+    <div class="rate-card">
+      <div class="rate-label">
+        <span>🚀</span> معدل التعدين الحالي
+      </div>
+      <div class="rate-val">+1.250 ROL <span style="font-size: 11px; font-weight: normal; color: var(--text-muted);">/ ساعة</span></div>
     </div>
 
-    <div class="gift-badge" id="open-gift-btn">
-      <span class="gift-badge-notif">1</span>
-      <span style="font-size: 16px;">🎁</span>
-      <span class="gift-title">المكافأة</span>
+    <div class="gift-card">
+      <div class="gift-badge">3</div>
+      <span class="gift-icon">🎁</span>
+      <span class="gift-label">المكافآت اليومية</span>
     </div>
-  </div>
+  </section>
 
-  <!-- بطاقة الرصيد الرقمية العليا -->
-  <div class="balance-box">
-    <div class="balance-label">💼 رصيدك الحالي</div>
-    <div class="balance-amount" id="balance-display">0.00 ROL</div>
-  </div>
+  <!-- محطة الرصيد الرقمي -->
+  <section class="balance-terminal">
+    <div class="terminal-sub">
+      <span>💳</span> رصيدك الحالي
+    </div>
+    <div class="terminal-num" id="balance-display">0.00 ROL</div>
+  </section>
 
-  <!-- منصة عملة ROL ثلاثية الأبعاد -->
-  <div class="coin-stage">
-    <div class="coin-img"></div>
-  </div>
+  <!-- منصة العملة ثلاثية الأبعاد -->
+  <section class="podium-stage">
+    <div class="orbit-ring"></div>
+    <div class="coin-core"></div>
+    <div class="podium-base"></div>
+  </section>
 
-  <!-- وحدة شريط التعدين المستمر -->
-  <div class="mining-card">
-    <div class="mining-card-header">
-      <div class="miner-info">
-        <div class="pickaxe-icon-box">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 4c2.5-1 4.5-.5 6 1s2 3.5 1 6c-2.5-1.5-4-3-7-7z"/>
-            <path d="M2.5 21.5l11-11"/>
+  <!-- شريط تقدم التعدين -->
+  <section class="mine-track-box">
+    <div class="track-meta">
+      <div class="track-left">
+        <div class="pickaxe-avatar">
+          <svg style="width: 18px; height: 18px; fill: var(--gold-main);" viewBox="0 0 100 100">
+            <polygon points="20,86 14,80 54,40 60,46"/>
+            <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
+            <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
           </svg>
         </div>
-        <div style="display: flex; flex-direction: column;">
-          <span style="font-size: 13px; font-weight: 800; color: #fff;">التعدين مستمر...</span>
-          <span style="font-size: 10px; color: #94a3b8;">مكافآتك كل دورة (50 ROL)</span>
-        </div>
+        <span class="track-title" id="track-status-txt">التعدين مستمر...</span>
       </div>
-      <div class="status-badge-active" id="mining-status-tag">⚡ نشط</div>
-    </div>
-
-    <div class="mining-timer" id="countdown">08:00:00</div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progress-bar"></div>
-    </div>
-  </div>
-
-  <!-- صف الأزرار: التسجيل اليومي + ترقية المستوى (تم حذف ما تم شطبه بالأزرق) -->
-  <div class="buttons-grid">
-    <!-- زر التسجيل اليومي الذي طلبته بدقة -->
-    <div class="action-tile" id="open-daily-checkin">
-      <div class="tile-left">
-        <div class="tile-icon-box" style="background: rgba(255, 190, 11, 0.15); border-color: rgba(255, 190, 11, 0.4);">
-          <span style="font-size: 18px;">📅</span>
-        </div>
-        <div class="tile-texts">
-          <span class="tile-title">التسجيل اليومي</span>
-          <span class="tile-sub">مكافآت 30 يوم</span>
-        </div>
+      <div class="live-chip">
+        <span>●</span> نشط ⚡
       </div>
-      <span style="color: #64748b; font-size: 14px;">›</span>
     </div>
+    <div class="time-stream" id="timer-val">08:00:00</div>
+    <div class="progress-trough">
+      <div class="progress-laser" id="progress-line"></div>
+    </div>
+  </section>
 
-    <!-- زر ترقية المستوى -->
-    <div class="action-tile">
-      <div class="tile-left">
-        <div class="tile-icon-box" style="background: rgba(0, 240, 255, 0.15); border-color: var(--card-border);">
-          <span style="font-size: 18px;">📊</span>
-        </div>
-        <div class="tile-texts">
-          <span class="tile-title">ترقية المستوى</span>
-          <span class="tile-sub">مزايا أكبر</span>
-        </div>
+  <!-- شبكة الإجراءات (المهام، الترقية) -->
+  <section class="action-grid">
+    <div class="action-card">
+      <div class="action-info">
+        <span class="action-h1">المهام اليومية</span>
+        <span class="action-sub">مكافآت إضافية</span>
       </div>
-      <span style="color: #64748b; font-size: 14px;">›</span>
+      <div class="action-icon-box">
+        <svg style="width: 18px; height: 18px; fill: var(--neon-cyan);" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+      </div>
     </div>
-  </div>
 
-  <!-- زر بدء التعدين الذهبي الفاخر -->
-  <div class="btn-mine-golden" id="mine-btn">
-    <div style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14.5 4c2.5-1 4.5-.5 6 1s2 3.5 1 6c-2.5-1.5-4-3-7-7z"/>
-        <path d="M2.5 21.5l11-11"/>
-      </svg>
+    <div class="action-card">
+      <div class="action-info">
+        <span class="action-h1">ترقية المستوى</span>
+        <span class="action-sub">مزايا أكبر</span>
+      </div>
+      <div class="action-icon-box">
+        <svg style="width: 18px; height: 18px; fill: var(--neon-cyan);" viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+      </div>
     </div>
-    <div class="golden-btn-content">
-      <span class="golden-btn-title" id="mine-btn-title">بدء التعدين الآن</span>
-      <span class="golden-btn-sub" id="mine-btn-sub">اضغط لزيادة رصيدك</span>
+  </section>
+
+  <!-- زر بدء التعدين الذهبي -->
+  <button class="mine-execute-btn" id="start-mine-btn">
+    <svg style="width: 26px; height: 26px; fill: #000;" viewBox="0 0 100 100">
+      <polygon points="20,86 14,80 54,40 60,46"/>
+      <polygon points="51,43 59,35 67,43 59,51" fill="#fff"/>
+      <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z"/>
+    </svg>
+    <div class="btn-center">
+      <span class="btn-main-txt" id="mine-btn-title">بدء التعدين الآن</span>
+      <span class="btn-sub-txt">اضغط لزيادة رصيدك</span>
     </div>
-    <span style="font-size: 20px; font-weight: 900; color: #000;">»</span>
-  </div>
+    <span class="btn-arrow">&gt;&gt;</span>
+  </button>
 
   <!-- شريط التنقل السفلي -->
-  <nav class="bottom-bar">
-    <div class="nav-item active">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  <footer class="footer-bar">
+    <div class="foot-item active">
+      <svg class="foot-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       <span>الرئيسية</span>
     </div>
-    <div class="nav-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-4.96C19.08 10.63 21 8.55 21 6V5c0-1.1-.9-2-2-2z"/></svg>
+    <div class="foot-item">
+      <svg class="foot-icon" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 003.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
       <span>المكافآت</span>
     </div>
-    <div class="nav-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <div class="foot-item">
+      <svg class="foot-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
       <span>الإحالات</span>
     </div>
-    <div class="nav-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.5
+    <div class="foot-item">
+      <svg class="foot-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+      <span>الإعدادات</span>
+    </div>
+  </footer>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      try {
+        tg.ready();
+        tg.expand();
+      } catch (e) {
+        console.error("TG Init:", e);
+      }
+    }
+
+    const uid = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "pilot";
+    const KEY_BALANCE = `rol_v3_${uid}_bal`;
+    const KEY_START = `rol_v3_${uid}_start`;
+
+    const CYCLE = 8 * 60 * 60 * 1000;
+    const REWARD = 50.0;
+
+    let balance = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
+    let startTime = parseInt(localStorage.getItem(KEY_START) || '0', 10);
+    let isMining = startTime > 0;
+    let lock = false;
+
+    const balanceDisplay = document.getElementById('balance-display');
+    const timerVal = document.getElementById('timer-val');
+    const progressLine = document.getElementById('progress-line');
+    const mineBtn = document.getElementById('start-mine-btn');
+    const mineBtnTitle = document.getElementById('mine-btn-title');
+    const trackStatusTxt = document.getElementById('track-status-txt');
+
+    function updateBalance() {
+      balanceDisplay.innerText = balance.toFixed(2) + " ROL";
+      localStorage.setItem(KEY_BALANCE, balance.toString());
+    }
+
+    function renderEngine() {
+      if (!isMining) {
+        progressLine.style.width = '0%';
+        timerVal.innerText = '08:00:00';
+        trackStatusTxt.innerText = 'التعدين جاهز';
+        mineBtnTitle.innerText = 'بدء التعدين الآن';
+        return;
+      }
+
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const left = Math.max(0, CYCLE - elapsed);
+
+      if (left > 0) {
+        const pct = Math.min(100, (elapsed / CYCLE) * 100).toFixed(1);
+        progressLine.style.width = pct + '%';
+
+        const h = Math.floor(left / (1000 * 60 * 60));
+        const m = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((left % (1000 * 60)) / 1000);
+        timerVal.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+        trackStatusTxt.innerText = 'التعدين مستمر...';
+        mineBtnTitle.innerText = 'جاري التعدين...';
+      } else {
+        progressLine.style.width = '100%';
+        timerVal.innerText = 'جاهز للحصاد!';
+        trackStatusTxt.innerText = 'اكتملت الدورة';
+        mineBtnTitle.innerText = 'استلام المكافأة (+50 ROL)';
+      }
+    }
+
+    mineBtn.addEventListener('click', () => {
+      if (!isMining) {
+        startTime = Date.now();
+        localStorage.setItem(KEY_START, startTime.toString());
+        isMining = true;
+        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+        renderEngine();
+      } else {
+        const elapsed = Date.now() - startTime;
+        if (elapsed >= CYCLE) {
+          if (lock) return;
+          lock = true;
+          balance += REWARD;
+          updateBalance();
+          isMining = false;
+          startTime = 0;
+          localStorage.removeItem(KEY_START);
+          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+          alert('🎉 تم استلام 50 ROL بنجاح!');
+          renderEngine();
+          lock = false;
+        }
+      }
+    });
+
+    setInterval(renderEngine, 1000);
+    updateBalance();
+    renderEngine();
+
+    // تشغيل TonConnect
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        if (window.TON_CONNECT_UI) {
+          const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json',
+            buttonRootId: 'connect-wallet-btn',
+            uiPreferences: { theme: TON_CONNECT_UI.THEME.DARK },
+            actionsConfiguration: { twaReturnUrl: 'https://t.me/ROL_Miner_Bot' }
+          });
+        }
+      } catch (e) {
+        console.warn("Wallet fallback active");
+      }
+    });
+  </script>
+</body>
+</html>
