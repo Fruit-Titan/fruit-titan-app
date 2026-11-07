@@ -25,7 +25,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* تثبيت صورة التصميم كخلفية حية بنفس اسمها الفعلي المرفوع */
     .app-screen {
       position: relative;
       width: 100%;
@@ -38,7 +37,7 @@
       padding-bottom: 75px;
     }
 
-    /* منطقة ربط المحفظة المخفية بدقة فوق زر Wallet */
+    /* منطقة ربط المحفظة */
     .wallet-touch-zone {
       position: absolute;
       top: 14px;
@@ -56,58 +55,53 @@
       height: 100%;
     }
 
-    /* شاشة الرصيد المتغير فوق مربع الرصيد في الصورة */
+    /* قناع نيون معتم لإخفاء الرقم القديم وعرض الرصيد الحي النظيف */
     .live-balance-overlay {
       position: absolute;
-      top: 20%;
+      top: 19.8%;
       left: 50%;
       transform: translateX(-50%);
-      width: 80%;
-      text-align: center;
+      width: 72%;
+      height: 48px;
+      background: #020b1e;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: ui-monospace, SFMono-Regular, monospace;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 35px rgba(0, 240, 255, 0.4);
-      letter-spacing: -0.5px;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.9);
+      letter-spacing: 0.5px;
       z-index: 10;
+      box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.2);
     }
 
-    /* عداد التعدين الحقيقي التفاعلي */
+    /* قناع معتم لإخفاء وقت الصورة وعرض عداد التعدين الحي */
     .live-timer-overlay {
       position: absolute;
-      top: 60%;
+      top: 59.6%;
       left: 50%;
       transform: translateX(-50%);
+      width: 55%;
+      height: 38px;
+      background: #030d22;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: ui-monospace, SFMono-Regular, monospace;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 900;
       color: #facc15;
-      text-shadow: 0 0 15px rgba(250, 204, 21, 0.7);
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
       letter-spacing: 2px;
       z-index: 10;
+      box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.15);
     }
 
-    /* نبض مؤشر النشاط الأخضر */
-    .live-status-dot {
-      position: absolute;
-      top: 58.2%;
-      left: 31%;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-      z-index: 10;
-      animation: pulseGreen 1.5s infinite;
-    }
-
-    @keyframes pulseGreen {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    /* بطاقة التسجيل اليومي التفاعلية */
+    /* بطاقة التسجيل اليومي */
     .checkin-touch-zone {
       position: absolute;
       top: 70.8%;
@@ -116,15 +110,15 @@
       width: 90%;
       height: 52px;
       border-radius: 16px;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      background: #030e25;
+      border: 1px solid rgba(0, 240, 255, 0.4);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 16px;
       z-index: 15;
-      backdrop-filter: blur(4px);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
     }
 
     .checkin-txt-bold {
@@ -144,7 +138,7 @@
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
     }
 
-    /* منطقة النقر على زر بدء التعدين الذهبي */
+    /* زر بدء التعدين التفاعلي */
     .mine-touch-btn {
       position: absolute;
       top: 78.5%;
@@ -164,7 +158,7 @@
       border-radius: 20px;
     }
 
-    /* نافذة الـ 30 يوماً المنبثقة للتسجيل اليومي */
+    /* نافذة التسجيل اليومي */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -270,7 +264,7 @@
       color: #fff;
     }
 
-    /* شريط التنقل السفلي */
+    /* الشريط السفلي */
     .footer-touch-bar {
       position: fixed;
       bottom: 0;
@@ -291,7 +285,7 @@
       cursor: pointer;
     }
 
-    /* شاشات الأقسام الإضافية */
+    /* الشاشات الفرعية */
     .subview-sheet {
       position: fixed;
       inset: 0;
@@ -331,29 +325,28 @@
 <body>
 
   <div class="app-screen">
-    <!-- منطقة ربط المحفظة فوق زر Wallet -->
+    <!-- منطقة ربط المحفظة -->
     <div class="wallet-touch-zone">
       <div id="ton-connect-btn"></div>
     </div>
 
-    <!-- الرصيد الديناميكي فوق تصميم الصورة -->
+    <!-- الرصيد الحي بدون تداخل -->
     <div class="live-balance-overlay" id="balance-display">0.00 ROL</div>
 
-    <!-- مؤشر النشاط والوقت التنازلي للتعدين -->
-    <div class="live-status-dot" id="mining-dot"></div>
+    <!-- عداد التعدين الحي بدون تداخل -->
     <div class="live-timer-overlay" id="timer-val">08:00:00</div>
 
-    <!-- بطاقة التسجيل اليومي 30 يوم فوق المستطيل المخصص -->
+    <!-- بطاقة التسجيل اليومي (30 يوم) -->
     <div class="checkin-touch-zone" id="open-checkin-btn">
       <span class="checkin-txt-bold">التسجيل اليومي (30 يوم)</span>
       <span class="checkin-badge-state" id="checkin-badge-state">استلام اليوم</span>
     </div>
 
-    <!-- زر بدء التعدين التفاعلي -->
+    <!-- زر بدء التعدين -->
     <button class="mine-touch-btn" id="start-mine-btn"></button>
   </div>
 
-  <!-- مناطق النقر في الشريط السفلي -->
+  <!-- الشريط السفلي -->
   <div class="footer-touch-bar">
     <div class="foot-tab-zone" id="tab-btn-home"></div>
     <div class="foot-tab-zone" id="tab-btn-tasks"></div>
@@ -361,7 +354,7 @@
     <div class="foot-tab-zone" id="tab-btn-settings"></div>
   </div>
 
-  <!-- نافذة التسجيل اليومي (30 يوم) -->
+  <!-- نافذة التسجيل اليومي 30 يوم -->
   <div class="modal-overlay" id="checkin-modal">
     <div class="modal-content">
       <div class="modal-title">التسجيل اليومي (30 يوماً)</div>
@@ -401,7 +394,7 @@
     </button>
   </div>
 
-  <!-- صفحة الإعدادات والمحفظة -->
+  <!-- صفحة الإعدادات -->
   <div class="subview-sheet" id="sheet-settings">
     <div class="subview-header">
       <h2 style="color: #00f0ff;">المحفظة والإعدادات</h2>
@@ -452,18 +445,15 @@
     const balanceDisplay = document.getElementById('balance-display');
     const timerVal = document.getElementById('timer-val');
     const mineBtn = document.getElementById('start-mine-btn');
-    const miningDot = document.getElementById('mining-dot');
 
     function updateBalance() {
-      balanceDisplay.innerText = balance.toFixed(3) + " ROL";
+      balanceDisplay.innerText = balance.toFixed(2) + " ROL";
       localStorage.setItem(KEY_BALANCE, balance.toString());
     }
 
     function renderMining() {
       if (!isMining) {
         timerVal.innerText = '08:00:00';
-        miningDot.style.background = '#64748b';
-        miningDot.style.boxShadow = 'none';
         return;
       }
 
@@ -472,17 +462,12 @@
       const left = Math.max(0, CYCLE - elapsed);
 
       if (left > 0) {
-        miningDot.style.background = '#10b981';
-        miningDot.style.boxShadow = '0 0 10px #10b981';
-
         const h = Math.floor(left / (1000 * 60 * 60));
         const m = Math.floor((left % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((left % (1000 * 60)) / 1000);
         timerVal.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
       } else {
         timerVal.innerText = 'استلام +50!';
-        miningDot.style.background = '#f59e0b';
-        miningDot.style.boxShadow = '0 0 15px #f59e0b';
       }
     }
 
@@ -515,7 +500,7 @@
     updateBalance();
     renderMining();
 
-    // نافذة التسجيل اليومي
+    // نافذة التسجيل اليومي 30 يوم
     const checkinModal = document.getElementById('checkin-modal');
     const daysGrid = document.getElementById('days-grid-container');
     const claimDailyBtn = document.getElementById('claim-daily-btn');
@@ -589,7 +574,6 @@
 
     renderDaysGrid();
 
-    // التنقل بين الأقسام
     function closeSheets() {
       document.querySelectorAll('.subview-sheet').forEach(s => s.classList.remove('active'));
     }
@@ -608,7 +592,6 @@
       document.getElementById('sheet-settings').classList.add('active');
     };
 
-    // مشاركة رابط الإحالة
     document.getElementById('share-ref-link-btn').onclick = () => {
       const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
       const text = `انضم وابدأ تعدين ROL واحصل على مكافآت 30 يوم مجانية! 💎`;
@@ -616,7 +599,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     };
 
-    // ربط TonConnect
+    // ربط المحفظة
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
