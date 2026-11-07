@@ -3,364 +3,310 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ROL Ecosystem - Mining Terminal</title>
+  <title>ROL Miner Bot</title>
   
   <style>
-    /* منع الوميض وتجهيز البيئة الداكنة */
     html, body {
-      background-color: #020612 !important;
-      color: #f8fafc;
+      background-color: #020713 !important;
+      color: #ffffff;
       margin: 0;
       padding: 0;
       width: 100%;
       min-height: 100vh;
       overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     :root {
-      --bg: #020612;
-      --card-bg: rgba(7, 16, 34, 0.78);
-      --card-border: rgba(0, 240, 255, 0.25);
-      --cyan: #38bdf8;
-      --cyan-bright: #00f0ff;
+      --cyan: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
-      --gold: #ffb703;
-      --gold-bright: #ffd166;
-      --gold-glow: rgba(255, 183, 3, 0.65);
+      --gold: #ffbe0b;
+      --gold-bright: #ffdf70;
+      --gold-glow: rgba(255, 190, 11, 0.55);
+      --card-bg: rgba(6, 17, 38, 0.85);
+      --card-border: rgba(0, 240, 255, 0.3);
       --green: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.4);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* خلفية غرفة خوادم وتعدين ROL الفخمة */
+    /* خلفية المنجم والبلورات الزرقاء النيون */
     body {
       background: 
-        radial-gradient(circle at 50% 15%, rgba(0, 240, 255, 0.22) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(14, 165, 233, 0.16) 0%, transparent 50%),
-        radial-gradient(circle at 90% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        repeating-linear-gradient(0deg, rgba(0, 240, 255, 0.03) 0px, rgba(0, 240, 255, 0.03) 1px, transparent 1px, transparent 28px),
-        repeating-linear-gradient(90deg, rgba(0, 240, 255, 0.03) 0px, rgba(0, 240, 255, 0.03) 1px, transparent 1px, transparent 28px),
-        #020612;
+        radial-gradient(circle at 50% 12%, rgba(0, 200, 255, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 10% 45%, rgba(0, 140, 255, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 90% 70%, rgba(0, 100, 255, 0.2) 0%, transparent 50%),
+        linear-gradient(180deg, #020713 0%, #030e24 40%, #020713 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px 16px 95px 16px;
+      padding: 10px 14px 85px 14px;
       min-height: 100vh;
       position: relative;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--cyan-bright), transparent);
-      animation: scanline 4s linear infinite;
-      z-index: 1;
-      opacity: 0.7;
-    }
-
-    @keyframes scanline {
-      0% { transform: translateY(-5px); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    header {
+    /* الشريط العلوي للتحكم */
+    .header-bar {
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 0;
-      margin-bottom: 12px;
-      z-index: 10;
+      padding: 4px 2px;
+      margin-bottom: 10px;
     }
 
-    .top-controls {
+    .brand-box {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .user-pill {
-      background: var(--card-bg);
+    .brand-title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .verified-badge {
+      width: 16px;
+      height: 16px;
+      fill: var(--cyan);
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-pill, .wallet-pill {
+      background: rgba(8, 24, 52, 0.85);
       border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      padding: 6px 12px;
       border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .lang-wrapper {
-      position: relative;
-    }
-
-    .lang-select {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--cyan-bright);
-      font-size: 11px;
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 12px;
-      outline: none;
-      backdrop-filter: blur(14px);
+      gap: 5px;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
-      appearance: none;
-      -webkit-appearance: none;
-      text-align: center;
     }
 
-    .wallet-container {
-      position: relative;
-      border-radius: 18px;
-      padding: 2px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(56, 189, 248, 0.15), rgba(16, 185, 129, 0.4));
-      box-shadow: 0 0 15px var(--cyan-glow);
-      animation: pulseGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 12px rgba(0, 240, 255, 0.3); }
-      100% { box-shadow: 0 0 22px rgba(0, 240, 255, 0.65); }
-    }
-
-    #ton-connect-btn {
-      transform: scale(0.82);
-      transform-origin: center;
-      display: flex;
-    }
-
-    .view-section {
+    /* الصف العلوي: VIP + معدل التعدين + المكافأة */
+    .top-stats-row {
       width: 100%;
-      max-width: 420px;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.22s ease-out;
-      z-index: 5;
-    }
-
-    .view-section.active {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* بطاقة الرصيد الرقمية العليا */
-    .balance-hud {
-      position: relative;
-      background: linear-gradient(145deg, rgba(9, 20, 44, 0.88), rgba(4, 10, 24, 0.8));
-      backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 16px 20px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-
-    .balance-hud::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 20%; right: 20%; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan-bright), transparent);
-    }
-
-    .balance-hud-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .balance-val {
-      font-size: 42px;
-      font-weight: 900;
-      color: var(--cyan-bright);
-      margin: 2px 0;
-      text-shadow: 0 0 25px var(--cyan-glow);
-      letter-spacing: -0.5px;
-      display: flex;
-      justify-content: center;
-      align-items: baseline;
+      max-width: 430px;
+      display: grid;
+      grid-template-columns: 80px 1fr 80px;
       gap: 8px;
+      margin-bottom: 10px;
+      align-items: stretch;
     }
 
-    .balance-val .unit {
-      font-size: 17px;
-      color: #ffffff;
-      font-weight: 800;
-      text-shadow: none;
+    .vip-badge {
+      background: linear-gradient(135deg, rgba(255, 190, 11, 0.15), rgba(7, 20, 44, 0.9));
+      border: 1px solid rgba(255, 190, 11, 0.4);
+      border-radius: 16px;
+      padding: 6px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 12px rgba(255, 190, 11, 0.2);
     }
 
-    /* منصة العملة */
-    .mining-circle-wrapper {
+    .vip-label { font-size: 9px; color: var(--gold-bright); font-weight: 700; }
+    .vip-val { font-size: 11px; font-weight: 900; color: #fff; margin-top: 2px; }
+
+    .rate-badge {
+      background: linear-gradient(180deg, rgba(0, 150, 255, 0.2), rgba(3, 16, 38, 0.9));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 6px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .rate-title { font-size: 10px; color: #94a3b8; font-weight: 700; }
+    .rate-val { font-size: 15px; font-weight: 900; color: var(--gold); text-shadow: 0 0 10px var(--gold-glow); }
+
+    .gift-badge {
       position: relative;
-      width: 226px;
-      height: 226px;
-      margin: 10px 0 20px 0;
+      background: linear-gradient(135deg, rgba(0, 150, 255, 0.15), rgba(7, 20, 44, 0.9));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 6px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .gift-badge-notif {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 900;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #fff;
+    }
+
+    .gift-title { font-size: 8px; color: #94a3b8; font-weight: 700; margin-top: 2px; }
+
+    /* بطاقة الرصيد الفخمة (HUD) */
+    .balance-box {
+      width: 100%;
+      max-width: 430px;
+      background: linear-gradient(180deg, rgba(3, 22, 54, 0.85) 0%, rgba(2, 10, 28, 0.9) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 12px 16px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 240, 255, 0.1);
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .balance-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .balance-amount {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--cyan);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+      text-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    /* منصة العملة ثلاثية الأبعاد */
+    .coin-stage {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      margin: 4px 0 16px 0;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .mining-spinner {
-      position: absolute;
-      inset: -8px;
+    .coin-img {
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: var(--cyan-bright);
-      border-right-color: var(--cyan);
-      box-shadow: 0 0 25px var(--cyan-glow);
-      animation: spin 3.5s linear infinite;
-      display: none;
-    }
-
-    .mining-spinner.active {
-      display: block;
-    }
-
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-
-    .rol-coin {
-      width: 216px;
-      height: 216px;
-      border-radius: 50%;
-      border: 3px solid rgba(0, 240, 255, 0.7);
+      border: 3px solid rgba(0, 240, 255, 0.75);
       background-image: url('IMG_20261029_212618_959.jpg');
       background-position: center;
       background-size: cover;
-      background-repeat: no-repeat;
-      background-color: #030712;
-      box-shadow: 0 0 40px rgba(0, 200, 255, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.4);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 35px rgba(0, 200, 255, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.4);
+      animation: float 4s ease-in-out infinite;
     }
 
-    .mining-circle-wrapper:active .rol-coin {
-      transform: scale(0.96);
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
     }
 
-    /* بطاقة شريط التعدين مع فأس النيون الذهبي */
-    .circuit-progress-card {
+    /* شريط التعدين المستمر */
+    .mining-card {
       width: 100%;
-      background: linear-gradient(180deg, rgba(10, 20, 42, 0.85), rgba(4, 9, 22, 0.95));
+      max-width: 430px;
+      background: linear-gradient(180deg, rgba(5, 20, 48, 0.88), rgba(2, 9, 24, 0.95));
       border: 1px solid var(--card-border);
-      backdrop-filter: blur(18px);
       border-radius: 20px;
-      padding: 14px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.05);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
-    .mining-header-badge {
+    .mining-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .miner-info {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    /* صندوق الفأس الشفاف والمضيء بدقة */
-    .pickaxe-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: radial-gradient(circle, rgba(255, 183, 3, 0.22) 0%, rgba(255, 183, 3, 0.05) 75%);
-      border: 1px solid rgba(255, 183, 3, 0.45);
+    .pickaxe-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255, 190, 11, 0.12);
+      border: 1px solid rgba(255, 190, 11, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 20px var(--gold-glow);
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
-    /* الفأس الذهبي النيون بدون أي خلفية سوداء */
-    .gold-neon-pickaxe {
-      width: 32px;
-      height: 32px;
-      filter: drop-shadow(0 0 8px var(--gold-bright)) drop-shadow(0 0 14px var(--gold));
-    }
-
-    .mining-status-info {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .mining-title-txt {
-      font-size: 14px;
+    .status-badge-active {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
       font-weight: 800;
-      color: #ffffff;
-    }
-
-    .mining-live-sub {
+      color: #10b981;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
+      gap: 4px;
     }
 
-    .pulse-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--text-muted);
-    }
-
-    .pulse-dot.active {
-      background-color: var(--green);
-      box-shadow: 0 0 8px var(--green-glow);
-      animation: blink 1.2s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .circuit-timer-display {
+    .mining-timer {
       text-align: center;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 22px;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 24px;
       font-weight: 900;
-      color: var(--cyan-bright);
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px var(--cyan-glow);
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px var(--gold-glow);
     }
 
     .progress-bar-bg {
-      position: relative;
       width: 100%;
-      height: 10px;
+      height: 8px;
       background: rgba(255, 255, 255, 0.06);
       border-radius: 8px;
       overflow: hidden;
@@ -368,141 +314,226 @@
     }
 
     .progress-bar-fill {
-      position: relative;
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #0284c7, var(--cyan-bright));
-      box-shadow: 0 0 14px var(--cyan-glow);
+      background: linear-gradient(90deg, #0284c7, var(--cyan));
+      box-shadow: 0 0 10px var(--cyan-glow);
       border-radius: 8px;
       transition: width 0.3s ease;
     }
 
-    .progress-bar-fill::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-      transform: translateX(-100%);
-      animation: laserSweep 2s infinite;
-    }
-
-    @keyframes laserSweep {
-      100% { transform: translateX(100%); }
-    }
-
-    /* زر التعدين الاحترافي */
-    .cta-btn {
+    /* صف الأزرار: التسجيل اليومي + ترقية المستوى */
+    .buttons-grid {
       width: 100%;
-      padding: 16px;
-      border-radius: 18px;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.2s ease;
-    }
-
-    .cta-btn-start {
-      background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
-      color: #020612;
-      box-shadow: 0 6px 25px rgba(0, 240, 255, 0.4);
-    }
-
-    .cta-btn-claim {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: #ffffff;
-      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.45);
-    }
-
-    .cta-btn-disabled {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-muted);
-      cursor: not-allowed;
-    }
-
-    /* بطاقات الأقسام */
-    .info-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 20px;
-      padding: 18px;
-      width: 100%;
-      margin-bottom: 14px;
-    }
-
-    .stats-grid {
+      max-width: 430px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      width: 100%;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .stat-box {
-      background: rgba(255, 255, 255, 0.03);
+    .action-tile {
+      background: linear-gradient(135deg, rgba(7, 24, 58, 0.85), rgba(3, 12, 32, 0.9));
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 14px;
-      text-align: center;
+      border-radius: 18px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .stat-box .val {
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--cyan-bright);
+    .action-tile:active { transform: scale(0.97); }
+
+    .tile-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .stat-box .desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
+    .tile-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* الشريط السفلي المتطور */
-    .bottom-nav {
+    .tile-texts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tile-title { font-size: 13px; font-weight: 800; color: #fff; }
+    .tile-sub { font-size: 10px; color: #94a3b8; font-weight: 600; }
+
+    /* زر بدء التعدين الذهبي الفاخر */
+    .btn-mine-golden {
+      width: 100%;
+      max-width: 430px;
+      background: linear-gradient(90deg, #f59e0b 0%, #ffbe0b 50%, #f59e0b 100%);
+      border: 1px solid #ffdf70;
+      border-radius: 20px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 25px var(--gold-glow);
+      transition: transform 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .btn-mine-golden:active { transform: scale(0.98); }
+
+    .golden-btn-content {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .golden-btn-title { font-size: 17px; font-weight: 900; color: #000; }
+    .golden-btn-sub { font-size: 11px; font-weight: 700; color: #451a03; }
+
+    /* الشريط السفلي للتنقل */
+    .bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 74px;
-      background: rgba(2, 6, 18, 0.94);
+      height: 70px;
+      background: rgba(3, 9, 22, 0.95);
+      border-top: 1px solid var(--card-border);
       backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(0, 240, 255, 0.2);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 0 16px 6px 16px;
       z-index: 100;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7);
+      padding: 0 10px 4px 10px;
     }
 
-    .nav-tab {
+    .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 4px;
+      gap: 3px;
       color: #64748b;
-      cursor: pointer;
       font-size: 11px;
       font-weight: 700;
-      transition: all 0.22s ease;
+      cursor: pointer;
       flex: 1;
-      height: 100%;
     }
 
-    .nav-tab.active {
-      color: var(--gold-bright);
+    .nav-item.active {
+      color: var(--gold);
     }
 
-    .nav-tab.active .gold-neon-pickaxe {
-      transform: translateY(-2px) scale(1.15);
-      filter: drop-shadow(0 0 10px var(--gold-bright)) drop-shadow(0 0 18px var(--gold));
+    .nav-item.active svg {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 8px var(--gold-glow));
+    }
+
+    /* نافذة التسجيل اليومي المنبثقة (30 يوم) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 200;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-content {
+      width: 100%;
+      max-width: 390px;
+      max-height: 85vh;
+      background: linear-gradient(180deg, #071738 0%, #030a1a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-title { font-size: 16px; font-weight: 900; color: var(--gold); }
+    .close-btn { background: none; border: none; font-size: 20px; color: #94a3b8; cursor: pointer; }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      overflow-y: auto;
+      padding: 6px 2px 14px 2px;
+    }
+
+    .day-tile {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .day-tile.claimed {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+    }
+
+    .day-tile.current {
+      background: rgba(255, 190, 11, 0.2);
+      border-color: var(--gold);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+
+    .day-num { font-size: 10px; color: #94a3b8; font-weight: 700; }
+    .day-reward { font-size: 11px; font-weight: 900; color: var(--cyan); }
+    .day-tile.current .day-reward { color: var(--gold); }
+
+    .claim-daily-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .claim-daily-btn:disabled {
+      background: rgba(255, 255, 255, 0.1);
+      color: #64748b;
+      box-shadow: none;
+      cursor: not-allowed;
     }
   </style>
 
@@ -510,411 +541,134 @@
 </head>
 <body>
 
-  <header>
-    <div class="top-controls">
-      <div class="user-pill" id="user-display">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span id="user-name-text">...</span>
+  <!-- شريط التحكم العلوي -->
+  <header class="header-bar">
+    <div class="brand-box">
+      <div class="brand-title">
+        ROL
+        <svg class="verified-badge" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
       </div>
-      <div class="lang-wrapper">
-        <select id="lang-switch" class="lang-select">
-          <option value="ar" selected>🇸🇦 AR</option>
-          <option value="en">🇬🇧 EN</option>
-          <option value="ru">🇷🇺 RU</option>
-        </select>
-      </div>
+      <span class="brand-sub">@ROL_Miner_Bot</span>
     </div>
-    <div class="wallet-container">
-      <div id="ton-connect-btn"></div>
+    <div class="top-actions">
+      <div class="lang-pill" id="lang-btn">🌐 AR ▾</div>
+      <div class="wallet-pill" id="wallet-btn">👛 Wallet ▾</div>
     </div>
   </header>
 
-  <!-- تبويب 1: التعدين -->
-  <main class="view-section active" id="tab-mining">
-    <div class="balance-hud">
-      <div class="balance-hud-label" data-i18n="withdrawable_balance">الرصيد المتاح للسحب</div>
-      <div class="balance-val">
-        <span id="balance">0.00</span>
-        <span class="unit">ROL</span>
-      </div>
+  <!-- صف الإحصاءات: VIP + معدل التعدين + المكافأة اليومية -->
+  <div class="top-stats-row">
+    <div class="vip-badge">
+      <span class="vip-label">المستوى الذهبي</span>
+      <span class="vip-val">VIP 1 ›</span>
     </div>
 
-    <div class="mining-circle-wrapper">
-      <div class="mining-spinner" id="spinner"></div>
-      <div class="rol-coin"></div>
+    <div class="rate-badge">
+      <span class="rate-title">🚀 معدل التعدين الحالي</span>
+      <span class="rate-val">+1.250 ROL/ساعة</span>
     </div>
 
-    <!-- بطاقة التعدين النشط مع فأس النيون الذهبي المتوهج -->
-    <div class="circuit-progress-card">
-      <div class="mining-header-badge">
-        <div class="pickaxe-box">
-          <svg class="gold-neon-pickaxe" viewBox="0 0 100 100">
-            <defs>
-              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff7cd" />
-                <stop offset="40%" stop-color="#ffd166" />
-                <stop offset="80%" stop-color="#ffb703" />
-                <stop offset="100%" stop-color="#fb8500" />
-              </linearGradient>
-            </defs>
-            <!-- مقبض الفأس المائل والسميك -->
-            <polygon points="20,86 14,80 54,40 60,46" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
-            <!-- كتلة التثبيت المركزية -->
-            <polygon points="51,43 59,35 67,43 59,51" fill="url(#goldGrad)" stroke="#ffffff" stroke-width="1.5" />
-            <!-- رأس الفأس المقوس الحاد المضيء -->
-            <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+    <div class="gift-badge" id="open-gift-btn">
+      <span class="gift-badge-notif">1</span>
+      <span style="font-size: 16px;">🎁</span>
+      <span class="gift-title">المكافأة</span>
+    </div>
+  </div>
+
+  <!-- بطاقة الرصيد الرقمية العليا -->
+  <div class="balance-box">
+    <div class="balance-label">💼 رصيدك الحالي</div>
+    <div class="balance-amount" id="balance-display">0.00 ROL</div>
+  </div>
+
+  <!-- منصة عملة ROL ثلاثية الأبعاد -->
+  <div class="coin-stage">
+    <div class="coin-img"></div>
+  </div>
+
+  <!-- وحدة شريط التعدين المستمر -->
+  <div class="mining-card">
+    <div class="mining-card-header">
+      <div class="miner-info">
+        <div class="pickaxe-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 4c2.5-1 4.5-.5 6 1s2 3.5 1 6c-2.5-1.5-4-3-7-7z"/>
+            <path d="M2.5 21.5l11-11"/>
           </svg>
         </div>
-        <div class="mining-status-info">
-          <span class="mining-title-txt" data-i18n="mining_active_title">التعدين النشط</span>
-          <span class="mining-live-sub">
-            <span class="pulse-dot" id="mining-indicator"></span>
-            <span id="mining-status-lbl" data-i18n="status_standby">خامل</span>
-          </span>
+        <div style="display: flex; flex-direction: column;">
+          <span style="font-size: 13px; font-weight: 800; color: #fff;">التعدين مستمر...</span>
+          <span style="font-size: 10px; color: #94a3b8;">مكافآتك كل دورة (50 ROL)</span>
         </div>
       </div>
-      <div class="circuit-timer-display" id="countdown">08:00:00</div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-bar"></div>
-      </div>
+      <div class="status-badge-active" id="mining-status-tag">⚡ نشط</div>
     </div>
 
-    <button class="cta-btn cta-btn-start" id="mine-action-btn">
-      <span id="btn-text" data-i18n="btn_start">ابدأ</span>
-    </button>
-  </main>
+    <div class="mining-timer" id="countdown">08:00:00</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+  </div>
 
-  <!-- تبويب 2: الإحالات -->
-  <section class="view-section" id="tab-frens">
-    <div class="balance-hud">
-      <div class="balance-hud-label" data-i18n="referral_earnings">أرباح الإحالات المكتسبة</div>
-      <div class="balance-val">
-        <span id="ref-earned">0.00</span>
-        <span class="unit">ROL</span>
+  <!-- صف الأزرار: التسجيل اليومي + ترقية المستوى (تم حذف ما تم شطبه بالأزرق) -->
+  <div class="buttons-grid">
+    <!-- زر التسجيل اليومي الذي طلبته بدقة -->
+    <div class="action-tile" id="open-daily-checkin">
+      <div class="tile-left">
+        <div class="tile-icon-box" style="background: rgba(255, 190, 11, 0.15); border-color: rgba(255, 190, 11, 0.4);">
+          <span style="font-size: 18px;">📅</span>
+        </div>
+        <div class="tile-texts">
+          <span class="tile-title">التسجيل اليومي</span>
+          <span class="tile-sub">مكافآت 30 يوم</span>
+        </div>
       </div>
+      <span style="color: #64748b; font-size: 14px;">›</span>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="val" id="ref-count">0</div>
-        <div class="desc" data-i18n="invited_friends">الأصدقاء المدعوون</div>
+    <!-- زر ترقية المستوى -->
+    <div class="action-tile">
+      <div class="tile-left">
+        <div class="tile-icon-box" style="background: rgba(0, 240, 255, 0.15); border-color: var(--card-border);">
+          <span style="font-size: 18px;">📊</span>
+        </div>
+        <div class="tile-texts">
+          <span class="tile-title">ترقية المستوى</span>
+          <span class="tile-sub">مزايا أكبر</span>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="val">10%</div>
-        <div class="desc" data-i18n="referral_bonus">نسبة الإنتاج</div>
-      </div>
+      <span style="color: #64748b; font-size: 14px;">›</span>
     </div>
+  </div>
 
-    <button class="cta-btn cta-btn-start" id="share-ref-btn">
-      <span data-i18n="invite_friend">دعوة الأصدقاء</span>
-    </button>
-  </section>
-
-  <!-- تبويب 3: المحفظة -->
-  <section class="view-section" id="tab-wallet">
-    <div class="balance-hud">
-      <div class="balance-hud-label" data-i18n="connected_wallet">عنوان المحفظة المتصلة</div>
-      <div id="wallet-address-display" style="font-size: 14px; font-weight: 700; color: var(--cyan-bright); margin: 8px 0; word-break: break-all; font-family: monospace;">
-        غير متصلة
-      </div>
-      <div style="font-size: 11px; color: var(--green); font-weight: 700;">TON MAINNET</div>
-    </div>
-
-    <div class="info-card">
-      <div style="font-size: 14px; font-weight: 800; color: var(--cyan-bright); margin-bottom: 6px;" data-i18n="withdraw_title">سحب العملات</div>
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;" data-i18n="withdraw_desc">الحد الأدنى للسحب هو 50 ROL. يتم تدقيق العمليات من الإدارة وحمايتها من الثغرات.</p>
-      <button class="cta-btn cta-btn-disabled" id="request-withdraw-btn" style="padding: 12px; font-size: 13px;">
-        <span data-i18n="withdraw_locked">السحب مقفل حالياً</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- شريط التنقل السفلي مع فأس النيون الذهبي الشفاف المضيء -->
-  <nav class="bottom-nav">
-    <div class="nav-tab active" data-tab="tab-mining">
-      <svg class="gold-neon-pickaxe" style="width: 24px; height: 24px;" viewBox="0 0 100 100">
-        <!-- مقبض الفأس -->
-        <polygon points="20,86 14,80 54,40 60,46" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
-        <!-- المركز -->
-        <polygon points="51,43 59,35 67,43 59,51" fill="url(#goldGrad)" stroke="#ffffff" stroke-width="1.5" />
-        <!-- الرأس الحاد المقوس -->
-        <path d="M26,24 C44,17 62,23 82,72 C79,53 72,40 59,35 C46,30 36,27 26,24 Z" fill="url(#goldGrad)" stroke="#ffd166" stroke-width="1.5" />
+  <!-- زر بدء التعدين الذهبي الفاخر -->
+  <div class="btn-mine-golden" id="mine-btn">
+    <div style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 4c2.5-1 4.5-.5 6 1s2 3.5 1 6c-2.5-1.5-4-3-7-7z"/>
+        <path d="M2.5 21.5l11-11"/>
       </svg>
-      <span data-i18n="nav_mining">التعدين</span>
     </div>
-    <div class="nav-tab" data-tab="tab-frens">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-      </svg>
-      <span data-i18n="nav_frens">الإحالة</span>
+    <div class="golden-btn-content">
+      <span class="golden-btn-title" id="mine-btn-title">بدء التعدين الآن</span>
+      <span class="golden-btn-sub" id="mine-btn-sub">اضغط لزيادة رصيدك</span>
     </div>
-    <div class="nav-tab" data-tab="tab-wallet">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-      </svg>
-      <span data-i18n="nav_wallet">المحفظة</span>
+    <span style="font-size: 20px; font-weight: 900; color: #000;">»</span>
+  </div>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-bar">
+    <div class="nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>الرئيسية</span>
     </div>
-  </nav>
-
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js" defer></script>
-
-  <script>
-    const translations = {
-      ar: {
-        withdrawable_balance: "الرصيد المتاح للسحب",
-        btn_start: "ابدأ",
-        btn_mining: "جاري التعدين",
-        btn_claim: "استلام",
-        completed: "جاهز",
-        referral_earnings: "أرباح الإحالات المكتسبة",
-        invited_friends: "الأصدقاء المدعوون",
-        referral_bonus: "نسبة الإنتاج",
-        invite_friend: "دعوة الأصدقاء",
-        connected_wallet: "عنوان المحفظة المتصلة",
-        not_connected: "غير متصلة",
-        withdraw_title: "سحب العملات",
-        withdraw_desc: "الحد الأدنى للسحب هو 50 ROL. يتم تدقيق العمليات من الإدارة وحمايتها من الثغرات.",
-        withdraw_locked: "السحب مقفل حالياً",
-        nav_mining: "التعدين",
-        nav_frens: "الإحالة",
-        nav_wallet: "المحفظة",
-        claim_success: "تم استلام 50 ROL بنجاح!",
-        ref_text: "انضم وابدأ تعدين عملة ROL كل 8 ساعات مجاناً!",
-        mining_active_title: "التعدين النشط",
-        status_standby: "خامل",
-        status_active: "يعمل الآن"
-      },
-      en: {
-        withdrawable_balance: "Withdrawable Balance",
-        btn_start: "START",
-        btn_mining: "MINING",
-        btn_claim: "CLAIM",
-        completed: "READY",
-        referral_earnings: "Referral Rewards",
-        invited_friends: "Invited Friends",
-        referral_bonus: "Production Share",
-        invite_friend: "Invite Friends",
-        connected_wallet: "Connected Wallet",
-        not_connected: "Not Connected",
-        withdraw_title: "Withdrawal",
-        withdraw_desc: "Minimum withdrawal is 50 ROL. Transactions are verified and protected against exploits.",
-        withdraw_locked: "Withdrawal Locked",
-        nav_mining: "Mining",
-        nav_frens: "Frens",
-        nav_wallet: "Wallet",
-        claim_success: "Successfully claimed 50 ROL!",
-        ref_text: "Join and mine ROL every 8 hours for free!",
-        mining_active_title: "Active Mining",
-        status_standby: "STANDBY",
-        status_active: "Active Now"
-      },
-      ru: {
-        withdrawable_balance: "Доступно к выводу",
-        btn_start: "НАЧАТЬ",
-        btn_mining: "МАЙНИНГ",
-        btn_claim: "ЗАБРАТЬ",
-        completed: "ГОТОВО",
-        referral_earnings: "Реферальные награды",
-        invited_friends: "Приглашенные",
-        referral_bonus: "Бонус добычи",
-        invite_friend: "Пригласить друзей",
-        connected_wallet: "Подключенный кошелек",
-        not_connected: "Не подключен",
-        withdraw_title: "Вывод средств",
-        withdraw_desc: "Минимальный вывод: 50 ROL. Транзакции проверяются и защищены от уязвимостей.",
-        withdraw_locked: "Вывод заблокирован",
-        nav_mining: "Майнинг",
-        nav_frens: "Друзья",
-        nav_wallet: "Кошелек",
-        claim_success: "Успешно получено 50 ROL!",
-        ref_text: "Присоединяйся и добывай ROL каждые 8 часов бесплатно!",
-        mining_active_title: "Активный майнинг",
-        status_standby: "ОЖИДАНИЕ",
-        status_active: "Работает"
-      }
-    };
-
-    let currentLang = localStorage.getItem('rol_app_lang') || 'ar';
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('rol_app_lang', lang);
-      document.documentElement.lang = lang;
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      document.getElementById('lang-switch').value = lang;
-
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-          el.innerText = translations[lang][key];
-        }
-      });
-      checkMiningState();
-    }
-
-    document.getElementById('lang-switch').addEventListener('change', (e) => {
-      setLanguage(e.target.value);
-    });
-
-    const tg = window.Telegram?.WebApp;
-    if (tg) {
-      try {
-        tg.ready();
-        tg.expand();
-        if (tg.initDataUnsafe?.user?.first_name) {
-          document.getElementById('user-name-text').innerText = tg.initDataUnsafe.user.first_name;
-        }
-      } catch (e) {
-        console.error("Telegram init:", e);
-      }
-    }
-
-    let currentUserId = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
-
-    // التنقل بين الأقسام
-    const navTabs = document.querySelectorAll('.nav-tab');
-    const sections = document.querySelectorAll('.view-section');
-
-    navTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        navTabs.forEach(t => t.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-        if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      });
-    });
-
-    // دورة التعدين كل 8 ساعات
-    const CYCLE_DURATION = 8 * 60 * 60 * 1000;
-    const CYCLE_REWARD = 50.0;
-
-    let balance = parseFloat(localStorage.getItem('rol_balance') || '0');
-    let miningStartTime = parseInt(localStorage.getItem('rol_mine_start') || '0', 10);
-    let isMining = miningStartTime > 0;
-
-    const balanceEl = document.getElementById('balance');
-    const mineBtn = document.getElementById('mine-action-btn');
-    const btnText = document.getElementById('btn-text');
-    const countdownEl = document.getElementById('countdown');
-    const progressBar = document.getElementById('progress-bar');
-    const spinner = document.getElementById('spinner');
-    const miningIndicator = document.getElementById('mining-indicator');
-    const miningStatusLbl = document.getElementById('mining-status-lbl');
-
-    function updateBalanceUI() {
-      balanceEl.innerText = balance.toFixed(2);
-      localStorage.setItem('rol_balance', balance.toString());
-    }
-
-    function checkMiningState() {
-      const t = translations[currentLang];
-      if (!isMining) {
-        spinner.classList.remove('active');
-        progressBar.style.width = '0%';
-        countdownEl.innerText = '08:00:00';
-        mineBtn.className = 'cta-btn cta-btn-start';
-        btnText.innerText = t.btn_start;
-        miningIndicator.classList.remove('active');
-        miningStatusLbl.innerText = t.status_standby;
-        return;
-      }
-
-      const elapsed = Date.now() - miningStartTime;
-      const remaining = Math.max(0, CYCLE_DURATION - elapsed);
-
-      if (remaining > 0) {
-        spinner.classList.add('active');
-        miningIndicator.classList.add('active');
-        miningStatusLbl.innerText = t.status_active;
-
-        const progressPct = ((elapsed / CYCLE_DURATION) * 100).toFixed(1);
-        progressBar.style.width = Math.min(100, progressPct) + '%';
-
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-        countdownEl.innerText = 
-          `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-        mineBtn.className = 'cta-btn cta-btn-disabled';
-        btnText.innerText = t.btn_mining;
-      } else {
-        spinner.classList.remove('active');
-        progressBar.style.width = '100%';
-        countdownEl.innerText = t.completed;
-        mineBtn.className = 'cta-btn cta-btn-claim';
-        btnText.innerText = t.btn_claim;
-        miningIndicator.classList.remove('active');
-        miningStatusLbl.innerText = t.completed;
-      }
-    }
-
-    mineBtn.addEventListener('click', () => {
-      const t = translations[currentLang];
-      if (!isMining) {
-        miningStartTime = Date.now();
-        localStorage.setItem('rol_mine_start', miningStartTime.toString());
-        isMining = true;
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        checkMiningState();
-      } else {
-        const elapsed = Date.now() - miningStartTime;
-        if (elapsed >= CYCLE_DURATION) {
-          balance += CYCLE_REWARD;
-          updateBalanceUI();
-          isMining = false;
-          miningStartTime = 0;
-          localStorage.removeItem('rol_mine_start');
-          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-          alert(t.claim_success);
-          checkMiningState();
-        }
-      }
-    });
-
-    setInterval(checkMiningState, 1000);
-    updateBalanceUI();
-    setLanguage(currentLang);
-
-    // رابط الإحالة
-    document.getElementById('share-ref-btn').onclick = () => {
-      const t = translations[currentLang];
-      const refLink = `https://t.me/ROL_Mining_bot?start=ref_${currentUserId}`;
-      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(t.ref_text)}`;
-      tg?.openTelegramLink ? tg.openTelegramLink(shareUrl) : window.open(shareUrl, '_blank');
-    };
-
-    // ربط TonConnect
-    window.addEventListener('load', () => {
-      try {
-        if (window.TON_CONNECT_UI) {
-          const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-            manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
-            buttonRootId: 'ton-connect-btn'
-          });
-
-          tonConnectUI.onStatusChange(wallet => {
-            const addrEl = document.getElementById('wallet-address-display');
-            const t = translations[currentLang];
-            if (wallet && wallet.account) {
-              if (wallet.account.chain && wallet.account.chain !== TON_CONNECT_UI.CHAIN.MAINNET) {
-                tonConnectUI.disconnect();
-                alert('Testnet rejected');
-                addrEl.innerText = 'Testnet Blocked';
-                return;
-              }
-              const addr = wallet.account.address;
-              addrEl.innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 6)}`;
-            } else {
-              addrEl.innerText = t.not_connected;
-            }
-          });
-        }
-      } catch (err) {
-        console.warn("TonConnect fallback:", err);
-      }
-    });
-  </script>
-</body>
-</html>
+    <div class="nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-4.96C19.08 10.63 21 8.55 21 6V5c0-1.1-.9-2-2-2z"/></svg>
+      <span>المكافآت</span>
+    </div>
+    <div class="nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      <span>الإحالات</span>
+    </div>
+    <div class="nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.5
