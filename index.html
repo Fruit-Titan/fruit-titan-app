@@ -35,15 +35,15 @@
       overflow: hidden;
     }
 
-    /* اسم المشروع ROL Mining بجانب علامة التوثيق الزرقاء */
+    /* 1. اسم ROL Mining بجانب علامة التوثيق */
     .brand-title {
       position: absolute;
-      top: 1.6%;
-      left: 6%;
+      top: 1.8%;
+      left: 7.5%;
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 900;
       letter-spacing: 0.5px;
       color: #ffffff;
@@ -52,12 +52,12 @@
       pointer-events: none;
     }
 
-    /* زر تبديل اللغة بجوار أيقونة الكرة الأرضية */
+    /* 2. زر تبديل اللغة (الكرة الأرضية) */
     .lang-touch-zone {
       position: absolute;
       top: 1.7%;
-      left: 65.5%;
-      width: 11%;
+      left: 65%;
+      width: 12%;
       height: 4%;
       border-radius: 10px;
       cursor: pointer;
@@ -65,18 +65,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
     }
 
-    /* زر المحفظة العلوي الأيمن */
+    /* 3. زر المحفظة العلوي - متناسق في المنتصف */
     .wallet-touch-zone {
       position: absolute;
       top: 1.7%;
-      left: 84%;
-      width: 13.5%;
+      left: 82.5%;
+      width: 15%;
       height: 4%;
       border-radius: 10px;
       cursor: pointer;
@@ -84,6 +84,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-left: 12px;
     }
 
     .wallet-btn-label {
@@ -107,13 +108,13 @@
       z-index: 5;
     }
 
-    /* بطاقة المستوى الذهبي داخل الإكليل الأيسر */
+    /* 4. المستوى الذهبي داخل الإكليل الأيسر */
     .vip-container {
       position: absolute;
-      top: 6.8%;
+      top: 7.2%;
       left: 3.5%;
       width: 20%;
-      height: 9.5%;
+      height: 9%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -123,11 +124,11 @@
     }
 
     .vip-label {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
       color: #facc15;
       text-shadow: 0 0 6px rgba(250, 204, 21, 0.7);
-      margin-top: 6px;
+      margin-top: 10px;
     }
 
     .vip-num {
@@ -138,13 +139,13 @@
       margin-top: 1px;
     }
 
-    /* معدل التعدين في منتصف بطاقة الصاروخ */
+    /* 5. معدل التعدين داخل الصاروخ */
     .rate-container {
       position: absolute;
-      top: 6.8%;
+      top: 7.2%;
       left: 27%;
       width: 46%;
-      height: 9.5%;
+      height: 9%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -169,10 +170,10 @@
       direction: ltr;
     }
 
-    /* زر المكافآت اليومية تحت الهدية */
+    /* 6. المكافآت اليومية تحت الهدية */
     .gift-touch-zone {
       position: absolute;
-      top: 6.6%;
+      top: 6.8%;
       left: 76.5%;
       width: 20%;
       height: 9.8%;
@@ -182,7 +183,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 5px;
+      padding-bottom: 3px;
     }
 
     .gift-title {
@@ -193,14 +194,14 @@
       pointer-events: none;
     }
 
-    /* مستطيل الرصيد الحي */
+    /* 7. مستطيل الرصيد الحي - إزاحة العنوان للأسفل ليناسب الفراغ */
     .balance-container {
       position: absolute;
-      top: 17.5%;
+      top: 19%;
       left: 50%;
       transform: translateX(-50%);
       width: 78%;
-      height: 9%;
+      height: 7.8%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -210,23 +211,23 @@
     }
 
     .balance-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       color: #94a3b8;
     }
 
     .balance-val {
       font-family: ui-monospace, SFMono-Regular, monospace;
-      font-size: 26px;
+      font-size: 25px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 18px rgba(0, 240, 255, 0.9);
       letter-spacing: 0.5px;
-      margin-top: 1px;
+      margin-top: 2px;
       direction: ltr;
     }
 
-    /* شارة نشط */
+    /* 8. شارة نشط */
     .live-status-pill {
       position: absolute;
       top: 57.6%;
@@ -245,7 +246,7 @@
       pointer-events: none;
     }
 
-    /* عداد التعدين */
+    /* 9. عداد التعدين */
     .live-timer-overlay {
       position: absolute;
       top: 59.4%;
@@ -261,7 +262,7 @@
       direction: ltr;
     }
 
-    /* شريط التقدم */
+    /* 10. شريط التقدم */
     .progress-bar-container {
       position: absolute;
       top: 64.2%;
@@ -281,7 +282,7 @@
       transition: width 0.3s ease;
     }
 
-    /* زر قواعد مستويات التعدين */
+    /* 11. قواعد مستويات التعدين */
     .rules-touch-zone {
       position: absolute;
       top: 69.8%;
@@ -309,7 +310,7 @@
       pointer-events: none;
     }
 
-    /* زر التعدين الذهبي التفاعلي */
+    /* 12. زر التعدين الذهبي */
     .mine-touch-btn {
       position: absolute;
       top: 77.8%;
@@ -350,7 +351,7 @@
       50% { transform: scale(1.06); }
     }
 
-    /* أزرار الشريط السفلي */
+    /* 13. الشريط السفلي */
     .footer-bar-zone {
       position: absolute;
       bottom: 0;
@@ -471,7 +472,7 @@
 <body>
 
   <div class="app-screen">
-    <!-- اسم ROL Mining بجوار علامة التوثيق -->
+    <!-- اسم ROL Mining -->
     <div class="brand-title">ROL Mining</div>
 
     <!-- زر تبديل اللغة -->
@@ -495,7 +496,7 @@
       <span class="rate-val" id="rate-display">+1.250 ROL / h</span>
     </div>
 
-    <!-- المكافآت اليومية تحت الهدية -->
+    <!-- المكافآت اليومية -->
     <div class="gift-touch-zone" id="open-checkin-btn">
       <span class="gift-title" id="txt-gift-label">المكافآت</span>
     </div>
@@ -1028,7 +1029,7 @@
               updateWalletButtonUI();
               statusLbl.innerText = `${raw.substring(0, 6)}...${raw.substring(raw.length - 6)}`;
 
-              // التحقق من الرصيد وترقية المستوى تلقائياً
+              // حساب رصيد المحفظة وترقية المستوى تلقائياً
               const walletTokens = 500;
               if (walletTokens >= 400 && currentVip === 1) {
                 currentVip = 2;
@@ -1042,7 +1043,7 @@
           });
         }
       } catch (err) {
-        console.warn("Wallet fallback active");
+        console.warn("Wallet initialization fallback active");
       }
     });
   </script>
