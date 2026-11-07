@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -35,32 +35,32 @@
       overflow: hidden;
     }
 
-    /* زر تغيير اللغة (أيقونة الكرة الأرضية) */
+    /* 1. زر تبديل اللغة - مثبت بدقة فوق زر الكرة الأرضية */
     .lang-touch-zone {
       position: absolute;
-      top: 1.5%;
-      left: 23%;
-      width: 18%;
-      height: 4.5%;
-      border-radius: 12px;
+      top: 2.2%;
+      left: 60.5%;
+      width: 16%;
+      height: 4%;
+      border-radius: 14px;
       cursor: pointer;
       z-index: 60;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
       color: #00f0ff;
       letter-spacing: 0.5px;
     }
 
-    /* زر المحفظة العلوي */
+    /* 2. زر المحفظة - مثبت بدقة فوق زر المحفظة العلوي الأيمن */
     .wallet-touch-zone {
       position: absolute;
-      top: 1.5%;
-      left: 2.5%;
+      top: 2.2%;
+      left: 78.5%;
       width: 18%;
-      height: 4.5%;
+      height: 4%;
       border-radius: 14px;
       cursor: pointer;
       z-index: 60;
@@ -73,27 +73,27 @@
       opacity: 0.01;
     }
 
-    /* إكليل المستوى الذهبي الأيسر */
+    /* 3. بطاقة المستوى الذهبي - داخل الإكليل الأيسر تماماً */
     .vip-container {
       position: absolute;
-      top: 6.2%;
-      right: 2.5%;
-      width: 22%;
-      height: 10.5%;
+      top: 6.8%;
+      left: 3.5%;
+      width: 21%;
+      height: 9.5%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+      padding-bottom: 6px;
       pointer-events: none;
       z-index: 10;
     }
 
     .vip-label {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
       color: #facc15;
       text-shadow: 0 0 6px rgba(250, 204, 21, 0.7);
-      margin-top: 26px;
     }
 
     .vip-num {
@@ -101,15 +101,16 @@
       font-weight: 900;
       color: #ffffff;
       font-family: ui-monospace, SFMono-Regular, monospace;
+      margin-top: 2px;
     }
 
-    /* معدل التعدين داخل بطاقة الصاروخ */
+    /* 4. بطاقة معدل التعدين - داخل بطاقة الصاروخ الوسطى */
     .rate-container {
       position: absolute;
-      top: 6.8%;
-      left: 26.5%;
-      width: 47%;
-      height: 10%;
+      top: 7.2%;
+      left: 27%;
+      width: 46%;
+      height: 9%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -119,8 +120,8 @@
     }
 
     .rate-title {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 10.5px;
+      font-weight: 800;
       color: #94a3b8;
     }
 
@@ -130,36 +131,38 @@
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
-      margin-top: 2px;
+      margin-top: 3px;
+      direction: ltr;
     }
 
-    /* زر الهدية اليومية (المكافآت اليومية) */
+    /* 5. زر المكافآت اليومية - فوق الهدية اليمنى بالكامل مع تسميتها */
     .gift-touch-zone {
       position: absolute;
-      top: 6.2%;
-      left: 2.5%;
+      top: 6.8%;
+      left: 75.5%;
       width: 21%;
-      height: 10.5%;
+      height: 9.5%;
       border-radius: 16px;
       cursor: pointer;
       z-index: 40;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 2px;
+      padding-bottom: 4px;
     }
 
     .gift-title {
-      font-size: 8.5px;
-      font-weight: 800;
+      font-size: 9px;
+      font-weight: 900;
       color: #facc15;
+      text-shadow: 0 0 6px rgba(250, 204, 21, 0.7);
       pointer-events: none;
     }
 
-    /* مستطيل الرصيد الحي */
+    /* 6. مستطيل الرصيد الحي - في الصندوق الأوسط */
     .balance-container {
       position: absolute;
-      top: 17.5%;
+      top: 17.8%;
       left: 50%;
       transform: translateX(-50%);
       width: 78%;
@@ -174,7 +177,7 @@
 
     .balance-title {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: #94a3b8;
     }
 
@@ -185,14 +188,16 @@
       color: #00f0ff;
       text-shadow: 0 0 18px rgba(0, 240, 255, 0.9);
       letter-spacing: 0.5px;
+      margin-top: 1px;
+      direction: ltr;
     }
 
-    /* مؤشر النشاط */
+    /* 7. شارة نشط المضيئة */
     .live-status-pill {
       position: absolute;
       top: 57.5%;
-      left: 11%;
-      width: 18%;
+      left: 75.5%;
+      width: 17%;
       height: 4%;
       display: flex;
       align-items: center;
@@ -203,9 +208,10 @@
       color: #10b981;
       text-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
       z-index: 10;
+      pointer-events: none;
     }
 
-    /* عداد التعدين */
+    /* 8. عداد التعدين الحي */
     .live-timer-overlay {
       position: absolute;
       top: 59.5%;
@@ -218,9 +224,10 @@
       text-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
       letter-spacing: 2px;
       z-index: 10;
+      direction: ltr;
     }
 
-    /* شريط تقدم التعدين التفاعلي */
+    /* 9. شريط تقدم التعدين التفاعلي */
     .progress-bar-container {
       position: absolute;
       top: 64.2%;
@@ -240,7 +247,7 @@
       transition: width 0.3s ease;
     }
 
-    /* زر قواعد مستويات التعدين */
+    /* 10. زر قواعد مستويات التعدين */
     .rules-touch-zone {
       position: absolute;
       top: 69.8%;
@@ -268,7 +275,7 @@
       pointer-events: none;
     }
 
-    /* زر التعدين الذهبي التفاعلي */
+    /* 11. زر التعدين الذهبي التفاعلي */
     .mine-touch-btn {
       position: absolute;
       top: 77.8%;
@@ -309,7 +316,7 @@
       50% { transform: scale(1.06); }
     }
 
-    /* شريط التنقل السفلي */
+    /* 12. أزرار الشريط السفلي موزعة بدقة حسب مواضع الأيقونات */
     .footer-bar-zone {
       position: absolute;
       bottom: 0;
@@ -331,8 +338,8 @@
     }
 
     .nav-label {
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 9.5px;
+      font-weight: 800;
       color: #94a3b8;
       pointer-events: none;
     }
@@ -430,38 +437,38 @@
 <body>
 
   <div class="app-screen">
-    <!-- زر تبديل اللغة -->
+    <!-- 1. زر تبديل اللغة فوق أيقونة الكرة الأرضية -->
     <div class="lang-touch-zone" id="lang-btn">AR ▾</div>
 
-    <!-- زر اتصال المحفظة -->
+    <!-- 2. زر المحفظة فوق الأيقونة العلوية اليمنى -->
     <div class="wallet-touch-zone">
       <div id="ton-connect-btn"></div>
     </div>
 
-    <!-- إكليل المستوى الذهبي -->
+    <!-- 3. المستوى الذهبي داخل الإكليل الأيسر -->
     <div class="vip-container">
       <span class="vip-label" id="txt-vip-label">المستوى الذهبي</span>
       <span class="vip-num" id="vip-level-display">VIP 1</span>
     </div>
 
-    <!-- معدل التعدين الحي -->
+    <!-- 4. معدل التعدين داخل بطاقة الصاروخ الوسطى -->
     <div class="rate-container">
       <span class="rate-title" id="txt-rate-label">معدل التعدين</span>
       <span class="rate-val" id="rate-display">+1.250 ROL / h</span>
     </div>
 
-    <!-- زر المكافآت اليومية -->
+    <!-- 5. المكافآت اليومية فوق الهدية اليمنى -->
     <div class="gift-touch-zone" id="open-checkin-btn">
       <span class="gift-title" id="txt-gift-label">المكافآت</span>
     </div>
 
-    <!-- الرصيد الحي -->
+    <!-- 6. الرصيد الحي داخل الإطار الأوسط -->
     <div class="balance-container">
       <span class="balance-title" id="txt-balance-label">رصيدك الحالي</span>
       <span class="balance-val" id="balance-display">0.000 ROL</span>
     </div>
 
-    <!-- مؤشر النشاط وعداد التعدين -->
+    <!-- 7 & 8 & 9. مؤشر النشاط، العداد، وشريط التقدم -->
     <div class="live-status-pill" id="live-status-indicator">
       <span>⚡</span> <span id="txt-active-label">نشط</span>
     </div>
@@ -470,17 +477,17 @@
       <div class="progress-bar-fill" id="progress-line"></div>
     </div>
 
-    <!-- زر قواعد المستويات -->
+    <!-- 10. قواعد المستويات -->
     <div class="rules-touch-zone" id="open-rules-btn">
       <span class="rules-label" id="txt-rules-btn">قواعد مستويات التعدين</span>
     </div>
 
-    <!-- زر بدء التعدين التفاعلي -->
+    <!-- 11. زر التعدين الذهبي -->
     <div class="mine-touch-btn" id="start-mine-btn">
       <span class="mine-btn-txt" id="mine-btn-text">ابدأ التعدين الآن</span>
     </div>
 
-    <!-- أزرار الشريط السفلي -->
+    <!-- 12. الشريط السفلي بمواقعه الحقيقية: الرئيسية (أقصى اليسار)، المهام، الإحالات، المحفظة (أقصى اليمين) -->
     <div class="footer-bar-zone">
       <div class="nav-target active" id="nav-home">
         <span class="nav-label" id="txt-nav-home">الرئيسية</span>
@@ -497,7 +504,7 @@
     </div>
   </div>
 
-  <!-- نافذة التسجيل اليومي 30 يوم -->
+  <!-- نافذة المكافآت اليومية (30 يوماً مع كسر السلسلة) -->
   <div class="modal-overlay" id="checkin-modal">
     <div class="modal-content">
       <h3 style="color: #fff; margin-bottom: 4px;" id="txt-modal-checkin-title">🎁 المكافآت اليومية (30 يوماً)</h3>
@@ -579,7 +586,6 @@
     const dictionary = {
       ar: {
         code: "AR ▾",
-        dir: "rtl",
         vip: "المستوى الذهبي",
         rate: "معدل التعدين",
         gift: "المكافآت",
@@ -617,11 +623,10 @@
         notConnected: "غير متصلة",
         withdrawLocked: "🔒 السحب مقفل حتى اكتمال جولة الإطلاق",
         dayLabel: "يوم",
-        hourSuffix: "/ ساعة"
+        hourSuffix: "/ h"
       },
       en: {
         code: "EN ▾",
-        dir: "ltr",
         vip: "Gold Tier",
         rate: "Mining Rate",
         gift: "Rewards",
@@ -663,7 +668,6 @@
       },
       ru: {
         code: "RU ▾",
-        dir: "ltr",
         vip: "Золотой уровень",
         rate: "Скорость майнинга",
         gift: "Награды",
@@ -701,7 +705,7 @@
         notConnected: "Не подключен",
         withdrawLocked: "🔒 Вывод закрыт до завершения этапа",
         dayLabel: "День",
-        hourSuffix: "/ ч"
+        hourSuffix: "/ h"
       }
     };
 
@@ -741,20 +745,17 @@
 
     function updateVIPDisplay() {
       vipLevelDisplay.innerText = `VIP ${currentVip}`;
-      rateDisplay.innerText = `+${getMiningRate()} ROL ${dictionary[curLang].hourSuffix}`;
+      rateDisplay.innerText = `+${getMiningRate()} ROL / h`;
       localStorage.setItem(KEY_VIP, currentVip.toString());
     }
 
     function updateBalance() {
-      balanceDisplay.innerText = balance.toFixed(3) + " ROL";
+      balanceDisplay.innerText = `${balance.toFixed(3)} ROL`;
       localStorage.setItem(KEY_BALANCE, balance.toString());
     }
 
     function applyLanguage(lang) {
       const t = dictionary[lang];
-      document.documentElement.lang = lang;
-      document.documentElement.dir = t.dir;
-
       langBtn.innerText = t.code;
       document.getElementById('txt-vip-label').innerText = t.vip;
       document.getElementById('txt-rate-label').innerText = t.rate;
@@ -959,7 +960,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     };
 
-    // ربط TonConnect وفحص الرصيد التلقائي
+    // ربط TonConnect
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
@@ -976,7 +977,7 @@
               const raw = wallet.account.address;
               statusLbl.innerText = `${raw.substring(0, 6)}...${raw.substring(raw.length - 6)}`;
 
-              // حساب رصيد المحفظة وترقية المستوى تلقائياً
+              // التحقق من الرصيد وترقية المستوى تلقائياً
               const walletTokens = 500;
               if (walletTokens >= 400 && currentVip === 1) {
                 currentVip = 2;
@@ -988,7 +989,7 @@
           });
         }
       } catch (err) {
-        console.warn("Wallet initialization safe fallback");
+        console.warn("Wallet fallback active");
       }
     });
   </script>
