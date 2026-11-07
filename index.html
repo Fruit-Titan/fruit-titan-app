@@ -56,11 +56,11 @@
     .lang-touch-zone {
       position: absolute;
       top: 1.4%;
-      left: 68%;
+      left: 68.2%;
       width: 8.5%;
-      height: 3.5%;
+      height: 3.6%;
       cursor: pointer;
-      z-index: 60;
+      z-index: 80;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -70,21 +70,13 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
     }
 
-    /* 3. كبسولة المحفظة - طبقة النص مفصولة وتظهر دائماً فوق كل شيء */
-    .wallet-touch-zone {
+    /* 3. كبسولة المحفظة: نص ديناميكي حر لا تلمسه المكتبة */
+    .wallet-label-box {
       position: absolute;
       top: 1.4%;
       left: 84.8%;
       width: 13%;
-      height: 3.5%;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 60;
-    }
-
-    .wallet-btn-label {
-      position: absolute;
-      inset: 0;
+      height: 3.6%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -95,8 +87,18 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
       pointer-events: none;
       z-index: 70;
-      text-align: center;
       white-space: nowrap;
+    }
+
+    /* طبقة TonConnect غير مرئية ومستقلة تماماً في الأعلى للنقر فقط */
+    .wallet-click-layer {
+      position: absolute;
+      top: 1.4%;
+      left: 78%;
+      width: 20%;
+      height: 4%;
+      z-index: 90;
+      cursor: pointer;
     }
 
     #ton-connect-btn {
@@ -105,7 +107,7 @@
       opacity: 0.001;
       width: 100%;
       height: 100%;
-      z-index: 65;
+      overflow: hidden;
     }
 
     /* 4. المستوى الذهبي داخل الإكليل الأيسر */
@@ -476,40 +478,42 @@
     <div class="brand-title">ROL Mining</div>
 
     <!-- زر اللغة (الكرة الأرضية) -->
-    <div class="lang-touch-zone" id="lang-btn"></div>
+    <div class="lang-touch-zone" id="lang-btn">RU</div>
 
-    <!-- كبسولة المحفظة مع نص علوي منفصل تماماً -->
-    <div class="wallet-touch-zone" id="wallet-action-container">
-      <div class="wallet-btn-label" id="wallet-btn-label"></div>
+    <!-- نص كبسولة المحفظة الحر والمستقل تماماً -->
+    <div class="wallet-label-box" id="wallet-btn-label">Кошелек</div>
+
+    <!-- طبقة النقر الخاصة بمحفظة TON -->
+    <div class="wallet-click-layer">
       <div id="ton-connect-btn"></div>
     </div>
 
     <!-- المستوى الذهبي -->
     <div class="vip-container">
-      <span class="vip-label" id="txt-vip-label"></span>
+      <span class="vip-label" id="txt-vip-label">Золотой уровень</span>
       <span class="vip-num" id="vip-level-display">VIP 1</span>
     </div>
 
     <!-- معدل التعدين -->
     <div class="rate-container">
-      <span class="rate-title" id="txt-rate-label"></span>
+      <span class="rate-title" id="txt-rate-label">Скорость майнинга</span>
       <span class="rate-val" id="rate-display">+1.250 ROL / h</span>
     </div>
 
     <!-- المكافآت اليومية -->
     <div class="gift-touch-zone" id="open-checkin-btn">
-      <span class="gift-title" id="txt-gift-label"></span>
+      <span class="gift-title" id="txt-gift-label">Награды</span>
     </div>
 
     <!-- الرصيد الحي -->
     <div class="balance-container">
-      <span class="balance-title" id="txt-balance-label"></span>
+      <span class="balance-title" id="txt-balance-label">Текущий баланс</span>
       <span class="balance-val" id="balance-display">0.000 ROL</span>
     </div>
 
     <!-- مؤشر النشاط، العداد، وشريط التقدم -->
     <div class="live-status-pill" id="live-status-indicator">
-      <span>⚡</span> <span id="txt-active-label"></span>
+      <span>⚡</span> <span id="txt-active-label">Активен</span>
     </div>
     <div class="live-timer-overlay" id="timer-val">08:00:00</div>
     <div class="progress-bar-container">
@@ -518,27 +522,27 @@
 
     <!-- قواعد مستويات التعدين -->
     <div class="rules-touch-zone" id="open-rules-btn">
-      <span class="rules-label" id="txt-rules-btn"></span>
+      <span class="rules-label" id="txt-rules-btn">Правила уровней</span>
     </div>
 
     <!-- زر التعدين الذهبي -->
     <div class="mine-touch-btn" id="start-mine-btn">
-      <span class="mine-btn-txt" id="mine-btn-text"></span>
+      <span class="mine-btn-txt" id="mine-btn-text">Начать майнинг</span>
     </div>
 
     <!-- الشريط السفلي -->
     <div class="footer-bar-zone">
       <div class="nav-target active" id="nav-home">
-        <span class="nav-label" id="txt-nav-home"></span>
+        <span class="nav-label" id="txt-nav-home">Главная</span>
       </div>
       <div class="nav-target" id="nav-tasks">
-        <span class="nav-label" id="txt-nav-tasks"></span>
+        <span class="nav-label" id="txt-nav-tasks">Задания</span>
       </div>
       <div class="nav-target" id="nav-refs">
-        <span class="nav-label" id="txt-nav-refs"></span>
+        <span class="nav-label" id="txt-nav-refs">Друзья</span>
       </div>
       <div class="nav-target" id="nav-wallet">
-        <span class="nav-label" id="txt-nav-wallet"></span>
+        <span class="nav-label" id="txt-nav-wallet">Кошелек</span>
       </div>
     </div>
   </div>
@@ -546,60 +550,60 @@
   <!-- نافذة المكافآت اليومية -->
   <div class="modal-overlay" id="checkin-modal">
     <div class="modal-content">
-      <h3 style="color: #fff; margin-bottom: 4px;" id="txt-modal-checkin-title"></h3>
-      <p style="font-size: 11px; color: #94a3b8;" id="txt-modal-checkin-desc"></p>
+      <h3 style="color: #fff; margin-bottom: 4px;" id="txt-modal-checkin-title">🎁 Ежедневный бонус (30 дней)</h3>
+      <p style="font-size: 11px; color: #94a3b8;" id="txt-modal-checkin-desc">Заходите ежедневно и получайте до 250 ROL. Пропуск >48 часов сбрасывает серию!</p>
       
       <div class="days-grid" id="days-grid-container"></div>
 
-      <button class="modal-btn" id="claim-daily-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712;"></button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-1"></button>
+      <button class="modal-btn" id="claim-daily-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712;">Забрать награду</button>
+      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-1">Закрыть</button>
     </div>
   </div>
 
   <!-- نافذة قواعد المستويات -->
   <div class="modal-overlay" id="rules-modal">
     <div class="modal-content">
-      <h3 style="color: #facc15; margin-bottom: 8px;" id="txt-rules-title"></h3>
+      <h3 style="color: #facc15; margin-bottom: 8px;" id="txt-rules-title">📈 Система уровней (Hold-to-Earn)</h3>
       <div class="rules-list" id="rules-content"></div>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-2"></button>
+      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-2">Понятно</button>
     </div>
   </div>
 
   <!-- نافذة المهام -->
   <div class="modal-overlay" id="tasks-modal">
     <div class="modal-content">
-      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-tasks-title"></h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-tasks-title">📋 Задания и бонусы</h3>
       <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; padding: 12px; margin: 12px 0; display: flex; justify-content: space-between; align-items: center;">
         <div style="text-align: start;">
-          <div style="font-size: 13px; font-weight: 800;" id="txt-task-1"></div>
+          <div style="font-size: 13px; font-weight: 800;" id="txt-task-1">Подписаться на канал</div>
           <div style="font-size: 11px; color: #fbbf24;">+20 ROL</div>
         </div>
-        <button style="background: #00f0ff; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 900; color: #020712; cursor: pointer;" id="txt-join-btn"></button>
+        <button style="background: #00f0ff; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 900; color: #020712; cursor: pointer;" id="txt-join-btn">Войти</button>
       </div>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-3"></button>
+      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-3">Закрыть</button>
     </div>
   </div>
 
   <!-- نافذة الإحالات -->
   <div class="modal-overlay" id="refs-modal">
     <div class="modal-content">
-      <h3 style="color: #fbbf24; margin-bottom: 8px;" id="txt-refs-title"></h3>
-      <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;" id="txt-refs-desc"></p>
-      <button id="share-ref-btn" class="modal-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712; margin-bottom: 8px;" id="txt-share-btn"></button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-4"></button>
+      <h3 style="color: #fbbf24; margin-bottom: 8px;" id="txt-refs-title">👥 Реферальная система</h3>
+      <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;" id="txt-refs-desc">Приглашайте друзей и получайте 25 ROL + 10% от их добычи.</p>
+      <button id="share-ref-btn" class="modal-btn" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #020712; margin-bottom: 8px;" id="txt-share-btn">Поделиться ссылкой</button>
+      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-4">Закрыть</button>
     </div>
   </div>
 
   <!-- نافذة المحفظة -->
   <div class="modal-overlay" id="wallet-modal">
     <div class="modal-content">
-      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-wallet-title"></h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-wallet-title">💼 Кошелек TON и вывод</h3>
       <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; padding: 12px; margin-bottom: 14px;">
-        <div style="font-size: 11px; color: #94a3b8;" id="txt-wallet-sub"></div>
-        <div id="wallet-status-lbl" style="font-size: 13px; font-weight: 800; color: #fbbf24; font-family: monospace; margin-top: 4px;"></div>
+        <div style="font-size: 11px; color: #94a3b8;" id="txt-wallet-sub">Адрес кошелька</div>
+        <div id="wallet-status-lbl" style="font-size: 13px; font-weight: 800; color: #fbbf24; font-family: monospace; margin-top: 4px;">Не подключен</div>
       </div>
-      <button class="modal-btn" style="background: rgba(255,255,255,0.06); color: #64748b; cursor: not-allowed; margin-bottom: 8px;" id="txt-withdraw-btn"></button>
-      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-5"></button>
+      <button class="modal-btn" style="background: rgba(255,255,255,0.06); color: #64748b; cursor: not-allowed; margin-bottom: 8px;" id="txt-withdraw-btn">🔒 Вывод закрыт до завершения этапа</button>
+      <button class="modal-btn" onclick="closeAllModals()" style="background: rgba(255,255,255,0.08); color: #fff;" id="txt-close-5">Закрыть</button>
     </div>
   </div>
 
@@ -1013,7 +1017,7 @@
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     };
 
-    // ربط TonConnect
+    // ربط المحفظة
     window.addEventListener('DOMContentLoaded', () => {
       try {
         if (window.TON_CONNECT_UI) {
