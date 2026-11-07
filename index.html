@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -52,12 +52,12 @@
       pointer-events: none;
     }
 
-    /* 2. زر تبديل اللغة - في مركز الكبسولة تماماً */
+    /* 2. زر تبديل اللغة (الكرة الأرضية) */
     .lang-touch-zone {
       position: absolute;
-      top: 1.5%;
-      left: 67.5%;
-      width: 9%;
+      top: 1.4%;
+      left: 68%;
+      width: 8.5%;
       height: 3.5%;
       cursor: pointer;
       z-index: 60;
@@ -70,27 +70,31 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
     }
 
-    /* 3. زر المحفظة العلوي - في مركز كبسولة المحفظة تماماً */
+    /* 3. كبسولة المحفظة - طبقة النص مفصولة وتظهر دائماً فوق كل شيء */
     .wallet-touch-zone {
       position: absolute;
-      top: 1.5%;
-      left: 85%;
-      width: 12.5%;
+      top: 1.4%;
+      left: 84.8%;
+      width: 13%;
       height: 3.5%;
+      border-radius: 8px;
       cursor: pointer;
       z-index: 60;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .wallet-btn-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 10px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
       pointer-events: none;
+      z-index: 70;
       text-align: center;
       white-space: nowrap;
     }
@@ -98,10 +102,10 @@
     #ton-connect-btn {
       position: absolute;
       inset: 0;
-      opacity: 0.01;
+      opacity: 0.001;
       width: 100%;
       height: 100%;
-      z-index: 5;
+      z-index: 65;
     }
 
     /* 4. المستوى الذهبي داخل الإكليل الأيسر */
@@ -166,7 +170,7 @@
       direction: ltr;
     }
 
-    /* 6. المكافآت اليومية تحت الهدية مباشرة */
+    /* 6. المكافآت اليومية تحت الهدية */
     .gift-touch-zone {
       position: absolute;
       top: 6.8%;
@@ -474,9 +478,9 @@
     <!-- زر اللغة (الكرة الأرضية) -->
     <div class="lang-touch-zone" id="lang-btn"></div>
 
-    <!-- كبسولة المحفظة -->
+    <!-- كبسولة المحفظة مع نص علوي منفصل تماماً -->
     <div class="wallet-touch-zone" id="wallet-action-container">
-      <span class="wallet-btn-label" id="wallet-btn-label"></span>
+      <div class="wallet-btn-label" id="wallet-btn-label"></div>
       <div id="ton-connect-btn"></div>
     </div>
 
@@ -703,7 +707,7 @@
       },
       ru: {
         code: "RU",
-        walletConnect: "Подкл.",
+        walletConnect: "Кошелек",
         vip: "Золотой уровень",
         rate: "Скорость майнинга",
         gift: "Награды",
@@ -744,7 +748,7 @@
       }
     };
 
-    let curLang = localStorage.getItem(KEY_LANG) || 'ar';
+    let curLang = localStorage.getItem(KEY_LANG) || 'ru';
     let connectedWalletAddr = null;
 
     const DAILY_REWARDS = [
