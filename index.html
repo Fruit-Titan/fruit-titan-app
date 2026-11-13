@@ -69,12 +69,11 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
     }
 
-    /* ضبط المسافة بدقة حتى لا تلامس أيقونة المحفظة */
     .wallet-touch-zone {
       position: absolute;
       top: 1.2%;
-      left: 85.8%;
-      width: 12.2%;
+      left: 86.2%;
+      width: 11.8%;
       height: 4%;
       border-radius: 8px;
       cursor: pointer;
@@ -85,7 +84,7 @@
     }
 
     .wallet-btn-label {
-      font-size: 9px;
+      font-size: 8.8px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
@@ -315,20 +314,22 @@
       50% { transform: scale(1.06); }
     }
 
-    /* ==================== الصفحات المستقلة (Tasks, Referrals, Wallet) ==================== */
+    /* ==================== الصفحات المستقلة (خلفية زجاجية شفافة تحافظ على الصورة الأصلية) ==================== */
     .sub-page {
       position: absolute;
-      top: 6.2%;
+      top: 6.4%;
       left: 0;
       right: 0;
-      bottom: 9.2%;
-      background: radial-gradient(circle at top, #0a1e42 0%, #020712 85%);
+      bottom: 9.8%;
+      background: rgba(3, 10, 26, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 48;
       display: none;
       flex-direction: column;
       padding: 16px;
       overflow-y: auto;
-      animation: fadeInPage 0.22s ease;
+      animation: fadeInPage 0.2s ease;
     }
 
     .sub-page.active {
@@ -336,7 +337,7 @@
     }
 
     @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -344,33 +345,33 @@
       text-align: center;
       margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.25);
     }
 
     .page-title {
       font-size: 20px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
     }
 
     .page-subtitle {
       font-size: 12px;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-top: 4px;
     }
 
     /* بطاقات المهام */
     .task-card {
-      background: rgba(15, 32, 68, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.25);
+      background: rgba(9, 24, 54, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
       border-radius: 16px;
       padding: 14px;
       margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
     .task-info {
@@ -383,7 +384,7 @@
       width: 40px;
       height: 40px;
       border-radius: 12px;
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(0, 240, 255, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -415,8 +416,8 @@
     }
 
     .action-pill-btn.done {
-      background: rgba(16, 185, 129, 0.2);
-      color: #10b981;
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
       border: 1px solid #10b981;
       pointer-events: none;
     }
@@ -430,8 +431,8 @@
     }
 
     .stat-card {
-      background: rgba(15, 32, 68, 0.7);
-      border: 1px solid rgba(250, 204, 21, 0.3);
+      background: rgba(9, 24, 54, 0.85);
+      border: 1px solid rgba(250, 204, 21, 0.35);
       border-radius: 16px;
       padding: 14px;
       text-align: center;
@@ -446,13 +447,13 @@
 
     .stat-lbl {
       font-size: 11px;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-top: 4px;
     }
 
     .ref-link-box {
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px dashed rgba(0, 240, 255, 0.4);
+      background: rgba(2, 7, 18, 0.75);
+      border: 1px dashed rgba(0, 240, 255, 0.45);
       border-radius: 14px;
       padding: 12px;
       font-family: ui-monospace, monospace;
@@ -465,13 +466,13 @@
 
     /* بطاقات صفحة المحفظة */
     .wallet-hero-card {
-      background: linear-gradient(145deg, #0e244d, #061026);
-      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: rgba(9, 24, 54, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.45);
       border-radius: 20px;
       padding: 18px;
       text-align: center;
       margin-bottom: 16px;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
     }
 
     .primary-gold-btn {
@@ -507,7 +508,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 9%;
+      height: 9.2%;
       display: flex;
       z-index: 65;
     }
@@ -538,8 +539,9 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 7, 18, 0.92);
-      backdrop-filter: blur(16px);
+      background: rgba(2, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: none;
       justify-content: center;
       align-items: center;
@@ -556,7 +558,7 @@
     .daily-modal-box {
       width: 100%;
       max-width: 390px;
-      background: linear-gradient(180deg, #0c2147 0%, #040b1a 100%);
+      background: linear-gradient(180deg, rgba(12, 33, 71, 0.95) 0%, rgba(4, 11, 26, 0.98) 100%);
       border: 1.5px solid rgba(250, 204, 21, 0.5);
       border-radius: 26px;
       padding: 18px 14px;
@@ -587,15 +589,14 @@
 
     .day-card {
       position: relative;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
       padding: 8px 2px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 3px;
-      transition: all 0.2s ease;
     }
 
     .day-card .d-num {
@@ -751,7 +752,7 @@
         </div>
       </div>
 
-      <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
+      <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
       <div class="ref-link-box" id="user-ref-link">https://t.me/ROL_Miner_Bot?start=ref_miner</div>
 
       <button class="primary-gold-btn" onclick="shareReferralLink()" id="pg-refs-share-btn">🚀 مشاركة الرابط مع الأصدقاء</button>
@@ -766,13 +767,13 @@
       </div>
 
       <div class="wallet-hero-card">
-        <div style="font-size: 12px; color: #94a3b8;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
+        <div style="font-size: 12px; color: #cbd5e1;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
         <div style="font-size: 28px; font-weight: 900; color: #00f0ff; font-family: ui-monospace, monospace; margin: 6px 0;" id="pg-wallet-balance">0.000 ROL</div>
         <div style="font-size: 11px; color: #fbbf24;" id="pg-w-vip-status">المستوى الحالي: VIP 1</div>
       </div>
 
       <div class="task-card" style="flex-direction: column; align-items: stretch; gap: 8px; margin-bottom: 14px;">
-        <div style="font-size: 11px; color: #94a3b8;" id="pg-w-addr-lbl">حالة اتصال المحفظة:</div>
+        <div style="font-size: 11px; color: #cbd5e1;" id="pg-w-addr-lbl">حالة اتصال المحفظة:</div>
         <div id="wallet-status-lbl" style="font-size: 12.5px; font-weight: 800; color: #fbbf24; font-family: monospace; word-break: break-all;">غير متصلة</div>
       </div>
 
@@ -802,14 +803,14 @@
     <div class="daily-modal-box">
       <div class="streak-banner" id="streak-badge">🔥 سلسلة الحضور: يوم 1 / 30</div>
       <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">🎁 المكافآت اليومية</h3>
-      <p style="font-size: 11.5px; color: #94a3b8; line-height: 1.5;" id="txt-modal-checkin-desc">
+      <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5;" id="txt-modal-checkin-desc">
         سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!
       </p>
       
       <div class="days-grid" id="days-grid-container"></div>
 
       <button class="primary-gold-btn" id="claim-daily-btn" onclick="claimDailyReward()">استلام مكافأة اليوم</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.08); color: #cbd5e1; font-weight: 800; cursor: pointer;" id="txt-close-1">إغلاق</button>
+      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-1">إغلاق</button>
     </div>
   </div>
 
@@ -971,12 +972,10 @@
     let isMining = startTime > 0;
     let lock = false;
 
-    // ==================== التنقل بين الصفحات ====================
     function switchTab(tabName) {
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       closeAllModals();
 
-      // إخفاء جميع الصفحات الفرعية
       document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-target').forEach(n => n.classList.remove('active'));
 
@@ -1059,7 +1058,6 @@
       document.getElementById('txt-nav-refs').innerText = t.navRefs;
       document.getElementById('txt-nav-wallet').innerText = t.navWallet;
 
-      // نافذة المكافآت والقواعد
       document.getElementById('txt-modal-checkin-title').innerText = t.modalCheckinTitle;
       document.getElementById('txt-modal-checkin-desc').innerText = t.modalCheckinDesc;
       document.getElementById('txt-rules-title').innerText = t.rulesTitle;
@@ -1067,7 +1065,6 @@
       document.getElementById('txt-close-1').innerText = t.close;
       document.getElementById('txt-close-2').innerText = t.understand;
 
-      // صفحة المهام
       document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
       document.getElementById('t1-name').innerText = t.t1Name;
@@ -1075,7 +1072,6 @@
       document.getElementById('t3-name').innerText = t.t3Name;
       refreshTasksUI();
 
-      // صفحة الإحالات
       document.getElementById('pg-refs-title').innerText = t.pgRefsTitle;
       document.getElementById('pg-refs-sub').innerText = t.pgRefsSub;
       document.getElementById('pg-refs-friends').innerText = t.pgRefsFriends;
@@ -1084,7 +1080,6 @@
       document.getElementById('pg-refs-share-btn').innerText = t.pgRefsShare;
       document.getElementById('pg-refs-copy-btn').innerText = t.pgRefsCopy;
 
-      // صفحة المحفظة
       document.getElementById('pg-wallet-title').innerText = t.pgWalletTitle;
       document.getElementById('pg-wallet-sub').innerText = t.pgWalletSub;
       document.getElementById('pg-w-bal-lbl').innerText = t.pgWBalLbl;
@@ -1104,7 +1099,6 @@
       renderDaysGrid();
     }
 
-    // ==================== نظام المهام ====================
     function refreshTasksUI() {
       const t = dictionary[curLang];
       const b1 = document.getElementById('btn-task-1');
@@ -1153,7 +1147,6 @@
       alert("🎉 +50 ROL!");
     }
 
-    // ==================== نظام التعدين ====================
     function renderMining() {
       const t = dictionary[curLang];
       const timerVal = document.getElementById('timer-val');
@@ -1215,7 +1208,6 @@
       }
     }
 
-    // ==================== نظام المكافآت اليومية 30 يوم ====================
     function verifyStreak() {
       const now = Date.now();
       const hoursSinceLast = (now - lastCheckinTime) / (1000 * 60 * 60);
@@ -1299,7 +1291,6 @@
       }
     }
 
-    // ==================== الإحالات والمحفظة ====================
     function shareReferralLink() {
       const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
       const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب مكافآت يومية! 🚀💎')}`;
