@@ -31,11 +31,18 @@
       max-width: 440px;
       height: 100vh;
       margin: 0 auto;
-      background: url('1794058751809.jpg') center top / 100% 100% no-repeat, #020712;
+      background-color: #020712;
       overflow: hidden;
     }
 
-    /* ==================== الشريط العلوي الثابت ==================== */
+    /* ==================== 1. الصفحة الرئيسية (Home) مع صورتها الأصلية ==================== */
+    #view-home {
+      position: absolute;
+      inset: 0;
+      background: url('1794058751809.jpg') center top / 100% 100% no-repeat, #020712;
+      z-index: 10;
+    }
+
     .brand-title {
       position: absolute;
       top: 1.8%;
@@ -48,7 +55,7 @@
       letter-spacing: 0.5px;
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
-      z-index: 60;
+      z-index: 20;
       pointer-events: none;
     }
 
@@ -59,7 +66,7 @@
       width: 9%;
       height: 4%;
       cursor: pointer;
-      z-index: 65;
+      z-index: 30;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -77,7 +84,7 @@
       height: 4%;
       border-radius: 8px;
       cursor: pointer;
-      z-index: 65;
+      z-index: 30;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,13 +98,6 @@
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
       pointer-events: none;
       white-space: nowrap;
-    }
-
-    /* ==================== عناصر الصفحة الرئيسية (Home) ==================== */
-    #view-home {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
     }
 
     .vip-container {
@@ -165,7 +165,7 @@
       height: 10%;
       border-radius: 16px;
       cursor: pointer;
-      z-index: 45;
+      z-index: 30;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -266,7 +266,7 @@
       height: 6.8%;
       border-radius: 16px;
       cursor: pointer;
-      z-index: 45;
+      z-index: 30;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -292,7 +292,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 45;
+      z-index: 30;
     }
 
     .mine-btn-txt {
@@ -314,20 +314,18 @@
       50% { transform: scale(1.06); }
     }
 
-    /* ==================== الصفحات المستقلة (خلفية زجاجية شفافة تحافظ على الصورة الأصلية) ==================== */
+    /* ==================== الصفحات المستقلة (خلفية نظيفة صلبة بدون صورة أو شريط علوي) ==================== */
     .sub-page {
       position: absolute;
-      top: 6.4%;
+      top: 0;
       left: 0;
       right: 0;
-      bottom: 9.8%;
-      background: rgba(3, 10, 26, 0.72);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 48;
+      bottom: 84px;
+      background: linear-gradient(180deg, #06132b 0%, #020712 100%);
+      z-index: 50;
       display: none;
       flex-direction: column;
-      padding: 16px;
+      padding: 20px 16px 16px;
       overflow-y: auto;
       animation: fadeInPage 0.2s ease;
     }
@@ -343,35 +341,35 @@
 
     .page-header {
       text-align: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
     }
 
     .page-title {
       font-size: 20px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
     }
 
     .page-subtitle {
       font-size: 12px;
-      color: #cbd5e1;
-      margin-top: 4px;
+      color: #94a3b8;
+      margin-top: 5px;
     }
 
     /* بطاقات المهام */
     .task-card {
-      background: rgba(9, 24, 54, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      background: #0a1936;
+      border: 1px solid rgba(0, 240, 255, 0.25);
       border-radius: 16px;
       padding: 14px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
     }
 
     .task-info {
@@ -381,10 +379,10 @@
     }
 
     .task-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
-      background: rgba(0, 240, 255, 0.15);
+      background: rgba(0, 240, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -401,14 +399,14 @@
       font-size: 12px;
       font-weight: 900;
       color: #fbbf24;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .action-pill-btn {
       background: linear-gradient(135deg, #0284c7, #00f0ff);
       color: #020712;
       border: none;
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 10px;
       font-size: 12px;
       font-weight: 900;
@@ -416,7 +414,7 @@
     }
 
     .action-pill-btn.done {
-      background: rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.2);
       color: #34d399;
       border: 1px solid #10b981;
       pointer-events: none;
@@ -431,10 +429,10 @@
     }
 
     .stat-card {
-      background: rgba(9, 24, 54, 0.85);
-      border: 1px solid rgba(250, 204, 21, 0.35);
+      background: #0a1936;
+      border: 1px solid rgba(250, 204, 21, 0.3);
       border-radius: 16px;
-      padding: 14px;
+      padding: 16px 12px;
       text-align: center;
     }
 
@@ -447,32 +445,32 @@
 
     .stat-lbl {
       font-size: 11px;
-      color: #cbd5e1;
+      color: #94a3b8;
       margin-top: 4px;
     }
 
     .ref-link-box {
-      background: rgba(2, 7, 18, 0.75);
+      background: #040b1a;
       border: 1px dashed rgba(0, 240, 255, 0.45);
       border-radius: 14px;
-      padding: 12px;
+      padding: 13px;
       font-family: ui-monospace, monospace;
       font-size: 11.5px;
       color: #00f0ff;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       word-break: break-all;
     }
 
     /* بطاقات صفحة المحفظة */
     .wallet-hero-card {
-      background: rgba(9, 24, 54, 0.88);
-      border: 1px solid rgba(0, 240, 255, 0.45);
+      background: linear-gradient(145deg, #0d2147, #061024);
+      border: 1px solid rgba(0, 240, 255, 0.4);
       border-radius: 20px;
-      padding: 18px;
+      padding: 20px;
       text-align: center;
       margin-bottom: 16px;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
     }
 
     .primary-gold-btn {
@@ -486,7 +484,7 @@
       font-weight: 900;
       cursor: pointer;
       margin-bottom: 10px;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
     }
 
     .primary-cyan-btn {
@@ -502,46 +500,96 @@
       margin-bottom: 10px;
     }
 
-    /* ==================== الشريط السفلي ==================== */
-    .footer-bar-zone {
+    /* ==================== الشريط السفلي المبرمج بالكامل (نفس شكل الصورة تماماً) ==================== */
+    .cyber-footer {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 9.2%;
-      display: flex;
-      z-index: 65;
+      height: 84px;
+      background: linear-gradient(180deg, rgba(2, 7, 18, 0.96) 0%, #01040a 100%);
+      border-top: 1px solid rgba(0, 180, 255, 0.25);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 6px 8px 8px;
+      z-index: 80;
     }
 
-    .nav-target {
-      flex: 1;
-      height: 100%;
-      cursor: pointer;
+    .cyber-tab {
+      position: relative;
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      padding-bottom: 4px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
     }
 
-    .nav-label {
-      font-size: 9.5px;
+    .cyber-tab:active {
+      transform: scale(0.95);
+    }
+
+    /* الإطار السداسي المشطوف المضيء */
+    .hex-frame {
+      width: 100%;
+      height: 50px;
+      background: linear-gradient(180deg, #0a1f44 0%, #040d21 100%);
+      clip-path: polygon(12% 0%, 88% 0%, 100% 25%, 100% 75%, 88% 100%, 12% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 1.5px;
+      background-color: #0ea5e9; /* لون الحدود الافتراضي الأزرق */
+      box-shadow: inset 0 0 12px rgba(14, 165, 233, 0.4);
+    }
+
+    .hex-inner {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #0c2552 0%, #040c1f 90%);
+      clip-path: polygon(12% 0%, 88% 0%, 100% 25%, 100% 75%, 88% 100%, 12% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* الإطار النشط يتوهج بالذهبي تماماً مثل الصورة */
+    .cyber-tab.active .hex-frame {
+      background: linear-gradient(180deg, #fde047 0%, #d97706 100%);
+      filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.55));
+    }
+
+    .cyber-tab.active .hex-inner {
+      background: radial-gradient(circle at center, #2b2108 0%, #090d1a 90%);
+    }
+
+    .cyber-icon {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+    }
+
+    .cyber-label {
+      font-size: 10px;
       font-weight: 800;
       color: #94a3b8;
-      pointer-events: none;
+      margin-top: 4px;
+      letter-spacing: 0.2px;
     }
 
-    .nav-target.active .nav-label {
+    .cyber-tab.active .cyber-label {
       color: #facc15;
-      text-shadow: 0 0 8px rgba(250, 204, 21, 0.7);
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
     }
 
-    /* ==================== نافذة المكافآت اليومية المطورة ==================== */
+    /* ==================== نافذة المكافآت اليومية والقواعد ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 7, 18, 0.85);
+      background: rgba(2, 7, 18, 0.88);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       display: none;
       justify-content: center;
       align-items: center;
@@ -558,7 +606,7 @@
     .daily-modal-box {
       width: 100%;
       max-width: 390px;
-      background: linear-gradient(180deg, rgba(12, 33, 71, 0.95) 0%, rgba(4, 11, 26, 0.98) 100%);
+      background: linear-gradient(180deg, #0c2147 0%, #040b1a 100%);
       border: 1.5px solid rgba(250, 204, 21, 0.5);
       border-radius: 26px;
       padding: 18px 14px;
@@ -588,7 +636,6 @@
     }
 
     .day-card {
-      position: relative;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
@@ -599,27 +646,14 @@
       gap: 3px;
     }
 
-    .day-card .d-num {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: #94a3b8;
-    }
-
-    .day-card .d-val {
-      font-size: 11.5px;
-      font-weight: 900;
-      color: #e2e8f0;
-      font-family: ui-monospace, monospace;
-    }
+    .day-card .d-num { font-size: 9.5px; font-weight: 700; color: #94a3b8; }
+    .day-card .d-val { font-size: 11.5px; font-weight: 900; color: #e2e8f0; font-family: ui-monospace, monospace; }
 
     .day-card.claimed {
       background: linear-gradient(180deg, rgba(16, 185, 129, 0.25), rgba(6, 78, 59, 0.3));
       border-color: #10b981;
     }
-
-    .day-card.claimed .d-val {
-      color: #34d399;
-    }
+    .day-card.claimed .d-val { color: #34d399; }
 
     .day-card.today {
       background: linear-gradient(180deg, rgba(245, 158, 11, 0.35), rgba(180, 83, 9, 0.35));
@@ -627,7 +661,6 @@
       box-shadow: 0 0 14px rgba(251, 191, 36, 0.6);
       transform: scale(1.04);
     }
-
     .day-card.today .d-num { color: #fef08a; }
     .day-card.today .d-val { color: #ffffff; }
 
@@ -646,17 +679,16 @@
 <body>
 
   <div class="app-screen">
-    <!-- ==================== الشريط العلوي ==================== -->
-    <div class="brand-title">ROL Mining</div>
-    <div class="lang-touch-zone" onclick="toggleLang()">
-      <span id="lang-btn-txt">AR</span>
-    </div>
-    <div class="wallet-touch-zone" onclick="switchTab('wallet')">
-      <span class="wallet-btn-label" id="wallet-btn-label">ربط</span>
-    </div>
-
-    <!-- ==================== 1. الصفحة الرئيسية (Home) ==================== -->
+    <!-- ==================== 1. الصفحة الرئيسية (Home مع صورتها الخاصة) ==================== -->
     <div id="view-home">
+      <div class="brand-title">ROL Mining</div>
+      <div class="lang-touch-zone" onclick="toggleLang()">
+        <span id="lang-btn-txt">AR</span>
+      </div>
+      <div class="wallet-touch-zone" onclick="switchTab('wallet')">
+        <span class="wallet-btn-label" id="wallet-btn-label">ربط</span>
+      </div>
+
       <div class="vip-container">
         <span class="vip-label" id="txt-vip-label">المستوى الذهبي</span>
         <span class="vip-num" id="vip-level-display">VIP 1</span>
@@ -693,7 +725,7 @@
       </div>
     </div>
 
-    <!-- ==================== 2. صفحة المهام (Tasks Page) ==================== -->
+    <!-- ==================== 2. صفحة المهام المستقلة (بدون صورة أو شريط علوي) ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">📋 المهام والمكافآت</div>
@@ -734,7 +766,7 @@
       </div>
     </div>
 
-    <!-- ==================== 3. صفحة الإحالات (Referrals Page) ==================== -->
+    <!-- ==================== 3. صفحة الإحالات المستقلة ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-refs-title">👥 نظام الإحالات</div>
@@ -752,14 +784,14 @@
         </div>
       </div>
 
-      <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
+      <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
       <div class="ref-link-box" id="user-ref-link">https://t.me/ROL_Miner_Bot?start=ref_miner</div>
 
       <button class="primary-gold-btn" onclick="shareReferralLink()" id="pg-refs-share-btn">🚀 مشاركة الرابط مع الأصدقاء</button>
       <button class="primary-cyan-btn" onclick="copyReferralLink()" id="pg-refs-copy-btn">📋 نسخ رابط الإحالة</button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة (Wallet Page) ==================== -->
+    <!-- ==================== 4. صفحة المحفظة المستقلة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-wallet-title">💼 محفظة TON والسحب</div>
@@ -767,13 +799,13 @@
       </div>
 
       <div class="wallet-hero-card">
-        <div style="font-size: 12px; color: #cbd5e1;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
+        <div style="font-size: 12px; color: #94a3b8;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
         <div style="font-size: 28px; font-weight: 900; color: #00f0ff; font-family: ui-monospace, monospace; margin: 6px 0;" id="pg-wallet-balance">0.000 ROL</div>
         <div style="font-size: 11px; color: #fbbf24;" id="pg-w-vip-status">المستوى الحالي: VIP 1</div>
       </div>
 
       <div class="task-card" style="flex-direction: column; align-items: stretch; gap: 8px; margin-bottom: 14px;">
-        <div style="font-size: 11px; color: #cbd5e1;" id="pg-w-addr-lbl">حالة اتصال المحفظة:</div>
+        <div style="font-size: 11px; color: #94a3b8;" id="pg-w-addr-lbl">حالة اتصال المحفظة:</div>
         <div id="wallet-status-lbl" style="font-size: 12.5px; font-weight: 800; color: #fbbf24; font-family: monospace; word-break: break-all;">غير متصلة</div>
       </div>
 
@@ -781,24 +813,70 @@
       <button class="primary-gold-btn" style="opacity: 0.5; cursor: not-allowed;" id="pg-w-withdraw-btn">🔒 السحب سيُفتح عند الإدراج الرسمي</button>
     </div>
 
-    <!-- ==================== الشريط السفلي للتنقل ==================== -->
-    <div class="footer-bar-zone">
-      <div class="nav-target active" id="tab-home" onclick="switchTab('home')">
-        <span class="nav-label" id="txt-nav-home">الرئيسية</span>
+    <!-- ==================== الشريط السفلي المرسوم بالكود (مطابق تماماً لشكل الصورة) ==================== -->
+    <div class="cyber-footer">
+      <!-- 1. الرئيسية -->
+      <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
+        <div class="hex-frame">
+          <div class="hex-inner">
+            <svg class="cyber-icon" viewBox="0 0 24 24" fill="url(#goldGrad)">
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+            </svg>
+          </div>
+        </div>
+        <span class="cyber-label" id="txt-nav-home">الرئيسية</span>
       </div>
-      <div class="nav-target" id="tab-tasks" onclick="switchTab('tasks')">
-        <span class="nav-label" id="txt-nav-tasks">المهام</span>
+
+      <!-- 2. المهام -->
+      <div class="cyber-tab" id="tab-tasks" onclick="switchTab('tasks')">
+        <div class="hex-frame">
+          <div class="hex-inner">
+            <svg class="cyber-icon" viewBox="0 0 24 24" fill="url(#goldGrad)">
+              <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            </svg>
+          </div>
+        </div>
+        <span class="cyber-label" id="txt-nav-tasks">المهام</span>
       </div>
-      <div class="nav-target" id="tab-refs" onclick="switchTab('refs')">
-        <span class="nav-label" id="txt-nav-refs">الإحالات</span>
+
+      <!-- 3. الإحالات -->
+      <div class="cyber-tab" id="tab-refs" onclick="switchTab('refs')">
+        <div class="hex-frame">
+          <div class="hex-inner">
+            <svg class="cyber-icon" viewBox="0 0 24 24" fill="url(#goldGrad)">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+          </div>
+        </div>
+        <span class="cyber-label" id="txt-nav-refs">الإحالات</span>
       </div>
-      <div class="nav-target" id="tab-wallet" onclick="switchTab('wallet')">
-        <span class="nav-label" id="txt-nav-wallet">المحفظة</span>
+
+      <!-- 4. المحفظة -->
+      <div class="cyber-tab" id="tab-wallet" onclick="switchTab('wallet')">
+        <div class="hex-frame">
+          <div class="hex-inner">
+            <svg class="cyber-icon" viewBox="0 0 24 24" fill="url(#goldGrad)">
+              <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+          </div>
+        </div>
+        <span class="cyber-label" id="txt-nav-wallet">المحفظة</span>
       </div>
+
+      <!-- تدرج اللون الذهبي لأيقونات SVG -->
+      <svg width="0" height="0" style="position:absolute;">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="50%" stop-color="#facc15"/>
+            <stop offset="100%" stop-color="#ca8a04"/>
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   </div>
 
-  <!-- ==================== نافذة المكافآت اليومية المحسّنة ==================== -->
+  <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
       <div class="streak-banner" id="streak-badge">🔥 سلسلة الحضور: يوم 1 / 30</div>
@@ -977,7 +1055,7 @@
       closeAllModals();
 
       document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-target').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.cyber-tab').forEach(n => n.classList.remove('active'));
 
       if (tabName === 'home') {
         document.getElementById('tab-home').classList.add('active');
