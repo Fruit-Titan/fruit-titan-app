@@ -608,7 +608,7 @@
       text-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
     }
 
-    /* ==================== نوافذ المكافآت والحظر ==================== */
+    /* ==================== نوافذ المكافآت والقواعد والتنبيهات ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -959,19 +959,19 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة الحظر الأمني للتعدد ==================== -->
-  <div class="modal-overlay" id="ban-modal" dir="auto">
-    <div class="daily-modal-box" style="border-color: #ef4444; box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);">
-      <h3 style="color: #ef4444; font-size: 19px; margin-bottom: 8px;">⛔ تم حظر الحساب تلقائياً</h3>
-      <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
-        تم اكتشاف محاولة ربط عنوان محفظة TON مستخدم مسبقاً في حساب آخر. يمنع النظام تعدد الحسابات لضمان عدالة التعدين.
+  <!-- ==================== نافذة تنبيه المحفظة المستخدمة (بدون حظر الحساب) ==================== -->
+  <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
+    <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
+      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">⚠️ المحفظة مربوطة بحساب آخر</h3>
+      <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px;" id="txt-wused-desc">
+        عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.
       </p>
+      <button onclick="closeAllModals()" class="primary-gold-btn" id="txt-wused-btn">حسناً، فهمت</button>
     </div>
   </div>
 
   <script>
     // ==================== 1. إعدادات النظام وقاعدة البيانات ====================
-    // ضع رابط Firebase Realtime Database الخاص بك هنا (مثال: https://your-project-default-rtdb.firebaseio.com)
     const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const BOT_USERNAME = "ROL_Mining_bot";
@@ -1043,13 +1043,16 @@
         pgRefsShare: "🚀 مشاركة الرابط مع الأصدقاء",
         pgRefsCopy: "📋 نسخ رابط الإحالة",
         pgWalletTitle: "💼 محفظة TON والسحب",
-        pgWalletSub: "إدارة رصيدك وربط محفظة TON الحقيقية لرفع مستوى التعدين",
+        pgWalletSub: "إدارة رصيدك وربط محفظة TON لرفع مستوى التعدين",
         pgWBalLbl: "الرصيد المتاح للتعدين",
         pgWAddrLbl: "حالة اتصال المحفظة:",
         walletBtnModal: "🔗 ربط محفظة TON",
         walletDisconnectModal: "❌ فصل المحفظة",
         notConnected: "غير متصلة",
         pgWWithdraw: "🔒 السحب سيُفتح عند الإدراج الرسمي",
+        wUsedTitle: "⚠️ المحفظة مربوطة بحساب آخر",
+        wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
+        wUsedBtn: "حسناً، فهمت",
         dayLabel: "يوم"
       },
       en: {
@@ -1098,13 +1101,16 @@
         pgRefsShare: "🚀 Share Link with Friends",
         pgRefsCopy: "📋 Copy Invite Link",
         pgWalletTitle: "💼 TON Wallet & Cashout",
-        pgWalletSub: "Manage your balance and connect real TON wallet to boost VIP tier",
+        pgWalletSub: "Manage your balance and connect TON wallet to boost VIP tier",
         pgWBalLbl: "Available Mining Balance",
         pgWAddrLbl: "Wallet Connection Status:",
         walletBtnModal: "🔗 Connect TON Wallet",
         walletDisconnectModal: "❌ Disconnect Wallet",
         notConnected: "Not Connected",
         pgWWithdraw: "🔒 Withdrawals open at official listing",
+        wUsedTitle: "⚠️ Wallet Already Linked",
+        wUsedDesc: "Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.",
+        wUsedBtn: "Understood",
         dayLabel: "Day"
       }
     };
@@ -1132,7 +1138,7 @@
     let isMining = startTime > 0;
     let lock = false;
 
-    // ==================== 2. مزامنة Firebase السحابية الحقيقية ====================
+    // ==================== 2. مزامنة Firebase السحابية (بدون حظر الحسابات) ====================
     async function syncUserToCloud() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
@@ -1146,6 +1152,7 @@
           checkinDay: checkinDay,
           lastCheckinTime: lastCheckinTime,
           completedTasks: completedTasks,
+          banned: false,
           updatedAt: Date.now()
         };
         await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
@@ -1164,10 +1171,6 @@
         const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
         const data = await res.json();
         if (data) {
-          if (data.banned) {
-            document.getElementById('ban-modal').classList.add('active');
-            return;
-          }
           if (typeof data.balance === 'number' && data.balance > balance) {
             balance = data.balance;
             updateBalance();
@@ -1180,8 +1183,10 @@
             refEarn = data.refEarn;
             localStorage.setItem(KEY_REF_EARN, refEarn.toString());
           }
+          if (data.banned) {
+            await syncUserToCloud();
+          }
         } else {
-          // مستخدم جديد: معالجة كود الإحالة إن وجد (بدون مكافأة تسجيل مجانية)
           if (startParam && startParam.startsWith("ref_")) {
             const referrerId = startParam.replace("ref_", "");
             if (referrerId && referrerId !== uid) {
@@ -1216,38 +1221,32 @@
       } catch (e) {}
     }
 
-    // التحقق من عدم استخدام نفس المحفظة في حساب آخر (Auto-Ban Logic)
-    async function verifyAndBindWalletAntiCheat(walletAddress) {
+    // التحقق من عدم ارتباط المحفظة بحساب آخر (يرفض الربط ويعرض تنبيه فقط دون حظر الحساب)
+    async function checkWalletUniqueness(friendlyAddress) {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return true;
       try {
-        const safeKey = walletAddress.replace(/[^a-zA-Z0-9]/g, '_');
+        const safeKey = friendlyAddress.replace(/[^a-zA-Z0-9]/g, '_');
         const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
         const ownerUid = await res.json();
 
-        if (ownerUid && ownerUid !== uid) {
-          // المحفظة مربوطة بحساب آخر -> حظر تلقائي
-          await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
-            method: 'PATCH',
+        // إذا كانت مسجلة سابقاً لحساب تجريبي 'guest_miner' أو لنفس الحساب 'uid'، نسمح بها ونحدّث المالك
+        if (!ownerUid || ownerUid === uid || ownerUid === "guest_miner") {
+          await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ banned: true, banReason: "Duplicate TON Wallet" })
+            body: JSON.stringify(uid)
           });
-          document.getElementById('ban-modal').classList.add('active');
-          return false;
+          return true;
         }
 
-        // تسجيل ملكية المحفظة لهذا الحساب
-        await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(uid)
-        });
-        return true;
+        // المحفظة مربوطة بحساب مستخدم آخر -> نرفض ربط المحفظة فقط ونعرض التنبيه
+        return false;
       } catch (e) {
         return true;
       }
     }
 
-    // ==================== 3. ربط TonConnect الحقيقي وقراءة رصيد ROL من البلوكشين ====================
+    // ==================== 3. ربط TonConnect الحقيقي وقراءة رصيد ROL ====================
     let tonConnectUI = null;
 
     async function fetchRealOnChainROLBalance(walletAddr) {
@@ -1265,7 +1264,6 @@
         onChainRolBalance = 0;
       }
 
-      // تحديث عرض رصيد المحفظة الحقيقي وحساب VIP تلقائياً
       document.getElementById('pg-onchain-rol').innerText = (curLang === 'ar')
         ? `رصيد محفظة TON: ${onChainRolBalance.toFixed(2)} ROL`
         : `TON Wallet Balance: ${onChainRolBalance.toFixed(2)} ROL`;
@@ -1291,16 +1289,29 @@
 
           tonConnectUI.onStatusChange(async (wallet) => {
             if (wallet && wallet.account) {
-              const rawAddr = wallet.account.address;
-              const isAllowed = await verifyAndBindWalletAntiCheat(rawAddr);
-              if (!isAllowed) {
+              // توحيد صيغة عنوان المحفظة (User-Friendly UQ...) لتجنب تضارب الصيغ
+              let friendlyAddr = wallet.account.address;
+              try {
+                if (TON_CONNECT_UI.toUserFriendlyAddress) {
+                  friendlyAddr = TON_CONNECT_UI.toUserFriendlyAddress(wallet.account.address);
+                }
+              } catch (err) {}
+
+              const isAvailable = await checkWalletUniqueness(friendlyAddr);
+              if (!isAvailable) {
+                // المحفظة مربوطة بحساب آخر: نفصل المحفظة ونظهر رسالة التنبيه دون حظر الحساب
                 await tonConnectUI.disconnect();
+                connectedWalletAddr = null;
+                localStorage.removeItem(KEY_WALLET);
+                updateWalletButtonUI();
+                openModal('wallet-used-modal');
                 return;
               }
-              connectedWalletAddr = rawAddr;
-              localStorage.setItem(KEY_WALLET, rawAddr);
+
+              connectedWalletAddr = friendlyAddr;
+              localStorage.setItem(KEY_WALLET, friendlyAddr);
               updateWalletButtonUI();
-              await fetchRealOnChainROLBalance(rawAddr);
+              await fetchRealOnChainROLBalance(friendlyAddr);
             } else {
               connectedWalletAddr = null;
               localStorage.removeItem(KEY_WALLET);
@@ -1424,6 +1435,10 @@
       document.getElementById('rules-content').innerHTML = t.rulesContent;
       document.getElementById('txt-close-1').innerText = t.close;
       document.getElementById('txt-close-2').innerText = t.understand;
+
+      document.getElementById('txt-wused-title').innerText = t.wUsedTitle;
+      document.getElementById('txt-wused-desc').innerText = t.wUsedDesc;
+      document.getElementById('txt-wused-btn').innerText = t.wUsedBtn;
 
       document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
@@ -1634,9 +1649,7 @@
     }
 
     function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => {
-        if (m.id !== 'ban-modal') m.classList.remove('active');
-      });
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
     }
 
     function onOverlayClick(e, id) {
@@ -1670,7 +1683,6 @@
       alert((curLang === 'ar') ? "تم نسخ رابط الإحالة بنجاح!" : "Referral link copied!");
     }
 
-    // التشغيل عند تحميل الصفحة
     setInterval(renderMining, 1000);
     applyLanguage(curLang);
     updateBalance();
