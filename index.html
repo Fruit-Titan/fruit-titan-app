@@ -314,20 +314,20 @@
       50% { transform: scale(1.06); }
     }
 
-    /* ==================== الصفحات المستقلة ==================== */
+    /* ==================== الصفحات المستقلة الأسطورية ==================== */
     .sub-page {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 88px;
-      background: linear-gradient(180deg, #06132b 0%, #020712 100%);
+      background: radial-gradient(circle at 50% 0%, #0b224d 0%, #040c1f 45%, #020611 100%);
       z-index: 50;
       display: none;
       flex-direction: column;
-      padding: 20px 16px 16px;
+      padding: 20px 16px 20px;
       overflow-y: auto;
-      animation: fadeInPage 0.2s ease;
+      animation: fadeInPage 0.22s ease;
     }
 
     .sub-page.active {
@@ -335,7 +335,7 @@
     }
 
     @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -343,24 +343,44 @@
       text-align: center;
       margin-bottom: 18px;
       padding-bottom: 14px;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-badge-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.06));
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
     }
 
     .page-title {
       font-size: 20px;
       font-weight: 900;
-      color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+      color: #ffffff;
+      letter-spacing: 0.3px;
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.55);
     }
 
     .page-subtitle {
       font-size: 12px;
       color: #94a3b8;
       margin-top: 5px;
+      line-height: 1.5;
+      max-width: 320px;
     }
 
+    /* بطاقات المهام */
     .task-card {
-      background: #0a1936;
+      background: linear-gradient(145deg, rgba(12, 30, 66, 0.85), rgba(6, 16, 38, 0.92));
       border: 1px solid rgba(0, 240, 255, 0.25);
       border-radius: 16px;
       padding: 14px;
@@ -368,7 +388,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
     }
 
     .task-info {
@@ -381,11 +401,12 @@
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      flex-shrink: 0;
     }
 
     .task-name {
@@ -397,8 +418,9 @@
     .task-reward {
       font-size: 12px;
       font-weight: 900;
-      color: #fbbf24;
+      color: #facc15;
       margin-top: 3px;
+      font-family: ui-monospace, monospace;
     }
 
     .action-pill-btn {
@@ -413,88 +435,326 @@
     }
 
     .action-pill-btn.done {
-      background: rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.18);
       color: #34d399;
       border: 1px solid #10b981;
       pointer-events: none;
     }
 
-    .stats-row {
+    /* ==================== تصميم صفحة الإحالات الأسطورية ==================== */
+    .ref-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cyber-stat-box {
+      position: relative;
+      background: linear-gradient(160deg, rgba(14, 34, 74, 0.9), rgba(5, 14, 34, 0.95));
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      border-radius: 18px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .cyber-stat-box.cyan-accent {
+      border-color: rgba(0, 240, 255, 0.35);
+    }
+
+    .cyber-stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #facc15, transparent);
+    }
+
+    .cyber-stat-box.cyan-accent::before {
+      background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+    }
+
+    .stat-val-big {
+      font-size: 24px;
+      font-weight: 900;
+      color: #facc15;
+      font-family: ui-monospace, monospace;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.45);
+    }
+
+    .cyber-stat-box.cyan-accent .stat-val-big {
+      color: #00f0ff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+    }
+
+    .stat-caption {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+
+    /* بطاقة قواعد الإحالة */
+    .ref-perks-card {
+      background: rgba(10, 25, 54, 0.75);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .perk-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    .perk-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: rgba(250, 204, 21, 0.14);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* صندوق رابط الدعوة الاحترافي */
+    .invite-link-wrapper {
+      background: #030917;
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 14px;
+      padding: 6px 6px 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 14px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .invite-url-text {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      color: #38bdf8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      direction: ltr;
+      flex: 1;
+    }
+
+    .mini-copy-btn {
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #00f0ff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .mini-copy-btn.copied {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #34d399;
+    }
+
+    /* ==================== تصميم صفحة المحفظة الأسطورية ==================== */
+    .holo-wallet-card {
+      position: relative;
+      background: linear-gradient(135deg, #0e2756 0%, #071636 55%, #040d21 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 240, 255, 0.15);
+      overflow: hidden;
+    }
+
+    .holo-wallet-card::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .card-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .network-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #00f0ff;
+      letter-spacing: 0.4px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #f59e0b;
+      box-shadow: 0 0 8px #f59e0b;
+    }
+
+    .status-dot.connected {
+      background-color: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .holo-balance-lbl {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    .holo-balance-num {
+      font-size: 30px;
+      font-weight: 900;
+      color: #ffffff;
+      font-family: ui-monospace, monospace;
+      text-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+      margin: 4px 0 14px;
+      direction: ltr;
+    }
+
+    .holo-sub-metrics {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .stat-card {
-      background: #0a1936;
-      border: 1px solid rgba(250, 204, 21, 0.3);
-      border-radius: 16px;
-      padding: 16px 12px;
-      text-align: center;
+    .sub-metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .stat-num {
-      font-size: 22px;
+    .sub-metric-title {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .sub-metric-val {
+      font-size: 12.5px;
       font-weight: 900;
-      color: #fbbf24;
+      color: #facc15;
       font-family: ui-monospace, monospace;
     }
 
-    .stat-lbl {
-      font-size: 11px;
-      color: #94a3b8;
-      margin-top: 4px;
+    .address-panel {
+      background: rgba(6, 16, 38, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
     }
 
-    .ref-link-box {
-      background: #040b1a;
-      border: 1px dashed rgba(0, 240, 255, 0.45);
-      border-radius: 14px;
-      padding: 13px;
+    .address-val-mono {
       font-family: ui-monospace, monospace;
       font-size: 11.5px;
-      color: #00f0ff;
-      text-align: center;
-      margin-bottom: 14px;
+      font-weight: 700;
+      color: #cbd5e1;
       word-break: break-all;
+      direction: ltr;
     }
 
-    .wallet-hero-card {
-      background: linear-gradient(145deg, #0d2147, #061024);
-      border: 1px solid rgba(0, 240, 255, 0.4);
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 16px;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
-    }
-
-    .primary-gold-btn {
+    /* الأزرار الأسطورية الموحدة */
+    .legendary-btn-gold {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 14px;
       border: none;
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+      color: #090500;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: transform 0.15s ease;
+    }
+
+    .legendary-btn-gold:active { transform: scale(0.97); }
+
+    .legendary-btn-cyan {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%);
       color: #020712;
       font-size: 14px;
       font-weight: 900;
       cursor: pointer;
       margin-bottom: 10px;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      transition: transform 0.15s ease;
     }
 
-    .primary-cyan-btn {
+    .legendary-btn-cyan:active { transform: scale(0.97); }
+
+    .legendary-btn-locked {
       width: 100%;
-      padding: 14px;
+      padding: 13px 16px;
       border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #0284c7, #00f0ff);
-      color: #020712;
-      font-size: 14px;
-      font-weight: 900;
-      cursor: pointer;
-      margin-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.7);
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: not-allowed;
     }
 
     /* ==================== الشريط السفلي المطور (3D Cyber Neon Frames) ==================== */
@@ -754,13 +1014,22 @@
     <!-- ==================== 2. صفحة المهام المستقلة ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
-        <div class="page-title" id="pg-tasks-title">📋 المهام والمكافآت</div>
-        <div class="page-subtitle" id="pg-tasks-sub">أكمل المهام اليومية والاجتماعية لزيادة رصيدك من عملة ROL</div>
+        <div class="header-badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <div class="page-title" id="pg-tasks-title">المهام والمكافآت</div>
+        <div class="page-subtitle" id="pg-tasks-sub">أكمل المهام الرسمية لزيادة رصيدك من عملة ROL</div>
       </div>
 
       <div class="task-card">
         <div class="task-info">
-          <div class="task-icon">📢</div>
+          <div class="task-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+          </div>
           <div>
             <div class="task-name" id="t1-name">انضم لقناة ROL الرسمية</div>
             <div class="task-reward">+20.000 ROL</div>
@@ -771,7 +1040,11 @@
 
       <div class="task-card">
         <div class="task-info">
-          <div class="task-icon">🐦</div>
+          <div class="task-icon">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </div>
           <div>
             <div class="task-name" id="t2-name">تابع حساب المشروع على X</div>
             <div class="task-reward">+15.000 ROL</div>
@@ -782,7 +1055,11 @@
 
       <div class="task-card">
         <div class="task-info">
-          <div class="task-icon">💎</div>
+          <div class="task-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+          </div>
           <div>
             <div class="task-name" id="t3-name">اربط محفظة TON الخاصة بك</div>
             <div class="task-reward">+50.000 ROL</div>
@@ -792,52 +1069,140 @@
       </div>
     </div>
 
-    <!-- ==================== 3. صفحة الإحالات المستقلة ==================== -->
+    <!-- ==================== 3. صفحة الإحالات الأسطورية (بدون إيموجيات بدائية) ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
-        <div class="page-title" id="pg-refs-title">👥 نظام الإحالات</div>
-        <div class="page-subtitle" id="pg-refs-sub">ادعُ أصدقاءك واحصل على 25 ROL فوراً + 10% من أرباح تعدينهم</div>
+        <div class="header-badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="page-title" id="pg-refs-title">شبكة الإحالات</div>
+        <div class="page-subtitle" id="pg-refs-sub">قم بتوسيع شبكتك واحصل على مكافآت فورية وحصة مستمرة من تعدين فريقك</div>
       </div>
 
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-num" id="ref-count-val">0</div>
-          <div class="stat-lbl" id="pg-refs-friends">الأصدقاء المدعوون</div>
+      <!-- بطاقات الإحصائيات المزدوجة -->
+      <div class="ref-stats-grid">
+        <div class="cyber-stat-box cyan-accent">
+          <div class="stat-val-big" id="ref-count-val">0</div>
+          <div class="stat-caption" id="pg-refs-friends">الأصدقاء المدعوون</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-num" id="ref-earn-val">0.00</div>
-          <div class="stat-lbl" id="pg-refs-earned">أرباح الإحالات (ROL)</div>
+        <div class="cyber-stat-box">
+          <div class="stat-val-big" id="ref-earn-val">0.00</div>
+          <div class="stat-caption" id="pg-refs-earned">أرباح الإحالات (ROL)</div>
         </div>
       </div>
 
-      <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
-      <div class="ref-link-box" id="user-ref-link">https://t.me/ROL_Mining_bot?start=ref_miner</div>
+      <!-- مزايا نظام الإحالة -->
+      <div class="ref-perks-card">
+        <div class="perk-row">
+          <div class="perk-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <span id="perk-1-txt">+25.000 ROL مكافأة فورية لكل صديق ينضم عبر رابطك</span>
+        </div>
+        <div class="perk-row">
+          <div class="perk-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.5">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <span id="perk-2-txt">10% عمولة مستمرة من إجمالي إنتاج أصدقائك في التعدين</span>
+        </div>
+      </div>
 
-      <button class="primary-gold-btn" onclick="shareReferralLink()" id="pg-refs-share-btn">🚀 مشاركة الرابط مع الأصدقاء</button>
-      <button class="primary-cyan-btn" onclick="copyReferralLink()" id="pg-refs-copy-btn">📋 نسخ رابط الإحالة</button>
+      <!-- صندوق رابط الدعوة الاحترافي مع زر النسخ المدمج -->
+      <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك</div>
+      <div class="invite-link-wrapper">
+        <div class="invite-url-text" id="user-ref-link">https://t.me/ROL_Mining_bot?start=ref_miner</div>
+        <button class="mini-copy-btn" id="mini-copy-btn" onclick="copyReferralLink()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="copy-btn-lbl">نسخ</span>
+        </button>
+      </div>
+
+      <!-- زر المشاركة الذهبي الفاخر -->
+      <button class="legendary-btn-gold" onclick="shareReferralLink()" id="pg-refs-share-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span id="share-btn-lbl">مشاركة الرابط مع الأصدقاء</span>
+      </button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة المستقلة ==================== -->
+    <!-- ==================== 4. صفحة المحفظة الأسطورية (Web3 Asset Card) ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header">
-        <div class="page-title" id="pg-wallet-title">💼 محفظة TON والسحب</div>
-        <div class="page-subtitle" id="pg-wallet-sub">إدارة رصيدك وربط محفظة TON لرفع مستوى التعدين</div>
+        <div class="header-badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
+          </svg>
+        </div>
+        <div class="page-title" id="pg-wallet-title">محفظة الأصول الرقمية</div>
+        <div class="page-subtitle" id="pg-wallet-sub">إدارة رصيد التعدين وربط محفظة TON لرفع مضاعف السرعة</div>
       </div>
 
-      <div class="wallet-hero-card">
-        <div style="font-size: 12px; color: #94a3b8;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
-        <div style="font-size: 28px; font-weight: 900; color: #00f0ff; font-family: ui-monospace, monospace; margin: 6px 0;" id="pg-wallet-balance">0.000 ROL</div>
-        <div style="font-size: 11px; color: #fbbf24;" id="pg-w-vip-status">المستوى الحالي: VIP 1</div>
-        <div style="font-size: 11px; color: #38bdf8; margin-top: 4px;" id="pg-onchain-rol">رصيد محفظة TON: 0.00 ROL</div>
+      <!-- بطاقة الأصول ثلاثية الأبعاد -->
+      <div class="holo-wallet-card">
+        <div class="card-top-meta">
+          <div class="network-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5">
+              <polygon points="12 2 22 8.5 12 22 2 8.5 12 2"/>
+            </svg>
+            <span>TON NETWORK</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: #cbd5e1; font-weight: 700;">
+            <span class="status-dot" id="wallet-live-dot"></span>
+            <span id="wallet-conn-badge">غير متصلة</span>
+          </div>
+        </div>
+
+        <div class="holo-balance-lbl" id="pg-w-bal-lbl">إجمالي رصيد التعدين</div>
+        <div class="holo-balance-num" id="pg-wallet-balance">0.000 ROL</div>
+
+        <div class="holo-sub-metrics">
+          <div class="sub-metric-item">
+            <span class="sub-metric-title" id="pg-w-vip-lbl">مستوى التعدين</span>
+            <span class="sub-metric-val" id="pg-w-vip-status">VIP 1</span>
+          </div>
+          <div class="sub-metric-item">
+            <span class="sub-metric-title" id="pg-w-chain-lbl">رصيد محفظة TON</span>
+            <span class="sub-metric-val" style="color: #38bdf8;" id="pg-onchain-rol">0.00 ROL</span>
+          </div>
+        </div>
       </div>
 
-      <div class="task-card" style="flex-direction: column; align-items: stretch; gap: 8px; margin-bottom: 14px;">
-        <div style="font-size: 11px; color: #94a3b8;" id="pg-w-addr-lbl">حالة اتصال المحفظة:</div>
-        <div id="wallet-status-lbl" style="font-size: 12.5px; font-weight: 800; color: #fbbf24; font-family: monospace; word-break: break-all;">غير متصلة</div>
+      <!-- لوحة عنوان المحفظة المتصلة -->
+      <div class="address-panel">
+        <div style="display: flex; flex-direction: column; gap: 3px; overflow: hidden;">
+          <span style="font-size: 10.5px; color: #94a3b8; font-weight: 700;" id="pg-w-addr-lbl">عنوان محفظة TON المتصلة</span>
+          <span class="address-val-mono" id="wallet-status-lbl">Not Connected</span>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" style="flex-shrink: 0;">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
       </div>
 
-      <button class="primary-cyan-btn" onclick="handleRealTonConnect()" id="modal-ton-connect-action">🔗 ربط محفظة TON</button>
-      <button class="primary-gold-btn" style="opacity: 0.5; cursor: not-allowed;" id="pg-w-withdraw-btn">🔒 السحب سيُفتح عند الإدراج الرسمي</button>
+      <!-- أزرار التحكم بالمحفظة -->
+      <button class="legendary-btn-cyan" onclick="handleRealTonConnect()" id="modal-ton-connect-action">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        <span id="ton-btn-txt">ربط محفظة TON</span>
+      </button>
+
+      <div class="legendary-btn-locked" id="pg-w-withdraw-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span id="withdraw-locked-txt">السحب سيُفتح عند الإدراج الرسمي</span>
+      </div>
     </div>
 
     <!-- ==================== الشريط السفلي المحسّن ==================== -->
@@ -937,15 +1302,15 @@
   <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
-      <div class="streak-banner" id="streak-badge">🔥 سلسلة الحضور: يوم 1 / 30</div>
-      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">🎁 المكافآت اليومية</h3>
+      <div class="streak-banner" id="streak-badge">سلسلة الحضور: يوم 1 / 30</div>
+      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">المكافآت اليومية</h3>
       <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5;" id="txt-modal-checkin-desc">
         سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!
       </p>
       
       <div class="days-grid" id="days-grid-container"></div>
 
-      <button class="primary-gold-btn" id="claim-daily-btn" onclick="claimDailyReward()">استلام مكافأة اليوم</button>
+      <button class="legendary-btn-gold" id="claim-daily-btn" onclick="claimDailyReward()">استلام مكافأة اليوم</button>
       <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-1">إغلاق</button>
     </div>
   </div>
@@ -953,20 +1318,20 @@
   <!-- ==================== نافذة قواعد المستويات ==================== -->
   <div class="modal-overlay" id="rules-modal" onclick="onOverlayClick(event, 'rules-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.45);">
-      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-rules-title">📈 نظام المستويات (Hold-to-Earn)</h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px;" id="txt-rules-title">نظام المستويات (Hold-to-Earn)</h3>
       <div class="rules-list" id="rules-content"></div>
-      <button onclick="closeAllModals()" class="primary-cyan-btn" id="txt-close-2">فهمت ذلك</button>
+      <button onclick="closeAllModals()" class="legendary-btn-cyan" id="txt-close-2">فهمت ذلك</button>
     </div>
   </div>
 
-  <!-- ==================== نافذة تنبيه المحفظة المستخدمة (بدون حظر الحساب) ==================== -->
+  <!-- ==================== نافذة تنبيه المحفظة المستخدمة ==================== -->
   <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
-      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">⚠️ المحفظة مربوطة بحساب آخر</h3>
+      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">المحفظة مربوطة بحساب آخر</h3>
       <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px;" id="txt-wused-desc">
         عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.
       </p>
-      <button onclick="closeAllModals()" class="primary-gold-btn" id="txt-wused-btn">حسناً، فهمت</button>
+      <button onclick="closeAllModals()" class="legendary-btn-gold" id="txt-wused-btn">حسناً، فهمت</button>
     </div>
   </div>
 
@@ -1013,44 +1378,50 @@
         navTasks: "المهام",
         navRefs: "الإحالات",
         navWallet: "المحفظة",
-        modalCheckinTitle: "🎁 المكافآت اليومية (30 يوماً)",
-        modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
-        streakTxt: "🔥 سلسلة الحضور: يوم",
+        modalCheckinTitle: "المكافآت اليومية (30 يوماً)",
+        modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
+        streakTxt: "سلسلة الحضور: يوم",
         claimDay: "استلام مكافأة اليوم",
-        claimedDone: "✅ تم الاستلام - عد غداً",
+        claimedDone: "تم الاستلام - عد غداً",
         close: "إغلاق",
         understand: "فهمت ذلك",
-        rulesTitle: "📈 نظام المستويات (Hold-to-Earn)",
+        rulesTitle: "نظام المستويات (Hold-to-Earn)",
         rulesContent: `
           <p>• <b>المستوى 1 (VIP 1):</b> المعدل الافتراضي 1.250 ROL/ساعة مجاناً.</p>
           <p>• <b>المستوى 2 - 10:</b> امتلاك من 400 إلى 4,000 ROL في محفظتك يضاعف سرعة التعدين.</p>
           <p>• <b>المستوى 11 - 50:</b> امتلاك أكثر من 10,000 ROL يمنحك سرعات فائقة تبدأ من +20 ROL/ساعة.</p>
           <p>• <b>المستوى 100 (Supreme VIP):</b> كبار حاملي العملة يحصلون على أعلى حصة تعدين وسحب فوري.</p>
         `,
-        pgTasksTitle: "📋 المهام والمكافآت",
-        pgTasksSub: "أكمل المهام اليومية والاجتماعية لزيادة رصيدك من عملة ROL",
+        pgTasksTitle: "المهام والمكافآت",
+        pgTasksSub: "أكمل المهام الرسمية لزيادة رصيدك من عملة ROL",
         t1Name: "انضم لقناة ROL الرسمية",
         t2Name: "تابع حساب المشروع على X",
         t3Name: "اربط محفظة TON الخاصة بك",
         doBtn: "تنفيذ",
         verifyBtn: "تحقق",
         doneBtn: "مكتمل ✓",
-        pgRefsTitle: "👥 نظام الإحالات",
-        pgRefsSub: "ادعُ أصدقاءك واحصل على 25 ROL فوراً + 10% من أرباح تعدينهم",
+        pgRefsTitle: "شبكة الإحالات",
+        pgRefsSub: "قم بتوسيع شبكتك واحصل على مكافآت فورية وحصة مستمرة من تعدين فريقك",
         pgRefsFriends: "الأصدقاء المدعوون",
         pgRefsEarned: "أرباح الإحالات (ROL)",
-        pgRefsLinkLbl: "رابط الدعوة الخاص بك:",
-        pgRefsShare: "🚀 مشاركة الرابط مع الأصدقاء",
-        pgRefsCopy: "📋 نسخ رابط الإحالة",
-        pgWalletTitle: "💼 محفظة TON والسحب",
-        pgWalletSub: "إدارة رصيدك وربط محفظة TON لرفع مستوى التعدين",
-        pgWBalLbl: "الرصيد المتاح للتعدين",
-        pgWAddrLbl: "حالة اتصال المحفظة:",
-        walletBtnModal: "🔗 ربط محفظة TON",
-        walletDisconnectModal: "❌ فصل المحفظة",
+        perk1: "+25.000 ROL مكافأة فورية لكل صديق ينضم عبر رابطك",
+        perk2: "10% عمولة مستمرة من إجمالي إنتاج أصدقائك في التعدين",
+        pgRefsLinkLbl: "رابط الدعوة الخاص بك",
+        copyBtn: "نسخ",
+        copiedBtn: "تم النسخ ✓",
+        pgRefsShare: "مشاركة الرابط مع الأصدقاء",
+        pgWalletTitle: "محفظة الأصول الرقمية",
+        pgWalletSub: "إدارة رصيد التعدين وربط محفظة TON لرفع مضاعف السرعة",
+        pgWBalLbl: "إجمالي رصيد التعدين",
+        pgWVipLbl: "مستوى التعدين",
+        pgWChainLbl: "رصيد محفظة TON",
+        pgWAddrLbl: "عنوان محفظة TON المتصلة",
+        walletBtnModal: "ربط محفظة TON",
+        walletDisconnectModal: "فصل المحفظة",
+        connActive: "متصلة",
         notConnected: "غير متصلة",
-        pgWWithdraw: "🔒 السحب سيُفتح عند الإدراج الرسمي",
-        wUsedTitle: "⚠️ المحفظة مربوطة بحساب آخر",
+        pgWWithdraw: "السحب سيُفتح عند الإدراج الرسمي",
+        wUsedTitle: "المحفظة مربوطة بحساب آخر",
         wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
         wUsedBtn: "حسناً، فهمت",
         dayLabel: "يوم"
@@ -1071,44 +1442,50 @@
         navTasks: "Tasks",
         navRefs: "Referrals",
         navWallet: "Wallet",
-        modalCheckinTitle: "🎁 Daily Rewards (30 Days)",
+        modalCheckinTitle: "Daily Rewards (30 Days)",
         modalCheckinDesc: "Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!",
-        streakTxt: "🔥 Check-in Streak: Day",
+        streakTxt: "Check-in Streak: Day",
         claimDay: "Claim Today's Reward",
-        claimedDone: "✅ Claimed - Come back tomorrow",
+        claimedDone: "Claimed - Come back tomorrow",
         close: "Close",
         understand: "Understood",
-        rulesTitle: "📈 Tier System (Hold-to-Earn)",
+        rulesTitle: "Tier System (Hold-to-Earn)",
         rulesContent: `
           <p>• <b>Tier 1 (VIP 1):</b> Base rate 1.250 ROL/hour for free.</p>
           <p>• <b>Tier 2 - 10:</b> Holding 400 - 4,000 ROL in your wallet doubles your mining speed.</p>
           <p>• <b>Tier 11 - 50:</b> Holding 10,000+ ROL grants speeds starting from +20 ROL/hour.</p>
           <p>• <b>Tier 100 (Supreme VIP):</b> Top holders gain maximal output and instant withdrawal access.</p>
         `,
-        pgTasksTitle: "📋 Tasks & Rewards",
-        pgTasksSub: "Complete daily and social tasks to boost your ROL balance",
+        pgTasksTitle: "Tasks & Rewards",
+        pgTasksSub: "Complete official tasks to boost your ROL balance",
         t1Name: "Join Official ROL Channel",
         t2Name: "Follow Project on X",
         t3Name: "Connect Your TON Wallet",
         doBtn: "Start",
         verifyBtn: "Verify",
         doneBtn: "Done ✓",
-        pgRefsTitle: "👥 Referral Program",
-        pgRefsSub: "Invite friends to earn 25 ROL instantly + 10% of their mining output",
+        pgRefsTitle: "Referral Network",
+        pgRefsSub: "Expand your network to earn instant rewards and ongoing mining shares",
         pgRefsFriends: "Invited Friends",
         pgRefsEarned: "Referral Earnings (ROL)",
-        pgRefsLinkLbl: "Your Personal Invite Link:",
-        pgRefsShare: "🚀 Share Link with Friends",
-        pgRefsCopy: "📋 Copy Invite Link",
-        pgWalletTitle: "💼 TON Wallet & Cashout",
-        pgWalletSub: "Manage your balance and connect TON wallet to boost VIP tier",
-        pgWBalLbl: "Available Mining Balance",
-        pgWAddrLbl: "Wallet Connection Status:",
-        walletBtnModal: "🔗 Connect TON Wallet",
-        walletDisconnectModal: "❌ Disconnect Wallet",
+        perk1: "+25.000 ROL instant reward for every friend who joins",
+        perk2: "10% continuous commission from your team's mining output",
+        pgRefsLinkLbl: "Your Personal Invite Link",
+        copyBtn: "Copy",
+        copiedBtn: "Copied ✓",
+        pgRefsShare: "Share Invite Link",
+        pgWalletTitle: "Digital Asset Wallet",
+        pgWalletSub: "Manage mining balance and connect TON wallet to boost speed multiplier",
+        pgWBalLbl: "Total Mining Balance",
+        pgWVipLbl: "Mining Tier",
+        pgWChainLbl: "TON Wallet Balance",
+        pgWAddrLbl: "Connected TON Wallet Address",
+        walletBtnModal: "Connect TON Wallet",
+        walletDisconnectModal: "Disconnect Wallet",
+        connActive: "Connected",
         notConnected: "Not Connected",
-        pgWWithdraw: "🔒 Withdrawals open at official listing",
-        wUsedTitle: "⚠️ Wallet Already Linked",
+        pgWWithdraw: "Withdrawals open at official listing",
+        wUsedTitle: "Wallet Already Linked",
         wUsedDesc: "Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.",
         wUsedBtn: "Understood",
         dayLabel: "Day"
@@ -1223,18 +1600,15 @@
       } catch (e) {}
     }
 
-    // التحقق الدقيق من عدم ارتباط المحفظة بحساب آخر (مع تجاهل أخطاء الشبكة أو صلاحيات Firebase)
     async function checkWalletUniqueness(friendlyAddress) {
       const safeKey = friendlyAddress.replace(/[^a-zA-Z0-9]/g, '_');
       const localBoundKey = `rol_global_wallet_${safeKey}`;
 
-      // 1. فحص محلي على الجهاز
       const localOwner = localStorage.getItem(localBoundKey);
       if (localOwner && localOwner !== uid && localOwner !== "guest_miner") {
         return false;
       }
 
-      // 2. فحص قاعدة البيانات السحابية Firebase
       if (FIREBASE_DB_URL && !FIREBASE_DB_URL.includes("your-project") && uid !== "guest_miner") {
         try {
           const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
@@ -1276,9 +1650,7 @@
         onChainRolBalance = 0;
       }
 
-      document.getElementById('pg-onchain-rol').innerText = (curLang === 'ar')
-        ? `رصيد محفظة TON: ${onChainRolBalance.toFixed(2)} ROL`
-        : `TON Wallet Balance: ${onChainRolBalance.toFixed(2)} ROL`;
+      document.getElementById('pg-onchain-rol').innerText = `${onChainRolBalance.toFixed(2)} ROL`;
 
       let calculatedVip = 1;
       if (onChainRolBalance >= 40000) calculatedVip = 100;
@@ -1389,9 +1761,7 @@
     function updateVIPDisplay() {
       document.getElementById('vip-level-display').innerText = `VIP ${currentVip}`;
       document.getElementById('rate-display').innerText = `+${getMiningRate()} ROL / h`;
-      document.getElementById('pg-w-vip-status').innerText = (curLang === 'ar')
-        ? `المستوى الحالي: VIP ${currentVip}`
-        : `Current Tier: VIP ${currentVip}`;
+      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip}`;
       localStorage.setItem(KEY_VIP, currentVip.toString());
     }
 
@@ -1406,20 +1776,29 @@
       const btnLbl = document.getElementById('wallet-btn-label');
       const statusLbl = document.getElementById('wallet-status-lbl');
       const modalBtn = document.getElementById('modal-ton-connect-action');
+      const tonBtnTxt = document.getElementById('ton-btn-txt');
+      const liveDot = document.getElementById('wallet-live-dot');
+      const connBadge = document.getElementById('wallet-conn-badge');
 
       if (connectedWalletAddr) {
         const shortAddr = `${connectedWalletAddr.substring(0, 4)}...${connectedWalletAddr.substring(connectedWalletAddr.length - 4)}`;
         btnLbl.innerText = shortAddr;
         statusLbl.innerText = connectedWalletAddr;
-        modalBtn.innerText = dictionary[curLang].walletDisconnectModal;
+        tonBtnTxt.innerText = dictionary[curLang].walletDisconnectModal;
         modalBtn.style.background = "linear-gradient(135deg, #ef4444, #b91c1c)";
         modalBtn.style.color = "#ffffff";
+        liveDot.classList.add('connected');
+        connBadge.innerText = dictionary[curLang].connActive;
+        connBadge.style.color = "#34d399";
       } else {
         btnLbl.innerText = dictionary[curLang].walletConnect;
         statusLbl.innerText = dictionary[curLang].notConnected;
-        modalBtn.innerText = dictionary[curLang].walletBtnModal;
-        modalBtn.style.background = "linear-gradient(135deg, #0284c7, #00f0ff)";
+        tonBtnTxt.innerText = dictionary[curLang].walletBtnModal;
+        modalBtn.style.background = "linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%)";
         modalBtn.style.color = "#020712";
+        liveDot.classList.remove('connected');
+        connBadge.innerText = dictionary[curLang].notConnected;
+        connBadge.style.color = "#cbd5e1";
       }
     }
 
@@ -1457,19 +1836,25 @@
       document.getElementById('t3-name').innerText = t.t3Name;
       refreshTasksUI();
 
+      // صفحة الإحالات
       document.getElementById('pg-refs-title').innerText = t.pgRefsTitle;
       document.getElementById('pg-refs-sub').innerText = t.pgRefsSub;
       document.getElementById('pg-refs-friends').innerText = t.pgRefsFriends;
       document.getElementById('pg-refs-earned').innerText = t.pgRefsEarned;
+      document.getElementById('perk-1-txt').innerText = t.perk1;
+      document.getElementById('perk-2-txt').innerText = t.perk2;
       document.getElementById('pg-refs-link-lbl').innerText = t.pgRefsLinkLbl;
-      document.getElementById('pg-refs-share-btn').innerText = t.pgRefsShare;
-      document.getElementById('pg-refs-copy-btn').innerText = t.pgRefsCopy;
+      document.getElementById('copy-btn-lbl').innerText = t.copyBtn;
+      document.getElementById('share-btn-lbl').innerText = t.pgRefsShare;
 
+      // صفحة المحفظة
       document.getElementById('pg-wallet-title').innerText = t.pgWalletTitle;
       document.getElementById('pg-wallet-sub').innerText = t.pgWalletSub;
       document.getElementById('pg-w-bal-lbl').innerText = t.pgWBalLbl;
+      document.getElementById('pg-w-vip-lbl').innerText = t.pgWVipLbl;
+      document.getElementById('pg-w-chain-lbl').innerText = t.pgWChainLbl;
       document.getElementById('pg-w-addr-lbl').innerText = t.pgWAddrLbl;
-      document.getElementById('pg-w-withdraw-btn').innerText = t.pgWWithdraw;
+      document.getElementById('withdraw-locked-txt').innerText = t.pgWWithdraw;
 
       updateWalletButtonUI();
       updateVIPDisplay();
@@ -1513,7 +1898,6 @@
           updateBalance();
           refreshTasksUI();
           syncUserToCloud();
-          alert(`🎉 +${reward} ROL!`);
         }
       }, 1500);
     }
@@ -1521,7 +1905,6 @@
     function completeWalletTask() {
       if (completedTasks.includes(3)) return;
       if (!connectedWalletAddr) {
-        alert((curLang === 'ar') ? "يرجى ربط محفظة TON الحقيقية أولاً من صفحة المحفظة!" : "Please connect your real TON wallet first!");
         switchTab('wallet');
         return;
       }
@@ -1531,7 +1914,6 @@
       updateBalance();
       refreshTasksUI();
       syncUserToCloud();
-      alert("🎉 +50 ROL!");
     }
 
     function renderMining() {
@@ -1591,7 +1973,6 @@
           localStorage.removeItem(KEY_START);
           renderMining();
           syncUserToCloud();
-          alert(`🎉 +${reward.toFixed(2)} ROL!`);
           lock = false;
         }
       }
@@ -1676,21 +2057,30 @@
         localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
         localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
         syncUserToCloud();
-        alert(`🎉 +${reward} ROL!`);
         renderDaysGrid();
       }
     }
 
     function shareReferralLink() {
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب مكافآت يومية! 🚀💎')}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب مكافآت يومية!')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
     function copyReferralLink() {
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       navigator.clipboard?.writeText(link);
-      alert((curLang === 'ar') ? "تم نسخ رابط الإحالة بنجاح!" : "Referral link copied!");
+      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+
+      const copyBtn = document.getElementById('mini-copy-btn');
+      const copyLbl = document.getElementById('copy-btn-lbl');
+      copyBtn.classList.add('copied');
+      copyLbl.innerText = dictionary[curLang].copiedBtn;
+
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyLbl.innerText = dictionary[curLang].copyBtn;
+      }, 2000);
     }
 
     setInterval(renderMining, 1000);
