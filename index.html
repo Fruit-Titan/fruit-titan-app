@@ -526,15 +526,9 @@
       transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .cyber-tab:active {
-      transform: scale(0.92);
-    }
+    .cyber-tab:active { transform: scale(0.92); }
+    .cyber-tab.active { transform: translateY(-2px); }
 
-    .cyber-tab.active {
-      transform: translateY(-2px);
-    }
-
-    /* حاوية الإطار الـ SVG المضيء */
     .cyber-box-wrap {
       position: relative;
       width: 100%;
@@ -544,7 +538,6 @@
       justify-content: center;
     }
 
-    /* الإطار الخلفي المرسوم بدقة SVG */
     .frame-svg {
       position: absolute;
       inset: 0;
@@ -554,11 +547,7 @@
       transition: all 0.25s ease;
     }
 
-    .frame-bg {
-      fill: url(#blueCardBg);
-      transition: fill 0.25s ease;
-    }
-
+    .frame-bg { fill: url(#blueCardBg); transition: fill 0.25s ease; }
     .frame-border {
       fill: none;
       stroke: #00d2ff;
@@ -566,29 +555,16 @@
       filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.7));
       transition: stroke 0.25s ease, filter 0.25s ease;
     }
+    .frame-accent { fill: #00f0ff; opacity: 0.85; transition: fill 0.25s ease; }
 
-    .frame-accent {
-      fill: #00f0ff;
-      opacity: 0.85;
-      transition: fill 0.25s ease;
-    }
-
-    /* الحالة النشطة للإطار باللون الذهبي الملكي المتوهج */
-    .cyber-tab.active .frame-bg {
-      fill: url(#goldCardBg);
-    }
-
+    .cyber-tab.active .frame-bg { fill: url(#goldCardBg); }
     .cyber-tab.active .frame-border {
       stroke: #facc15;
       stroke-width: 2;
       filter: drop-shadow(0 0 7px rgba(250, 204, 21, 0.9));
     }
+    .cyber-tab.active .frame-accent { fill: #fef08a; }
 
-    .cyber-tab.active .frame-accent {
-      fill: #fef08a;
-    }
-
-    /* هالة إضاءة خلف الأيقونة */
     .icon-aura {
       position: absolute;
       width: 28px;
@@ -625,7 +601,6 @@
       color: #94a3b8;
       margin-top: 3px;
       letter-spacing: 0.3px;
-      transition: color 0.2s ease, text-shadow 0.2s ease;
     }
 
     .cyber-tab.active .cyber-label {
@@ -633,11 +608,11 @@
       text-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
     }
 
-    /* ==================== نافذة المكافآت اليومية والقواعد ==================== */
+    /* ==================== نوافذ المكافآت والحظر ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 7, 18, 0.88);
+      background: rgba(2, 7, 18, 0.92);
       backdrop-filter: blur(12px);
       display: none;
       justify-content: center;
@@ -723,7 +698,9 @@
     .rules-list b { color: #00f0ff; }
   </style>
 
+  <!-- مكتبات تيليجرام و TonConnect الحقيقية -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
 </head>
 <body>
 
@@ -789,7 +766,7 @@
             <div class="task-reward">+20.000 ROL</div>
           </div>
         </div>
-        <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Miner_Bot')">تنفيذ</button>
+        <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">تنفيذ</button>
       </div>
 
       <div class="task-card">
@@ -834,7 +811,7 @@
       </div>
 
       <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px; text-align: center;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك:</div>
-      <div class="ref-link-box" id="user-ref-link">https://t.me/ROL_Miner_Bot?start=ref_miner</div>
+      <div class="ref-link-box" id="user-ref-link">https://t.me/ROL_Mining_bot?start=ref_miner</div>
 
       <button class="primary-gold-btn" onclick="shareReferralLink()" id="pg-refs-share-btn">🚀 مشاركة الرابط مع الأصدقاء</button>
       <button class="primary-cyan-btn" onclick="copyReferralLink()" id="pg-refs-copy-btn">📋 نسخ رابط الإحالة</button>
@@ -851,6 +828,7 @@
         <div style="font-size: 12px; color: #94a3b8;" id="pg-w-bal-lbl">الرصيد المتاح للتعدين</div>
         <div style="font-size: 28px; font-weight: 900; color: #00f0ff; font-family: ui-monospace, monospace; margin: 6px 0;" id="pg-wallet-balance">0.000 ROL</div>
         <div style="font-size: 11px; color: #fbbf24;" id="pg-w-vip-status">المستوى الحالي: VIP 1</div>
+        <div style="font-size: 11px; color: #38bdf8; margin-top: 4px;" id="pg-onchain-rol">رصيد محفظة TON: 0.00 ROL</div>
       </div>
 
       <div class="task-card" style="flex-direction: column; align-items: stretch; gap: 8px; margin-bottom: 14px;">
@@ -858,11 +836,11 @@
         <div id="wallet-status-lbl" style="font-size: 12.5px; font-weight: 800; color: #fbbf24; font-family: monospace; word-break: break-all;">غير متصلة</div>
       </div>
 
-      <button class="primary-cyan-btn" onclick="triggerWalletConnectPrompt()" id="modal-ton-connect-action">🔗 ربط محفظة TON</button>
+      <button class="primary-cyan-btn" onclick="handleRealTonConnect()" id="modal-ton-connect-action">🔗 ربط محفظة TON</button>
       <button class="primary-gold-btn" style="opacity: 0.5; cursor: not-allowed;" id="pg-w-withdraw-btn">🔒 السحب سيُفتح عند الإدراج الرسمي</button>
     </div>
 
-    <!-- ==================== الشريط السفلي المحسّن (3D Sci-Fi SVG Frames) ==================== -->
+    <!-- ==================== الشريط السفلي المحسّن ==================== -->
     <div class="cyber-footer">
       <!-- 1. الرئيسية -->
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
@@ -933,24 +911,18 @@
         <span class="cyber-label" id="txt-nav-wallet">المحفظة</span>
       </div>
 
-      <!-- تعريفات التدرجات اللونية المتطورة للـ SVG -->
       <svg width="0" height="0" style="position:absolute;">
         <defs>
-          <!-- خلفية الإطار الأزرق الداكن -->
           <radialGradient id="blueCardBg" cx="50%" cy="50%" r="65%">
             <stop offset="0%" stop-color="#0d295c"/>
             <stop offset="70%" stop-color="#051330"/>
             <stop offset="100%" stop-color="#020817"/>
           </radialGradient>
-
-          <!-- خلفية الإطار الذهبي النشط -->
           <radialGradient id="goldCardBg" cx="50%" cy="50%" r="65%">
             <stop offset="0%" stop-color="#453007"/>
             <stop offset="70%" stop-color="#1f1503"/>
             <stop offset="100%" stop-color="#0a0702"/>
           </radialGradient>
-
-          <!-- تدرج الأيقونة الذهبية المعدنية -->
           <linearGradient id="gold3D" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#fef9c3"/>
             <stop offset="35%" stop-color="#facc15"/>
@@ -987,13 +959,32 @@
     </div>
   </div>
 
+  <!-- ==================== نافذة الحظر الأمني للتعدد ==================== -->
+  <div class="modal-overlay" id="ban-modal" dir="auto">
+    <div class="daily-modal-box" style="border-color: #ef4444; box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);">
+      <h3 style="color: #ef4444; font-size: 19px; margin-bottom: 8px;">⛔ تم حظر الحساب تلقائياً</h3>
+      <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
+        تم اكتشاف محاولة ربط عنوان محفظة TON مستخدم مسبقاً في حساب آخر. يمنع النظام تعدد الحسابات لضمان عدالة التعدين.
+      </p>
+    </div>
+  </div>
+
   <script>
+    // ==================== 1. إعدادات النظام وقاعدة البيانات ====================
+    // ضع رابط Firebase Realtime Database الخاص بك هنا (مثال: https://your-project-default-rtdb.firebaseio.com)
+    const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
+    const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
+    const BOT_USERNAME = "ROL_Mining_bot";
+
     const tg = window.Telegram?.WebApp;
     if (tg) {
       try { tg.ready(); tg.expand(); } catch (e) {}
     }
 
-    const uid = tg?.initDataUnsafe?.user?.id ? tg.initDataUnsafe.user.id.toString() : "miner";
+    const userObj = tg?.initDataUnsafe?.user;
+    const uid = userObj?.id ? userObj.id.toString() : "guest_miner";
+    const startParam = tg?.initDataUnsafe?.start_param || "";
+
     const KEY_BALANCE = `rol_${uid}_balance`;
     const KEY_START = `rol_${uid}_mine_start`;
     const KEY_CHECKIN_DAY = `rol_${uid}_checkin_day`;
@@ -1002,6 +993,8 @@
     const KEY_VIP = `rol_${uid}_vip`;
     const KEY_WALLET = `rol_${uid}_wallet_addr`;
     const KEY_TASKS = `rol_${uid}_completed_tasks`;
+    const KEY_REF_COUNT = `rol_${uid}_ref_count`;
+    const KEY_REF_EARN = `rol_${uid}_ref_earn`;
 
     const dictionary = {
       ar: {
@@ -1050,7 +1043,7 @@
         pgRefsShare: "🚀 مشاركة الرابط مع الأصدقاء",
         pgRefsCopy: "📋 نسخ رابط الإحالة",
         pgWalletTitle: "💼 محفظة TON والسحب",
-        pgWalletSub: "إدارة رصيدك وربط محفظة TON لرفع مستوى التعدين",
+        pgWalletSub: "إدارة رصيدك وربط محفظة TON الحقيقية لرفع مستوى التعدين",
         pgWBalLbl: "الرصيد المتاح للتعدين",
         pgWAddrLbl: "حالة اتصال المحفظة:",
         walletBtnModal: "🔗 ربط محفظة TON",
@@ -1105,7 +1098,7 @@
         pgRefsShare: "🚀 Share Link with Friends",
         pgRefsCopy: "📋 Copy Invite Link",
         pgWalletTitle: "💼 TON Wallet & Cashout",
-        pgWalletSub: "Manage your balance and connect TON wallet to boost VIP tier",
+        pgWalletSub: "Manage your balance and connect real TON wallet to boost VIP tier",
         pgWBalLbl: "Available Mining Balance",
         pgWAddrLbl: "Wallet Connection Status:",
         walletBtnModal: "🔗 Connect TON Wallet",
@@ -1119,6 +1112,9 @@
     let curLang = localStorage.getItem(KEY_LANG) || 'ar';
     let connectedWalletAddr = localStorage.getItem(KEY_WALLET) || null;
     let completedTasks = JSON.parse(localStorage.getItem(KEY_TASKS) || '[]');
+    let refCount = parseInt(localStorage.getItem(KEY_REF_COUNT) || '0', 10);
+    let refEarn = parseFloat(localStorage.getItem(KEY_REF_EARN) || '0');
+    let onChainRolBalance = 0;
 
     const DAILY_REWARDS = [
       5, 8, 12, 16, 20, 25, 30, 35, 40, 48,
@@ -1136,6 +1132,204 @@
     let isMining = startTime > 0;
     let lock = false;
 
+    // ==================== 2. مزامنة Firebase السحابية الحقيقية ====================
+    async function syncUserToCloud() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+      try {
+        const payload = {
+          uid: uid,
+          username: userObj?.username || "",
+          balance: balance,
+          vip: currentVip,
+          wallet: connectedWalletAddr || "",
+          startTime: startTime,
+          checkinDay: checkinDay,
+          lastCheckinTime: lastCheckinTime,
+          completedTasks: completedTasks,
+          updatedAt: Date.now()
+        };
+        await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.warn("Cloud sync standby:", e);
+      }
+    }
+
+    async function loadUserFromCloud() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
+        const data = await res.json();
+        if (data) {
+          if (data.banned) {
+            document.getElementById('ban-modal').classList.add('active');
+            return;
+          }
+          if (typeof data.balance === 'number' && data.balance > balance) {
+            balance = data.balance;
+            updateBalance();
+          }
+          if (data.refCount) {
+            refCount = data.refCount;
+            localStorage.setItem(KEY_REF_COUNT, refCount.toString());
+          }
+          if (data.refEarn) {
+            refEarn = data.refEarn;
+            localStorage.setItem(KEY_REF_EARN, refEarn.toString());
+          }
+        } else {
+          // مستخدم جديد: معالجة كود الإحالة إن وجد (بدون مكافأة تسجيل مجانية)
+          if (startParam && startParam.startsWith("ref_")) {
+            const referrerId = startParam.replace("ref_", "");
+            if (referrerId && referrerId !== uid) {
+              registerReferralInCloud(referrerId);
+            }
+          }
+          await syncUserToCloud();
+        }
+      } catch (e) {
+        console.warn("Cloud load standby:", e);
+      }
+    }
+
+    async function registerReferralInCloud(referrerId) {
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
+        const refUser = await res.json();
+        if (refUser) {
+          const newCount = (refUser.refCount || 0) + 1;
+          const newEarn = (refUser.refEarn || 0) + 25;
+          const newBal = (refUser.balance || 0) + 25;
+          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              refCount: newCount,
+              refEarn: newEarn,
+              balance: newBal
+            })
+          });
+        }
+      } catch (e) {}
+    }
+
+    // التحقق من عدم استخدام نفس المحفظة في حساب آخر (Auto-Ban Logic)
+    async function verifyAndBindWalletAntiCheat(walletAddress) {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return true;
+      try {
+        const safeKey = walletAddress.replace(/[^a-zA-Z0-9]/g, '_');
+        const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
+        const ownerUid = await res.json();
+
+        if (ownerUid && ownerUid !== uid) {
+          // المحفظة مربوطة بحساب آخر -> حظر تلقائي
+          await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ banned: true, banReason: "Duplicate TON Wallet" })
+          });
+          document.getElementById('ban-modal').classList.add('active');
+          return false;
+        }
+
+        // تسجيل ملكية المحفظة لهذا الحساب
+        await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(uid)
+        });
+        return true;
+      } catch (e) {
+        return true;
+      }
+    }
+
+    // ==================== 3. ربط TonConnect الحقيقي وقراءة رصيد ROL من البلوكشين ====================
+    let tonConnectUI = null;
+
+    async function fetchRealOnChainROLBalance(walletAddr) {
+      try {
+        const response = await fetch(`https://tonapi.io/v2/accounts/${walletAddr}/jettons/${ROL_JETTON_MASTER}`);
+        if (response.ok) {
+          const data = await response.json();
+          const rawBal = parseFloat(data.balance || "0");
+          const decimals = data.jetton?.decimals || 9;
+          onChainRolBalance = rawBal / Math.pow(10, decimals);
+        } else {
+          onChainRolBalance = 0;
+        }
+      } catch (e) {
+        onChainRolBalance = 0;
+      }
+
+      // تحديث عرض رصيد المحفظة الحقيقي وحساب VIP تلقائياً
+      document.getElementById('pg-onchain-rol').innerText = (curLang === 'ar')
+        ? `رصيد محفظة TON: ${onChainRolBalance.toFixed(2)} ROL`
+        : `TON Wallet Balance: ${onChainRolBalance.toFixed(2)} ROL`;
+
+      let calculatedVip = 1;
+      if (onChainRolBalance >= 40000) calculatedVip = 100;
+      else if (onChainRolBalance >= 10000) calculatedVip = Math.min(50, 11 + Math.floor((onChainRolBalance - 10000) / 750));
+      else if (onChainRolBalance >= 400) calculatedVip = Math.min(10, 2 + Math.floor((onChainRolBalance - 400) / 400));
+
+      currentVip = calculatedVip;
+      updateVIPDisplay();
+      syncUserToCloud();
+    }
+
+    function initRealTonConnect() {
+      try {
+        if (window.TON_CONNECT_UI) {
+          const manifestUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}tonconnect-manifest.json`;
+          tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: manifestUrl,
+            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}` }
+          });
+
+          tonConnectUI.onStatusChange(async (wallet) => {
+            if (wallet && wallet.account) {
+              const rawAddr = wallet.account.address;
+              const isAllowed = await verifyAndBindWalletAntiCheat(rawAddr);
+              if (!isAllowed) {
+                await tonConnectUI.disconnect();
+                return;
+              }
+              connectedWalletAddr = rawAddr;
+              localStorage.setItem(KEY_WALLET, rawAddr);
+              updateWalletButtonUI();
+              await fetchRealOnChainROLBalance(rawAddr);
+            } else {
+              connectedWalletAddr = null;
+              localStorage.removeItem(KEY_WALLET);
+              onChainRolBalance = 0;
+              currentVip = 1;
+              updateVIPDisplay();
+              updateWalletButtonUI();
+              syncUserToCloud();
+            }
+          });
+        }
+      } catch (err) {
+        console.warn("TonConnect init:", err);
+      }
+    }
+
+    async function handleRealTonConnect() {
+      if (!tonConnectUI) {
+        alert((curLang === 'ar') ? "جاري تهيئة بوابة TON..." : "Initializing TON gateway...");
+        return;
+      }
+      if (tonConnectUI.connected) {
+        await tonConnectUI.disconnect();
+      } else {
+        await tonConnectUI.openModal();
+      }
+    }
+
+    // ==================== 4. منطق الواجهة، اللغات، والتعدين ====================
     function switchTab(tabName) {
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       closeAllModals();
@@ -1152,7 +1346,9 @@
       } else if (tabName === 'refs') {
         document.getElementById('page-refs').classList.add('active');
         document.getElementById('tab-refs').classList.add('active');
-        document.getElementById('user-ref-link').innerText = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
+        document.getElementById('ref-count-val').innerText = refCount;
+        document.getElementById('ref-earn-val').innerText = refEarn.toFixed(2);
+        document.getElementById('user-ref-link').innerText = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       } else if (tabName === 'wallet') {
         document.getElementById('page-wallet').classList.add('active');
         document.getElementById('tab-wallet').classList.add('active');
@@ -1291,6 +1487,7 @@
           balance += reward;
           updateBalance();
           refreshTasksUI();
+          syncUserToCloud();
           alert(`🎉 +${reward} ROL!`);
         }
       }, 1500);
@@ -1299,7 +1496,7 @@
     function completeWalletTask() {
       if (completedTasks.includes(3)) return;
       if (!connectedWalletAddr) {
-        alert((curLang === 'ar') ? "يرجى ربط محفظة TON أولاً من صفحة المحفظة!" : "Please connect your TON wallet first!");
+        alert((curLang === 'ar') ? "يرجى ربط محفظة TON الحقيقية أولاً من صفحة المحفظة!" : "Please connect your real TON wallet first!");
         switchTab('wallet');
         return;
       }
@@ -1308,6 +1505,7 @@
       balance += 50;
       updateBalance();
       refreshTasksUI();
+      syncUserToCloud();
       alert("🎉 +50 ROL!");
     }
 
@@ -1354,6 +1552,7 @@
         localStorage.setItem(KEY_START, startTime.toString());
         isMining = true;
         renderMining();
+        syncUserToCloud();
       } else {
         const elapsed = Date.now() - startTime;
         if (elapsed >= CYCLE) {
@@ -1366,6 +1565,7 @@
           startTime = 0;
           localStorage.removeItem(KEY_START);
           renderMining();
+          syncUserToCloud();
           alert(`🎉 +${reward.toFixed(2)} ROL!`);
           lock = false;
         }
@@ -1434,7 +1634,9 @@
     }
 
     function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+      document.querySelectorAll('.modal-overlay').forEach(m => {
+        if (m.id !== 'ban-modal') m.classList.remove('active');
+      });
     }
 
     function onOverlayClick(e, id) {
@@ -1450,48 +1652,33 @@
         lastCheckinTime = Date.now();
         localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
         localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
+        syncUserToCloud();
         alert(`🎉 +${reward} ROL!`);
         renderDaysGrid();
       }
     }
 
     function shareReferralLink() {
-      const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
+      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب مكافآت يومية! 🚀💎')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
     function copyReferralLink() {
-      const link = `https://t.me/ROL_Miner_Bot?start=ref_${uid}`;
+      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       navigator.clipboard?.writeText(link);
       alert((curLang === 'ar') ? "تم نسخ رابط الإحالة بنجاح!" : "Referral link copied!");
     }
 
-    function triggerWalletConnectPrompt() {
-      if (connectedWalletAddr) {
-        connectedWalletAddr = null;
-        localStorage.removeItem(KEY_WALLET);
-        currentVip = 1;
-        updateVIPDisplay();
-        updateWalletButtonUI();
-        alert((curLang === 'ar') ? "تم فصل المحفظة" : "Wallet disconnected");
-      } else {
-        const mockAddress = "UQ" + Array.from({length: 44}, () => "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789"[Math.floor(Math.random() * 58)]).join('');
-        connectedWalletAddr = mockAddress;
-        localStorage.setItem(KEY_WALLET, mockAddress);
-        if (currentVip === 1) {
-          currentVip = 2;
-          updateVIPDisplay();
-        }
-        updateWalletButtonUI();
-        alert((curLang === 'ar') ? "تم ربط المحفظة بنجاح وترقية المستوى إلى VIP 2!" : "Wallet connected & upgraded to VIP 2!");
-      }
-    }
-
+    // التشغيل عند تحميل الصفحة
     setInterval(renderMining, 1000);
     applyLanguage(curLang);
     updateBalance();
     renderMining();
+    window.addEventListener('DOMContentLoaded', () => {
+      initRealTonConnect();
+      loadUserFromCloud();
+    });
   </script>
 </body>
 </html>
