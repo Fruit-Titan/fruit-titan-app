@@ -1138,7 +1138,7 @@
     let isMining = startTime > 0;
     let lock = false;
 
-    // ==================== 2. مزامنة Firebase السحابية (بدون حظر الحسابات) ====================
+    // ==================== 2. مزامنة Firebase السحابية ====================
     async function syncUserToCloud() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
@@ -1169,8 +1169,9 @@
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
+        if (!res.ok) return;
         const data = await res.json();
-        if (data) {
+        if (data && !data.error) {
           if (typeof data.balance === 'number' && data.balance > balance) {
             balance = data.balance;
             updateBalance();
@@ -1186,7 +1187,7 @@
           if (data.banned) {
             await syncUserToCloud();
           }
-        } else {
+        } else if (data === null) {
           if (startParam && startParam.startsWith("ref_")) {
             const referrerId = startParam.replace("ref_", "");
             if (referrerId && referrerId !== uid) {
@@ -1203,8 +1204,9 @@
     async function registerReferralInCloud(referrerId) {
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
+        if (!res.ok) return;
         const refUser = await res.json();
-        if (refUser) {
+        if (refUser && !refUser.error) {
           const newCount = (refUser.refCount || 0) + 1;
           const newEarn = (refUser.refEarn || 0) + 25;
           const newBal = (refUser.balance || 0) + 25;
@@ -1221,29 +1223,39 @@
       } catch (e) {}
     }
 
-    // التحقق من عدم ارتباط المحفظة بحساب آخر (يرفض الربط ويعرض تنبيه فقط دون حظر الحساب)
+    // التحقق الدقيق من عدم ارتباط المحفظة بحساب آخر (مع تجاهل أخطاء الشبكة أو صلاحيات Firebase)
     async function checkWalletUniqueness(friendlyAddress) {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return true;
-      try {
-        const safeKey = friendlyAddress.replace(/[^a-zA-Z0-9]/g, '_');
-        const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
-        const ownerUid = await res.json();
+      const safeKey = friendlyAddress.replace(/[^a-zA-Z0-9]/g, '_');
+      const localBoundKey = `rol_global_wallet_${safeKey}`;
 
-        // إذا كانت مسجلة سابقاً لحساب تجريبي 'guest_miner' أو لنفس الحساب 'uid'، نسمح بها ونحدّث المالك
-        if (!ownerUid || ownerUid === uid || ownerUid === "guest_miner") {
-          await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(uid)
-          });
-          return true;
-        }
-
-        // المحفظة مربوطة بحساب مستخدم آخر -> نرفض ربط المحفظة فقط ونعرض التنبيه
+      // 1. فحص محلي على الجهاز
+      const localOwner = localStorage.getItem(localBoundKey);
+      if (localOwner && localOwner !== uid && localOwner !== "guest_miner") {
         return false;
-      } catch (e) {
-        return true;
       }
+
+      // 2. فحص قاعدة البيانات السحابية Firebase
+      if (FIREBASE_DB_URL && !FIREBASE_DB_URL.includes("your-project") && uid !== "guest_miner") {
+        try {
+          const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
+          if (res.ok) {
+            const ownerUid = await res.json();
+            if (ownerUid && typeof ownerUid === "string" && ownerUid !== uid && ownerUid !== "guest_miner") {
+              return false;
+            }
+            await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(uid)
+            });
+          }
+        } catch (e) {
+          console.warn("Firebase wallet check bypassed:", e);
+        }
+      }
+
+      localStorage.setItem(localBoundKey, uid);
+      return true;
     }
 
     // ==================== 3. ربط TonConnect الحقيقي وقراءة رصيد ROL ====================
@@ -1289,7 +1301,6 @@
 
           tonConnectUI.onStatusChange(async (wallet) => {
             if (wallet && wallet.account) {
-              // توحيد صيغة عنوان المحفظة (User-Friendly UQ...) لتجنب تضارب الصيغ
               let friendlyAddr = wallet.account.address;
               try {
                 if (TON_CONNECT_UI.toUserFriendlyAddress) {
@@ -1299,7 +1310,6 @@
 
               const isAvailable = await checkWalletUniqueness(friendlyAddr);
               if (!isAvailable) {
-                // المحفظة مربوطة بحساب آخر: نفصل المحفظة ونظهر رسالة التنبيه دون حظر الحساب
                 await tonConnectUI.disconnect();
                 connectedWalletAddr = null;
                 localStorage.removeItem(KEY_WALLET);
