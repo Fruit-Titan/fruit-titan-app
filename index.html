@@ -1307,6 +1307,7 @@
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const BOT_USERNAME = "ROL_Mining_bot";
 
+    // جدول المستويات من VIP 1 إلى VIP 100 (VIP 1 = 500، وزيادة +80 لكل مستوى)
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
       let requiredHold = 0;
@@ -1349,8 +1350,7 @@
     const KEY_REF_COUNT = `rol_${uid}_ref_count`;
     const KEY_REF_EARN = `rol_${uid}_ref_earn`;
 
-    // استرجاع أي رصيد محفوظ سابقاً تحت مفاتيح قديمة تلقائياً
-    function recoverPreviousBalance() {
+    function getSavedBalanceSafely() {
       let current = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
       if (current === 0) {
         for (let i = 0; i < localStorage.length; i++) {
@@ -1513,7 +1513,7 @@
       155, 168, 180, 192, 205, 218, 228, 238, 245, 250
     ];
 
-    let balance = recoverPreviousBalance();
+    let balance = getSavedBalanceSafely();
     let startTime = parseInt(localStorage.getItem(KEY_START) || '0', 10);
     let checkinDay = parseInt(localStorage.getItem(KEY_CHECKIN_DAY) || '0', 10);
     let lastCheckinTime = parseInt(localStorage.getItem(KEY_CHECKIN_TIME) || '0', 10);
