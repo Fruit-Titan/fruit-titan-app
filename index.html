@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -62,16 +62,8 @@
       text-align: center;
     }
 
-    .cyber-toast.show {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
-
-    .cyber-toast.warn {
-      border-color: #facc15;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4);
-      color: #fef08a;
-    }
+    .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
     /* ==================== 1. الصفحة الرئيسية (Home) ==================== */
     #view-home {
@@ -86,8 +78,8 @@
       top: 26%;
       left: 50%;
       transform: translateX(-50%);
-      width: 310px;
-      height: 310px;
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(2, 132, 199, 0.08) 45%, transparent 72%);
       pointer-events: none;
@@ -96,19 +88,16 @@
       transition: opacity 0.6s ease;
     }
 
-    .ambient-mining-glow.active {
-      opacity: 1;
-      animation: ambientBreathe 3.2s infinite ease-in-out;
-    }
+    .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
 
     @keyframes ambientBreathe {
       0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; }
-      50% { transform: translateX(-50%) scale(1.12); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.1); opacity: 1; }
     }
 
     .brand-title {
       position: absolute;
-      top: 1.8%;
+      top: 1.85%;
       left: 7.5%;
       display: flex;
       align-items: center;
@@ -124,12 +113,12 @@
 
     .sound-toggle-btn {
       position: absolute;
-      top: 1.3%;
-      left: 48.5%;
+      top: 1.35%;
+      left: 48.2%;
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(6, 20, 48, 0.85);
+      background: rgba(6, 20, 48, 0.88);
       border: 1px solid rgba(0, 240, 255, 0.45);
       box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
       display: flex;
@@ -143,19 +132,19 @@
     .sound-toggle-btn:active { transform: scale(0.88); }
     .sound-toggle-btn.muted { border-color: rgba(148, 163, 184, 0.35); box-shadow: none; opacity: 0.65; }
 
-    /* زر اللغة في مكانه الدقيق بالشريط العلوي */
+    /* تموضع نص اللغة بدقة في المنتصف الأيمن لكبسولة الكرة الأرضية */
     .lang-touch-zone {
       position: absolute;
-      top: 1.2%;
-      left: 66.5%;
-      width: 12.5%;
+      top: 1.25%;
+      left: 68.5%;
+      width: 10%;
       height: 4%;
       cursor: pointer;
       z-index: 40;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
@@ -180,9 +169,7 @@
       animation: dropLangAnim 0.2s ease forwards;
     }
 
-    .lang-dropdown-bar.open {
-      display: flex;
-    }
+    .lang-dropdown-bar.open { display: flex; }
 
     @keyframes dropLangAnim {
       from { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.95); }
@@ -212,11 +199,12 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
+    /* تموضع نص المحفظة المختصر بدقة داخل كبسولة المحفظة العلوية */
     .wallet-touch-zone {
       position: absolute;
-      top: 1.2%;
-      left: 86.2%;
-      width: 11.8%;
+      top: 1.25%;
+      left: 85.8%;
+      width: 12.2%;
       height: 4%;
       border-radius: 8px;
       cursor: pointer;
@@ -227,7 +215,7 @@
     }
 
     .wallet-btn-label {
-      font-size: 8.8px;
+      font-size: 8.6px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
@@ -289,7 +277,6 @@
     @keyframes giftFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
     .gift-title { font-size: 8.5px; font-weight: 900; color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.7); pointer-events: none; }
 
-    /* نقطة الإشعار النابضة للمكافآت والمهام */
     .notify-pulse-dot {
       position: absolute;
       top: 6px;
@@ -332,23 +319,24 @@
     .balance-val { font-family: ui-monospace, monospace; font-size: 25px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; }
     .balance-val.pop { transform: scale(1.14); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
+    /* كبسولة شراء ROL متموضعة في أقصى اليمين دون ملامسة حلقات العملة */
     .home-buy-rol-pill {
       position: absolute;
       top: 41.2%;
-      right: 3.5%;
+      right: 2.2%;
       transform: translateY(-50%);
-      background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
+      background: linear-gradient(145deg, rgba(16, 36, 78, 0.94), rgba(5, 14, 34, 0.98));
       border: 1.5px solid rgba(250, 204, 21, 0.75);
-      border-radius: 16px;
-      padding: 8px 10px;
+      border-radius: 15px;
+      padding: 7px 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
       z-index: 35;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(250, 204, 21, 0.35);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(250, 204, 21, 0.35);
       animation: buyPillPulse 2.6s infinite ease-in-out;
       transition: transform 0.15s ease;
     }
@@ -357,20 +345,21 @@
 
     @keyframes buyPillPulse {
       0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(250, 204, 21, 0.3); border-color: rgba(250, 204, 21, 0.65); }
-      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 22px rgba(250, 204, 21, 0.65); border-color: #fde047; }
+      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 20px rgba(250, 204, 21, 0.65); border-color: #fde047; }
     }
 
-    .buy-pill-icon { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(250, 204, 21, 0.6); }
-    .buy-pill-text { font-size: 9.5px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
-    .buy-pill-sub { font-size: 7.5px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; }
+    .buy-pill-icon { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(250, 204, 21, 0.6); }
+    .buy-pill-text { font-size: 9px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
+    .buy-pill-sub { font-size: 7.2px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; }
 
+    /* مؤثرات العملة الدوارة متطابقة مع حجم عملة ROL */
     .coin-fx-layer {
       position: absolute;
       top: 41.2%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 196px;
-      height: 196px;
+      width: 176px;
+      height: 176px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 22;
@@ -379,17 +368,17 @@
       justify-content: center;
     }
 
-    .coin-orbit-ring { position: absolute; inset: 8px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .coin-orbit-ring { position: absolute; inset: 6px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
     .coin-fx-layer.active .coin-orbit-ring { opacity: 1; animation: orbitSpin 12s linear infinite; }
     @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    .coin-pulse-ring { position: absolute; inset: 14px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
+    .coin-pulse-ring { position: absolute; inset: 12px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
     .coin-fx-layer.active .coin-pulse-ring { animation: coinWave 2.4s infinite cubic-bezier(0.22, 1, 0.36, 1); }
     .coin-fx-layer.active .coin-pulse-ring.delay { animation-delay: 1.2s; }
 
     @keyframes coinWave {
-      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 22px rgba(0, 240, 255, 0.6), inset 0 0 14px rgba(0, 240, 255, 0.35); opacity: 0.95; }
-      100% { transform: scale(1.36); border-color: rgba(0, 240, 255, 0); box-shadow: 0 0 0 rgba(0, 240, 255, 0); opacity: 0; }
+      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 20px rgba(0, 240, 255, 0.6), inset 0 0 12px rgba(0, 240, 255, 0.35); opacity: 0.95; }
+      100% { transform: scale(1.26); border-color: rgba(0, 240, 255, 0); box-shadow: 0 0 0 rgba(0, 240, 255, 0); opacity: 0; }
     }
 
     .pickaxe-fx-spot { position: absolute; top: 57.5%; left: 20%; width: 44px; height: 44px; pointer-events: none; z-index: 22; }
@@ -416,7 +405,7 @@
 
     .live-timer-overlay { position: absolute; top: 59.3%; left: 50%; transform: translateX(-50%); font-family: ui-monospace, monospace; font-size: 23px; font-weight: 900; color: #facc15; text-shadow: 0 0 12px rgba(250, 204, 21, 0.85); letter-spacing: 2px; direction: ltr; z-index: 20; }
 
-    .progress-bar-container { position: absolute; top: 63.9%; left: 11.2%; width: 77.6%; height: 5.5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
+    .progress-bar-container { position: absolute; top: 63.7%; left: 11.2%; width: 77.6%; height: 5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
     .progress-bar-fill { position: relative; width: 0%; height: 100%; background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc); box-shadow: 0 0 12px #00f0ff; border-radius: 4px; transition: width 0.4s linear; overflow: hidden; }
     .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
     @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
@@ -912,7 +901,6 @@
 </head>
 <body>
 
-  <!-- شريط الإشعارات الفوري العلوي -->
   <div class="cyber-toast" id="cyber-toast"></div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
@@ -932,37 +920,37 @@
 
       <!-- زر فتح شريط اللغات الثلاث -->
       <div class="lang-touch-zone" onclick="toggleLangBar(event)">
-        <span id="lang-btn-txt">AR 🇸🇦</span>
+        <span id="lang-btn-txt">EN</span>
       </div>
 
       <!-- شريط اختيار اللغات الثلاث مع الأعلام -->
       <div class="lang-dropdown-bar" id="lang-dropdown-bar" onclick="event.stopPropagation()">
-        <button class="lang-pill-option" id="opt-lang-ar" onclick="selectLanguage('ar')">AR 🇸🇦</button>
         <button class="lang-pill-option" id="opt-lang-en" onclick="selectLanguage('en')">EN 🇺🇸</button>
+        <button class="lang-pill-option" id="opt-lang-ar" onclick="selectLanguage('ar')">AR 🇸🇦</button>
         <button class="lang-pill-option" id="opt-lang-ru" onclick="selectLanguage('ru')">RU 🇷🇺</button>
       </div>
 
       <div class="wallet-touch-zone" onclick="switchTab('wallet')">
-        <span class="wallet-btn-label" id="wallet-btn-label">ربط</span>
+        <span class="wallet-btn-label" id="wallet-btn-label">Connect</span>
       </div>
 
       <div class="vip-container">
-        <span class="vip-label" id="txt-vip-label">المستوى الذهبي</span>
+        <span class="vip-label" id="txt-vip-label">Gold Tier</span>
         <span class="vip-num" id="vip-level-display">VIP 1</span>
       </div>
 
       <div class="rate-container">
-        <span class="rate-title" id="txt-rate-label">ربح الدورة</span>
+        <span class="rate-title" id="txt-rate-label">Cycle Profit</span>
         <span class="rate-val" id="rate-display">+500 ROL / 10h</span>
       </div>
 
       <div class="gift-touch-zone" onclick="openCheckinModal()">
         <span class="notify-pulse-dot" id="dot-checkin"></span>
-        <span class="gift-title" id="txt-gift-label">المكافآت</span>
+        <span class="gift-title" id="txt-gift-label">Rewards</span>
       </div>
 
       <div class="balance-container">
-        <span class="balance-title" id="txt-balance-label">رصيدك الحالي</span>
+        <span class="balance-title" id="txt-balance-label">Current Balance</span>
         <span class="balance-val" id="balance-display">0 ROL</span>
       </div>
 
@@ -973,7 +961,7 @@
             <line x1="2" y1="9" x2="22" y2="9"/>
           </svg>
         </div>
-        <span class="buy-pill-text" id="home-buy-txt">شراء ROL</span>
+        <span class="buy-pill-text" id="home-buy-txt">Buy ROL</span>
         <span class="buy-pill-sub">STON.fi</span>
       </div>
 
@@ -986,7 +974,7 @@
       <div class="pickaxe-fx-spot" id="pickaxe-fx-spot"></div>
 
       <div class="live-status-pill" id="live-status-pill">
-        <span>⚡</span> <span id="txt-active-label">نشط</span>
+        <span>⚡</span> <span id="txt-active-label">Active</span>
       </div>
       <div class="live-timer-overlay" id="timer-val">10:00:00</div>
       <div class="progress-bar-container">
@@ -994,19 +982,19 @@
       </div>
 
       <div class="rules-touch-zone" onclick="openRulesModal()">
-        <span class="rules-label" id="txt-rules-btn">قواعد مستويات التعدين</span>
+        <span class="rules-label" id="txt-rules-btn">Mining Tier Rules</span>
       </div>
 
       <div class="mine-touch-btn" id="mine-touch-btn" onclick="handleMiningAction()">
-        <span class="mine-btn-txt" id="mine-btn-text">ابدأ التعدين الآن</span>
+        <span class="mine-btn-txt" id="mine-btn-text">Start Mining</span>
       </div>
     </div>
 
     <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
-        <div class="page-title" id="pg-tasks-title">المهام وعجلة الحظ</div>
-        <div class="page-subtitle" id="pg-tasks-sub">أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL</div>
+        <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
+        <div class="page-subtitle" id="pg-tasks-sub">Spin daily and complete official tasks to multiply your ROL balance</div>
       </div>
 
       <div class="spin-arena-card">
@@ -1015,9 +1003,9 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="2.4">
               <circle cx="12" cy="12" r="10"/><polygon points="12 6 14 10 18 10.5 15 13.5 15.8 17.5 12 15.5 8.2 17.5 9 13.5 6 10.5 10 10 12 6"/>
             </svg>
-            <span id="spin-tickets-lbl">اللفات المتاحة: 1</span>
+            <span id="spin-tickets-lbl">Available Spins: 1</span>
           </div>
-          <div class="spin-free-timer" id="spin-timer-badge">FREE READY</div>
+          <div class="spin-free-timer" id="spin-timer-badge">FREE SPIN READY</div>
         </div>
 
         <div class="wheel-stage">
@@ -1073,12 +1061,12 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
           </svg>
-          <span id="spin-btn-txt">أدر العجلة الآن</span>
+          <span id="spin-btn-txt">Spin the Wheel Now</span>
         </button>
       </div>
 
       <div class="tasks-section-divider">
-        <span id="tasks-list-heading">المهام المتاحة</span>
+        <span id="tasks-list-heading">Available Tasks</span>
         <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 3</span>
       </div>
 
@@ -1091,11 +1079,11 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t1-name">انضم لقناة ROL الرسمية</div>
+              <div class="task-name" id="t1-name">Join Official ROL Channel</div>
               <div class="task-reward">+20 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">تنفيذ</button>
+          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">Start</button>
         </div>
 
         <div class="task-card">
@@ -1106,11 +1094,11 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t2-name">تابع حساب المشروع على X</div>
+              <div class="task-name" id="t2-name">Follow Project on X</div>
               <div class="task-reward">+15 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">تنفيذ</button>
+          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">Start</button>
         </div>
 
         <div class="task-card">
@@ -1121,11 +1109,11 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t3-name">اربط محفظة TON الخاصة بك</div>
+              <div class="task-name" id="t3-name">Connect Your TON Wallet</div>
               <div class="task-reward">+50 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">تحقق</button>
+          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">Verify</button>
         </div>
       </div>
     </div>
@@ -1138,18 +1126,18 @@
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
         </div>
-        <div class="page-title" id="pg-refs-title">شبكة الإحالات</div>
-        <div class="page-subtitle" id="pg-refs-sub">ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين</div>
+        <div class="page-title" id="pg-refs-title">Referral Network</div>
+        <div class="page-subtitle" id="pg-refs-sub">Invite friends to earn ROL tokens and free Fortune Wheel spins</div>
       </div>
 
       <div class="ref-stats-grid">
         <div class="cyber-stat-box cyan-accent">
           <div class="stat-val-big" id="ref-count-val">0</div>
-          <div class="stat-caption" id="pg-refs-friends">الإحالات المؤكدة</div>
+          <div class="stat-caption" id="pg-refs-friends">Verified Referrals</div>
         </div>
         <div class="cyber-stat-box">
           <div class="stat-val-big" id="ref-earn-val">0</div>
-          <div class="stat-caption" id="pg-refs-earned">أرباح الإحالات (ROL)</div>
+          <div class="stat-caption" id="pg-refs-earned">Referral Earnings (ROL)</div>
         </div>
       </div>
 
@@ -1160,7 +1148,7 @@
               <polyline points="20 6 9 17 4 12"/>
             </svg>
           </div>
-          <span id="perk-1-txt">+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة</span>
+          <span id="perk-1-txt">+60 ROL instant bonus + 1 Free Spin per verified referral</span>
         </div>
         <div class="perk-row">
           <div class="perk-dot">
@@ -1168,22 +1156,22 @@
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
             </svg>
           </div>
-          <span id="perk-2-txt">5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته</span>
+          <span id="perk-2-txt">5% continuous commission from your invited friends' mining profits</span>
         </div>
       </div>
 
       <div class="ref-verify-note" id="ref-verify-rule-box">
-        شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.
+        Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.
       </div>
 
-      <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">رابط الدعوة الخاص بك</div>
+      <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">Your Personal Invite Link</div>
       <div class="invite-link-wrapper">
         <div class="invite-url-text" id="user-ref-link">https://t.me/ROL_Mining_bot?start=ref_miner</div>
         <button class="mini-copy-btn" id="mini-copy-btn" onclick="copyReferralLink()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
           </svg>
-          <span id="copy-btn-lbl">نسخ</span>
+          <span id="copy-btn-lbl">Copy</span>
         </button>
       </div>
 
@@ -1192,15 +1180,15 @@
           <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
         </svg>
-        <span id="share-btn-lbl">مشاركة الرابط مع الأصدقاء</span>
+        <span id="share-btn-lbl">Share Invite Link</span>
       </button>
     </div>
 
     <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
-        <div class="page-title" id="pg-wallet-title">خزنة الأصول الرقمية</div>
-        <div class="page-subtitle" id="pg-wallet-sub">تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً</div>
+        <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
+        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet and buy ROL tokens to boost your mining tier</div>
       </div>
 
       <div class="obsidian-vault-card">
@@ -1216,29 +1204,29 @@
           </div>
           <div class="conn-status-pill">
             <span class="status-dot" id="wallet-live-dot"></span>
-            <span id="wallet-conn-badge">غير متصلة</span>
+            <span id="wallet-conn-badge">Not Connected</span>
           </div>
         </div>
 
         <div class="vault-main-balance">
-          <div class="vault-bal-caption" id="pg-w-bal-lbl">الرصيد الإجمالي في البوت</div>
+          <div class="vault-bal-caption" id="pg-w-bal-lbl">Total Bot Mining Balance</div>
           <div class="vault-bal-figure" id="pg-wallet-balance">0 <span>ROL</span></div>
         </div>
 
         <div class="vault-analytics-row">
           <div class="v-glass-stat">
-            <span class="v-metric-lbl" id="pg-w-vip-lbl">المستوى النشط</span>
+            <span class="v-metric-lbl" id="pg-w-vip-lbl">Active Tier</span>
             <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/10h)</span>
           </div>
           <div class="v-glass-stat">
-            <span class="v-metric-lbl" id="pg-w-chain-lbl">رصيد محفظة TON</span>
+            <span class="v-metric-lbl" id="pg-w-chain-lbl">TON Wallet Balance</span>
             <span class="v-metric-val" style="color: #38bdf8;" id="pg-onchain-rol">0 ROL</span>
           </div>
         </div>
 
         <div class="vip-upgrade-box">
           <div class="vip-up-header">
-            <span id="next-vip-label">التقدم نحو VIP 2</span>
+            <span id="next-vip-label">Progress to VIP 2</span>
             <span id="next-vip-req" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 500 ROL</span>
           </div>
           <div class="vip-up-track">
@@ -1249,10 +1237,10 @@
 
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
-          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">توثيق المحفظة (0.04 GRAM)</div>
-          <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب</div>
+          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
+          <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining after 1st session & unlock withdrawals</div>
         </div>
-        <button class="action-pill-btn" id="gram-verify-btn" onclick="openVerifyGramModal()">توثيق</button>
+        <button class="action-pill-btn" id="gram-verify-btn" onclick="openVerifyGramModal()">Verify</button>
       </div>
 
       <div class="stonfi-dex-card">
@@ -1264,8 +1252,8 @@
             </svg>
           </div>
           <div>
-            <div class="stonfi-title" id="stonfi-card-title">شراء عملة ROL عبر STON.fi</div>
-            <div class="stonfi-desc" id="stonfi-card-desc">اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP</div>
+            <div class="stonfi-title" id="stonfi-card-title">Buy ROL on STON.fi DEX</div>
+            <div class="stonfi-desc" id="stonfi-card-desc">Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards</div>
           </div>
         </div>
 
@@ -1274,14 +1262,14 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-            <span id="stonfi-btn-lbl">شراء ROL من STON.fi</span>
+            <span id="stonfi-btn-lbl">Buy ROL on STON.fi</span>
           </button>
 
           <button class="refresh-bal-btn" onclick="manualRefreshOnChain()" id="refresh-chain-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
             </svg>
-            <span id="refresh-btn-lbl">تحديث</span>
+            <span id="refresh-btn-lbl">Sync</span>
           </button>
         </div>
       </div>
@@ -1294,12 +1282,12 @@
             </svg>
           </div>
           <div style="display: flex; flex-direction: column; gap: 2px;">
-            <span style="font-size: 10px; color: #94a3b8; font-weight: 700;" id="pg-w-addr-lbl">عنوان المحفظة المربوطة</span>
+            <span style="font-size: 10px; color: #94a3b8; font-weight: 700;" id="pg-w-addr-lbl">Connected Wallet Address</span>
             <span class="addr-short-code" id="wallet-status-lbl">Not Connected</span>
           </div>
         </div>
         <button class="mini-copy-btn" id="wallet-copy-btn" onclick="copyWalletAddress()" style="display: none;">
-          <span id="wallet-copy-lbl">نسخ</span>
+          <span id="wallet-copy-lbl">Copy</span>
         </button>
       </div>
 
@@ -1309,14 +1297,14 @@
             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
             <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
           </svg>
-          <span id="ton-btn-txt">ربط المحفظة</span>
+          <span id="ton-btn-txt">Connect Wallet</span>
         </button>
 
         <button class="legendary-btn-locked" id="pg-w-withdraw-btn" onclick="handleWithdrawClick()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
-          <span id="withdraw-locked-txt">السحب (يتطلب توثيق)</span>
+          <span id="withdraw-locked-txt">Withdraw (Verify First)</span>
         </button>
       </div>
     </div>
@@ -1337,7 +1325,7 @@
             <path fill="#fef9c3" opacity="0.5" d="M12 2.5L2 11.5h2.5L12 4.8l7.5 6.7H22L12 2.5z"/>
           </svg>
         </div>
-        <span class="cyber-label" id="txt-nav-home">الرئيسية</span>
+        <span class="cyber-label" id="txt-nav-home">Home</span>
       </div>
 
       <div class="cyber-tab" id="tab-tasks" onclick="switchTab('tasks')">
@@ -1354,7 +1342,7 @@
             <path fill="url(#gold3D)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
           </svg>
         </div>
-        <span class="cyber-label" id="txt-nav-tasks">المهام</span>
+        <span class="cyber-label" id="txt-nav-tasks">Tasks</span>
       </div>
 
       <div class="cyber-tab" id="tab-refs" onclick="switchTab('refs')">
@@ -1370,7 +1358,7 @@
             <path fill="url(#gold3D)" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
           </svg>
         </div>
-        <span class="cyber-label" id="txt-nav-refs">الإحالات</span>
+        <span class="cyber-label" id="txt-nav-refs">Referrals</span>
       </div>
 
       <div class="cyber-tab" id="tab-wallet" onclick="switchTab('wallet')">
@@ -1386,7 +1374,7 @@
             <path fill="url(#gold3D)" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
           </svg>
         </div>
-        <span class="cyber-label" id="txt-nav-wallet">المحفظة</span>
+        <span class="cyber-label" id="txt-nav-wallet">Wallet</span>
       </div>
 
       <svg width="0" height="0" style="position:absolute;">
@@ -1415,46 +1403,46 @@
   <!-- ==================== نافذة توثيق المحفظة بـ 0.04 GRAM ==================== -->
   <div class="modal-overlay" id="verify-gram-modal" onclick="onOverlayClick(event, 'verify-gram-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #00f0ff; box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);">
-      <h3 style="color: #00f0ff; font-size: 18px; margin-bottom: 8px;" id="vgram-title">توثيق المحفظة (0.04 GRAM)</h3>
+      <h3 style="color: #00f0ff; font-size: 18px; margin-bottom: 8px;" id="vgram-title">Wallet Verification (0.04 GRAM)</h3>
       <p style="font-size: 12px; color: #cbd5e1; line-height: 1.6;" id="vgram-desc">
-        للاستمرار في التعدين بعد الجلسة الأولى المجانية وتأكيد الإحالات والسحب، يرجى إرسال <b>0.04 GRAM</b> إلى عنوان التوثيق الرسمي:
+        To continue mining after your first free session, confirm referrals, and unlock withdrawals, please send <b>0.04 GRAM</b> to the official verification address:
       </p>
       <div class="verify-addr-box">UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb</div>
-      <button class="legendary-btn-gold" onclick="sendGramVerificationTx()" id="vgram-send-btn">إرسال 0.04 GRAM عبر المحفظة</button>
-      <button class="legendary-btn-cyan" onclick="checkGramVerificationOnChain()" id="vgram-check-btn">تحقق من المعاملة وتفعيل الحساب</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-vgram">إغلاق</button>
+      <button class="legendary-btn-gold" onclick="sendGramVerificationTx()" id="vgram-send-btn">Send 0.04 GRAM via Wallet</button>
+      <button class="legendary-btn-cyan" onclick="checkGramVerificationOnChain()" id="vgram-check-btn">Verify Transaction & Activate</button>
+      <button onclick="closeAllModals()" style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-vgram">Close</button>
     </div>
   </div>
 
   <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
-      <div class="streak-banner" id="streak-badge">سلسلة الحضور: يوم 1 / 30</div>
-      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">المكافآت اليومية</h3>
+      <div class="streak-banner" id="streak-badge">Check-in Streak: Day 1 / 30</div>
+      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">Daily Rewards (30 Days)</h3>
       <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5;" id="txt-modal-checkin-desc">
-        سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!
+        Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!
       </p>
       
       <div class="days-grid" id="days-grid-container"></div>
 
-      <button class="legendary-btn-gold" id="claim-daily-btn" onclick="claimDailyReward()">استلام مكافأة اليوم</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-1">إغلاق</button>
+      <button class="legendary-btn-gold" id="claim-daily-btn" onclick="claimDailyReward()">Claim Today's Reward</button>
+      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-1">Close</button>
     </div>
   </div>
 
   <!-- ==================== نافذة قواعد المستويات ==================== -->
   <div class="modal-overlay" id="rules-modal" onclick="onOverlayClick(event, 'rules-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.45);">
-      <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">نظام مستويات التعدين</h3>
+      <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
       
       <div class="wallet-rule-notice" id="txt-wallet-rule-note">
-        يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.
+        Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.
       </div>
 
       <div class="vip-table-header">
-        <span id="th-level">المستوى</span>
-        <span id="th-hold">رصيد المحفظة</span>
-        <span id="th-profit">الربح (10h)</span>
+        <span id="th-level">Tier</span>
+        <span id="th-hold">Wallet Hold</span>
+        <span id="th-profit">Profit (10h)</span>
       </div>
 
       <div class="vip-scroll-wrapper">
@@ -1463,22 +1451,22 @@
           <svg class="bounce-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
           </svg>
-          <span id="scroll-hint-txt">اسحب للأسفل لعرض باقي المستويات حتى VIP 100</span>
+          <span id="scroll-hint-txt">Scroll down to view all tiers up to VIP 100</span>
         </div>
       </div>
 
-      <button onclick="closeAllModals()" class="legendary-btn-cyan" style="margin-bottom: 0;" id="txt-close-2">فهمت ذلك</button>
+      <button onclick="closeAllModals()" class="legendary-btn-cyan" style="margin-bottom: 0;" id="txt-close-2">Understood</button>
     </div>
   </div>
 
   <!-- ==================== نافذة تنبيه المحفظة المستخدمة ==================== -->
   <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
-      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">المحفظة مربوطة بحساب آخر</h3>
+      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">Wallet Already Linked</h3>
       <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px;" id="txt-wused-desc">
-        عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.
+        Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.
       </p>
-      <button onclick="closeAllModals()" class="legendary-btn-gold" id="txt-wused-btn">حسناً، فهمت</button>
+      <button onclick="closeAllModals()" class="legendary-btn-gold" id="txt-wused-btn">Understood</button>
     </div>
   </div>
 
@@ -1490,7 +1478,6 @@
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
 
-    // ==================== شريط الإشعارات العلوي (Cyber Toast) ====================
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
       const toast = document.getElementById('cyber-toast');
@@ -1505,7 +1492,6 @@
       }, 3200);
     }
 
-    // ==================== محرك المؤثرات الصوتية ====================
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
     let audioCtx = null;
 
@@ -1616,7 +1602,6 @@
       if (!soundMuted) playSoundFX('click');
     }
 
-    // ==================== المؤثرات البصرية ====================
     function onGlobalScreenClick(e) {
       spawnTouchRipple(e);
       const langBar = document.getElementById('lang-dropdown-bar');
@@ -1650,13 +1635,13 @@
       const spark = document.createElement('div');
       spark.className = isGold ? 'energy-particle gold' : 'energy-particle';
       const angle = Math.random() * Math.PI * 2;
-      const radius = 68 + Math.random() * 14;
-      const cx = 98 + Math.cos(angle) * radius;
-      const cy = 98 + Math.sin(angle) * radius;
+      const radius = 62 + Math.random() * 12;
+      const cx = 88 + Math.cos(angle) * radius;
+      const cy = 88 + Math.sin(angle) * radius;
       spark.style.left = `${cx}px`;
       spark.style.top = `${cy}px`;
-      spark.style.setProperty('--dx', `${Math.cos(angle) * 42}px`);
-      spark.style.setProperty('--dy', `${Math.sin(angle) * 42 - 22}px`);
+      spark.style.setProperty('--dx', `${Math.cos(angle) * 38}px`);
+      spark.style.setProperty('--dy', `${Math.sin(angle) * 38 - 20}px`);
       layer.appendChild(spark);
       setTimeout(() => spark.remove(), 1800);
     }
@@ -1776,104 +1761,9 @@
       return current;
     }
 
-    // ==================== قاموس اللغات الثلاث (AR 🇸🇦 / EN 🇺🇸 / RU 🇷🇺) ====================
     const dictionary = {
-      ar: {
-        flagBadge: "AR 🇸🇦",
-        walletConnect: "ربط",
-        vip: "المستوى الذهبي",
-        rate: "ربح الدورة",
-        gift: "المكافآت",
-        balance: "رصيدك الحالي",
-        homeBuy: "شراء ROL",
-        active: "نشط",
-        idle: "متوقف",
-        rulesBtn: "قواعد مستويات التعدين",
-        start: "ابدأ التعدين الآن",
-        mining: "جاري التعدين...",
-        claim: "استلام الأرباح",
-        verifyToContinue: "توثيق الحساب للاستمرار (0.04 GRAM)",
-        navHome: "الرئيسية",
-        navTasks: "المهام",
-        navRefs: "الإحالات",
-        navWallet: "المحفظة",
-        modalCheckinTitle: "المكافآت اليومية (30 يوماً)",
-        modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
-        streakTxt: "سلسلة الحضور: يوم",
-        claimDay: "استلام مكافأة اليوم",
-        claimedDone: "تم الاستلام - عد غداً",
-        close: "إغلاق",
-        understand: "فهمت ذلك",
-        rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
-        walletRuleNote: "يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
-        thLevel: "المستوى",
-        thHold: "رصيد المحفظة",
-        thProfit: "الربح (10h)",
-        reqHoldFree: "مجاني",
-        scrollHint: "اسحب للأسفل لعرض باقي المستويات حتى VIP 100",
-        pgTasksTitle: "المهام وعجلة الحظ",
-        pgTasksSub: "أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL",
-        spinTickets: "اللفات المتاحة:",
-        spinReady: "لفة مجانية جاهزة",
-        spinLaunch: "أدر العجلة الآن",
-        noSpins: "لا توجد لفات متاحة حالياً",
-        tasksHeading: "المهام المتاحة",
-        t1Name: "انضم لقناة ROL الرسمية",
-        t2Name: "تابع حساب المشروع على X",
-        t3Name: "اربط محفظة TON الخاصة بك",
-        doBtn: "تنفيذ",
-        verifyBtn: "تحقق",
-        doneBtn: "مكتمل ✓",
-        pgRefsTitle: "شبكة الإحالات",
-        pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
-        pgRefsFriends: "الإحالات المؤكدة",
-        pgRefsEarned: "أرباح الإحالات (ROL)",
-        perk1: "+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة",
-        perk2: "5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته",
-        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
-        pgRefsLinkLbl: "رابط الدعوة الخاص بك",
-        copyBtn: "نسخ",
-        copiedBtn: "تم النسخ ✓",
-        pgRefsShare: "مشاركة الرابط مع الأصدقاء",
-        pgWalletTitle: "خزنة الأصول الرقمية",
-        pgWalletSub: "تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً",
-        pgWBalLbl: "الرصيد الإجمالي في البوت",
-        pgWVipLbl: "المستوى النشط",
-        pgWChainLbl: "رصيد محفظة TON",
-        gramTitle: "توثيق المحفظة (0.04 GRAM)",
-        gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
-        gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
-        gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
-        gramBtn: "توثيق",
-        gramVerifiedBtn: "موثق ✓",
-        vgramTitle: "توثيق المحفظة (0.04 GRAM)",
-        vgramDesc: "للاستمرار في التعدين بعد الجلسة الأولى المجانية وتأكيد الإحالات والسحب، يرجى إرسال <b>0.04 GRAM</b> إلى عنوان التوثيق الرسمي:",
-        vgramSendBtn: "إرسال 0.04 GRAM عبر المحفظة",
-        vgramCheckBtn: "تحقق من المعاملة وتفعيل الحساب",
-        stonTitle: "شراء عملة ROL عبر STON.fi",
-        stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
-        stonBtn: "شراء ROL من STON.fi",
-        refreshBtn: "تحديث",
-        pgWAddrLbl: "عنوان المحفظة المربوطة",
-        walletBtnModal: "ربط المحفظة",
-        walletDisconnectModal: "فصل المحفظة",
-        connActive: "متصلة",
-        notConnected: "غير متصلة",
-        pgWWithdrawLock: "السحب (يتطلب توثيق)",
-        pgWWithdrawReady: "سحب الأرباح (قريباً)",
-        nextVipProg: "التقدم نحو",
-        maxVipReached: "وصلت للحد الأقصى VIP 100",
-        wUsedTitle: "المحفظة مربوطة بحساب آخر",
-        wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
-        wUsedBtn: "حسناً، فهمت",
-        dayLabel: "يوم",
-        toastCopied: "✓ تم النسخ إلى الحافظة",
-        toastVerified: "✓ تم توثيق حسابك بنجاح!",
-        toastNotDetected: "لم يتم رصد وصول 0.04 GRAM بعد. أرسل المبلغ ثم اضغط تحقق.",
-        toastConnectFirst: "يرجى ربط محفظتك أولاً"
-      },
       en: {
-        flagBadge: "EN 🇺🇸",
+        shortCode: "EN",
         walletConnect: "Connect",
         vip: "Gold Tier",
         rate: "Cycle Profit",
@@ -1966,8 +1856,102 @@
         toastNotDetected: "0.04 GRAM transfer not detected yet. Send first then verify.",
         toastConnectFirst: "Please connect your wallet first"
       },
+      ar: {
+        shortCode: "AR",
+        walletConnect: "ربط",
+        vip: "المستوى الذهبي",
+        rate: "ربح الدورة",
+        gift: "المكافآت",
+        balance: "رصيدك الحالي",
+        homeBuy: "شراء ROL",
+        active: "نشط",
+        idle: "متوقف",
+        rulesBtn: "قواعد مستويات التعدين",
+        start: "ابدأ التعدين الآن",
+        mining: "جاري التعدين...",
+        claim: "استلام الأرباح",
+        verifyToContinue: "توثيق الحساب للاستمرار (0.04 GRAM)",
+        navHome: "الرئيسية",
+        navTasks: "المهام",
+        navRefs: "الإحالات",
+        navWallet: "المحفظة",
+        modalCheckinTitle: "المكافآت اليومية (30 يوماً)",
+        modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
+        streakTxt: "سلسلة الحضور: يوم",
+        claimDay: "استلام مكافأة اليوم",
+        claimedDone: "تم الاستلام - عد غداً",
+        close: "إغلاق",
+        understand: "فهمت ذلك",
+        rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
+        walletRuleNote: "يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
+        thLevel: "المستوى",
+        thHold: "رصيد المحفظة",
+        thProfit: "الربح (10h)",
+        reqHoldFree: "مجاني",
+        scrollHint: "اسحب للأسفل لعرض باقي المستويات حتى VIP 100",
+        pgTasksTitle: "المهام وعجلة الحظ",
+        pgTasksSub: "أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL",
+        spinTickets: "اللفات المتاحة:",
+        spinReady: "لفة مجانية جاهزة",
+        spinLaunch: "أدر العجلة الآن",
+        noSpins: "لا توجد لفات متاحة حالياً",
+        tasksHeading: "المهام المتاحة",
+        t1Name: "انضم لقناة ROL الرسمية",
+        t2Name: "تابع حساب المشروع على X",
+        t3Name: "اربط محفظة TON الخاصة بك",
+        doBtn: "تنفيذ",
+        verifyBtn: "تحقق",
+        doneBtn: "مكتمل ✓",
+        pgRefsTitle: "شبكة الإحالات",
+        pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
+        pgRefsFriends: "الإحالات المؤكدة",
+        pgRefsEarned: "أرباح الإحالات (ROL)",
+        perk1: "+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة",
+        perk2: "5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته",
+        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
+        pgRefsLinkLbl: "رابط الدعوة الخاص بك",
+        copyBtn: "نسخ",
+        copiedBtn: "تم النسخ ✓",
+        pgRefsShare: "مشاركة الرابط مع الأصدقاء",
+        pgWalletTitle: "خزنة الأصول الرقمية",
+        pgWalletSub: "تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً",
+        pgWBalLbl: "الرصيد الإجمالي في البوت",
+        pgWVipLbl: "المستوى النشط",
+        pgWChainLbl: "رصيد محفظة TON",
+        gramTitle: "توثيق المحفظة (0.04 GRAM)",
+        gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
+        gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
+        gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
+        gramBtn: "توثيق",
+        gramVerifiedBtn: "موثق ✓",
+        vgramTitle: "توثيق المحفظة (0.04 GRAM)",
+        vgramDesc: "للاستمرار في التعدين بعد الجلسة الأولى المجانية وتأكيد الإحالات والسحب، يرجى إرسال <b>0.04 GRAM</b> إلى عنوان التوثيق الرسمي:",
+        vgramSendBtn: "إرسال 0.04 GRAM عبر المحفظة",
+        vgramCheckBtn: "تحقق من المعاملة وتفعيل الحساب",
+        stonTitle: "شراء عملة ROL عبر STON.fi",
+        stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
+        stonBtn: "شراء ROL من STON.fi",
+        refreshBtn: "تحديث",
+        pgWAddrLbl: "عنوان المحفظة المربوطة",
+        walletBtnModal: "ربط المحفظة",
+        walletDisconnectModal: "فصل المحفظة",
+        connActive: "متصلة",
+        notConnected: "غير متصلة",
+        pgWWithdrawLock: "السحب (يتطلب توثيق)",
+        pgWWithdrawReady: "سحب الأرباح (قريباً)",
+        nextVipProg: "التقدم نحو",
+        maxVipReached: "وصلت للحد الأقصى VIP 100",
+        wUsedTitle: "المحفظة مربوطة بحساب آخر",
+        wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
+        wUsedBtn: "حسناً، فهمت",
+        dayLabel: "يوم",
+        toastCopied: "✓ تم النسخ إلى الحافظة",
+        toastVerified: "✓ تم توثيق حسابك بنجاح!",
+        toastNotDetected: "لم يتم رصد وصول 0.04 GRAM بعد. أرسل المبلغ ثم اضغط تحقق.",
+        toastConnectFirst: "يرجى ربط محفظتك أولاً"
+      },
       ru: {
-        flagBadge: "RU 🇷🇺",
+        shortCode: "RU",
         walletConnect: "Кошелёк",
         vip: "Золотой статус",
         rate: "Доход цикла",
@@ -2062,8 +2046,9 @@
       }
     };
 
-    let curLang = localStorage.getItem(KEY_LANG) || 'ar';
-    if (!dictionary[curLang]) curLang = 'ar';
+    // اللغة الرسمية الافتراضية هي الإنجليزية (en) عند فتح البوت لأول مرة
+    let curLang = localStorage.getItem(KEY_LANG) || 'en';
+    if (!dictionary[curLang]) curLang = 'en';
 
     let connectedWalletAddr = localStorage.getItem(KEY_WALLET) || null;
     let completedTasks = JSON.parse(localStorage.getItem(KEY_TASKS) || '[]');
@@ -2101,7 +2086,6 @@
       return getCurrentTierObj().dailyProfit;
     }
 
-    // ==================== شريط اختيار اللغات الثلاث ====================
     function toggleLangBar(e) {
       e.stopPropagation();
       playSoundFX('click');
@@ -2118,7 +2102,6 @@
       document.getElementById('lang-dropdown-bar').classList.remove('open');
     }
 
-    // ==================== تحديث نقاط الإشعار النابضة ====================
     function updateNotificationDots() {
       const dotCheckin = document.getElementById('dot-checkin');
       const dotTasks = document.getElementById('dot-tasks');
@@ -2133,7 +2116,6 @@
       }
     }
 
-    // ==================== 1. عجلة الحظ (Spin Wheel) ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -2246,7 +2228,6 @@
       }, 4700);
     }
 
-    // ==================== 2. نظام توثيق المحفظة بـ 0.04 GRAM ====================
     function openVerifyGramModal() {
       playSoundFX('click');
       openModal('verify-gram-modal');
@@ -2385,7 +2366,6 @@
       await syncUserToCloud();
     }
 
-    // ==================== 3. مزامنة Firebase السحابية ====================
     async function publishVipConfigToDatabase() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -2830,7 +2810,7 @@
     function applyLanguage(lang) {
       curLang = lang;
       const t = dictionary[lang];
-      document.getElementById('lang-btn-txt').innerText = t.flagBadge;
+      document.getElementById('lang-btn-txt').innerText = t.shortCode;
 
       document.querySelectorAll('.lang-pill-option').forEach(btn => btn.classList.remove('selected'));
       const activePill = document.getElementById(`opt-lang-${lang}`);
@@ -3178,7 +3158,7 @@
     function shareReferralLink() {
       playSoundFX('click');
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب 500 ROL كل 10 ساعات!')}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 500 ROL every 10 hours!')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
