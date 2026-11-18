@@ -65,7 +65,7 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== 1. الصفحة الرئيسية (Home) ==================== */
+    /* ==================== 1. الصفحة الرئيسية (إحداثيات مضبوطة 100% على الخلفية) ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -78,8 +78,8 @@
       top: 26%;
       left: 50%;
       transform: translateX(-50%);
-      width: 280px;
-      height: 280px;
+      width: 310px;
+      height: 310px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(2, 132, 199, 0.08) 45%, transparent 72%);
       pointer-events: none;
@@ -89,11 +89,7 @@
     }
 
     .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
-
-    @keyframes ambientBreathe {
-      0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; }
-      50% { transform: translateX(-50%) scale(1.1); opacity: 1; }
-    }
+    @keyframes ambientBreathe { 0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; } 50% { transform: translateX(-50%) scale(1.12); opacity: 1; } }
 
     .brand-title {
       position: absolute;
@@ -114,11 +110,11 @@
     .sound-toggle-btn {
       position: absolute;
       top: 1.35%;
-      left: 48.2%;
+      left: 49%;
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(6, 20, 48, 0.88);
+      background: rgba(6, 20, 48, 0.85);
       border: 1px solid rgba(0, 240, 255, 0.45);
       box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
       display: flex;
@@ -132,26 +128,25 @@
     .sound-toggle-btn:active { transform: scale(0.88); }
     .sound-toggle-btn.muted { border-color: rgba(148, 163, 184, 0.35); box-shadow: none; opacity: 0.65; }
 
-    /* تموضع نص اللغة بدقة في المنتصف الأيمن لكبسولة الكرة الأرضية */
+    /* كبسولة اللغة داخل إطار الكرة الأرضية */
     .lang-touch-zone {
       position: absolute;
       top: 1.25%;
       left: 68.5%;
-      width: 10%;
-      height: 4%;
+      width: 10.8%;
+      height: 3.9%;
       cursor: pointer;
       z-index: 40;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 9.8px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
       white-space: nowrap;
     }
 
-    /* شريط اختيار اللغات الثلاث العلوي (AR 🇸🇦 | EN 🇺🇸 | RU 🇷🇺) */
     .lang-dropdown-bar {
       position: absolute;
       top: 6.2%;
@@ -199,13 +194,13 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
-    /* تموضع نص المحفظة المختصر بدقة داخل كبسولة المحفظة العلوية */
+    /* كبسولة عنوان المحفظة في الأعلى يمين */
     .wallet-touch-zone {
       position: absolute;
       top: 1.25%;
-      left: 85.8%;
-      width: 12.2%;
-      height: 4%;
+      left: 86.2%;
+      width: 11.6%;
+      height: 3.9%;
       border-radius: 8px;
       cursor: pointer;
       z-index: 30;
@@ -215,21 +210,22 @@
     }
 
     .wallet-btn-label {
-      font-size: 8.6px;
+      font-size: 8.5px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
-      text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
       pointer-events: none;
       white-space: nowrap;
     }
 
+    /* شارة التاج الذهبي VIP */
     .vip-container {
       position: absolute;
-      top: 7.2%;
+      top: 7.4%;
       left: 3.5%;
       width: 20%;
-      height: 9%;
+      height: 8.8%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -238,15 +234,16 @@
       z-index: 20;
     }
 
-    .vip-label { font-size: 8px; font-weight: 800; color: #facc15; margin-top: 10px; }
-    .vip-num { font-size: 13px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
+    .vip-label { font-size: 7.8px; font-weight: 800; color: #facc15; margin-top: 11px; }
+    .vip-num { font-size: 12.5px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
 
+    /* إطار معدل الربح بجانب الصاروخ */
     .rate-container {
       position: absolute;
-      top: 7.2%;
-      left: 27%;
-      width: 46%;
-      height: 9%;
+      top: 7.3%;
+      left: 32%;
+      width: 40%;
+      height: 8.8%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -255,9 +252,10 @@
       z-index: 20;
     }
 
-    .rate-title { font-size: 10.5px; font-weight: 800; color: #94a3b8; }
-    .rate-val { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; }
+    .rate-title { font-size: 10px; font-weight: 800; color: #94a3b8; }
+    .rate-val { font-family: ui-monospace, monospace; font-size: 12px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
+    /* صندوق المكافآت اليومية */
     .gift-touch-zone {
       position: absolute;
       top: 6.5%;
@@ -294,19 +292,16 @@
     }
 
     .notify-pulse-dot.visible { display: block; }
+    @keyframes dotPing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.75; } }
 
-    @keyframes dotPing {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.75; }
-    }
-
+    /* مستطيل الرصيد الحالي (مضبوط بدقة بجانب أيقونة المحفظة البيضاء) */
     .balance-container {
       position: absolute;
-      top: 19%;
-      left: 50%;
+      top: 19.3%;
+      left: 53.5%;
       transform: translateX(-50%);
-      width: 78%;
-      height: 7.8%;
+      width: 68%;
+      height: 7.4%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -315,17 +310,17 @@
       z-index: 20;
     }
 
-    .balance-title { font-size: 10px; font-weight: 800; color: #94a3b8; }
-    .balance-val { font-family: ui-monospace, monospace; font-size: 25px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; }
-    .balance-val.pop { transform: scale(1.14); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
+    .balance-title { font-size: 9.8px; font-weight: 800; color: #94a3b8; }
+    .balance-val { font-family: ui-monospace, monospace; font-size: 24px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
+    .balance-val.pop { transform: scale(1.12); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
-    /* كبسولة شراء ROL متموضعة في أقصى اليمين دون ملامسة حلقات العملة */
+    /* كبسولة شراء ROL */
     .home-buy-rol-pill {
       position: absolute;
       top: 41.2%;
-      right: 2.2%;
+      right: 2.6%;
       transform: translateY(-50%);
-      background: linear-gradient(145deg, rgba(16, 36, 78, 0.94), rgba(5, 14, 34, 0.98));
+      background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
       border: 1.5px solid rgba(250, 204, 21, 0.75);
       border-radius: 15px;
       padding: 7px 8px;
@@ -336,30 +331,28 @@
       gap: 3px;
       cursor: pointer;
       z-index: 35;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(250, 204, 21, 0.35);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(250, 204, 21, 0.35);
       animation: buyPillPulse 2.6s infinite ease-in-out;
       transition: transform 0.15s ease;
     }
 
     .home-buy-rol-pill:active { transform: translateY(-50%) scale(0.92); }
-
     @keyframes buyPillPulse {
       0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(250, 204, 21, 0.3); border-color: rgba(250, 204, 21, 0.65); }
-      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 20px rgba(250, 204, 21, 0.65); border-color: #fde047; }
+      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 22px rgba(250, 204, 21, 0.65); border-color: #fde047; }
     }
 
     .buy-pill-icon { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(250, 204, 21, 0.6); }
     .buy-pill-text { font-size: 9px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
     .buy-pill-sub { font-size: 7.2px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; }
 
-    /* مؤثرات العملة الدوارة متطابقة مع حجم عملة ROL */
     .coin-fx-layer {
       position: absolute;
       top: 41.2%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 176px;
-      height: 176px;
+      width: 192px;
+      height: 192px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 22;
@@ -368,17 +361,17 @@
       justify-content: center;
     }
 
-    .coin-orbit-ring { position: absolute; inset: 6px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .coin-orbit-ring { position: absolute; inset: 8px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
     .coin-fx-layer.active .coin-orbit-ring { opacity: 1; animation: orbitSpin 12s linear infinite; }
     @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    .coin-pulse-ring { position: absolute; inset: 12px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
+    .coin-pulse-ring { position: absolute; inset: 14px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
     .coin-fx-layer.active .coin-pulse-ring { animation: coinWave 2.4s infinite cubic-bezier(0.22, 1, 0.36, 1); }
     .coin-fx-layer.active .coin-pulse-ring.delay { animation-delay: 1.2s; }
 
     @keyframes coinWave {
-      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 20px rgba(0, 240, 255, 0.6), inset 0 0 12px rgba(0, 240, 255, 0.35); opacity: 0.95; }
-      100% { transform: scale(1.26); border-color: rgba(0, 240, 255, 0); box-shadow: 0 0 0 rgba(0, 240, 255, 0); opacity: 0; }
+      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 22px rgba(0, 240, 255, 0.6), inset 0 0 14px rgba(0, 240, 255, 0.35); opacity: 0.95; }
+      100% { transform: scale(1.36); border-color: rgba(0, 240, 255, 0); box-shadow: 0 0 0 rgba(0, 240, 255, 0); opacity: 0; }
     }
 
     .pickaxe-fx-spot { position: absolute; top: 57.5%; left: 20%; width: 44px; height: 44px; pointer-events: none; z-index: 22; }
@@ -400,26 +393,31 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
-    .live-status-pill { position: absolute; top: 57.6%; left: 75.8%; width: 17%; height: 3.8%; display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 10px; font-weight: 900; color: #10b981; text-shadow: 0 0 8px rgba(16, 185, 129, 0.7); pointer-events: none; z-index: 20; }
+    /* كبسولة الحالة Active */
+    .live-status-pill { position: absolute; top: 57.5%; left: 76.2%; width: 16.5%; height: 3.8%; display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 10px; font-weight: 900; color: #10b981; text-shadow: 0 0 8px rgba(16, 185, 129, 0.7); pointer-events: none; z-index: 20; }
     .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
 
+    /* مؤقت التعدين */
     .live-timer-overlay { position: absolute; top: 59.3%; left: 50%; transform: translateX(-50%); font-family: ui-monospace, monospace; font-size: 23px; font-weight: 900; color: #facc15; text-shadow: 0 0 12px rgba(250, 204, 21, 0.85); letter-spacing: 2px; direction: ltr; z-index: 20; }
 
-    .progress-bar-container { position: absolute; top: 63.7%; left: 11.2%; width: 77.6%; height: 5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
+    /* شريط التقدم */
+    .progress-bar-container { position: absolute; top: 63.85%; left: 11.4%; width: 77.2%; height: 5.5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
     .progress-bar-fill { position: relative; width: 0%; height: 100%; background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc); box-shadow: 0 0 12px #00f0ff; border-radius: 4px; transition: width 0.4s linear; overflow: hidden; }
     .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
     @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
 
-    .rules-touch-zone { position: absolute; top: 69.8%; left: 50%; transform: translateX(-50%); width: 90%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
-    .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; }
+    /* زر قواعد المستويات متمركز بين الرسم البياني والسهم */
+    .rules-touch-zone { position: absolute; top: 69.8%; left: 52.5%; transform: translateX(-50%); width: 64%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
+    .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; text-align: center; white-space: nowrap; }
 
+    /* زر التعدين متمركز بدقة بين الفأسين والأسهم */
     .mine-touch-btn {
       position: absolute;
-      top: 77.8%;
-      left: 50%;
+      top: 78.0%;
+      left: 50.5%;
       transform: translateX(-50%);
-      width: 92%;
-      height: 8.5%;
+      width: 90%;
+      height: 8.2%;
       border-radius: 20px;
       display: flex;
       align-items: center;
@@ -436,6 +434,7 @@
 
     .mine-touch-btn.claim-green-mode {
       top: 78.2%;
+      left: 50%;
       width: 89%;
       height: 7.7%;
       background: linear-gradient(135deg, #059669 0%, #10b981 48%, #047857 100%);
@@ -448,6 +447,7 @@
 
     .mine-touch-btn.verify-gram-mode {
       top: 78.2%;
+      left: 50%;
       width: 89%;
       height: 7.7%;
       background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #0369a1 100%);
@@ -462,7 +462,23 @@
       50% { filter: brightness(1.14) drop-shadow(0 0 20px rgba(52, 211, 153, 0.95)); }
     }
 
-    .mine-btn-txt { font-size: 16px; font-weight: 900; color: #1a0f00; pointer-events: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .mine-btn-txt {
+      font-size: 15.5px;
+      font-weight: 900;
+      color: #1a0f00;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      max-width: 58%;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .mine-touch-btn.claim-green-mode .mine-btn-txt,
+    .mine-touch-btn.verify-gram-mode .mine-btn-txt { max-width: 92%; }
+
     .mine-btn-txt.mining { color: #cbd5e1; }
     .mine-btn-txt.claim { color: #ffffff; font-size: 14.5px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
 
@@ -918,12 +934,10 @@
         </svg>
       </div>
 
-      <!-- زر فتح شريط اللغات الثلاث -->
       <div class="lang-touch-zone" onclick="toggleLangBar(event)">
-        <span id="lang-btn-txt">EN</span>
+        <span id="lang-btn-txt">EN 🇺🇸</span>
       </div>
 
-      <!-- شريط اختيار اللغات الثلاث مع الأعلام -->
       <div class="lang-dropdown-bar" id="lang-dropdown-bar" onclick="event.stopPropagation()">
         <button class="lang-pill-option" id="opt-lang-en" onclick="selectLanguage('en')">EN 🇺🇸</button>
         <button class="lang-pill-option" id="opt-lang-ar" onclick="selectLanguage('ar')">AR 🇸🇦</button>
@@ -1635,13 +1649,13 @@
       const spark = document.createElement('div');
       spark.className = isGold ? 'energy-particle gold' : 'energy-particle';
       const angle = Math.random() * Math.PI * 2;
-      const radius = 62 + Math.random() * 12;
-      const cx = 88 + Math.cos(angle) * radius;
-      const cy = 88 + Math.sin(angle) * radius;
+      const radius = 66 + Math.random() * 14;
+      const cx = 96 + Math.cos(angle) * radius;
+      const cy = 96 + Math.sin(angle) * radius;
       spark.style.left = `${cx}px`;
       spark.style.top = `${cy}px`;
-      spark.style.setProperty('--dx', `${Math.cos(angle) * 38}px`);
-      spark.style.setProperty('--dy', `${Math.sin(angle) * 38 - 20}px`);
+      spark.style.setProperty('--dx', `${Math.cos(angle) * 42}px`);
+      spark.style.setProperty('--dy', `${Math.sin(angle) * 42 - 22}px`);
       layer.appendChild(spark);
       setTimeout(() => spark.remove(), 1800);
     }
@@ -1763,7 +1777,7 @@
 
     const dictionary = {
       en: {
-        shortCode: "EN",
+        flagBadge: "EN 🇺🇸",
         walletConnect: "Connect",
         vip: "Gold Tier",
         rate: "Cycle Profit",
@@ -1857,7 +1871,7 @@
         toastConnectFirst: "Please connect your wallet first"
       },
       ar: {
-        shortCode: "AR",
+        flagBadge: "AR 🇸🇦",
         walletConnect: "ربط",
         vip: "المستوى الذهبي",
         rate: "ربح الدورة",
@@ -1951,7 +1965,7 @@
         toastConnectFirst: "يرجى ربط محفظتك أولاً"
       },
       ru: {
-        shortCode: "RU",
+        flagBadge: "RU 🇷🇺",
         walletConnect: "Кошелёк",
         vip: "Золотой статус",
         rate: "Доход цикла",
@@ -2046,7 +2060,7 @@
       }
     };
 
-    // اللغة الرسمية الافتراضية هي الإنجليزية (en) عند فتح البوت لأول مرة
+    // اللغة الرسمية الافتراضية هي الإنجليزية ('en')
     let curLang = localStorage.getItem(KEY_LANG) || 'en';
     if (!dictionary[curLang]) curLang = 'en';
 
@@ -2810,7 +2824,7 @@
     function applyLanguage(lang) {
       curLang = lang;
       const t = dictionary[lang];
-      document.getElementById('lang-btn-txt').innerText = t.shortCode;
+      document.getElementById('lang-btn-txt').innerText = t.flagBadge;
 
       document.querySelectorAll('.lang-pill-option').forEach(btn => btn.classList.remove('selected'));
       const activePill = document.getElementById(`opt-lang-${lang}`);
