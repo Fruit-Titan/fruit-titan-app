@@ -35,6 +35,44 @@
       overflow: hidden;
     }
 
+    /* ==================== شريط الإشعارات العلوي (Cyber Toast) ==================== */
+    .cyber-toast {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translate(-50%, -130%);
+      width: 90%;
+      max-width: 390px;
+      background: linear-gradient(135deg, rgba(10, 28, 64, 0.96), rgba(3, 11, 28, 0.98));
+      border: 1.5px solid #00f0ff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 240, 255, 0.4);
+      color: #ffffff;
+      padding: 11px 15px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      z-index: 99999;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+      opacity: 0;
+      text-align: center;
+    }
+
+    .cyber-toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .cyber-toast.warn {
+      border-color: #facc15;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4);
+      color: #fef08a;
+    }
+
     /* ==================== 1. الصفحة الرئيسية (Home) ==================== */
     #view-home {
       position: absolute;
@@ -105,21 +143,73 @@
     .sound-toggle-btn:active { transform: scale(0.88); }
     .sound-toggle-btn.muted { border-color: rgba(148, 163, 184, 0.35); box-shadow: none; opacity: 0.65; }
 
+    /* زر اللغة في مكانه الدقيق بالشريط العلوي */
     .lang-touch-zone {
       position: absolute;
       top: 1.2%;
-      left: 68%;
-      width: 9%;
+      left: 66.5%;
+      width: 12.5%;
       height: 4%;
       cursor: pointer;
-      z-index: 30;
+      z-index: 40;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+      white-space: nowrap;
+    }
+
+    /* شريط اختيار اللغات الثلاث العلوي (AR 🇸🇦 | EN 🇺🇸 | RU 🇷🇺) */
+    .lang-dropdown-bar {
+      position: absolute;
+      top: 6.2%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: linear-gradient(145deg, rgba(10, 28, 66, 0.97), rgba(3, 10, 26, 0.99));
+      border: 1.5px solid rgba(0, 240, 255, 0.55);
+      border-radius: 18px;
+      padding: 6px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      z-index: 95;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 22px rgba(0, 240, 255, 0.35);
+      animation: dropLangAnim 0.2s ease forwards;
+    }
+
+    .lang-dropdown-bar.open {
+      display: flex;
+    }
+
+    @keyframes dropLangAnim {
+      from { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.95); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+
+    .lang-pill-option {
+      padding: 7px 13px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .lang-pill-option.selected {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(2, 132, 199, 0.25));
+      border-color: #00f0ff;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
     .wallet-touch-zone {
@@ -198,6 +288,30 @@
 
     @keyframes giftFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
     .gift-title { font-size: 8.5px; font-weight: 900; color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.7); pointer-events: none; }
+
+    /* نقطة الإشعار النابضة للمكافآت والمهام */
+    .notify-pulse-dot {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #facc15;
+      border: 1.5px solid #020712;
+      box-shadow: 0 0 10px #facc15, 0 0 16px #f59e0b;
+      display: none;
+      animation: dotPing 1.4s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .notify-pulse-dot.visible { display: block; }
+
+    @keyframes dotPing {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.75; }
+    }
 
     .balance-container {
       position: absolute;
@@ -361,11 +475,11 @@
 
     .mine-btn-txt { font-size: 16px; font-weight: 900; color: #1a0f00; pointer-events: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .mine-btn-txt.mining { color: #cbd5e1; }
-    .mine-btn-txt.claim { color: #ffffff; font-size: 15px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
+    .mine-btn-txt.claim { color: #ffffff; font-size: 14.5px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
 
     .claim-badge-chip { background: rgba(2, 44, 34, 0.45); border: 1px solid rgba(167, 243, 208, 0.55); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 900; direction: ltr; }
 
-    /* ==================== الصفحات المستقلة (قابلة للتمرير بسلاسة مهما زاد المحتوى) ==================== */
+    /* ==================== الصفحات المستقلة ==================== */
     .sub-page {
       position: absolute;
       top: 0;
@@ -400,7 +514,7 @@
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
-    /* ==================== عجلة الحظ الأسطورية (كاملة 100% بدون قصّ) ==================== */
+    /* ==================== عجلة الحظ الأسطورية ==================== */
     .spin-arena-card {
       position: relative;
       background:
@@ -417,71 +531,13 @@
       flex-shrink: 0;
     }
 
-    .spin-top-hud {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      gap: 8px;
-    }
+    .spin-top-hud { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px; }
+    .spin-tickets-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(250, 204, 21, 0.16); border: 1px solid rgba(250, 204, 21, 0.5); color: #fde047; padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 900; box-shadow: 0 0 12px rgba(250, 204, 21, 0.25); }
+    .spin-free-timer { font-size: 10.5px; font-weight: 800; color: #38bdf8; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.28); padding: 5px 10px; border-radius: 20px; font-family: ui-monospace, monospace; direction: ltr; }
 
-    .spin-tickets-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(250, 204, 21, 0.16);
-      border: 1px solid rgba(250, 204, 21, 0.5);
-      color: #fde047;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 900;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.25);
-    }
-
-    .spin-free-timer {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #38bdf8;
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid rgba(0, 240, 255, 0.28);
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-family: ui-monospace, monospace;
-      direction: ltr;
-    }
-
-    /* حاوية العجلة بمساحة كاملة لضمان عدم قصّ الحافة السفلية أو العلوية */
-    .wheel-stage {
-      position: relative;
-      width: 256px;
-      height: 256px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 6px auto 16px;
-      flex-shrink: 0;
-    }
-
-    .wheel-outer-halo {
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 2px dashed rgba(0, 240, 255, 0.5);
-      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(250, 204, 21, 0.2);
-      animation: orbitSpin 18s linear infinite;
-      pointer-events: none;
-    }
-
-    .wheel-pointer {
-      position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(250, 204, 21, 0.95));
-    }
+    .wheel-stage { position: relative; width: 256px; height: 256px; display: flex; align-items: center; justify-content: center; margin: 6px auto 16px; flex-shrink: 0; }
+    .wheel-outer-halo { position: absolute; inset: -4px; border-radius: 50%; border: 2px dashed rgba(0, 240, 255, 0.5); box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(250, 204, 21, 0.2); animation: orbitSpin 18s linear infinite; pointer-events: none; }
+    .wheel-pointer { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); z-index: 20; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(250, 204, 21, 0.95)); }
 
     .wheel-rotor {
       width: 240px;
@@ -495,11 +551,7 @@
       justify-content: center;
     }
 
-    .wheel-rotor svg {
-      width: 240px;
-      height: 240px;
-      display: block;
-    }
+    .wheel-rotor svg { width: 240px; height: 240px; display: block; }
 
     .wheel-center-hub {
       position: absolute;
@@ -543,25 +595,9 @@
       transition: transform 0.15s ease, opacity 0.2s ease;
     }
 
-    .spin-launch-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      box-shadow: none;
-    }
+    .spin-launch-btn:disabled { opacity: 0.55; cursor: not-allowed; background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; box-shadow: none; }
 
-    .tasks-section-divider {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 4px 2px 10px;
-      font-size: 12px;
-      font-weight: 900;
-      color: #38bdf8;
-      flex-shrink: 0;
-    }
+    .tasks-section-divider { display: flex; align-items: center; justify-content: space-between; margin: 4px 2px 10px; font-size: 12px; font-weight: 900; color: #38bdf8; flex-shrink: 0; }
 
     .task-card {
       background: linear-gradient(145deg, rgba(12, 30, 66, 0.85), rgba(6, 16, 38, 0.92));
@@ -618,7 +654,7 @@
     .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
     .mini-copy-btn.copied { background: rgba(16, 185, 129, 0.25); border-color: #10b981; color: #34d399; }
 
-    /* ==================== تصميم صفحة المحفظة الأسطورية ==================== */
+    /* ==================== تصميم صفحة المحفظة ==================== */
     .obsidian-vault-card {
       position: relative;
       background:
@@ -677,10 +713,7 @@
       flex-shrink: 0;
     }
 
-    .gram-verify-card.verified {
-      border-color: rgba(16, 185, 129, 0.55);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%);
-    }
+    .gram-verify-card.verified { border-color: rgba(16, 185, 129, 0.55); background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%); }
 
     .stonfi-dex-card {
       position: relative;
@@ -879,7 +912,10 @@
 </head>
 <body>
 
-  <div class="app-screen" onclick="spawnTouchRipple(event)">
+  <!-- شريط الإشعارات الفوري العلوي -->
+  <div class="cyber-toast" id="cyber-toast"></div>
+
+  <div class="app-screen" onclick="onGlobalScreenClick(event)">
     <!-- ==================== 1. الصفحة الرئيسية (Home) ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
@@ -894,9 +930,18 @@
         </svg>
       </div>
 
-      <div class="lang-touch-zone" onclick="toggleLang()">
-        <span id="lang-btn-txt">AR</span>
+      <!-- زر فتح شريط اللغات الثلاث -->
+      <div class="lang-touch-zone" onclick="toggleLangBar(event)">
+        <span id="lang-btn-txt">AR 🇸🇦</span>
       </div>
+
+      <!-- شريط اختيار اللغات الثلاث مع الأعلام -->
+      <div class="lang-dropdown-bar" id="lang-dropdown-bar" onclick="event.stopPropagation()">
+        <button class="lang-pill-option" id="opt-lang-ar" onclick="selectLanguage('ar')">AR 🇸🇦</button>
+        <button class="lang-pill-option" id="opt-lang-en" onclick="selectLanguage('en')">EN 🇺🇸</button>
+        <button class="lang-pill-option" id="opt-lang-ru" onclick="selectLanguage('ru')">RU 🇷🇺</button>
+      </div>
+
       <div class="wallet-touch-zone" onclick="switchTab('wallet')">
         <span class="wallet-btn-label" id="wallet-btn-label">ربط</span>
       </div>
@@ -912,6 +957,7 @@
       </div>
 
       <div class="gift-touch-zone" onclick="openCheckinModal()">
+        <span class="notify-pulse-dot" id="dot-checkin"></span>
         <span class="gift-title" id="txt-gift-label">المكافآت</span>
       </div>
 
@@ -956,14 +1002,13 @@
       </div>
     </div>
 
-    <!-- ==================== 2. صفحة المهام + عجلة السبين الكاملة (قابلة للتمرير) ==================== -->
+    <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">المهام وعجلة الحظ</div>
         <div class="page-subtitle" id="pg-tasks-sub">أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL</div>
       </div>
 
-      <!-- قسم عجلة الحظ الأسطورية (تظهر بالكامل 100% بدون قصّ) -->
       <div class="spin-arena-card">
         <div class="spin-top-hud">
           <div class="spin-tickets-badge">
@@ -1032,7 +1077,6 @@
         </button>
       </div>
 
-      <!-- ترويسة قائمة المهام القابلة للتمرير لأي عدد من المهام -->
       <div class="tasks-section-divider">
         <span id="tasks-list-heading">المهام المتاحة</span>
         <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 3</span>
@@ -1152,7 +1196,7 @@
       </button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة الأسطورية ==================== -->
+    <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">خزنة الأصول الرقمية</div>
@@ -1297,6 +1341,7 @@
       </div>
 
       <div class="cyber-tab" id="tab-tasks" onclick="switchTab('tasks')">
+        <span class="notify-pulse-dot" id="dot-tasks"></span>
         <div class="cyber-box-wrap">
           <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
             <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
@@ -1445,6 +1490,22 @@
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
 
+    // ==================== شريط الإشعارات العلوي (Cyber Toast) ====================
+    let toastTimer = null;
+    function showCyberToast(msg, isWarn = false) {
+      const toast = document.getElementById('cyber-toast');
+      if (!toast) return;
+      toast.innerHTML = msg;
+      toast.classList.remove('warn');
+      if (isWarn) toast.classList.add('warn');
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    // ==================== محرك المؤثرات الصوتية ====================
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
     let audioCtx = null;
 
@@ -1553,6 +1614,15 @@
       localStorage.setItem('rol_sound_muted', soundMuted.toString());
       updateSoundIconUI();
       if (!soundMuted) playSoundFX('click');
+    }
+
+    // ==================== المؤثرات البصرية ====================
+    function onGlobalScreenClick(e) {
+      spawnTouchRipple(e);
+      const langBar = document.getElementById('lang-dropdown-bar');
+      if (langBar && langBar.classList.contains('open')) {
+        langBar.classList.remove('open');
+      }
     }
 
     function spawnTouchRipple(e) {
@@ -1706,9 +1776,10 @@
       return current;
     }
 
+    // ==================== قاموس اللغات الثلاث (AR 🇸🇦 / EN 🇺🇸 / RU 🇷🇺) ====================
     const dictionary = {
       ar: {
-        code: "AR",
+        flagBadge: "AR 🇸🇦",
         walletConnect: "ربط",
         vip: "المستوى الذهبي",
         rate: "ربح الدورة",
@@ -1775,6 +1846,10 @@
         gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
         gramBtn: "توثيق",
         gramVerifiedBtn: "موثق ✓",
+        vgramTitle: "توثيق المحفظة (0.04 GRAM)",
+        vgramDesc: "للاستمرار في التعدين بعد الجلسة الأولى المجانية وتأكيد الإحالات والسحب، يرجى إرسال <b>0.04 GRAM</b> إلى عنوان التوثيق الرسمي:",
+        vgramSendBtn: "إرسال 0.04 GRAM عبر المحفظة",
+        vgramCheckBtn: "تحقق من المعاملة وتفعيل الحساب",
         stonTitle: "شراء عملة ROL عبر STON.fi",
         stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
         stonBtn: "شراء ROL من STON.fi",
@@ -1791,10 +1866,14 @@
         wUsedTitle: "المحفظة مربوطة بحساب آخر",
         wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
         wUsedBtn: "حسناً، فهمت",
-        dayLabel: "يوم"
+        dayLabel: "يوم",
+        toastCopied: "✓ تم النسخ إلى الحافظة",
+        toastVerified: "✓ تم توثيق حسابك بنجاح!",
+        toastNotDetected: "لم يتم رصد وصول 0.04 GRAM بعد. أرسل المبلغ ثم اضغط تحقق.",
+        toastConnectFirst: "يرجى ربط محفظتك أولاً"
       },
       en: {
-        code: "EN",
+        flagBadge: "EN 🇺🇸",
         walletConnect: "Connect",
         vip: "Gold Tier",
         rate: "Cycle Profit",
@@ -1861,6 +1940,10 @@
         gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
         gramBtn: "Verify",
         gramVerifiedBtn: "Verified ✓",
+        vgramTitle: "Wallet Verification (0.04 GRAM)",
+        vgramDesc: "To continue mining after your first free session, confirm referrals, and unlock withdrawals, please send <b>0.04 GRAM</b> to the official verification address:",
+        vgramSendBtn: "Send 0.04 GRAM via Wallet",
+        vgramCheckBtn: "Verify Transaction & Activate",
         stonTitle: "Buy ROL on STON.fi DEX",
         stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
         stonBtn: "Buy ROL on STON.fi",
@@ -1877,11 +1960,111 @@
         wUsedTitle: "Wallet Already Linked",
         wUsedDesc: "Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.",
         wUsedBtn: "Understood",
-        dayLabel: "Day"
+        dayLabel: "Day",
+        toastCopied: "✓ Copied to clipboard",
+        toastVerified: "✓ Account verified successfully!",
+        toastNotDetected: "0.04 GRAM transfer not detected yet. Send first then verify.",
+        toastConnectFirst: "Please connect your wallet first"
+      },
+      ru: {
+        flagBadge: "RU 🇷🇺",
+        walletConnect: "Кошелёк",
+        vip: "Золотой статус",
+        rate: "Доход цикла",
+        gift: "Награды",
+        balance: "Текущий баланс",
+        homeBuy: "Купить ROL",
+        active: "Активен",
+        idle: "Ожидает",
+        rulesBtn: "Уровни майнинга VIP",
+        start: "Начать майнинг",
+        mining: "Идёт майнинг...",
+        claim: "Забрать награду",
+        verifyToContinue: "Верификация (0.04 GRAM)",
+        navHome: "Главная",
+        navTasks: "Задания",
+        navRefs: "Друзья",
+        navWallet: "Кошелёк",
+        modalCheckinTitle: "Ежедневные награды (30 дней)",
+        modalCheckinDesc: "Заходите каждый день, чтобы увеличить награду до 250 ROL. Пропуск >48ч сбрасывает серию!",
+        streakTxt: "Серия входов: День",
+        claimDay: "Забрать награду дня",
+        claimedDone: "Получено - Приходите завтра",
+        close: "Закрыть",
+        understand: "Понятно",
+        rulesTitle: "Система уровней (VIP 1 - VIP 100)",
+        walletRuleNote: "Ваш VIP-уровень и доход за 10 часов зависят только от <b>баланса ROL в привязанном TON-кошельке</b>, а не от баланса внутри бота.",
+        thLevel: "Уровень",
+        thHold: "В кошельке",
+        thProfit: "Доход (10ч)",
+        reqHoldFree: "Бесплатно",
+        scrollHint: "Листайте вниз до VIP 100",
+        pgTasksTitle: "Задания и Колесо Удачи",
+        pgTasksSub: "Крутите колесо каждый день и выполняйте задания за ROL",
+        spinTickets: "Доступно вращений:",
+        spinReady: "БЕСПЛАТНЫЙ СПИН",
+        spinLaunch: "Крутить колесо",
+        noSpins: "Нет доступных вращений",
+        tasksHeading: "Доступные задания",
+        t1Name: "Подписаться на канал ROL",
+        t2Name: "Подписаться на X (Twitter)",
+        t3Name: "Привязать TON-кошелёк",
+        doBtn: "Начать",
+        verifyBtn: "Проверить",
+        doneBtn: "Готово ✓",
+        pgRefsTitle: "Реферальная сеть",
+        pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
+        pgRefsFriends: "Подтверждённые",
+        pgRefsEarned: "Доход от друзей (ROL)",
+        perk1: "+60 ROL бонус + 1 спин за каждого подтверждённого друга",
+        perk2: "5% постоянный доход от майнинга приглашённых друзей",
+        refVerifyNote: "Условие: приглашённый друг должен пройти верификацию <b>0.04 GRAM</b>, чтобы вы получили 60 ROL и 1 спин.",
+        pgRefsLinkLbl: "Ваша реферальная ссылка",
+        copyBtn: "Копия",
+        copiedBtn: "Скопировано ✓",
+        pgRefsShare: "Пригласить друзей",
+        pgWalletTitle: "Хранилище активов",
+        pgWalletSub: "Управляйте кошельком TON и покупайте ROL для роста VIP",
+        pgWBalLbl: "Общий баланс в боте",
+        pgWVipLbl: "Активный уровень",
+        pgWChainLbl: "Баланс в TON кошельке",
+        gramTitle: "Верификация (0.04 GRAM)",
+        gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
+        gramVerifiedTitle: "Аккаунт подтверждён ✓",
+        gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
+        gramBtn: "Подтвердить",
+        gramVerifiedBtn: "Подтверждено ✓",
+        vgramTitle: "Верификация (0.04 GRAM)",
+        vgramDesc: "Для продолжения майнинга после 1-й бесплатной сессии, подтверждения рефералов и вывода отправьте <b>0.04 GRAM</b> на адрес:",
+        vgramSendBtn: "Отправить 0.04 GRAM",
+        vgramCheckBtn: "Проверить транзакцию",
+        stonTitle: "Купить ROL на STON.fi",
+        stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
+        stonBtn: "Купить ROL на STON.fi",
+        refreshBtn: "Обновить",
+        pgWAddrLbl: "Привязанный адрес кошелька",
+        walletBtnModal: "Подключить",
+        walletDisconnectModal: "Отключить",
+        connActive: "Подключён",
+        notConnected: "Не подключён",
+        pgWWithdrawLock: "Вывод (нужна верификация)",
+        pgWWithdrawReady: "Вывод (при листинге)",
+        nextVipProg: "Прогресс до",
+        maxVipReached: "Достигнут максимум VIP 100",
+        wUsedTitle: "Кошелёк уже используется",
+        wUsedDesc: "Этот адрес TON уже привязан к другому аккаунту. Используйте другой кошелёк.",
+        wUsedBtn: "Понятно",
+        dayLabel: "День",
+        toastCopied: "✓ Скопировано в буфер",
+        toastVerified: "✓ Аккаунт успешно подтверждён!",
+        toastNotDetected: "Перевод 0.04 GRAM пока не найден. Отправьте и проверьте снова.",
+        toastConnectFirst: "Сначала подключите кошелёк"
       }
     };
 
     let curLang = localStorage.getItem(KEY_LANG) || 'ar';
+    if (!dictionary[curLang]) curLang = 'ar';
+
     let connectedWalletAddr = localStorage.getItem(KEY_WALLET) || null;
     let completedTasks = JSON.parse(localStorage.getItem(KEY_TASKS) || '[]');
     let refCount = parseInt(localStorage.getItem(KEY_REF_COUNT) || '0', 10);
@@ -1918,7 +2101,39 @@
       return getCurrentTierObj().dailyProfit;
     }
 
-    // ==================== 1. عجلة الحظ الأسطورية (Spin Wheel) ====================
+    // ==================== شريط اختيار اللغات الثلاث ====================
+    function toggleLangBar(e) {
+      e.stopPropagation();
+      playSoundFX('click');
+      const bar = document.getElementById('lang-dropdown-bar');
+      bar.classList.toggle('open');
+    }
+
+    function selectLanguage(langCode) {
+      playSoundFX('click');
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+      localStorage.setItem(KEY_LANG, langCode);
+      applyLanguage(langCode);
+      renderDaysGrid();
+      document.getElementById('lang-dropdown-bar').classList.remove('open');
+    }
+
+    // ==================== تحديث نقاط الإشعار النابضة ====================
+    function updateNotificationDots() {
+      const dotCheckin = document.getElementById('dot-checkin');
+      const dotTasks = document.getElementById('dot-tasks');
+      const canCheckin = isCheckinAvailable();
+      if (dotCheckin) {
+        if (canCheckin) dotCheckin.classList.add('visible');
+        else dotCheckin.classList.remove('visible');
+      }
+      if (dotTasks) {
+        if (spinTickets > 0) dotTasks.classList.add('visible');
+        else dotTasks.classList.remove('visible');
+      }
+    }
+
+    // ==================== 1. عجلة الحظ (Spin Wheel) ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -1947,6 +2162,7 @@
 
     function updateSpinUI() {
       checkDailyFreeSpin();
+      updateNotificationDots();
       const t = dictionary[curLang];
       const lbl = document.getElementById('spin-tickets-lbl');
       const timerBadge = document.getElementById('spin-timer-badge');
@@ -2080,13 +2296,13 @@
       try {
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/${GRAM_JETTON_MASTER}`);
         if (!res.ok) {
-          alert((curLang === 'ar') ? "يرجى التأكد من وجود 0.04 GRAM ورسوم TON في محفظتك" : "Please ensure you hold 0.04 GRAM + TON gas in your wallet");
+          showCyberToast(dictionary[curLang].toastNotDetected, true);
           return;
         }
         const jData = await res.json();
         const userGramJettonWallet = jData.wallet_address?.address;
         if (!userGramJettonWallet) {
-          alert((curLang === 'ar') ? "لا يوجد رصيد GRAM في محفظتك" : "No GRAM balance found in your wallet");
+          showCyberToast(dictionary[curLang].toastNotDetected, true);
           return;
         }
 
@@ -2109,7 +2325,7 @@
     async function checkGramVerificationOnChain() {
       playSoundFX('click');
       if (!connectedWalletAddr) {
-        alert((curLang === 'ar') ? "يرجى ربط محفظتك أولاً" : "Please connect your wallet first");
+        showCyberToast(dictionary[curLang].toastConnectFirst, true);
         return;
       }
 
@@ -2149,9 +2365,7 @@
       } catch (e) {}
 
       btn.innerText = origTxt;
-      alert((curLang === 'ar')
-        ? "لم يتم رصد وصول 0.04 GRAM بعد. تأكد من إرسال 0.04 GRAM إلى العنوان الموضح ثم أعد المحاولة."
-        : "0.04 GRAM transfer not detected yet. Please send 0.04 GRAM to the displayed address and try again.");
+      showCyberToast(dictionary[curLang].toastNotDetected, true);
     }
 
     async function completeAccountVerificationSuccess() {
@@ -2162,6 +2376,7 @@
       renderMining();
       closeAllModals();
       triggerRewardVisualBurst(0);
+      showCyberToast(dictionary[curLang].toastVerified);
 
       const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
       if (referrerId && referrerId !== uid) {
@@ -2332,6 +2547,7 @@
       lbl.innerText = "...";
       if (connectedWalletAddr) {
         await fetchRealOnChainROLBalance(connectedWalletAddr);
+        showCyberToast("✓ On-chain balance updated");
       }
       setTimeout(() => { lbl.innerText = dictionary[curLang].refreshBtn; }, 600);
     }
@@ -2341,6 +2557,7 @@
       playSoundFX('click');
       navigator.clipboard?.writeText(connectedWalletAddr);
       if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      showCyberToast(dictionary[curLang].toastCopied);
       const btn = document.getElementById('wallet-copy-btn');
       const lbl = document.getElementById('wallet-copy-lbl');
       btn.classList.add('copied');
@@ -2509,6 +2726,7 @@
       playSoundFX('click');
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       closeAllModals();
+      document.getElementById('lang-dropdown-bar').classList.remove('open');
 
       document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.cyber-tab').forEach(n => n.classList.remove('active'));
@@ -2612,7 +2830,12 @@
     function applyLanguage(lang) {
       curLang = lang;
       const t = dictionary[lang];
-      document.getElementById('lang-btn-txt').innerText = t.code;
+      document.getElementById('lang-btn-txt').innerText = t.flagBadge;
+
+      document.querySelectorAll('.lang-pill-option').forEach(btn => btn.classList.remove('selected'));
+      const activePill = document.getElementById(`opt-lang-${lang}`);
+      if (activePill) activePill.classList.add('selected');
+
       document.getElementById('txt-vip-label').innerText = t.vip;
       document.getElementById('txt-rate-label').innerText = t.rate;
       document.getElementById('txt-gift-label').innerText = t.gift;
@@ -2635,6 +2858,12 @@
       document.getElementById('scroll-hint-txt').innerText = t.scrollHint;
       document.getElementById('txt-close-1').innerText = t.close;
       document.getElementById('txt-close-2').innerText = t.understand;
+
+      document.getElementById('vgram-title').innerText = t.vgramTitle;
+      document.getElementById('vgram-desc').innerHTML = t.vgramDesc;
+      document.getElementById('vgram-send-btn').innerText = t.vgramSendBtn;
+      document.getElementById('vgram-check-btn').innerText = t.vgramCheckBtn;
+      document.getElementById('txt-close-vgram').innerText = t.close;
 
       document.getElementById('txt-wused-title').innerText = t.wUsedTitle;
       document.getElementById('txt-wused-desc').innerText = t.wUsedDesc;
@@ -2678,15 +2907,6 @@
       renderMining();
     }
 
-    function toggleLang() {
-      playSoundFX('click');
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      let nextLang = (curLang === 'ar') ? 'en' : 'ar';
-      localStorage.setItem(KEY_LANG, nextLang);
-      applyLanguage(nextLang);
-      renderDaysGrid();
-    }
-
     function refreshTasksUI() {
       const t = dictionary[curLang];
       const b1 = document.getElementById('btn-task-1');
@@ -2702,7 +2922,6 @@
       if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
       else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
 
-      // تحديث عداد المهام المكتملة ديناميكياً حسب عدد البطاقات في الصفحة
       const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
       const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
       const pill = document.getElementById('tasks-progress-pill');
@@ -2881,6 +3100,7 @@
 
     function renderDaysGrid() {
       verifyStreak();
+      updateNotificationDots();
       const grid = document.getElementById('days-grid-container');
       grid.innerHTML = '';
       const canClaim = isCheckinAvailable();
@@ -2967,6 +3187,7 @@
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       navigator.clipboard?.writeText(link);
       if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      showCyberToast(dictionary[curLang].toastCopied);
 
       const copyBtn = document.getElementById('mini-copy-btn');
       const copyLbl = document.getElementById('copy-btn-lbl');
@@ -2981,6 +3202,7 @@
 
     setInterval(() => {
       renderMining();
+      updateNotificationDots();
       if (document.getElementById('page-tasks').classList.contains('active')) {
         updateSpinUI();
       }
@@ -2990,6 +3212,7 @@
     applyLanguage(curLang);
     updateBalance();
     updateSpinUI();
+    updateNotificationDots();
     renderMining();
     window.addEventListener('DOMContentLoaded', () => {
       initRealTonConnect();
