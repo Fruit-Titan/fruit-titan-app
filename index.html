@@ -65,7 +65,7 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== 1. الصفحة الرئيسية (إحداثيات مضبوطة 100% على الخلفية) ==================== */
+    /* ==================== 1. الصفحة الرئيسية (Home) ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -219,7 +219,6 @@
       white-space: nowrap;
     }
 
-    /* شارة التاج الذهبي VIP */
     .vip-container {
       position: absolute;
       top: 7.4%;
@@ -237,7 +236,6 @@
     .vip-label { font-size: 7.8px; font-weight: 800; color: #facc15; margin-top: 11px; }
     .vip-num { font-size: 12.5px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
 
-    /* إطار معدل الربح بجانب الصاروخ */
     .rate-container {
       position: absolute;
       top: 7.3%;
@@ -255,7 +253,6 @@
     .rate-title { font-size: 10px; font-weight: 800; color: #94a3b8; }
     .rate-val { font-family: ui-monospace, monospace; font-size: 12px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
-    /* صندوق المكافآت اليومية */
     .gift-touch-zone {
       position: absolute;
       top: 6.5%;
@@ -294,7 +291,6 @@
     .notify-pulse-dot.visible { display: block; }
     @keyframes dotPing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.75; } }
 
-    /* مستطيل الرصيد الحالي (مضبوط بدقة بجانب أيقونة المحفظة البيضاء) */
     .balance-container {
       position: absolute;
       top: 19.3%;
@@ -314,7 +310,6 @@
     .balance-val { font-family: ui-monospace, monospace; font-size: 24px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
     .balance-val.pop { transform: scale(1.12); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
-    /* كبسولة شراء ROL */
     .home-buy-rol-pill {
       position: absolute;
       top: 41.2%;
@@ -397,8 +392,39 @@
     .live-status-pill { position: absolute; top: 57.5%; left: 76.2%; width: 16.5%; height: 3.8%; display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 10px; font-weight: 900; color: #10b981; text-shadow: 0 0 8px rgba(16, 185, 129, 0.7); pointer-events: none; z-index: 20; }
     .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
 
-    /* مؤقت التعدين */
-    .live-timer-overlay { position: absolute; top: 59.3%; left: 50%; transform: translateX(-50%); font-family: ui-monospace, monospace; font-size: 23px; font-weight: 900; color: #facc15; text-shadow: 0 0 12px rgba(250, 204, 21, 0.85); letter-spacing: 2px; direction: ltr; z-index: 20; }
+    /* مؤقت التعدين (مرفوع قليلاً لترك مساحة للعداد الحي للعملات تحته) */
+    .live-timer-overlay {
+      position: absolute;
+      top: 57.6%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: ui-monospace, monospace;
+      font-size: 21px;
+      font-weight: 900;
+      color: #facc15;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.85);
+      letter-spacing: 2px;
+      direction: ltr;
+      z-index: 20;
+    }
+
+    /* عداد العملات التي يتم تعدينها لحظة بلحظة */
+    .live-mined-counter {
+      position: absolute;
+      top: 61.1%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: ui-monospace, monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #00f0ff;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.9);
+      letter-spacing: 0.5px;
+      direction: ltr;
+      z-index: 20;
+      white-space: nowrap;
+      pointer-events: none;
+    }
 
     /* شريط التقدم */
     .progress-bar-container { position: absolute; top: 63.85%; left: 11.4%; width: 77.2%; height: 5.5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
@@ -991,6 +1017,8 @@
         <span>⚡</span> <span id="txt-active-label">Active</span>
       </div>
       <div class="live-timer-overlay" id="timer-val">10:00:00</div>
+      <!-- عداد العملات التي يتم تعدينها لحظة بلحظة -->
+      <div class="live-mined-counter" id="live-mined-val">+0.00 ROL</div>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
@@ -2060,7 +2088,6 @@
       }
     };
 
-    // اللغة الرسمية الافتراضية هي الإنجليزية ('en')
     let curLang = localStorage.getItem(KEY_LANG) || 'en';
     if (!dictionary[curLang]) curLang = 'en';
 
@@ -2279,6 +2306,7 @@
       }
     }
 
+    // بناء حمولة تحويل Jetton (0.04 GRAM) إلى عنوان التوثيق الرسمي
     async function sendGramVerificationTx() {
       playSoundFX('click');
       if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
@@ -2301,17 +2329,30 @@
           return;
         }
 
+        // جلب حمولة Jetton Transfer المشفرة من TON API
+        let bocPayload = "";
+        try {
+          const payloadRes = await fetch(`https://tonapi.io/v2/jettons/${GRAM_JETTON_MASTER}/transfer/payload?destination=${VERIFY_DEST_WALLET}&amount=40000000&response_address=${connectedWalletAddr}`);
+          if (payloadRes.ok) {
+            const pData = await payloadRes.json();
+            bocPayload = pData.payload || "";
+          }
+        } catch (err) {}
+
+        const msgObj = {
+          address: userGramJettonWallet,
+          amount: "50000000"
+        };
+        if (bocPayload) {
+          msgObj.payload = bocPayload;
+        }
+
         const tx = {
           validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [
-            {
-              address: userGramJettonWallet,
-              amount: "50000000"
-            }
-          ]
+          messages: [msgObj]
         };
         await tonConnectUI.sendTransaction(tx);
-        setTimeout(() => checkGramVerificationOnChain(), 4000);
+        setTimeout(() => checkGramVerificationOnChain(), 4500);
       } catch (e) {
         console.warn("Tx cancelled or pending:", e);
       }
@@ -2962,6 +3003,7 @@
     function renderMining() {
       const t = dictionary[curLang];
       const timerVal = document.getElementById('timer-val');
+      const liveMinedVal = document.getElementById('live-mined-val');
       const progressLine = document.getElementById('progress-line');
       const mineTouchBtn = document.getElementById('mine-touch-btn');
       const mineBtnText = document.getElementById('mine-btn-text');
@@ -2974,6 +3016,7 @@
 
       if (!isMining || startTime <= 0) {
         timerVal.innerText = '10:00:00';
+        liveMinedVal.innerText = '+0 ROL';
         progressLine.style.width = '0%';
         coinFxLayer.classList.remove('active');
         ambientGlow.classList.remove('active');
@@ -2994,10 +3037,16 @@
       const now = Date.now();
       const elapsed = Math.max(0, now - startTime);
       const left = Math.max(0, CYCLE - elapsed);
+      const cycleTotalReward = getCycleRewardAmount();
 
       if (left > 0) {
-        const pct = Math.min(100, (elapsed / CYCLE) * 100).toFixed(2);
+        const ratio = Math.min(1, elapsed / CYCLE);
+        const pct = (ratio * 100).toFixed(2);
         progressLine.style.width = `${pct}%`;
+
+        // حساب عدد العملات التي تم تعدينها حتى اللحظة وعرضها حياً
+        const minedSoFar = ratio * cycleTotalReward;
+        liveMinedVal.innerText = `+${minedSoFar.toFixed(2)} ROL`;
 
         const totalSec = Math.ceil(left / 1000);
         const h = Math.floor(totalSec / 3600);
@@ -3018,6 +3067,7 @@
       } else {
         progressLine.style.width = '100%';
         timerVal.innerText = '00:00:00';
+        liveMinedVal.innerText = `+${cycleTotalReward.toLocaleString('en-US')} ROL`;
         mineTouchBtn.classList.add('claim-green-mode');
         mineBtnText.className = 'mine-btn-txt claim';
         mineBtnText.innerHTML = `
@@ -3025,7 +3075,7 @@
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           <span>${t.claim}</span>
-          <span class="claim-badge-chip">+${getCycleRewardAmount().toLocaleString('en-US')} ROL</span>
+          <span class="claim-badge-chip">+${cycleTotalReward.toLocaleString('en-US')} ROL</span>
         `;
         coinFxLayer.classList.add('active');
         ambientGlow.classList.add('active');
