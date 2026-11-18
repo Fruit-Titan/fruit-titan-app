@@ -59,6 +59,32 @@
       pointer-events: none;
     }
 
+    /* زر كتم/تفعيل المؤثرات الصوتية */
+    .sound-toggle-btn {
+      position: absolute;
+      top: 1.2%;
+      left: 52.5%;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(6, 20, 48, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 35;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .sound-toggle-btn:active { transform: scale(0.9); }
+    .sound-toggle-btn.muted {
+      border-color: rgba(148, 163, 184, 0.35);
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
     .lang-touch-zone {
       position: absolute;
       top: 1.2%;
@@ -207,6 +233,108 @@
       text-shadow: 0 0 18px rgba(0, 240, 255, 0.9);
       margin-top: 2px;
       direction: ltr;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .balance-val.pop {
+      transform: scale(1.12);
+      color: #fde047;
+      text-shadow: 0 0 24px rgba(250, 204, 21, 0.95);
+    }
+
+    /* ==================== المؤثرات البصرية على العملة المركزية ==================== */
+    .coin-fx-layer {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coin-pulse-ring {
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 240, 255, 0.0);
+      opacity: 0;
+    }
+
+    .coin-fx-layer.active .coin-pulse-ring {
+      animation: coinWave 2.6s infinite cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .coin-fx-layer.active .coin-pulse-ring.delay {
+      animation-delay: 1.3s;
+    }
+
+    @keyframes coinWave {
+      0% {
+        transform: scale(0.82);
+        border-color: rgba(0, 240, 255, 0.75);
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(1.32);
+        border-color: rgba(0, 240, 255, 0);
+        box-shadow: 0 0 0 rgba(0, 240, 255, 0);
+        opacity: 0;
+      }
+    }
+
+    .energy-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #00f0ff;
+      box-shadow: 0 0 8px #00f0ff, 0 0 14px #38bdf8;
+      pointer-events: none;
+      animation: floatSpark 2s ease-out forwards;
+    }
+
+    .energy-particle.gold {
+      background: #facc15;
+      box-shadow: 0 0 8px #facc15, 0 0 14px #f59e0b;
+    }
+
+    @keyframes floatSpark {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) scale(0.1);
+        opacity: 0;
+      }
+    }
+
+    .floating-reward-fx {
+      position: fixed;
+      left: 50%;
+      top: 42%;
+      transform: translate(-50%, -50%);
+      font-family: ui-monospace, monospace;
+      font-size: 24px;
+      font-weight: 900;
+      color: #fde047;
+      text-shadow: 0 0 15px rgba(250, 204, 21, 0.95), 0 2px 6px #000;
+      pointer-events: none;
+      z-index: 99999;
+      animation: rewardFlyUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes rewardFlyUp {
+      0% { opacity: 0; transform: translate(-50%, 10px) scale(0.7); }
+      20% { opacity: 1; transform: translate(-50%, -15px) scale(1.15); }
+      100% { opacity: 0; transform: translate(-50%, -115px) scale(1); }
     }
 
     .live-status-pill {
@@ -223,6 +351,10 @@
       font-weight: 900;
       color: #10b981;
       pointer-events: none;
+    }
+
+    .live-status-pill.idle {
+      color: #94a3b8;
     }
 
     .live-timer-overlay {
@@ -251,12 +383,25 @@
     }
 
     .progress-bar-fill {
+      position: relative;
       width: 0%;
       height: 100%;
       background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc);
       box-shadow: 0 0 12px #00f0ff;
       border-radius: 4px;
       transition: width 0.4s linear;
+    }
+
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 18px;
+      height: 100%;
+      background: #ffffff;
+      filter: blur(3px);
+      opacity: 0.85;
     }
 
     .rules-touch-zone {
@@ -295,6 +440,11 @@
       justify-content: center;
       cursor: pointer;
       z-index: 30;
+      transition: transform 0.12s ease;
+    }
+
+    .mine-touch-btn:active {
+      transform: translateX(-50%) scale(0.96);
     }
 
     .mine-btn-txt {
@@ -926,6 +1076,17 @@
     <!-- ==================== 1. الصفحة الرئيسية (Home) ==================== -->
     <div id="view-home">
       <div class="brand-title">ROL Mining</div>
+
+      <!-- زر كتم/تفعيل الصوت -->
+      <div class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">
+        <svg id="icon-sound-on" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+        <svg id="icon-sound-off" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+      </div>
+
       <div class="lang-touch-zone" onclick="toggleLang()">
         <span id="lang-btn-txt">AR</span>
       </div>
@@ -939,8 +1100,8 @@
       </div>
 
       <div class="rate-container">
-        <span class="rate-title" id="txt-rate-label">الربح اليومي</span>
-        <span class="rate-val" id="rate-display">+500 ROL / 24h</span>
+        <span class="rate-title" id="txt-rate-label">ربح الدورة</span>
+        <span class="rate-val" id="rate-display">+500 ROL / 10h</span>
       </div>
 
       <div class="gift-touch-zone" onclick="openCheckinModal()">
@@ -952,10 +1113,16 @@
         <span class="balance-val" id="balance-display">0 ROL</span>
       </div>
 
-      <div class="live-status-pill">
+      <!-- طبقة المؤثرات البصرية على العملة المركزية -->
+      <div class="coin-fx-layer" id="coin-fx-layer">
+        <div class="coin-pulse-ring"></div>
+        <div class="coin-pulse-ring delay"></div>
+      </div>
+
+      <div class="live-status-pill" id="live-status-pill">
         <span>⚡</span> <span id="txt-active-label">نشط</span>
       </div>
-      <div class="live-timer-overlay" id="timer-val">24:00:00</div>
+      <div class="live-timer-overlay" id="timer-val">10:00:00</div>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
@@ -1121,7 +1288,7 @@
         <div class="holo-sub-metrics">
           <div class="sub-metric-item">
             <span class="sub-metric-title" id="pg-w-vip-lbl">مستوى التعدين</span>
-            <span class="sub-metric-val" id="pg-w-vip-status">VIP 1 (500/يوم)</span>
+            <span class="sub-metric-val" id="pg-w-vip-status">VIP 1 (500/10h)</span>
           </div>
           <div class="sub-metric-item">
             <span class="sub-metric-title" id="pg-w-chain-lbl">رصيد محفظة TON</span>
@@ -1268,13 +1435,13 @@
       <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">نظام مستويات التعدين</h3>
       
       <div class="wallet-rule-notice" id="txt-wallet-rule-note">
-        يتم تحديد مستواك والربح اليومي تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.
+        يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.
       </div>
 
       <div class="vip-table-header">
         <span id="th-level">المستوى</span>
         <span id="th-hold">رصيد المحفظة</span>
-        <span id="th-profit">الربح اليومي</span>
+        <span id="th-profit">الربح (10h)</span>
       </div>
 
       <div class="vip-scroll-wrapper">
@@ -1307,7 +1474,132 @@
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const BOT_USERNAME = "ROL_Mining_bot";
 
-    // جدول المستويات من VIP 1 إلى VIP 100 (VIP 1 = 500، وزيادة +80 لكل مستوى)
+    // ==================== محرك المؤثرات الصوتية (Web Audio API Synth) ====================
+    let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+      return audioCtx;
+    }
+
+    function playSoundFX(type) {
+      if (soundMuted) return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(680, now);
+          osc.frequency.exponentialRampToValueAtTime(320, now + 0.06);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.065);
+        } else if (type === 'start') {
+          // صوت تفعيل التوربين والتعدين
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.35);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'claim') {
+          // نغمة احتفالية لاستلام العملات
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            const tStart = now + idx * 0.07;
+            osc.frequency.setValueAtTime(freq, tStart);
+            gain.gain.setValueAtTime(0.12, tStart);
+            gain.gain.exponentialRampToValueAtTime(0.001, tStart + 0.25);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(tStart);
+            osc.stop(tStart + 0.26);
+          });
+        }
+      } catch (e) {}
+    }
+
+    function updateSoundIconUI() {
+      const btn = document.getElementById('sound-btn');
+      const onIco = document.getElementById('icon-sound-on');
+      const offIco = document.getElementById('icon-sound-off');
+      if (soundMuted) {
+        btn.classList.add('muted');
+        onIco.style.display = 'none';
+        offIco.style.display = 'block';
+      } else {
+        btn.classList.remove('muted');
+        onIco.style.display = 'block';
+        offIco.style.display = 'none';
+      }
+    }
+
+    function toggleSound() {
+      soundMuted = !soundMuted;
+      localStorage.setItem('rol_sound_muted', soundMuted.toString());
+      updateSoundIconUI();
+      if (!soundMuted) playSoundFX('click');
+    }
+
+    // ==================== المؤثرات البصرية (جزيئات الطاقة + الأرباح الطائرة) ====================
+    function spawnEnergySpark(isGold = false) {
+      const layer = document.getElementById('coin-fx-layer');
+      if (!layer) return;
+      const spark = document.createElement('div');
+      spark.className = isGold ? 'energy-particle gold' : 'energy-particle';
+      const angle = Math.random() * Math.PI * 2;
+      const startR = 55 + Math.random() * 25;
+      const sx = Math.cos(angle) * startR;
+      const sy = Math.sin(angle) * startR;
+      spark.style.left = `${105 + sx}px`;
+      spark.style.top = `${105 + sy}px`;
+      spark.style.setProperty('--dx', `${Math.cos(angle) * 45}px`);
+      spark.style.setProperty('--dy', `${Math.sin(angle) * 45 - 25}px`);
+      layer.appendChild(spark);
+      setTimeout(() => spark.remove(), 2000);
+    }
+
+    function triggerRewardVisualBurst(amount) {
+      playSoundFX('claim');
+      const el = document.createElement('div');
+      el.className = 'floating-reward-fx';
+      el.innerText = `+${formatCleanNumber(amount)} ROL`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1550);
+
+      const balEl = document.getElementById('balance-display');
+      if (balEl) {
+        balEl.classList.add('pop');
+        setTimeout(() => balEl.classList.remove('pop'), 350);
+      }
+      for (let i = 0; i < 14; i++) {
+        setTimeout(() => spawnEnergySpark(true), i * 35);
+      }
+    }
+
+    // ==================== جدول المستويات (VIP 1 = 500، وزيادة +80 لكل مستوى) ====================
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
       let requiredHold = 0;
@@ -1320,8 +1612,8 @@
       } else {
         requiredHold = 45000 + (lvl - 51) * 2000;
       }
-      const dailyProfit = 500 + (lvl - 1) * 80;
-      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit });
+      const cycleProfit = 500 + (lvl - 1) * 80;
+      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit: cycleProfit });
     }
 
     function formatCleanNumber(num) {
@@ -1374,10 +1666,11 @@
         code: "AR",
         walletConnect: "ربط",
         vip: "المستوى الذهبي",
-        rate: "الربح اليومي",
+        rate: "ربح الدورة",
         gift: "المكافآت",
         balance: "رصيدك الحالي",
         active: "نشط",
+        idle: "متوقف",
         rulesBtn: "قواعد مستويات التعدين",
         start: "ابدأ التعدين الآن",
         mining: "جاري التعدين...",
@@ -1394,10 +1687,10 @@
         close: "إغلاق",
         understand: "فهمت ذلك",
         rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
-        walletRuleNote: "يتم تحديد مستواك والربح اليومي تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
+        walletRuleNote: "يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
         thLevel: "المستوى",
         thHold: "رصيد المحفظة",
-        thProfit: "الربح اليومي",
+        thProfit: "الربح (10h)",
         reqHoldFree: "مجاني",
         scrollHint: "اسحب للأسفل لعرض باقي المستويات حتى VIP 100",
         pgTasksTitle: "المهام والمكافآت",
@@ -1438,10 +1731,11 @@
         code: "EN",
         walletConnect: "Connect",
         vip: "Gold Tier",
-        rate: "Daily Profit",
+        rate: "Cycle Profit",
         gift: "Rewards",
         balance: "Current Balance",
         active: "Active",
+        idle: "Idle",
         rulesBtn: "Mining Tier Rules",
         start: "Start Mining",
         mining: "Mining Now...",
@@ -1458,10 +1752,10 @@
         close: "Close",
         understand: "Understood",
         rulesTitle: "VIP Mining Tiers (VIP 1 - VIP 100)",
-        walletRuleNote: "Your VIP tier and daily profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.",
+        walletRuleNote: "Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.",
         thLevel: "Tier",
         thHold: "Wallet Hold",
-        thProfit: "Daily Profit",
+        thProfit: "Profit (10h)",
         reqHoldFree: "Free",
         scrollHint: "Scroll down to view all tiers up to VIP 100",
         pgTasksTitle: "Tasks & Rewards",
@@ -1520,7 +1814,8 @@
     let currentVip = parseInt(localStorage.getItem(KEY_VIP) || '1', 10);
     if (currentVip < 1 || currentVip > 100) currentVip = 1;
 
-    const CYCLE = 24 * 60 * 60 * 1000;
+    // دورة التعدين: كل 10 ساعات
+    const CYCLE = 10 * 60 * 60 * 1000;
     let isMining = startTime > 0;
     let lock = false;
 
@@ -1528,7 +1823,7 @@
       return VIP_TIERS[currentVip - 1] || VIP_TIERS[0];
     }
 
-    function getDailyRewardAmount() {
+    function getCycleRewardAmount() {
       return getCurrentTierObj().dailyProfit;
     }
 
@@ -1540,7 +1835,7 @@
           tiersMap[`vip_${t.level}`] = {
             level: t.level,
             requiredWalletROL: t.requiredHold,
-            dailyProfitROL: t.dailyProfit
+            cycleProfit10hROL: t.dailyProfit
           };
         });
         await fetch(`${FIREBASE_DB_URL}/config/vip_tiers.json`, {
@@ -1560,7 +1855,7 @@
           username: userObj?.username || "",
           balance: Number(formatCleanNumber(balance)),
           vip: currentVip,
-          dailyProfit: tierInfo.dailyProfit,
+          cycleProfit10h: tierInfo.dailyProfit,
           onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
           wallet: connectedWalletAddr || "",
           startTime: startTime,
@@ -1745,6 +2040,7 @@
     }
 
     async function handleRealTonConnect() {
+      playSoundFX('click');
       if (!tonConnectUI) return;
       if (tonConnectUI.connected) {
         await tonConnectUI.disconnect();
@@ -1791,11 +2087,13 @@
     }
 
     function openRulesModal() {
+      playSoundFX('click');
       renderVipTiersList();
       openModal('rules-modal');
     }
 
     function switchTab(tabName) {
+      playSoundFX('click');
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       closeAllModals();
 
@@ -1825,8 +2123,8 @@
     function updateVIPDisplay() {
       const tier = getCurrentTierObj();
       document.getElementById('vip-level-display').innerText = `VIP ${currentVip}`;
-      document.getElementById('rate-display').innerText = `+${tier.dailyProfit.toLocaleString('en-US')} ROL / 24h`;
-      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/24h)`;
+      document.getElementById('rate-display').innerText = `+${tier.dailyProfit.toLocaleString('en-US')} ROL / 10h`;
+      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/10h)`;
       localStorage.setItem(KEY_VIP, currentVip.toString());
     }
 
@@ -1875,7 +2173,6 @@
       document.getElementById('txt-rate-label').innerText = t.rate;
       document.getElementById('txt-gift-label').innerText = t.gift;
       document.getElementById('txt-balance-label').innerText = t.balance;
-      document.getElementById('txt-active-label').innerText = t.active;
       document.getElementById('txt-rules-btn').innerText = t.rulesBtn;
 
       document.getElementById('txt-nav-home').innerText = t.navHome;
@@ -1929,6 +2226,7 @@
     }
 
     function toggleLang() {
+      playSoundFX('click');
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       let nextLang = (curLang === 'ar') ? 'en' : 'ar';
       localStorage.setItem(KEY_LANG, nextLang);
@@ -1953,6 +2251,7 @@
     }
 
     function completeTask(taskId, reward, url) {
+      playSoundFX('click');
       if (completedTasks.includes(taskId)) return;
       if (url) {
         tg?.openTelegramLink && url.includes('t.me') ? tg.openTelegramLink(url) : window.open(url, '_blank');
@@ -1964,12 +2263,14 @@
           balance += reward;
           updateBalance();
           refreshTasksUI();
+          triggerRewardVisualBurst(reward);
           syncUserToCloud();
         }
       }, 1500);
     }
 
     function completeWalletTask() {
+      playSoundFX('click');
       if (completedTasks.includes(3)) return;
       if (!connectedWalletAddr) {
         switchTab('wallet');
@@ -1980,20 +2281,28 @@
       balance += 50;
       updateBalance();
       refreshTasksUI();
+      triggerRewardVisualBurst(50);
       syncUserToCloud();
     }
 
+    // تحديث العداد وشريط التقدم والمؤثرات البصرية لدورة 10 ساعات
     function renderMining() {
       const t = dictionary[curLang];
       const timerVal = document.getElementById('timer-val');
       const progressLine = document.getElementById('progress-line');
       const mineBtnText = document.getElementById('mine-btn-text');
+      const coinFxLayer = document.getElementById('coin-fx-layer');
+      const statusPill = document.getElementById('live-status-pill');
+      const activeLabel = document.getElementById('txt-active-label');
 
       if (!isMining || startTime <= 0) {
-        timerVal.innerText = '24:00:00';
+        timerVal.innerText = '10:00:00';
         progressLine.style.width = '0%';
         mineBtnText.className = 'mine-btn-txt';
         mineBtnText.innerText = t.start;
+        coinFxLayer.classList.remove('active');
+        statusPill.classList.add('idle');
+        activeLabel.innerText = t.idle;
         return;
       }
 
@@ -2013,20 +2322,31 @@
 
         mineBtnText.className = 'mine-btn-txt mining';
         mineBtnText.innerText = t.mining;
+        coinFxLayer.classList.add('active');
+        statusPill.classList.remove('idle');
+        activeLabel.innerText = t.active;
+
+        // توليد شرارات طاقة خفيفة أثناء التعدين
+        if (Math.random() < 0.65) spawnEnergySpark(false);
       } else {
         progressLine.style.width = '100%';
         timerVal.innerText = '00:00:00';
         mineBtnText.className = 'mine-btn-txt claim';
-        mineBtnText.innerText = `${t.claim} (+${getDailyRewardAmount().toLocaleString('en-US')} ROL)`;
+        mineBtnText.innerText = `${t.claim} (+${getCycleRewardAmount().toLocaleString('en-US')} ROL)`;
+        coinFxLayer.classList.add('active');
+        statusPill.classList.remove('idle');
+        activeLabel.innerText = t.active;
       }
     }
 
     function handleMiningAction() {
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
+        playSoundFX('start');
         startTime = Date.now();
         localStorage.setItem(KEY_START, startTime.toString());
         isMining = true;
+        for (let i = 0; i < 10; i++) setTimeout(() => spawnEnergySpark(false), i * 40);
         renderMining();
         syncUserToCloud();
       } else {
@@ -2034,15 +2354,19 @@
         if (elapsed >= CYCLE) {
           if (lock) return;
           lock = true;
-          const reward = getDailyRewardAmount();
+          const reward = getCycleRewardAmount();
           balance += reward;
           updateBalance();
+          triggerRewardVisualBurst(reward);
+          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
           isMining = false;
           startTime = 0;
           localStorage.removeItem(KEY_START);
           renderMining();
           syncUserToCloud();
           lock = false;
+        } else {
+          playSoundFX('click');
         }
       }
     }
@@ -2104,6 +2428,7 @@
     }
 
     function openCheckinModal() {
+      playSoundFX('click');
       renderDaysGrid();
       openModal('checkin-modal');
     }
@@ -2113,7 +2438,10 @@
     }
 
     function onOverlayClick(e, id) {
-      if (e.target.id === id) closeAllModals();
+      if (e.target.id === id) {
+        playSoundFX('click');
+        closeAllModals();
+      }
     }
 
     function claimDailyReward() {
@@ -2121,6 +2449,8 @@
         const reward = DAILY_REWARDS[checkinDay];
         balance += reward;
         updateBalance();
+        triggerRewardVisualBurst(reward);
+        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         checkinDay = (checkinDay + 1) % 30;
         lastCheckinTime = Date.now();
         localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
@@ -2131,12 +2461,14 @@
     }
 
     function shareReferralLink() {
+      playSoundFX('click');
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب 500 ROL يومياً!')}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('انضم لتعدين عملة ROL واكسب 500 ROL كل 10 ساعات!')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
     function copyReferralLink() {
+      playSoundFX('click');
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       navigator.clipboard?.writeText(link);
       if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
@@ -2153,6 +2485,7 @@
     }
 
     setInterval(renderMining, 1000);
+    updateSoundIconUI();
     applyLanguage(curLang);
     updateBalance();
     renderMining();
