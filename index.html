@@ -65,7 +65,7 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== 1. الصفحة الرئيسية (Home) ==================== */
+    /* ==================== 1. الصفحة الرئيسية المنظمة بدقة ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -194,7 +194,7 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
-    /* كبسولة عنوان المحفظة في الأعلى يمين */
+    /* كبسولة المحفظة في الأعلى يمين */
     .wallet-touch-zone {
       position: absolute;
       top: 1.25%;
@@ -219,6 +219,7 @@
       white-space: nowrap;
     }
 
+    /* شارة VIP */
     .vip-container {
       position: absolute;
       top: 7.4%;
@@ -236,11 +237,12 @@
     .vip-label { font-size: 7.8px; font-weight: 800; color: #facc15; margin-top: 11px; }
     .vip-num { font-size: 12.5px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
 
+    /* إطار معدل الربح بجانب الصاروخ */
     .rate-container {
       position: absolute;
       top: 7.3%;
-      left: 32%;
-      width: 40%;
+      left: 33%;
+      width: 39%;
       height: 8.8%;
       display: flex;
       flex-direction: column;
@@ -253,6 +255,7 @@
     .rate-title { font-size: 10px; font-weight: 800; color: #94a3b8; }
     .rate-val { font-family: ui-monospace, monospace; font-size: 12px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
+    /* صندوق المكافآت اليومية */
     .gift-touch-zone {
       position: absolute;
       top: 6.5%;
@@ -291,10 +294,11 @@
     .notify-pulse-dot.visible { display: block; }
     @keyframes dotPing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.75; } }
 
+    /* مستطيل الرصيد الحالي متمركز بدقة */
     .balance-container {
       position: absolute;
       top: 19.3%;
-      left: 53.5%;
+      left: 53%;
       transform: translateX(-50%);
       width: 68%;
       height: 7.4%;
@@ -310,6 +314,7 @@
     .balance-val { font-family: ui-monospace, monospace; font-size: 24px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
     .balance-val.pop { transform: scale(1.12); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
+    /* كبسولة شراء ROL */
     .home-buy-rol-pill {
       position: absolute;
       top: 41.2%;
@@ -388,55 +393,87 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
-    /* كبسولة الحالة Active */
-    .live-status-pill { position: absolute; top: 57.5%; left: 76.2%; width: 16.5%; height: 3.8%; display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 10px; font-weight: 900; color: #10b981; text-shadow: 0 0 8px rgba(16, 185, 129, 0.7); pointer-events: none; z-index: 20; }
+    /* ==================== تنظيم لوحة التعدين السفلية بالكامل (بدون تداخل) ==================== */
+    .live-status-pill {
+      position: absolute;
+      top: 57.5%;
+      left: 76.2%;
+      width: 16.5%;
+      height: 3.8%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 900;
+      color: #10b981;
+      text-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+      pointer-events: none;
+      z-index: 20;
+    }
     .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
 
-    /* مؤقت التعدين (مرفوع قليلاً لترك مساحة للعداد الحي للعملات تحته) */
+    /* 1. مؤقت الوقت في الصف العلوي داخل لوحة التعدين */
     .live-timer-overlay {
       position: absolute;
-      top: 57.6%;
+      top: 56.8%;
       left: 50%;
       transform: translateX(-50%);
       font-family: ui-monospace, monospace;
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 900;
       color: #facc15;
       text-shadow: 0 0 12px rgba(250, 204, 21, 0.85);
-      letter-spacing: 2px;
+      letter-spacing: 1.8px;
       direction: ltr;
       z-index: 20;
+      pointer-events: none;
     }
 
-    /* عداد العملات التي يتم تعدينها لحظة بلحظة */
+    /* 2. عداد العملات التي يتم تعدينها لحظة بلحظة في كبسولة أنيقة فوق شريط التقدم */
     .live-mined-counter {
       position: absolute;
-      top: 61.1%;
+      top: 60.4%;
       left: 50%;
       transform: translateX(-50%);
+      background: rgba(2, 12, 32, 0.82);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      padding: 1.5px 10px;
+      border-radius: 12px;
       font-family: ui-monospace, monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.9);
-      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
+      letter-spacing: 0.4px;
       direction: ltr;
       z-index: 20;
       white-space: nowrap;
       pointer-events: none;
     }
 
-    /* شريط التقدم */
-    .progress-bar-container { position: absolute; top: 63.85%; left: 11.4%; width: 77.2%; height: 5.5px; border-radius: 4px; overflow: hidden; background: rgba(0, 240, 255, 0.12); z-index: 20; }
+    /* 3. شريط التقدم محاذى بدقة داخل المسار الأسود في الخلفية */
+    .progress-bar-container {
+      position: absolute;
+      top: 64.0%;
+      left: 11.4%;
+      width: 77.2%;
+      height: 5.2px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(0, 240, 255, 0.12);
+      z-index: 20;
+    }
+
     .progress-bar-fill { position: relative; width: 0%; height: 100%; background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc); box-shadow: 0 0 12px #00f0ff; border-radius: 4px; transition: width 0.4s linear; overflow: hidden; }
     .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
     @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
 
-    /* زر قواعد المستويات متمركز بين الرسم البياني والسهم */
+    /* 4. زر قواعد المستويات متمركز بين الرسم البياني والسهم */
     .rules-touch-zone { position: absolute; top: 69.8%; left: 52.5%; transform: translateX(-50%); width: 64%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
     .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; text-align: center; white-space: nowrap; }
 
-    /* زر التعدين متمركز بدقة بين الفأسين والأسهم */
+    /* 5. زر التعدين متمركز بدقة بين الفأسين والأسهم */
     .mine-touch-btn {
       position: absolute;
       top: 78.0%;
@@ -923,19 +960,6 @@
     .scroll-down-hint.hidden { opacity: 0; }
     .bounce-arrow { animation: arrowBounce 1.2s infinite ease-in-out; }
     @keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-
-    .verify-addr-box {
-      background: #020817;
-      border: 1px dashed rgba(0, 240, 255, 0.45);
-      border-radius: 12px;
-      padding: 10px;
-      font-family: ui-monospace, monospace;
-      font-size: 10.5px;
-      color: #38bdf8;
-      word-break: break-all;
-      margin: 10px 0 14px;
-      direction: ltr;
-    }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -1017,8 +1041,7 @@
         <span>⚡</span> <span id="txt-active-label">Active</span>
       </div>
       <div class="live-timer-overlay" id="timer-val">10:00:00</div>
-      <!-- عداد العملات التي يتم تعدينها لحظة بلحظة -->
-      <div class="live-mined-counter" id="live-mined-val">+0.00 ROL</div>
+      <div class="live-mined-counter" id="live-mined-val">+0 ROL</div>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
@@ -1277,12 +1300,13 @@
         </div>
       </div>
 
+      <!-- بطاقة التوثيق المباشر بـ 0.04 GRAM بضغطة واحدة -->
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
           <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
           <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining after 1st session & unlock withdrawals</div>
         </div>
-        <button class="action-pill-btn" id="gram-verify-btn" onclick="openVerifyGramModal()">Verify</button>
+        <button class="action-pill-btn" id="gram-verify-btn" onclick="triggerDirectGramVerification()">Verify</button>
       </div>
 
       <div class="stonfi-dex-card">
@@ -1442,20 +1466,6 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة توثيق المحفظة بـ 0.04 GRAM ==================== -->
-  <div class="modal-overlay" id="verify-gram-modal" onclick="onOverlayClick(event, 'verify-gram-modal')" dir="auto">
-    <div class="daily-modal-box" style="border-color: #00f0ff; box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);">
-      <h3 style="color: #00f0ff; font-size: 18px; margin-bottom: 8px;" id="vgram-title">Wallet Verification (0.04 GRAM)</h3>
-      <p style="font-size: 12px; color: #cbd5e1; line-height: 1.6;" id="vgram-desc">
-        To continue mining after your first free session, confirm referrals, and unlock withdrawals, please send <b>0.04 GRAM</b> to the official verification address:
-      </p>
-      <div class="verify-addr-box">UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb</div>
-      <button class="legendary-btn-gold" onclick="sendGramVerificationTx()" id="vgram-send-btn">Send 0.04 GRAM via Wallet</button>
-      <button class="legendary-btn-cyan" onclick="checkGramVerificationOnChain()" id="vgram-check-btn">Verify Transaction & Activate</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-vgram">Close</button>
-    </div>
-  </div>
-
   <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
@@ -1531,7 +1541,7 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.classList.remove('show');
-      }, 3200);
+      }, 3400);
     }
 
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
@@ -1768,6 +1778,11 @@
     const uid = userObj?.id ? userObj.id.toString() : "guest_miner";
     const startParam = tg?.initDataUnsafe?.start_param || "";
 
+    // ==================== عزل الحسابات بالكامل (كل حساب يبدأ بـ 0 ROL) ====================
+    const lastActiveUid = localStorage.getItem('rol_last_active_uid');
+    const isSwitchedUser = (lastActiveUid && lastActiveUid !== uid);
+    localStorage.setItem('rol_last_active_uid', uid);
+
     const KEY_BALANCE = `rol_${uid}_balance`;
     const KEY_START = `rol_${uid}_mine_start`;
     const KEY_CHECKIN_DAY = `rol_${uid}_checkin_day`;
@@ -1783,25 +1798,6 @@
     const KEY_IS_VERIFIED = `rol_${uid}_is_verified_gram`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
-
-    function getSavedBalanceSafely() {
-      let current = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
-      if (current === 0) {
-        for (let i = 0; i < localStorage.length; i++) {
-          const k = localStorage.key(i);
-          if (k && k.includes('balance') && k !== KEY_BALANCE) {
-            const oldVal = parseFloat(localStorage.getItem(k) || '0');
-            if (oldVal > current) {
-              current = oldVal;
-            }
-          }
-        }
-        if (current > 0) {
-          localStorage.setItem(KEY_BALANCE, current.toString());
-        }
-      }
-      return current;
-    }
 
     const dictionary = {
       en: {
@@ -1870,12 +1866,8 @@
         gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
         gramVerifiedTitle: "Account Verified ✓",
         gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
-        gramBtn: "Verify",
+        gramBtn: "Pay 0.04 GRAM",
         gramVerifiedBtn: "Verified ✓",
-        vgramTitle: "Wallet Verification (0.04 GRAM)",
-        vgramDesc: "To continue mining after your first free session, confirm referrals, and unlock withdrawals, please send <b>0.04 GRAM</b> to the official verification address:",
-        vgramSendBtn: "Send 0.04 GRAM via Wallet",
-        vgramCheckBtn: "Verify Transaction & Activate",
         stonTitle: "Buy ROL on STON.fi DEX",
         stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
         stonBtn: "Buy ROL on STON.fi",
@@ -1894,9 +1886,9 @@
         wUsedBtn: "Understood",
         dayLabel: "Day",
         toastCopied: "✓ Copied to clipboard",
-        toastVerified: "✓ Account verified successfully!",
-        toastNotDetected: "0.04 GRAM transfer not detected yet. Send first then verify.",
-        toastConnectFirst: "Please connect your wallet first"
+        toastVerified: "✓ Account verified with 0.04 GRAM!",
+        toastWaitingGram: "Confirm 0.04 GRAM payment in your wallet...",
+        toastNoGram: "Please hold at least 0.04 GRAM in your connected wallet"
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -1964,12 +1956,8 @@
         gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
         gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
         gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
-        gramBtn: "توثيق",
+        gramBtn: "دفع 0.04 GRAM",
         gramVerifiedBtn: "موثق ✓",
-        vgramTitle: "توثيق المحفظة (0.04 GRAM)",
-        vgramDesc: "للاستمرار في التعدين بعد الجلسة الأولى المجانية وتأكيد الإحالات والسحب، يرجى إرسال <b>0.04 GRAM</b> إلى عنوان التوثيق الرسمي:",
-        vgramSendBtn: "إرسال 0.04 GRAM عبر المحفظة",
-        vgramCheckBtn: "تحقق من المعاملة وتفعيل الحساب",
         stonTitle: "شراء عملة ROL عبر STON.fi",
         stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
         stonBtn: "شراء ROL من STON.fi",
@@ -1988,9 +1976,9 @@
         wUsedBtn: "حسناً، فهمت",
         dayLabel: "يوم",
         toastCopied: "✓ تم النسخ إلى الحافظة",
-        toastVerified: "✓ تم توثيق حسابك بنجاح!",
-        toastNotDetected: "لم يتم رصد وصول 0.04 GRAM بعد. أرسل المبلغ ثم اضغط تحقق.",
-        toastConnectFirst: "يرجى ربط محفظتك أولاً"
+        toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
+        toastWaitingGram: "أكمل دفع 0.04 GRAM في محفظتك وسيتم التفعيل تلقائياً...",
+        toastNoGram: "يرجى توفير 0.04 GRAM على الأقل في محفظتك المربوطة"
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2058,12 +2046,8 @@
         gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
         gramVerifiedTitle: "Аккаунт подтверждён ✓",
         gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
-        gramBtn: "Подтвердить",
+        gramBtn: "Оплатить 0.04",
         gramVerifiedBtn: "Подтверждено ✓",
-        vgramTitle: "Верификация (0.04 GRAM)",
-        vgramDesc: "Для продолжения майнинга после 1-й бесплатной сессии, подтверждения рефералов и вывода отправьте <b>0.04 GRAM</b> на адрес:",
-        vgramSendBtn: "Отправить 0.04 GRAM",
-        vgramCheckBtn: "Проверить транзакцию",
         stonTitle: "Купить ROL на STON.fi",
         stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
         stonBtn: "Купить ROL на STON.fi",
@@ -2082,9 +2066,9 @@
         wUsedBtn: "Понятно",
         dayLabel: "День",
         toastCopied: "✓ Скопировано в буфер",
-        toastVerified: "✓ Аккаунт успешно подтверждён!",
-        toastNotDetected: "Перевод 0.04 GRAM пока не найден. Отправьте и проверьте снова.",
-        toastConnectFirst: "Сначала подключите кошелёк"
+        toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
+        toastWaitingGram: "Подтвердите перевод 0.04 GRAM в кошельке...",
+        toastNoGram: "Необходимо минимум 0.04 GRAM в привязанном кошельке"
       }
     };
 
@@ -2108,7 +2092,8 @@
       155, 168, 180, 192, 205, 218, 228, 238, 245, 250
     ];
 
-    let balance = getSavedBalanceSafely();
+    // قراءة الرصيد الخاص بهذا الحساب فقط (يبدأ بـ 0 لكل حساب جديد)
+    let balance = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
     let startTime = parseInt(localStorage.getItem(KEY_START) || '0', 10);
     let checkinDay = parseInt(localStorage.getItem(KEY_CHECKIN_DAY) || '0', 10);
     let lastCheckinTime = parseInt(localStorage.getItem(KEY_CHECKIN_TIME) || '0', 10);
@@ -2157,6 +2142,7 @@
       }
     }
 
+    // ==================== 1. عجلة الحظ (Spin Wheel) ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -2269,10 +2255,8 @@
       }, 4700);
     }
 
-    function openVerifyGramModal() {
-      playSoundFX('click');
-      openModal('verify-gram-modal');
-    }
+    // ==================== 2. توثيق المحفظة المباشر بضغطة واحدة (0.04 GRAM) ====================
+    let verifyPollInterval = null;
 
     function updateVerificationUI() {
       const t = dictionary[curLang];
@@ -2302,115 +2286,114 @@
     function handleWithdrawClick() {
       playSoundFX('click');
       if (!isAccountVerified) {
-        openVerifyGramModal();
+        triggerDirectGramVerification();
       }
     }
 
-    // بناء حمولة تحويل Jetton (0.04 GRAM) إلى عنوان التوثيق الرسمي
-    async function sendGramVerificationTx() {
+    // يفتح المحفظة مباشرة برابط/معاملة دفع 0.04 GRAM ويفحص الوصول تلقائياً
+    async function triggerDirectGramVerification() {
       playSoundFX('click');
+      if (isAccountVerified) return;
+
+      // 1. إذا لم تكن المحفظة مربوطة، افتح نافذة ربط المحفظة مباشرة
       if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
-        closeAllModals();
-        switchTab('wallet');
-        await handleRealTonConnect();
+        if (tonConnectUI) {
+          await tonConnectUI.openModal();
+        } else {
+          switchTab('wallet');
+        }
         return;
       }
+
+      // 2. بدء المراقبة التلقائية للمعاملة في الخلفية فور فتح المحفظة
+      startAutoGramVerificationPolling();
+      showCyberToast(dictionary[curLang].toastWaitingGram);
 
       try {
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/${GRAM_JETTON_MASTER}`);
-        if (!res.ok) {
-          showCyberToast(dictionary[curLang].toastNotDetected, true);
-          return;
-        }
-        const jData = await res.json();
-        const userGramJettonWallet = jData.wallet_address?.address;
-        if (!userGramJettonWallet) {
-          showCyberToast(dictionary[curLang].toastNotDetected, true);
-          return;
-        }
+        if (res.ok) {
+          const jData = await res.json();
+          const userGramJettonWallet = jData.wallet_address?.address;
+          const gramBal = parseFloat(jData.balance || "0") / 1e9;
 
-        // جلب حمولة Jetton Transfer المشفرة من TON API
-        let bocPayload = "";
-        try {
-          const payloadRes = await fetch(`https://tonapi.io/v2/jettons/${GRAM_JETTON_MASTER}/transfer/payload?destination=${VERIFY_DEST_WALLET}&amount=40000000&response_address=${connectedWalletAddr}`);
-          if (payloadRes.ok) {
-            const pData = await payloadRes.json();
-            bocPayload = pData.payload || "";
+          if (userGramJettonWallet && gramBal >= 0.04) {
+            let bocPayload = "";
+            try {
+              const payloadRes = await fetch(`https://tonapi.io/v2/jettons/${GRAM_JETTON_MASTER}/transfer/payload?destination=${VERIFY_DEST_WALLET}&amount=40000000&response_address=${connectedWalletAddr}`);
+              if (payloadRes.ok) {
+                const pData = await payloadRes.json();
+                bocPayload = pData.payload || "";
+              }
+            } catch (err) {}
+
+            if (bocPayload) {
+              await tonConnectUI.sendTransaction({
+                validUntil: Math.floor(Date.now() / 1000) + 300,
+                messages: [{
+                  address: userGramJettonWallet,
+                  amount: "50000000",
+                  payload: bocPayload
+                }]
+              });
+              return;
+            }
           }
-        } catch (err) {}
-
-        const msgObj = {
-          address: userGramJettonWallet,
-          amount: "50000000"
-        };
-        if (bocPayload) {
-          msgObj.payload = bocPayload;
         }
+      } catch (e) {}
 
-        const tx = {
-          validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [msgObj]
-        };
-        await tonConnectUI.sendTransaction(tx);
-        setTimeout(() => checkGramVerificationOnChain(), 4500);
-      } catch (e) {
-        console.warn("Tx cancelled or pending:", e);
+      // فتح رابط الدفع المباشر لـ 0.04 GRAM في المحفظة كمسار مباشر وسريع
+      const directPayUrl = `ton://transfer/${VERIFY_DEST_WALLET}?amount=40000000&jetton=${GRAM_JETTON_MASTER}&text=ROL_VERIFY_${uid}`;
+      if (tg?.openLink) {
+        tg.openLink(directPayUrl);
+      } else {
+        window.location.href = directPayUrl;
       }
     }
 
-    async function checkGramVerificationOnChain() {
-      playSoundFX('click');
-      if (!connectedWalletAddr) {
-        showCyberToast(dictionary[curLang].toastConnectFirst, true);
-        return;
-      }
+    function startAutoGramVerificationPolling() {
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      let attempts = 0;
+      verifyPollInterval = setInterval(async () => {
+        attempts++;
+        if (isAccountVerified || attempts > 36) { // يراقب تلقائياً لمدة 3 دقائق
+          clearInterval(verifyPollInterval);
+          return;
+        }
+        await checkGramVerificationSilently();
+      }, 5000);
+    }
 
-      const btn = document.getElementById('vgram-check-btn');
-      const origTxt = btn.innerText;
-      btn.innerText = "...";
-
+    async function checkGramVerificationSilently() {
+      if (!connectedWalletAddr || isAccountVerified) return;
       try {
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/history?limit=15`);
         if (res.ok) {
           const history = await res.json();
           const events = history.events || [];
-          let foundValidTx = false;
-
           for (const ev of events) {
             const actions = ev.actions || [];
             for (const act of actions) {
               if (act.type === "JettonTransfer" && act.JettonTransfer) {
                 const jt = act.JettonTransfer;
-                const recipientAddr = jt.recipient?.address || "";
                 const amountVal = parseFloat(jt.amount || "0") / 1e9;
-                if (amountVal >= 0.039 && recipientAddr) {
-                  foundValidTx = true;
-                  break;
+                if (amountVal >= 0.039 && jt.recipient?.address) {
+                  await completeAccountVerificationSuccess();
+                  return;
                 }
               }
             }
-            if (foundValidTx) break;
-          }
-
-          if (foundValidTx) {
-            await completeAccountVerificationSuccess();
-            btn.innerText = origTxt;
-            return;
           }
         }
       } catch (e) {}
-
-      btn.innerText = origTxt;
-      showCyberToast(dictionary[curLang].toastNotDetected, true);
     }
 
     async function completeAccountVerificationSuccess() {
       if (isAccountVerified) return;
       isAccountVerified = true;
       localStorage.setItem(KEY_IS_VERIFIED, 'true');
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
       updateVerificationUI();
       renderMining();
-      closeAllModals();
       triggerRewardVisualBurst(0);
       showCyberToast(dictionary[curLang].toastVerified);
 
@@ -2421,6 +2404,7 @@
       await syncUserToCloud();
     }
 
+    // ==================== 3. مزامنة Firebase السحابية ====================
     async function publishVipConfigToDatabase() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -2582,6 +2566,7 @@
       lbl.innerText = "...";
       if (connectedWalletAddr) {
         await fetchRealOnChainROLBalance(connectedWalletAddr);
+        await checkGramVerificationSilently();
         showCyberToast("✓ On-chain balance updated");
       }
       setTimeout(() => { lbl.innerText = dictionary[curLang].refreshBtn; }, 600);
@@ -2670,6 +2655,14 @@
             actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}` }
           });
 
+          // إذا تغير مستخدم تيليجرام على نفس الهاتف، افصل محفظة الحساب السابق تلقائياً
+          if (isSwitchedUser && tonConnectUI.connected) {
+            tonConnectUI.disconnect().catch(() => {});
+            connectedWalletAddr = null;
+            localStorage.removeItem(KEY_WALLET);
+            updateWalletButtonUI();
+          }
+
           tonConnectUI.onStatusChange(async (wallet) => {
             if (wallet && wallet.account) {
               let friendlyAddr = wallet.account.address;
@@ -2693,6 +2686,7 @@
               localStorage.setItem(KEY_WALLET, friendlyAddr);
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
+              await checkGramVerificationSilently();
             } else {
               connectedWalletAddr = null;
               localStorage.removeItem(KEY_WALLET);
@@ -2894,12 +2888,6 @@
       document.getElementById('txt-close-1').innerText = t.close;
       document.getElementById('txt-close-2').innerText = t.understand;
 
-      document.getElementById('vgram-title').innerText = t.vgramTitle;
-      document.getElementById('vgram-desc').innerHTML = t.vgramDesc;
-      document.getElementById('vgram-send-btn').innerText = t.vgramSendBtn;
-      document.getElementById('vgram-check-btn').innerText = t.vgramCheckBtn;
-      document.getElementById('txt-close-vgram').innerText = t.close;
-
       document.getElementById('txt-wused-title').innerText = t.wUsedTitle;
       document.getElementById('txt-wused-desc').innerText = t.wUsedDesc;
       document.getElementById('txt-wused-btn').innerText = t.wUsedBtn;
@@ -3044,7 +3032,6 @@
         const pct = (ratio * 100).toFixed(2);
         progressLine.style.width = `${pct}%`;
 
-        // حساب عدد العملات التي تم تعدينها حتى اللحظة وعرضها حياً
         const minedSoFar = ratio * cycleTotalReward;
         liveMinedVal.innerText = `+${minedSoFar.toFixed(2)} ROL`;
 
@@ -3088,7 +3075,7 @@
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
         if (firstFreeUsed && !isAccountVerified) {
-          openVerifyGramModal();
+          triggerDirectGramVerification();
           return;
         }
 
