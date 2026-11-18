@@ -218,7 +218,6 @@
     .balance-val { font-family: ui-monospace, monospace; font-size: 25px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; }
     .balance-val.pop { transform: scale(1.14); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
-    /* زر شراء عملة ROL العائم في الصفحة الرئيسية */
     .home-buy-rol-pill {
       position: absolute;
       top: 41.2%;
@@ -251,7 +250,6 @@
     .buy-pill-text { font-size: 9.5px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
     .buy-pill-sub { font-size: 7.5px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; }
 
-    /* المؤثرات البصرية على العملة */
     .coin-fx-layer {
       position: absolute;
       top: 41.2%;
@@ -312,7 +310,6 @@
     .rules-touch-zone { position: absolute; top: 69.8%; left: 50%; transform: translateX(-50%); width: 90%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
     .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; }
 
-    /* ==================== زر التعدين / المطالبة / التوثيق ==================== */
     .mine-touch-btn {
       position: absolute;
       top: 77.8%;
@@ -334,7 +331,6 @@
     @keyframes btnShimmer { 0%, 40% { left: -60%; } 100% { left: 130%; } }
     .mine-touch-btn:active { transform: translateX(-50%) scale(0.96); }
 
-    /* وضع المطالبة الأخضر الزمردي */
     .mine-touch-btn.claim-green-mode {
       top: 78.2%;
       width: 89%;
@@ -347,7 +343,6 @@
       animation: greenClaimPulse 1.4s infinite ease-in-out;
     }
 
-    /* وضع التوثيق المطلوب (0.04 GRAM) بعد انتهاء الجلسة الأولى المجانية */
     .mine-touch-btn.verify-gram-mode {
       top: 78.2%;
       width: 89%;
@@ -370,7 +365,7 @@
 
     .claim-badge-chip { background: rgba(2, 44, 34, 0.45); border: 1px solid rgba(167, 243, 208, 0.55); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 900; direction: ltr; }
 
-    /* ==================== الصفحات المستقلة ==================== */
+    /* ==================== الصفحات المستقلة (قابلة للتمرير بسلاسة مهما زاد المحتوى) ==================== */
     .sub-page {
       position: absolute;
       top: 0;
@@ -381,38 +376,45 @@
       z-index: 50;
       display: none;
       flex-direction: column;
-      padding: 16px 15px 22px;
+      padding: 16px 15px 28px;
       overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
       animation: fadeInPage 0.22s ease;
     }
 
     .sub-page.active { display: flex; }
+
+    .sub-page::-webkit-scrollbar { width: 4px; }
+    .sub-page::-webkit-scrollbar-track { background: transparent; }
+    .sub-page::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.35); border-radius: 4px; }
 
     @keyframes fadeInPage {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .page-header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.18); display: flex; flex-direction: column; align-items: center; }
+    .page-header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.18); display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
     .header-badge-icon { width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.06)); border: 1px solid rgba(0, 240, 255, 0.35); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
-    /* ==================== عجلة الحظ الأسطورية (Quantum Spin Wheel) ==================== */
+    /* ==================== عجلة الحظ الأسطورية (كاملة 100% بدون قصّ) ==================== */
     .spin-arena-card {
       position: relative;
       background:
-        radial-gradient(circle at 50% 42%, rgba(0, 240, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 50% 48%, rgba(0, 240, 255, 0.2) 0%, transparent 62%),
         linear-gradient(160deg, #0d2552 0%, #051129 60%, #020817 100%);
       border: 1.5px solid rgba(0, 240, 255, 0.45);
       border-radius: 24px;
-      padding: 16px 14px 18px;
+      padding: 14px 14px 18px;
       margin-bottom: 16px;
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65), 0 0 28px rgba(0, 240, 255, 0.18);
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .spin-top-hud {
@@ -420,7 +422,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       gap: 8px;
     }
 
@@ -450,54 +452,62 @@
       direction: ltr;
     }
 
+    /* حاوية العجلة بمساحة كاملة لضمان عدم قصّ الحافة السفلية أو العلوية */
     .wheel-stage {
       position: relative;
-      width: 266px;
-      height: 266px;
+      width: 256px;
+      height: 256px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 4px 0 14px;
+      margin: 6px auto 16px;
+      flex-shrink: 0;
     }
 
-    /* هالة خارجية متوهجة للعجلة */
     .wheel-outer-halo {
       position: absolute;
-      inset: -8px;
+      inset: -4px;
       border-radius: 50%;
-      border: 2px dashed rgba(0, 240, 255, 0.45);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.35), inset 0 0 25px rgba(250, 204, 21, 0.2);
+      border: 2px dashed rgba(0, 240, 255, 0.5);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(250, 204, 21, 0.2);
       animation: orbitSpin 18s linear infinite;
       pointer-events: none;
     }
 
-    /* مؤشر السهم الذهبي العلوي */
     .wheel-pointer {
       position: absolute;
-      top: -12px;
+      top: -11px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 20;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(250, 204, 21, 0.9));
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(250, 204, 21, 0.95));
     }
 
     .wheel-rotor {
-      width: 256px;
-      height: 256px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
-      box-shadow: 0 0 0 5px #091a3a, 0 0 0 7px #facc15, 0 12px 30px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 0 0 4px #091a3a, 0 0 0 6.5px #facc15, 0 10px 26px rgba(0, 0, 0, 0.85);
       transition: transform 4.6s cubic-bezier(0.12, 0.85, 0.18, 1);
       will-change: transform;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* زر التدوير المركزي */
+    .wheel-rotor svg {
+      width: 240px;
+      height: 240px;
+      display: block;
+    }
+
     .wheel-center-hub {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 62px;
-      height: 62px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #fef08a 0%, #f59e0b 65%, #92400e 100%);
       border: 3px solid #ffffff;
@@ -505,7 +515,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 900;
       color: #1a0f00;
       cursor: pointer;
@@ -534,11 +544,23 @@
     }
 
     .spin-launch-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.55;
       cursor: not-allowed;
-      background: linear-gradient(135deg, #334155, #1e293b);
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #94a3b8;
       box-shadow: none;
+    }
+
+    .tasks-section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 4px 2px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #38bdf8;
+      flex-shrink: 0;
     }
 
     .task-card {
@@ -551,18 +573,19 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
     }
 
     .task-info { display: flex; align-items: center; gap: 12px; }
     .task-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .task-name { font-size: 13px; font-weight: 800; color: #ffffff; }
-    .task-reward { font-size: 11.5px; font-weight: 900; color: #facc15; margin-top: 2px; font-family: ui-monospace, monospace; }
+    .task-reward { font-size: 11.5px; font-weight: 900; color: #facc15; margin-top: 2px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
 
-    .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; }
+    .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
     .action-pill-btn.done { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid #10b981; pointer-events: none; }
 
-    /* ==================== تصميم صفحة الإحالات المطورة ==================== */
-    .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    /* ==================== تصميم صفحة الإحالات ==================== */
+    .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; flex-shrink: 0; }
 
     .cyber-stat-box {
       position: relative;
@@ -583,22 +606,13 @@
     .cyber-stat-box.cyan-accent .stat-val-big { color: #00f0ff; text-shadow: 0 0 12px rgba(0, 240, 255, 0.45); }
     .stat-caption { font-size: 11px; font-weight: 700; color: #94a3b8; margin-top: 4px; }
 
-    .ref-perks-card { background: rgba(10, 25, 54, 0.82); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 16px; padding: 13px 14px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .ref-perks-card { background: rgba(10, 25, 54, 0.82); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 16px; padding: 13px 14px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
     .perk-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #e2e8f0; font-weight: 600; line-height: 1.45; }
     .perk-dot { width: 26px; height: 26px; border-radius: 8px; background: rgba(250, 204, 21, 0.14); border: 1px solid rgba(250, 204, 21, 0.38); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-    .ref-verify-note {
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.4);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 11px;
-      color: #fef08a;
-      line-height: 1.55;
-      margin-bottom: 14px;
-    }
+    .ref-verify-note { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(250, 204, 21, 0.4); border-radius: 12px; padding: 10px 12px; font-size: 11px; color: #fef08a; line-height: 1.55; margin-bottom: 14px; flex-shrink: 0; }
 
-    .invite-link-wrapper { background: #030917; border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 14px; padding: 6px 6px 6px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6); }
+    .invite-link-wrapper { background: #030917; border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 14px; padding: 6px 6px 6px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6); flex-shrink: 0; }
     .invite-url-text { font-family: ui-monospace, monospace; font-size: 11px; color: #38bdf8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; flex: 1; }
 
     .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
@@ -617,6 +631,7 @@
       margin-bottom: 12px;
       box-shadow: 0 18px 38px rgba(0, 0, 0, 0.7), 0 0 32px rgba(0, 240, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .obsidian-vault-card::after { content: ''; position: absolute; top: -50%; left: -60%; width: 45%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent); transform: rotate(25deg); animation: vaultHoloSweep 5s infinite ease-in-out; pointer-events: none; }
@@ -648,7 +663,6 @@
     .vip-up-track { width: 100%; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
     .vip-up-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #f59e0b, #facc15, #fef08a); box-shadow: 0 0 10px rgba(250, 204, 21, 0.7); transition: width 0.5s ease; }
 
-    /* بطاقة توثيق الحساب بـ 0.04 GRAM */
     .gram-verify-card {
       background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%);
       border: 1.5px solid rgba(34, 211, 238, 0.5);
@@ -660,6 +674,7 @@
       align-items: center;
       gap: 10px;
       box-shadow: 0 6px 20px rgba(6, 182, 212, 0.15);
+      flex-shrink: 0;
     }
 
     .gram-verify-card.verified {
@@ -675,6 +690,7 @@
       padding: 13px;
       margin-bottom: 12px;
       box-shadow: 0 10px 26px rgba(245, 158, 11, 0.18);
+      flex-shrink: 0;
     }
 
     .stonfi-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -686,12 +702,12 @@
     .stonfi-buy-btn { padding: 11px 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%); color: #090500; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; }
     .refresh-bal-btn { padding: 0 14px; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.45); background: rgba(0, 240, 255, 0.14); color: #00f0ff; font-size: 11.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-    .compact-address-capsule { background: rgba(6, 16, 38, 0.92); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 14px; padding: 10px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .compact-address-capsule { background: rgba(6, 16, 38, 0.92); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 14px; padding: 10px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-shrink: 0; }
     .addr-left-info { display: flex; align-items: center; gap: 10px; overflow: hidden; }
     .addr-shield-box { width: 34px; height: 34px; border-radius: 10px; background: rgba(0, 240, 255, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .addr-short-code { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: 800; color: #ffffff; direction: ltr; }
 
-    .wallet-bottom-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .wallet-bottom-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-shrink: 0; }
 
     .legendary-btn-gold { width: 100%; padding: 14px 16px; border-radius: 14px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%); color: #090500; font-size: 14px; font-weight: 900; cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
     .legendary-btn-cyan { width: 100%; padding: 13px 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%); color: #020712; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
@@ -739,7 +755,7 @@
     .cyber-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-top: 3px; }
     .cyber-tab.active .cyber-label { color: #fde047; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
 
-    /* ==================== النوافذ المنبثقة (التوثيق / السبين / المستويات / المكافآت) ==================== */
+    /* ==================== النوافذ المنبثقة ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -940,14 +956,14 @@
       </div>
     </div>
 
-    <!-- ==================== 2. صفحة المهام + عجلة السبين الأسطورية ==================== -->
+    <!-- ==================== 2. صفحة المهام + عجلة السبين الكاملة (قابلة للتمرير) ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
-      <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
+      <div class="page-header">
         <div class="page-title" id="pg-tasks-title">المهام وعجلة الحظ</div>
         <div class="page-subtitle" id="pg-tasks-sub">أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL</div>
       </div>
 
-      <!-- قسم عجلة الحظ الأسطورية (Quantum Cyber Spin Wheel) -->
+      <!-- قسم عجلة الحظ الأسطورية (تظهر بالكامل 100% بدون قصّ) -->
       <div class="spin-arena-card">
         <div class="spin-top-hud">
           <div class="spin-tickets-badge">
@@ -961,16 +977,14 @@
 
         <div class="wheel-stage">
           <div class="wheel-outer-halo"></div>
-          <!-- المؤشر الذهبي العلوي -->
           <div class="wheel-pointer">
-            <svg width="28" height="32" viewBox="0 0 28 32">
+            <svg width="26" height="30" viewBox="0 0 28 32">
               <polygon points="14,32 2,6 14,11 26,6" fill="url(#gold3D)" stroke="#ffffff" stroke-width="1.5"/>
             </svg>
           </div>
 
-          <!-- العجلة ذات الـ 8 قطاعات المرسومة بدقة SVG -->
           <div class="wheel-rotor" id="wheel-rotor">
-            <svg width="256" height="256" viewBox="0 0 260 260">
+            <svg width="240" height="240" viewBox="0 0 260 260">
               <defs>
                 <radialGradient id="segDark" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#0f2956"/>
@@ -986,25 +1000,15 @@
                 </radialGradient>
               </defs>
               <g transform="translate(130,130)">
-                <!-- 8 قطاعات بزاوية 45 درجة لكل قطاع -->
-                <!-- 0: 5 ROL -->
                 <path d="M0,0 L0,-126 A126,126 0 0,1 89.1,-89.1 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 1: 10 ROL -->
                 <path d="M0,0 L89.1,-89.1 A126,126 0 0,1 126,0 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 2: 30 ROL -->
                 <path d="M0,0 L126,0 A126,126 0 0,1 89.1,89.1 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 3: 50 ROL -->
                 <path d="M0,0 L89.1,89.1 A126,126 0 0,1 0,126 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 4: 100 ROL -->
                 <path d="M0,0 L0,126 A126,126 0 0,1 -89.1,89.1 Z" fill="url(#segGold)" stroke="#facc15" stroke-width="1.4"/>
-                <!-- 5: 500 ROL -->
                 <path d="M0,0 L-89.1,89.1 A126,126 0 0,1 -126,0 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 6: 1000 ROL -->
                 <path d="M0,0 L-126,0 A126,126 0 0,1 -89.1,-89.1 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <!-- 7: 10000 ROL -->
                 <path d="M0,0 L-89.1,-89.1 A126,126 0 0,1 0,-126 Z" fill="url(#segGold)" stroke="#facc15" stroke-width="1.5"/>
 
-                <!-- نصوص الجوائز الثمانية في منتصف كل قطاع -->
                 <g transform="rotate(22.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">5</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
                 <g transform="rotate(67.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">10</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
                 <g transform="rotate(112.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">30</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
@@ -1017,66 +1021,72 @@
             </svg>
           </div>
 
-          <!-- زر التدوير المركزي -->
           <div class="wheel-center-hub" onclick="triggerSpinWheel()">SPIN</div>
         </div>
 
         <button class="spin-launch-btn" id="spin-btn-main" onclick="triggerSpinWheel()">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
           </svg>
           <span id="spin-btn-txt">أدر العجلة الآن</span>
         </button>
       </div>
 
-      <!-- قائمة المهام -->
-      <div class="task-card">
-        <div class="task-info">
-          <div class="task-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="task-name" id="t1-name">انضم لقناة ROL الرسمية</div>
-            <div class="task-reward">+20 ROL</div>
-          </div>
-        </div>
-        <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">تنفيذ</button>
+      <!-- ترويسة قائمة المهام القابلة للتمرير لأي عدد من المهام -->
+      <div class="tasks-section-divider">
+        <span id="tasks-list-heading">المهام المتاحة</span>
+        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 3</span>
       </div>
 
-      <div class="task-card">
-        <div class="task-info">
-          <div class="task-icon">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
+      <div id="tasks-list-container">
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t1-name">انضم لقناة ROL الرسمية</div>
+              <div class="task-reward">+20 ROL</div>
+            </div>
           </div>
-          <div>
-            <div class="task-name" id="t2-name">تابع حساب المشروع على X</div>
-            <div class="task-reward">+15 ROL</div>
-          </div>
+          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">تنفيذ</button>
         </div>
-        <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">تنفيذ</button>
-      </div>
 
-      <div class="task-card">
-        <div class="task-info">
-          <div class="task-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-            </svg>
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t2-name">تابع حساب المشروع على X</div>
+              <div class="task-reward">+15 ROL</div>
+            </div>
           </div>
-          <div>
-            <div class="task-name" id="t3-name">اربط محفظة TON الخاصة بك</div>
-            <div class="task-reward">+50 ROL</div>
-          </div>
+          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">تنفيذ</button>
         </div>
-        <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">تحقق</button>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t3-name">اربط محفظة TON الخاصة بك</div>
+              <div class="task-reward">+50 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">تحقق</button>
+        </div>
       </div>
     </div>
 
-    <!-- ==================== 3. صفحة الإحالات المطورة ==================== -->
+    <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1193,7 +1203,6 @@
         </div>
       </div>
 
-      <!-- بطاقة حالة توثيق المحفظة (0.04 GRAM) -->
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
           <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">توثيق المحفظة (0.04 GRAM)</div>
@@ -1436,7 +1445,6 @@
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
 
-    // ==================== محرك المؤثرات الصوتية ====================
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
     let audioCtx = null;
 
@@ -1547,7 +1555,6 @@
       if (!soundMuted) playSoundFX('click');
     }
 
-    // ==================== المؤثرات البصرية ====================
     function spawnTouchRipple(e) {
       const ripple = document.createElement('div');
       ripple.className = 'tap-ripple';
@@ -1608,11 +1615,13 @@
       document.body.appendChild(wave);
       setTimeout(() => wave.remove(), 920);
 
-      const el = document.createElement('div');
-      el.className = 'floating-reward-fx';
-      el.innerText = `+${formatCleanNumber(amount)} ROL`;
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1650);
+      if (amount > 0) {
+        const el = document.createElement('div');
+        el.className = 'floating-reward-fx';
+        el.innerText = `+${formatCleanNumber(amount)} ROL`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1650);
+      }
 
       const balEl = document.getElementById('balance-display');
       if (balEl) {
@@ -1624,7 +1633,6 @@
       }
     }
 
-    // ==================== جدول المستويات (VIP 1 = 500، وزيادة +80 لكل مستوى) ====================
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
       let requiredHold = 0;
@@ -1738,6 +1746,7 @@
         spinReady: "لفة مجانية جاهزة",
         spinLaunch: "أدر العجلة الآن",
         noSpins: "لا توجد لفات متاحة حالياً",
+        tasksHeading: "المهام المتاحة",
         t1Name: "انضم لقناة ROL الرسمية",
         t2Name: "تابع حساب المشروع على X",
         t3Name: "اربط محفظة TON الخاصة بك",
@@ -1823,6 +1832,7 @@
         spinReady: "FREE SPIN READY",
         spinLaunch: "Spin the Wheel Now",
         noSpins: "No Spins Available",
+        tasksHeading: "Available Tasks",
         t1Name: "Join Official ROL Channel",
         t2Name: "Follow Project on X",
         t3Name: "Connect Your TON Wallet",
@@ -1896,11 +1906,6 @@
     let currentVip = parseInt(localStorage.getItem(KEY_VIP) || '1', 10);
     if (currentVip < 1 || currentVip > 100) currentVip = 1;
 
-    // إذا كان لدى المستخدم رصيد أو تعدين سابق، نعتبر جلسته المجانية الأولى قد استُهلكت إلا إذا كان موثقاً
-    if ((balance > 0 || startTime > 0) && !firstFreeUsed && !isAccountVerified) {
-      // نسمح له بجلسة واحدة مجانية إذا لم يستخدمها من قبل
-    }
-
     const CYCLE = 10 * 60 * 60 * 1000;
     let isMining = startTime > 0;
     let lock = false;
@@ -1913,8 +1918,7 @@
       return getCurrentTierObj().dailyProfit;
     }
 
-    // ==================== 1. منطق عجلة الحظ الأسطورية (Spin Wheel) ====================
-    // 8 قطاعات: 0: 5 ROL (20%), 1: 10 ROL (25%), 2: 30 ROL (20%), 3: 50 ROL (19%), 4: 100 ROL (16%), 5: 500 (0%), 6: 1000 (0%), 7: 10000 (0%)
+    // ==================== 1. عجلة الحظ الأسطورية (Spin Wheel) ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -1971,7 +1975,7 @@
     }
 
     function pickWeightedSpinPrize() {
-      const roll = Math.random() * 100; // 0 to 100
+      const roll = Math.random() * 100;
       let cumulative = 0;
       for (const item of SPIN_PRIZES) {
         cumulative += item.weight;
@@ -1996,12 +2000,10 @@
       updateSpinUI();
 
       const chosen = pickWeightedSpinPrize();
-      // كل قطاع = 45 درجة. مركز القطاع i يقع عند (i * 45 + 22.5) درجة.
-      // لمحاذاة مركز القطاع تحت السهم العلوي (0 درجة)، ندوّر العجلة بزاوية (360 - (i * 45 + 22.5))
       const sectorCenter = chosen.index * 45 + 22.5;
       const targetAngle = (360 - sectorCenter) % 360;
-      const extraSpins = 360 * 7; // 7 دورات كاملة
-      const randomOffset = (Math.random() - 0.5) * 18; // إزاحة طبيعية داخل القطاع
+      const extraSpins = 360 * 7;
+      const randomOffset = (Math.random() - 0.5) * 18;
 
       const baseMod = currentWheelRotation % 360;
       currentWheelRotation += extraSpins + ((targetAngle - baseMod + 360) % 360) + randomOffset;
@@ -2009,7 +2011,6 @@
       const rotor = document.getElementById('wheel-rotor');
       rotor.style.transform = `rotate(${currentWheelRotation}deg)`;
 
-      // صوت تكتكة متسارع أثناء الدوران
       let ticks = 0;
       const tickTimer = setInterval(() => {
         ticks++;
@@ -2077,7 +2078,6 @@
       }
 
       try {
-        // جلب عنوان محفظة GRAM Jetton الخاصة بالمستخدم لإرسال 0.04 GRAM
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/${GRAM_JETTON_MASTER}`);
         if (!res.ok) {
           alert((curLang === 'ar') ? "يرجى التأكد من وجود 0.04 GRAM ورسوم TON في محفظتك" : "Please ensure you hold 0.04 GRAM + TON gas in your wallet");
@@ -2090,14 +2090,12 @@
           return;
         }
 
-        // 0.04 GRAM = 40,000,000 nanoGRAM (decimals = 9)
-        // استدعاء معاملة تحويل Jetton عبر TonConnect
         const tx = {
           validUntil: Math.floor(Date.now() / 1000) + 300,
           messages: [
             {
               address: userGramJettonWallet,
-              amount: "50000000" // 0.05 TON لرسوم الشبكة
+              amount: "50000000"
             }
           ]
         };
@@ -2120,7 +2118,6 @@
       btn.innerText = "...";
 
       try {
-        // فحص آخر معاملات التحويل الصادرة من محفظة المستخدم نحو عنوان التوثيق
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/jettons/history?limit=15`);
         if (res.ok) {
           const history = await res.json();
@@ -2166,7 +2163,6 @@
       closeAllModals();
       triggerRewardVisualBurst(0);
 
-      // إذا كان المستخدم مدعواً عبر إحالة، نؤكد الإحالة الآن ونمنح المُحيل 60 ROL + 1 لفة سبين
       const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
       if (referrerId && referrerId !== uid) {
         await confirmReferralBonusInCloud(referrerId);
@@ -2174,7 +2170,7 @@
       await syncUserToCloud();
     }
 
-    // ==================== 3. مزامنة Firebase السحابية ونظام الإحالات ====================
+    // ==================== 3. مزامنة Firebase السحابية ====================
     async function publishVipConfigToDatabase() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -2263,7 +2259,6 @@
             localStorage.setItem(KEY_REF_EARN, refEarn.toString());
           }
         } else if (data === null) {
-          // تسجيل رابط المُحيل فقط؛ وتُمنح المكافأة عند توثيق الحساب بـ 0.04 GRAM
           if (startParam && startParam.startsWith("ref_")) {
             const referrerId = startParam.replace("ref_", "");
             if (referrerId && referrerId !== uid) {
@@ -2275,7 +2270,6 @@
       } catch (e) {}
     }
 
-    // مكافأة الإحالة المؤكدة: 60 ROL + 1 لفة سبين للمُحيل
     async function confirmReferralBonusInCloud(referrerId) {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -2301,7 +2295,6 @@
       } catch (e) {}
     }
 
-    // عمولة 5% للمُحيل من أرباح تعدين المدعو
     async function creditReferrerMiningCommission(minedAmount) {
       const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
       if (!referrerId || referrerId === uid || !isAccountVerified) return;
@@ -2523,18 +2516,24 @@
       if (tabName === 'home') {
         document.getElementById('tab-home').classList.add('active');
       } else if (tabName === 'tasks') {
-        document.getElementById('page-tasks').classList.add('active');
+        const pTasks = document.getElementById('page-tasks');
+        pTasks.classList.add('active');
+        pTasks.scrollTop = 0;
         document.getElementById('tab-tasks').classList.add('active');
         refreshTasksUI();
         updateSpinUI();
       } else if (tabName === 'refs') {
-        document.getElementById('page-refs').classList.add('active');
+        const pRefs = document.getElementById('page-refs');
+        pRefs.classList.add('active');
+        pRefs.scrollTop = 0;
         document.getElementById('tab-refs').classList.add('active');
         document.getElementById('ref-count-val').innerText = refCount;
         document.getElementById('ref-earn-val').innerText = formatCleanNumber(refEarn);
         document.getElementById('user-ref-link').innerText = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
       } else if (tabName === 'wallet') {
-        document.getElementById('page-wallet').classList.add('active');
+        const pWallet = document.getElementById('page-wallet');
+        pWallet.classList.add('active');
+        pWallet.scrollTop = 0;
         document.getElementById('tab-wallet').classList.add('active');
         updateBalance();
         updateVIPDisplay();
@@ -2643,6 +2642,7 @@
 
       document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
+      document.getElementById('tasks-list-heading').innerText = t.tasksHeading;
       document.getElementById('t1-name').innerText = t.t1Name;
       document.getElementById('t2-name').innerText = t.t2Name;
       document.getElementById('t3-name').innerText = t.t3Name;
@@ -2701,6 +2701,12 @@
 
       if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
       else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
+
+      // تحديث عداد المهام المكتملة ديناميكياً حسب عدد البطاقات في الصفحة
+      const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
+      const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
+      const pill = document.getElementById('tasks-progress-pill');
+      if (pill) pill.innerText = `${doneCards} / ${totalCards}`;
     }
 
     function completeTask(taskId, reward, url) {
@@ -2761,7 +2767,6 @@
         statusPill.classList.add('idle');
         activeLabel.innerText = t.idle;
 
-        // إذا استهلك الجلسة الأولى المجانية ولم يوثق المحفظة بـ 0.04 GRAM بعد
         if (firstFreeUsed && !isAccountVerified) {
           mineTouchBtn.classList.add('verify-gram-mode');
           mineBtnText.className = 'mine-btn-txt claim';
@@ -2819,7 +2824,6 @@
     function handleMiningAction() {
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
-        // التحقق من شرط التوثيق بعد الجلسة الأولى المجانية
         if (firstFreeUsed && !isAccountVerified) {
           openVerifyGramModal();
           return;
@@ -2844,7 +2848,6 @@
           triggerRewardVisualBurst(reward);
           if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 
-          // تسجيل انتهاء الجلسة الأولى المجانية وإرسال 5% عمولة للمُحيل إن وجد
           if (!firstFreeUsed) {
             firstFreeUsed = true;
             localStorage.setItem(KEY_FIRST_FREE_USED, 'true');
