@@ -406,7 +406,6 @@
     }
     .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
 
-    /* رصيد التعدين اللحظي مكبّر ومتمركز فوق شريط التقدم */
     .live-mined-counter {
       position: absolute;
       top: 58.6%;
@@ -424,7 +423,6 @@
       pointer-events: none;
     }
 
-    /* شريط التقدم */
     .progress-bar-container {
       position: absolute;
       top: 63.9%;
@@ -441,7 +439,6 @@
     .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
     @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
 
-    /* مؤقت الوقت في الأسفل بجانب أيقونة الساعة الصغيرة */
     .live-timer-overlay {
       position: absolute;
       top: 65.3%;
@@ -1029,15 +1026,12 @@
         <span>⚡</span> <span id="txt-active-label">Active</span>
       </div>
 
-      <!-- رصيد التعدين اللحظي الكبير -->
       <div class="live-mined-counter" id="live-mined-val">+0.00 ROL</div>
 
-      <!-- شريط التقدم -->
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
 
-      <!-- الوقت في الأسفل بجانب أيقونة الساعة الصغيرة -->
       <div class="live-timer-overlay" id="timer-val">10:00:00</div>
 
       <div class="rules-touch-zone" onclick="openRulesModal()">
@@ -1787,8 +1781,14 @@
     const KEY_REFERRED_BY = `rol_${uid}_referred_by`;
     const KEY_FIRST_FREE_USED = `rol_${uid}_first_free_used`;
     const KEY_IS_VERIFIED = `rol_${uid}_is_verified_gram`;
+    const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
+
+    // إزالة أي توثيق سابق لم يرفق بإثبات دفع حقيقي
+    if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
+      localStorage.removeItem(KEY_IS_VERIFIED);
+    }
 
     const dictionary = {
       en: {
@@ -1857,7 +1857,7 @@
         gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
         gramVerifiedTitle: "Account Verified ✓",
         gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
-        gramBtn: "Pay 0.04 GRAM",
+        gramBtn: "Verify",
         gramVerifiedBtn: "Verified ✓",
         stonTitle: "Buy ROL on STON.fi DEX",
         stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
@@ -1878,7 +1878,7 @@
         dayLabel: "Day",
         toastCopied: "✓ Copied to clipboard",
         toastVerified: "✓ Account verified with 0.04 GRAM!",
-        toastWaitingGram: "Opening wallet to pay 0.04 GRAM..."
+        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment..."
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -1946,7 +1946,7 @@
         gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
         gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
         gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
-        gramBtn: "دفع 0.04 GRAM",
+        gramBtn: "توثيق",
         gramVerifiedBtn: "موثق ✓",
         stonTitle: "شراء عملة ROL عبر STON.fi",
         stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
@@ -1967,7 +1967,7 @@
         dayLabel: "يوم",
         toastCopied: "✓ تم النسخ إلى الحافظة",
         toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
-        toastWaitingGram: "جاري فتح المحفظة لدفع 0.04 GRAM..."
+        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM..."
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2035,7 +2035,7 @@
         gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
         gramVerifiedTitle: "Аккаунт подтверждён ✓",
         gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
-        gramBtn: "Оплатить 0.04",
+        gramBtn: "Подтвердить",
         gramVerifiedBtn: "Подтверждено ✓",
         stonTitle: "Купить ROL на STON.fi",
         stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
@@ -2070,7 +2070,7 @@
     let onChainRolBalance = 0;
 
     let firstFreeUsed = localStorage.getItem(KEY_FIRST_FREE_USED) === 'true';
-    let isAccountVerified = localStorage.getItem(KEY_IS_VERIFIED) === 'true';
+    let isAccountVerified = localStorage.getItem(KEY_IS_VERIFIED) === 'true' && Boolean(localStorage.getItem(KEY_VERIFY_PROOF));
     let spinTickets = parseInt(localStorage.getItem(KEY_SPIN_TICKETS) || '0', 10);
     let lastFreeSpinTime = parseInt(localStorage.getItem(KEY_LAST_FREE_SPIN) || '0', 10);
 
@@ -2242,9 +2242,20 @@
       }, 4700);
     }
 
-    // ==================== 2. شاشة دفع 0.04 GRAM المباشرة عبر TonConnect ====================
+    // ==================== 2. توثيق المحفظة الحقيقي بـ 0.04 GRAM ====================
     let verifyPollInterval = null;
     let pendingGramAfterConnect = false;
+    let verificationSessionStartTime = 0;
+
+    function normalizeTonAddress(addr) {
+      if (!addr) return "";
+      try {
+        if (window.TON_CONNECT_UI?.toUserFriendlyAddress) {
+          return window.TON_CONNECT_UI.toUserFriendlyAddress(addr);
+        }
+      } catch (e) {}
+      return addr.trim();
+    }
 
     function updateVerificationUI() {
       const t = dictionary[curLang];
@@ -2282,7 +2293,7 @@
       playSoundFX('click');
       if (isAccountVerified) return;
 
-      // 1. إذا لم تكن المحفظة مربوطة، افتح نافذة اختيار المحافظ وعند الربط نفذ الدفع فوراً
+      // 1. إذا لم تكن المحفظة مربوطة، افتح اختيار المحافظ وعند الربط نفذ الدفع تلقائياً
       if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
         pendingGramAfterConnect = true;
         if (tonConnectUI) {
@@ -2293,12 +2304,14 @@
         return;
       }
 
+      // تسجيل لحظة بدء الدفع لمنع احتساب أي معاملات قديمة في المحفظة
+      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
       startAutoGramVerificationPolling();
       showCyberToast(dictionary[curLang].toastWaitingGram);
 
-      // إرسال معاملة 0.04 (40,000,000 nano) مباشرة ليفتح تطبيق المحفظة بشاشة تأكيد الإجراء (- 0.04 GRAM)
+      // 2. إرسال معاملة 0.04 GRAM (40,000,000 nano) مباشرة إلى عنوانك
       try {
-        await tonConnectUI.sendTransaction({
+        const result = await tonConnectUI.sendTransaction({
           validUntil: Math.floor(Date.now() / 1000) + 300,
           messages: [
             {
@@ -2307,9 +2320,14 @@
             }
           ]
         });
-        setTimeout(() => checkGramVerificationSilently(), 4000);
+
+        // عند موافقة المستخدم وسحب السهم في المحفظة، يتم تفعيل التوثيق وحفظ الإثبات
+        if (result && result.boc) {
+          await completeAccountVerificationSuccess(result.boc);
+        }
       } catch (err) {
-        console.warn("Transaction cancelled or closed:", err);
+        console.warn("User rejected or closed payment sheet:", err);
+        if (verifyPollInterval) clearInterval(verifyPollInterval);
       }
     }
 
@@ -2327,17 +2345,23 @@
     }
 
     async function checkGramVerificationSilently() {
-      if (!connectedWalletAddr || isAccountVerified) return;
+      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
       try {
-        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=15`);
+        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
         if (res.ok) {
           const history = await res.json();
+          const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
+
           for (const ev of (history.events || [])) {
+            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
+
             for (const act of (ev.actions || [])) {
               if (act.type === "TonTransfer" && act.TonTransfer) {
                 const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
-                if (paidAmt >= 0.039 && act.TonTransfer.recipient?.address) {
-                  await completeAccountVerificationSuccess();
+                const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
+
+                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
+                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
                   return;
                 }
               }
@@ -2347,10 +2371,11 @@
       } catch (e) {}
     }
 
-    async function completeAccountVerificationSuccess() {
+    async function completeAccountVerificationSuccess(txProof = "") {
       if (isAccountVerified) return;
       isAccountVerified = true;
       localStorage.setItem(KEY_IS_VERIFIED, 'true');
+      localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
       if (verifyPollInterval) clearInterval(verifyPollInterval);
       updateVerificationUI();
       renderMining();
@@ -2397,6 +2422,7 @@
           onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
           wallet: connectedWalletAddr || "",
           isVerified: isAccountVerified,
+          verifyProof: localStorage.getItem(KEY_VERIFY_PROOF) || "",
           firstFreeUsed: firstFreeUsed,
           spinTickets: spinTickets,
           startTime: startTime,
@@ -2431,9 +2457,17 @@
             }
           }
           if (typeof data.isVerified === 'boolean') {
-            isAccountVerified = data.isVerified;
-            localStorage.setItem(KEY_IS_VERIFIED, isAccountVerified ? 'true' : 'false');
+            if (data.isVerified && data.verifyProof) {
+              isAccountVerified = true;
+              localStorage.setItem(KEY_IS_VERIFIED, 'true');
+              localStorage.setItem(KEY_VERIFY_PROOF, data.verifyProof);
+            } else {
+              isAccountVerified = false;
+              localStorage.removeItem(KEY_IS_VERIFIED);
+              localStorage.removeItem(KEY_VERIFY_PROOF);
+            }
             updateVerificationUI();
+            renderMining();
           }
           if (typeof data.firstFreeUsed === 'boolean') {
             firstFreeUsed = data.firstFreeUsed;
@@ -2653,11 +2687,10 @@
               localStorage.setItem(KEY_WALLET, friendlyAddr);
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
-              await checkGramVerificationSilently();
 
               if (pendingGramAfterConnect && !isAccountVerified) {
                 pendingGramAfterConnect = false;
-                setTimeout(() => triggerDirectGramVerification(), 400);
+                setTimeout(() => triggerDirectGramVerification(), 800);
               }
             } else {
               connectedWalletAddr = null;
