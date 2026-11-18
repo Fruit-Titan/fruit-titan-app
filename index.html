@@ -226,6 +226,63 @@
     .balance-val { font-family: ui-monospace, monospace; font-size: 25px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; }
     .balance-val.pop { transform: scale(1.14); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
+    /* ==================== زر شراء عملة ROL العائم في الصفحة الرئيسية ==================== */
+    .home-buy-rol-pill {
+      position: absolute;
+      top: 41.2%;
+      right: 3.5%;
+      transform: translateY(-50%);
+      background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
+      border: 1.5px solid rgba(250, 204, 21, 0.75);
+      border-radius: 16px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      z-index: 35;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(250, 204, 21, 0.35);
+      animation: buyPillPulse 2.6s infinite ease-in-out;
+      transition: transform 0.15s ease;
+    }
+
+    .home-buy-rol-pill:active {
+      transform: translateY(-50%) scale(0.92);
+    }
+
+    @keyframes buyPillPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(250, 204, 21, 0.3); border-color: rgba(250, 204, 21, 0.65); }
+      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 22px rgba(250, 204, 21, 0.65); border-color: #fde047; }
+    }
+
+    .buy-pill-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #fde047);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+    }
+
+    .buy-pill-text {
+      font-size: 9.5px;
+      font-weight: 900;
+      color: #fde047;
+      text-shadow: 0 0 6px rgba(250, 204, 21, 0.6);
+      white-space: nowrap;
+    }
+
+    .buy-pill-sub {
+      font-size: 7.5px;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.3px;
+    }
+
     /* ==================== المؤثرات البصرية على العملة ==================== */
     .coin-fx-layer {
       position: absolute;
@@ -489,7 +546,7 @@
       z-index: 50;
       display: none;
       flex-direction: column;
-      padding: 18px 16px 20px;
+      padding: 16px 15px 18px;
       overflow-y: auto;
       animation: fadeInPage 0.22s ease;
     }
@@ -503,8 +560,8 @@
 
     .page-header {
       text-align: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid rgba(0, 240, 255, 0.18);
       display: flex;
       flex-direction: column;
@@ -525,7 +582,7 @@
     }
 
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
-    .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.5; max-width: 320px; }
+    .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
     .task-card {
       background: linear-gradient(145deg, rgba(12, 30, 66, 0.85), rgba(6, 16, 38, 0.92));
@@ -579,34 +636,41 @@
     .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
     .mini-copy-btn.copied { background: rgba(16, 185, 129, 0.25); border-color: #10b981; color: #34d399; }
 
-    /* ==================== تصميم صفحة المحفظة الأسطورية (Royal Quantum Vault) ==================== */
-    .royal-vault-card {
+    /* ==================== تصميم صفحة المحفظة الأسطورية الفائقة (Obsidian & Gold Vault) ==================== */
+    .obsidian-vault-card {
       position: relative;
       background:
-        radial-gradient(circle at 85% 15%, rgba(0, 240, 255, 0.22) 0%, transparent 45%),
-        radial-gradient(circle at 15% 85%, rgba(250, 204, 21, 0.14) 0%, transparent 50%),
-        linear-gradient(145deg, #0c234d 0%, #06132e 55%, #030919 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.5);
+        radial-gradient(circle at 90% 10%, rgba(0, 240, 255, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, rgba(250, 204, 21, 0.18) 0%, transparent 50%),
+        linear-gradient(145deg, #0e2859 0%, #061430 50%, #020817 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.55);
       border-radius: 24px;
       padding: 18px 18px 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 240, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      margin-bottom: 12px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.7), 0 0 32px rgba(0, 240, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       overflow: hidden;
     }
 
-    /* شبكة هندسية خفيفة داخل البطاقة */
-    .royal-vault-card::before {
+    /* انعكاس ضوئي متحرك على البطاقة */
+    .obsidian-vault-card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-      background-size: 20px 20px;
+      top: -50%;
+      left: -60%;
+      width: 45%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transform: rotate(25deg);
+      animation: vaultHoloSweep 5s infinite ease-in-out;
       pointer-events: none;
     }
 
-    .vault-top-bar {
+    @keyframes vaultHoloSweep {
+      0%, 45% { left: -60%; }
+      100% { left: 140%; }
+    }
+
+    .vault-top-row {
       position: relative;
       z-index: 2;
       display: flex;
@@ -615,26 +679,51 @@
       margin-bottom: 14px;
     }
 
+    .vault-chip-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* شريحة EMV الذهبية المعدنية */
+    .emv-gold-chip {
+      width: 34px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #fef08a 0%, #facc15 45%, #ca8a04 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      position: relative;
+      box-shadow: 0 2px 8px rgba(250, 204, 21, 0.4);
+    }
+
+    .emv-gold-chip::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(113, 63, 18, 0.45);
+      border-radius: 3px;
+    }
+
     .ton-chain-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(0, 240, 255, 0.12);
+      gap: 5px;
+      background: rgba(0, 240, 255, 0.14);
       border: 1px solid rgba(0, 240, 255, 0.35);
-      padding: 5px 11px;
+      padding: 4px 10px;
       border-radius: 20px;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 900;
       color: #00f0ff;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
     }
 
     .conn-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(2, 8, 22, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(2, 8, 22, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 10.5px;
@@ -656,135 +745,98 @@
       margin-bottom: 14px;
     }
 
-    .vault-bal-caption { font-size: 11px; color: #94a3b8; font-weight: 700; }
+    .vault-bal-caption { font-size: 10.5px; color: #94a3b8; font-weight: 700; letter-spacing: 0.3px; }
 
     .vault-bal-figure {
       font-size: 32px;
       font-weight: 900;
       color: #ffffff;
       font-family: ui-monospace, monospace;
-      text-shadow: 0 0 20px rgba(0, 240, 255, 0.75);
+      text-shadow: 0 0 22px rgba(0, 240, 255, 0.8);
       margin-top: 2px;
       direction: ltr;
-      letter-spacing: -0.5px;
     }
 
     .vault-bal-figure span {
-      font-size: 16px;
+      font-size: 15px;
       color: #00f0ff;
       font-weight: 900;
     }
 
-    /* إحصائيات المحفظة المدمجة */
-    .vault-metrics-grid {
+    /* بطاقتا إحصائيات الأداء داخل الخزنة */
+    .vault-analytics-row {
       position: relative;
       z-index: 2;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 12px;
-      background: rgba(2, 8, 22, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 16px;
+      gap: 8px;
       margin-bottom: 12px;
     }
 
-    .v-metric { display: flex; flex-direction: column; gap: 3px; }
-    .v-metric-lbl { font-size: 10px; color: #94a3b8; font-weight: 700; }
-    .v-metric-val { font-size: 13px; font-weight: 900; color: #facc15; font-family: ui-monospace, monospace; }
-
-    /* شريط تقدم الترقية للمستوى التالي داخل بطاقة المحفظة */
-    .vip-upgrade-box {
-      position: relative;
-      z-index: 2;
+    .v-glass-stat {
+      background: rgba(2, 8, 22, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 3px;
     }
 
-    .vip-up-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #cbd5e1;
-    }
+    .v-metric-lbl { font-size: 9.5px; color: #94a3b8; font-weight: 700; }
+    .v-metric-val { font-size: 12.5px; font-weight: 900; color: #facc15; font-family: ui-monospace, monospace; }
 
-    .vip-up-track {
-      width: 100%;
-      height: 6px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-    }
+    .vip-upgrade-box { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 5px; }
+    .vip-up-header { display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 800; color: #cbd5e1; }
+    .vip-up-track { width: 100%; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .vip-up-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #f59e0b, #facc15, #fef08a); box-shadow: 0 0 10px rgba(250, 204, 21, 0.7); transition: width 0.5s ease; }
 
-    .vip-up-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 6px;
-      background: linear-gradient(90deg, #f59e0b, #facc15, #fef08a);
-      box-shadow: 0 0 10px rgba(250, 204, 21, 0.7);
-      transition: width 0.5s ease;
-    }
-
-    /* بطاقة شراء ROL من منصة STON.fi المميزة */
+    /* بطاقة منصة STON.fi الفاخرة */
     .stonfi-dex-card {
       position: relative;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(14, 34, 74, 0.9) 55%, rgba(2, 132, 199, 0.18) 100%);
-      border: 1.5px solid rgba(250, 204, 21, 0.5);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(12, 30, 68, 0.94) 55%, rgba(0, 240, 255, 0.16) 100%);
+      border: 1.5px solid rgba(250, 204, 21, 0.6);
       border-radius: 20px;
-      padding: 15px;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.18);
       overflow: hidden;
     }
 
-    .stonfi-header {
-      display: flex;
+    .stonfi-top-tag {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 5px;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #34d399;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      letter-spacing: 0.4px;
     }
 
-    .stonfi-brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .stonfi-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .stonfi-brand-wrap { display: flex; align-items: center; gap: 10px; }
 
     .stonfi-gem-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(145deg, rgba(250, 204, 21, 0.25), rgba(217, 119, 6, 0.15));
-      border: 1px solid rgba(250, 204, 21, 0.5);
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(250, 204, 21, 0.28), rgba(217, 119, 6, 0.15));
+      border: 1px solid rgba(250, 204, 21, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 0 15px rgba(250, 204, 21, 0.25);
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.3);
     }
 
-    .stonfi-title {
-      font-size: 14px;
-      font-weight: 900;
-      color: #fde047;
-    }
-
-    .stonfi-desc {
-      font-size: 11px;
-      color: #cbd5e1;
-      margin-top: 2px;
-      line-height: 1.4;
-    }
-
-    .stonfi-actions-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-    }
+    .stonfi-title { font-size: 14px; font-weight: 900; color: #fde047; }
+    .stonfi-desc { font-size: 11px; color: #cbd5e1; margin-top: 2px; line-height: 1.4; }
+    .stonfi-actions-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
 
     .stonfi-buy-btn {
       padding: 12px 14px;
@@ -799,7 +851,7 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      box-shadow: 0 5px 18px rgba(245, 158, 11, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
       transition: transform 0.15s ease;
     }
 
@@ -808,8 +860,8 @@
     .refresh-bal-btn {
       padding: 0 14px;
       border-radius: 12px;
-      border: 1px solid rgba(0, 240, 255, 0.4);
-      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      background: rgba(0, 240, 255, 0.14);
       color: #00f0ff;
       font-size: 11.5px;
       font-weight: 800;
@@ -836,37 +888,11 @@
       gap: 10px;
     }
 
-    .addr-left-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      overflow: hidden;
-    }
+    .addr-left-info { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+    .addr-shield-box { width: 34px; height: 34px; border-radius: 10px; background: rgba(0, 240, 255, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .addr-short-code { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: 800; color: #ffffff; direction: ltr; }
 
-    .addr-shield-box {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: rgba(0, 240, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .addr-short-code {
-      font-family: ui-monospace, monospace;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #ffffff;
-      direction: ltr;
-    }
-
-    .wallet-bottom-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .wallet-bottom-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .legendary-btn-gold {
       width: 100%;
@@ -1122,6 +1148,18 @@
         <span class="balance-val" id="balance-display">0 ROL</span>
       </div>
 
+      <!-- زر شراء عملة ROL العائم في الصفحة الرئيسية -->
+      <div class="home-buy-rol-pill" onclick="openStonFiBuy()">
+        <div class="buy-pill-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 22 9 12 22 2 9 12 2"/>
+            <line x1="2" y1="9" x2="22" y2="9"/>
+          </svg>
+        </div>
+        <span class="buy-pill-text" id="home-buy-txt">شراء ROL</span>
+        <span class="buy-pill-sub">STON.fi</span>
+      </div>
+
       <div class="coin-fx-layer" id="coin-fx-layer" onclick="onCoinInteractiveTap(event)">
         <div class="coin-orbit-ring"></div>
         <div class="coin-pulse-ring"></div>
@@ -1267,21 +1305,24 @@
       </button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة الأسطورية (Royal Quantum Vault) ==================== -->
+    <!-- ==================== 4. صفحة المحفظة الأسطورية الفائقة (Obsidian & Gold Vault) ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
-      <div class="page-header" style="margin-bottom: 12px; padding-bottom: 10px;">
+      <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">خزنة الأصول الرقمية</div>
         <div class="page-subtitle" id="pg-wallet-sub">تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً</div>
       </div>
 
-      <!-- 1. بطاقة الخزنة الملكية ثلاثية الأبعاد -->
-      <div class="royal-vault-card">
-        <div class="vault-top-bar">
-          <div class="ton-chain-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5">
-              <polygon points="12 2 22 8.5 12 22 2 8.5 12 2"/>
-            </svg>
-            <span>TON BLOCKCHAIN</span>
+      <!-- 1. بطاقة الخزنة الملكية ثلاثية الأبعاد مع شريحة EMV الذهبية -->
+      <div class="obsidian-vault-card">
+        <div class="vault-top-row">
+          <div class="vault-chip-group">
+            <div class="emv-gold-chip"></div>
+            <div class="ton-chain-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5">
+                <polygon points="12 2 22 8.5 12 22 2 8.5 12 2"/>
+              </svg>
+              <span>TON</span>
+            </div>
           </div>
           <div class="conn-status-pill">
             <span class="status-dot" id="wallet-live-dot"></span>
@@ -1294,18 +1335,17 @@
           <div class="vault-bal-figure" id="pg-wallet-balance">0 <span>ROL</span></div>
         </div>
 
-        <div class="vault-metrics-grid">
-          <div class="v-metric">
+        <div class="vault-analytics-row">
+          <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-vip-lbl">المستوى النشط</span>
             <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/10h)</span>
           </div>
-          <div class="v-metric">
+          <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-chain-lbl">رصيد محفظة TON</span>
             <span class="v-metric-val" style="color: #38bdf8;" id="pg-onchain-rol">0 ROL</span>
           </div>
         </div>
 
-        <!-- شريط التقدم نحو المستوى التالي -->
         <div class="vip-upgrade-box">
           <div class="vip-up-header">
             <span id="next-vip-label">التقدم نحو VIP 2</span>
@@ -1317,8 +1357,12 @@
         </div>
       </div>
 
-      <!-- 2. خانة شراء عملات ROL مباشرة من منصة STON.fi -->
+      <!-- 2. بطاقة الشراء المباشر على منصة STON.fi -->
       <div class="stonfi-dex-card">
+        <div class="stonfi-top-tag">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+          <span>STON.FI OFFICIAL DEX</span>
+        </div>
         <div class="stonfi-header">
           <div class="stonfi-brand-wrap">
             <div class="stonfi-gem-icon">
@@ -1541,7 +1585,6 @@
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
 
-    // ==================== محرك المؤثرات الصوتية ====================
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
     let audioCtx = null;
 
@@ -1640,7 +1683,6 @@
       if (!soundMuted) playSoundFX('click');
     }
 
-    // ==================== المؤثرات البصرية ====================
     function spawnTouchRipple(e) {
       const ripple = document.createElement('div');
       ripple.className = 'tap-ripple';
@@ -1717,7 +1759,6 @@
       }
     }
 
-    // ==================== جدول المستويات (VIP 1 = 500، وزيادة +80 لكل مستوى) ====================
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
       let requiredHold = 0;
@@ -1738,6 +1779,13 @@
       const val = parseFloat(num || 0);
       if (isNaN(val) || val === 0) return "0";
       return Number(val.toFixed(2)).toString();
+    }
+
+    function formatPrettyNumber(num) {
+      const val = parseFloat(num || 0);
+      if (isNaN(val) || val === 0) return "0";
+      const clean = Number(val.toFixed(2));
+      return clean.toLocaleString('en-US');
     }
 
     const tg = window.Telegram?.WebApp;
@@ -1787,6 +1835,7 @@
         rate: "ربح الدورة",
         gift: "المكافآت",
         balance: "رصيدك الحالي",
+        homeBuy: "شراء ROL",
         active: "نشط",
         idle: "متوقف",
         rulesBtn: "قواعد مستويات التعدين",
@@ -1858,6 +1907,7 @@
         rate: "Cycle Profit",
         gift: "Rewards",
         balance: "Current Balance",
+        homeBuy: "Buy ROL",
         active: "Active",
         idle: "Idle",
         rulesBtn: "Mining Tier Rules",
@@ -1956,7 +2006,6 @@
       return getCurrentTierObj().dailyProfit;
     }
 
-    // ==================== فتح منصة STON.fi لشراء ROL ====================
     function openStonFiBuy() {
       playSoundFX('click');
       if (tg?.openLink) {
@@ -2144,7 +2193,7 @@
         onChainRolBalance = 0;
       }
 
-      document.getElementById('pg-onchain-rol').innerText = `${formatCleanNumber(onChainRolBalance)} ROL`;
+      document.getElementById('pg-onchain-rol').innerText = `${formatPrettyNumber(onChainRolBalance)} ROL`;
 
       let matchedVip = 1;
       for (let i = VIP_TIERS.length - 1; i >= 0; i--) {
@@ -2295,7 +2344,6 @@
       document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/10h)`;
       localStorage.setItem(KEY_VIP, currentVip.toString());
 
-      // تحديث شريط التقدم نحو المستوى التالي في صفحة المحفظة
       const nextLbl = document.getElementById('next-vip-label');
       const nextReq = document.getElementById('next-vip-req');
       const nextBar = document.getElementById('next-vip-bar');
@@ -2308,15 +2356,16 @@
         const target = nextTier.requiredHold;
         const pct = Math.min(100, (onChainRolBalance / target) * 100);
         nextLbl.innerText = `${t.nextVipProg} VIP ${nextTier.level}`;
-        nextReq.innerText = `${formatCleanNumber(onChainRolBalance)} / ${target.toLocaleString('en-US')} ROL`;
+        nextReq.innerText = `${formatPrettyNumber(onChainRolBalance)} / ${target.toLocaleString('en-US')} ROL`;
         nextBar.style.width = `${pct}%`;
       }
     }
 
     function updateBalance() {
       const cleanNum = formatCleanNumber(balance);
+      const prettyNum = formatPrettyNumber(balance);
       document.getElementById('balance-display').innerText = `${cleanNum} ROL`;
-      document.getElementById('pg-wallet-balance').innerHTML = `${cleanNum} <span>ROL</span>`;
+      document.getElementById('pg-wallet-balance').innerHTML = `${prettyNum} <span>ROL</span>`;
       localStorage.setItem(KEY_BALANCE, balance.toString());
     }
 
@@ -2362,6 +2411,7 @@
       document.getElementById('txt-rate-label').innerText = t.rate;
       document.getElementById('txt-gift-label').innerText = t.gift;
       document.getElementById('txt-balance-label').innerText = t.balance;
+      document.getElementById('home-buy-txt').innerText = t.homeBuy;
       document.getElementById('txt-rules-btn').innerText = t.rulesBtn;
 
       document.getElementById('txt-nav-home').innerText = t.navHome;
@@ -2401,7 +2451,6 @@
       document.getElementById('copy-btn-lbl').innerText = t.copyBtn;
       document.getElementById('share-btn-lbl').innerText = t.pgRefsShare;
 
-      // صفحة المحفظة الأسطورية
       document.getElementById('pg-wallet-title').innerText = t.pgWalletTitle;
       document.getElementById('pg-wallet-sub').innerText = t.pgWalletSub;
       document.getElementById('pg-w-bal-lbl').innerText = t.pgWBalLbl;
