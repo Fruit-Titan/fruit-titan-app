@@ -65,7 +65,7 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== 1. الصفحة الرئيسية (محاذاة دقيقة لكل عنصر) ==================== */
+    /* ==================== 1. الصفحة الرئيسية ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -93,14 +93,13 @@
 
     .brand-title {
       position: absolute;
-      top: 1.85%;
+      top: 1.9%;
       left: 7.5%;
       display: flex;
       align-items: center;
-      gap: 6px;
       font-size: 13.5px;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
       z-index: 20;
@@ -110,7 +109,7 @@
     .sound-toggle-btn {
       position: absolute;
       top: 1.35%;
-      left: 49%;
+      left: 48.8%;
       width: 28px;
       height: 28px;
       border-radius: 50%;
@@ -128,19 +127,19 @@
     .sound-toggle-btn:active { transform: scale(0.88); }
     .sound-toggle-btn.muted { border-color: rgba(148, 163, 184, 0.35); box-shadow: none; opacity: 0.65; }
 
-    /* كبسولة اللغة داخل إطار الكرة الأرضية بدون تلامس */
+    /* كبسولة اللغة متمركزة في النصف الأيمن الفارغ لكبسولة الكرة الأرضية */
     .lang-touch-zone {
       position: absolute;
-      top: 1.3%;
-      left: 69.2%;
-      width: 10.2%;
-      height: 3.8%;
+      top: 1.35%;
+      left: 68.5%;
+      width: 10.8%;
+      height: 3.7%;
       cursor: pointer;
       z-index: 40;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
@@ -194,13 +193,13 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
-    /* كبسولة المحفظة في الزاوية اليمنى العليا */
+    /* كبسولة المحفظة متمركزة في المساحة الفارغة بجانب أيقونة المحفظة */
     .wallet-touch-zone {
       position: absolute;
-      top: 1.3%;
+      top: 1.35%;
       left: 86.5%;
-      width: 11.2%;
-      height: 3.8%;
+      width: 11.6%;
+      height: 3.7%;
       border-radius: 8px;
       cursor: pointer;
       z-index: 30;
@@ -210,7 +209,7 @@
     }
 
     .wallet-btn-label {
-      font-size: 8.4px;
+      font-size: 8px;
       font-weight: 900;
       color: #00f0ff;
       font-family: ui-monospace, -apple-system, sans-serif;
@@ -219,13 +218,13 @@
       white-space: nowrap;
     }
 
-    /* شارة التاج الذهبي VIP */
+    /* شارة التاج الذهبي VIP متمركزة داخل الدائرة الذهبية */
     .vip-container {
       position: absolute;
-      top: 7.4%;
-      left: 3.5%;
-      width: 20%;
-      height: 8.8%;
+      top: 6.8%;
+      left: 2.2%;
+      width: 19.6%;
+      height: 9.2%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -234,15 +233,15 @@
       z-index: 20;
     }
 
-    .vip-label { font-size: 7.8px; font-weight: 800; color: #facc15; margin-top: 11px; }
+    .vip-label { font-size: 7.5px; font-weight: 800; color: #facc15; margin-top: 13px; }
     .vip-num { font-size: 12.5px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
 
     /* إطار معدل الربح بجانب الصاروخ */
     .rate-container {
       position: absolute;
-      top: 7.3%;
-      left: 33.5%;
-      width: 38%;
+      top: 7.1%;
+      left: 34.5%;
+      width: 39%;
       height: 8.8%;
       display: flex;
       flex-direction: column;
@@ -255,20 +254,20 @@
     .rate-title { font-size: 10px; font-weight: 800; color: #94a3b8; }
     .rate-val { font-family: ui-monospace, monospace; font-size: 12px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
-    /* صندوق المكافآت اليومية */
+    /* صندوق المكافآت اليومية متمركز في المربع الأيمن */
     .gift-touch-zone {
       position: absolute;
-      top: 6.5%;
-      left: 76.5%;
-      width: 20%;
-      height: 10%;
+      top: 6.4%;
+      left: 77.5%;
+      width: 19.5%;
+      height: 9.8%;
       border-radius: 16px;
       cursor: pointer;
       z-index: 30;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 7px;
+      padding-bottom: 5px;
       animation: giftFloat 2.8s infinite ease-in-out;
     }
 
@@ -294,14 +293,14 @@
     .notify-pulse-dot.visible { display: block; }
     @keyframes dotPing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.75; } }
 
-    /* مستطيل الرصيد الحالي متمركز بجانب أيقونة المحفظة البيضاء */
+    /* مستطيل الرصيد الحالي متمركز تماماً في وسط الإطار العريض */
     .balance-container {
       position: absolute;
-      top: 19.4%;
-      left: 53.5%;
+      top: 20.4%;
+      left: 50%;
       transform: translateX(-50%);
       width: 66%;
-      height: 7.4%;
+      height: 6.8%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -310,8 +309,8 @@
       z-index: 20;
     }
 
-    .balance-title { font-size: 9.8px; font-weight: 800; color: #94a3b8; }
-    .balance-val { font-family: ui-monospace, monospace; font-size: 24px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
+    .balance-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; }
+    .balance-val { font-family: ui-monospace, monospace; font-size: 23.5px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 1px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
     .balance-val.pop { transform: scale(1.12); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
     /* كبسولة شراء ROL */
@@ -413,7 +412,6 @@
     }
     .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
 
-    /* رصيد التعدين اللحظي كبير ومتمركز فوق شريط التقدم */
     .live-mined-counter {
       position: absolute;
       top: 58.6%;
@@ -431,7 +429,6 @@
       pointer-events: none;
     }
 
-    /* شريط التقدم محاذى بدقة داخل المسار الأسود */
     .progress-bar-container {
       position: absolute;
       top: 63.95%;
@@ -448,7 +445,6 @@
     .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
     @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
 
-    /* مؤقت الوقت في الأسفل بجانب أيقونة الساعة الصغيرة */
     .live-timer-overlay {
       position: absolute;
       top: 65.4%;
@@ -466,11 +462,9 @@
       white-space: nowrap;
     }
 
-    /* زر قواعد المستويات متمركز بين الرسم البياني والسهم */
     .rules-touch-zone { position: absolute; top: 69.9%; left: 52.5%; transform: translateX(-50%); width: 64%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
     .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; text-align: center; white-space: nowrap; }
 
-    /* زر التعدين متمركز بدقة بين الفأسين والأسهم */
     .mine-touch-btn {
       position: absolute;
       top: 78.1%;
