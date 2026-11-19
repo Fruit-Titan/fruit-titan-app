@@ -1669,11 +1669,11 @@
     <div class="daily-modal-box" style="border-color: #10b981; box-shadow: 0 0 35px rgba(16, 185, 129, 0.3);">
       <h3 style="color: #34d399; font-size: 18px; margin-bottom: 8px;">Withdraw ROL</h3>
       <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 10px;">
-        Enter your TON wallet address and withdrawal amount (ROL). Your wallet address and username will be sent to the admin.
+        Minimum withdrawal is <b>10,000 ROL</b>. Enter your TON wallet address and withdrawal amount (ROL). Your wallet address and username will be sent to the admin.
       </p>
 
       <input type="text" id="withdraw-addr-input" class="cyber-input-box" placeholder="TON Wallet Address (UQ... / EQ...)" dir="ltr">
-      <input type="number" id="withdraw-amt-input" class="cyber-input-box" placeholder="Amount in ROL" min="1" step="any" dir="ltr">
+      <input type="number" id="withdraw-amt-input" class="cyber-input-box" placeholder="Amount in ROL (Min 10,000)" min="10000" step="any" dir="ltr">
 
       <button class="legendary-btn-withdraw-open" style="margin-bottom: 10px;" onclick="submitWithdrawalRequest()">Confirm Withdrawal</button>
       <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;">Cancel</button>
@@ -1699,6 +1699,7 @@
     const BOT_CHECK_CHANNEL_ENDPOINT = `${BOT_BASE_URL}/api/check-channel`;
     const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
+    const MIN_WITHDRAW_ROL = 10000;
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -1966,7 +1967,6 @@
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
     const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
 
-    // ==================== تحقق حقيقي عبر البوت في الخلفية بدون تحويل للشات ====================
     let isCheckingChannel = false;
 
     function isChannelAccessGranted() {
@@ -2076,8 +2076,8 @@
         showCyberToast('Please enter a valid TON wallet address', true);
         return;
       }
-      if (isNaN(amount) || amount <= 0) {
-        showCyberToast('Please enter a valid amount', true);
+      if (isNaN(amount) || amount < MIN_WITHDRAW_ROL) {
+        showCyberToast(`Minimum withdrawal is ${MIN_WITHDRAW_ROL.toLocaleString('en-US')} ROL`, true);
         return;
       }
       if (amount > balance) {
@@ -3071,172 +3071,4 @@
         enforceMandatoryChannelGate();
         return;
       }
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
-      if (!isMining) {
-        playSoundFX('start');
-        startTime = Date.now();
-        localStorage.setItem(KEY_START, startTime.toString());
-        isMining = true;
-        for (let i = 0; i < 14; i++) setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 35);
-        spawnPickaxeSpark();
-        renderMining();
-      } else {
-        const elapsed = Date.now() - startTime;
-        if (elapsed >= CYCLE) {
-          if (lock) return;
-          lock = true;
-          const reward = getCycleRewardAmount();
-          balance += reward;
-          updateBalance();
-          triggerRewardVisualBurst(reward);
-          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-
-          isMining = false;
-          startTime = 0;
-          localStorage.removeItem(KEY_START);
-          renderMining();
-          lock = false;
-        } else {
-          playSoundFX('click');
-        }
-      }
-    }
-
-    function verifyStreak() {
-      const now = Date.now();
-      const hoursSinceLast = (now - lastCheckinTime) / (1000 * 60 * 60);
-      if (lastCheckinTime > 0 && hoursSinceLast > 48) {
-        checkinDay = 0;
-        localStorage.setItem(KEY_CHECKIN_DAY, '0');
-      }
-    }
-
-    function isCheckinAvailable() {
-      return (Date.now() - lastCheckinTime) >= (24 * 60 * 60 * 1000);
-    }
-
-    function renderDaysGrid() {
-      verifyStreak();
-      updateNotificationDots();
-      const grid = document.getElementById('days-grid-container');
-      grid.innerHTML = '';
-      const canClaim = isCheckinAvailable();
-      const t = dictionary[curLang];
-
-      document.getElementById('streak-badge').innerText = `${t.streakTxt} ${checkinDay + 1} / 30`;
-
-      for (let i = 0; i < 30; i++) {
-        const box = document.createElement('div');
-        box.className = 'day-card';
-        if (i < checkinDay) {
-          box.classList.add('claimed');
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">✓</span>`;
-        } else if (i === checkinDay && canClaim) {
-          box.classList.add('today');
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
-        } else {
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
-        }
-        grid.appendChild(box);
-      }
-
-      const claimBtn = document.getElementById('claim-daily-btn');
-      if (canClaim) {
-        claimBtn.disabled = false;
-        claimBtn.style.opacity = '1';
-        claimBtn.innerText = `${t.claimDay} (+${DAILY_REWARDS[checkinDay]} ROL)`;
-      } else {
-        claimBtn.disabled = true;
-        claimBtn.style.opacity = '0.6';
-        claimBtn.innerText = t.claimedDone;
-      }
-    }
-
-    function openModal(id) {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      closeAllModals();
-      const m = document.getElementById(id);
-      if (m) m.classList.add('active');
-    }
-
-    function openCheckinModal() {
-      playSoundFX('click');
-      renderDaysGrid();
-      openModal('checkin-modal');
-    }
-
-    function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-    }
-
-    function onOverlayClick(e, id) {
-      if (e.target.id === id) {
-        playSoundFX('click');
-        closeAllModals();
-      }
-    }
-
-    function claimDailyReward() {
-      if (isCheckinAvailable()) {
-        const reward = DAILY_REWARDS[checkinDay];
-        balance += reward;
-        updateBalance();
-        triggerRewardVisualBurst(reward);
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        checkinDay = (checkinDay + 1) % 30;
-        lastCheckinTime = Date.now();
-        localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
-        localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
-        renderDaysGrid();
-      }
-    }
-
-    function shareReferralLink() {
-      playSoundFX('click');
-      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 400 ROL every 24 hours!')}`;
-      tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
-    }
-
-    function copyReferralLink() {
-      playSoundFX('click');
-      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      navigator.clipboard?.writeText(link);
-      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      showCyberToast(dictionary[curLang].toastCopied);
-
-      const copyBtn = document.getElementById('mini-copy-btn');
-      const copyLbl = document.getElementById('copy-btn-lbl');
-      copyBtn.classList.add('copied');
-      copyLbl.innerText = dictionary[curLang].copiedBtn;
-
-      setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        copyLbl.innerText = dictionary[curLang].copyBtn;
-      }, 2000);
-    }
-
-    setInterval(() => {
-      renderMining();
-      updateNotificationDots();
-      if (document.getElementById('page-tasks').classList.contains('active')) {
-        updateSpinUI();
-      }
-    }, 1000);
-
-    updateSoundIconUI();
-    applyLanguage(curLang);
-    updateBalance();
-    updateSpinUI();
-    updateNotificationDots();
-    renderMining();
-    enforceMandatoryChannelGate();
-    window.addEventListener('DOMContentLoaded', () => {
-      initRealTonConnect();
-      loadUserFromCloud();
-      enforceMandatoryChannelGate();
-      silentBackgroundChannelCheck();
-    });
-  </script>
-</body>
-</html>
+      if (tg?.H
