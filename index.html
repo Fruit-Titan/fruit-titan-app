@@ -243,8 +243,8 @@
     .rate-container {
       position: absolute;
       top: 7.2%;
-      left: 41.2%;
-      width: 32.5%;
+      left: 38.2%;
+      width: 35.5%;
       height: 8.6%;
       display: flex;
       flex-direction: column;
@@ -254,7 +254,7 @@
       z-index: 20;
     }
 
-    .rate-title { font-size: 9.5px; font-weight: 800; color: #cbd5e1; white-space: nowrap; }
+    .rate-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; white-space: nowrap; }
     .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
     .gift-touch-zone {
@@ -1005,8 +1005,8 @@
       </div>
 
       <div class="rate-container">
-        <span class="rate-title" id="txt-rate-label">Cycle Profit</span>
-        <span class="rate-val" id="rate-display">+500 ROL / 10h</span>
+        <span class="rate-title" id="txt-rate-label">Daily Profit</span>
+        <span class="rate-val" id="rate-display">+500 ROL / 24h</span>
       </div>
 
       <div class="gift-touch-zone" onclick="openCheckinModal()">
@@ -1291,7 +1291,7 @@
         <div class="vault-analytics-row">
           <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-vip-lbl">Active Tier</span>
-            <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/10h)</span>
+            <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/24h)</span>
           </div>
           <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-chain-lbl">TON Wallet Balance</span>
@@ -1497,13 +1497,13 @@
       <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
       
       <div class="wallet-rule-notice" id="txt-wallet-rule-note">
-        Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.
+        Your VIP tier and daily profit (24h) are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b> (each mining session lasts 10h), not the balance inside your bot account.
       </div>
 
       <div class="vip-table-header">
         <span id="th-level">Tier</span>
         <span id="th-hold">Wallet Hold</span>
-        <span id="th-profit">Profit (10h)</span>
+        <span id="th-profit">Daily Profit</span>
       </div>
 
       <div class="vip-scroll-wrapper">
@@ -1816,7 +1816,7 @@
         flagBadge: "EN 🇺🇸",
         walletConnect: "Connect",
         vip: "Gold Tier",
-        rate: "Cycle Profit",
+        rate: "Daily Profit",
         gift: "Rewards",
         balance: "Current Balance",
         homeBuy: "Buy ROL",
@@ -1839,10 +1839,10 @@
         close: "Close",
         understand: "Understood",
         rulesTitle: "VIP Mining Tiers (VIP 1 - VIP 100)",
-        walletRuleNote: "Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.",
+        walletRuleNote: "Your VIP tier and daily profit (24h) are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b> (each mining session lasts 10h), not the balance inside your bot account.",
         thLevel: "Tier",
         thHold: "Wallet Hold",
-        thProfit: "Profit (10h)",
+        thProfit: "Daily Profit",
         reqHoldFree: "Free",
         scrollHint: "Scroll down to view all tiers up to VIP 100",
         pgTasksTitle: "Tasks & Fortune Spin",
@@ -1905,7 +1905,7 @@
         flagBadge: "AR 🇸🇦",
         walletConnect: "ربط",
         vip: "المستوى الذهبي",
-        rate: "ربح الدورة",
+        rate: "الربح اليومي",
         gift: "المكافآت",
         balance: "رصيدك الحالي",
         homeBuy: "شراء ROL",
@@ -1928,10 +1928,10 @@
         close: "إغلاق",
         understand: "فهمت ذلك",
         rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
-        walletRuleNote: "يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
+        walletRuleNote: "يتم تحديد مستواك والربح اليومي (24 ساعة) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b> (مدة الجلسة الواحدة 10 ساعات)، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
         thLevel: "المستوى",
         thHold: "رصيد المحفظة",
-        thProfit: "الربح (10h)",
+        thProfit: "الربح اليومي",
         reqHoldFree: "مجاني",
         scrollHint: "اسحب للأسفل لعرض باقي المستويات حتى VIP 100",
         pgTasksTitle: "المهام وعجلة الحظ",
@@ -1994,7 +1994,7 @@
         flagBadge: "RU 🇷🇺",
         walletConnect: "Кошелёк",
         vip: "Золотой статус",
-        rate: "Доход цикла",
+        rate: "Дневной доход",
         gift: "Награды",
         balance: "Текущий баланс",
         homeBuy: "Купить ROL",
@@ -2017,10 +2017,10 @@
         close: "Закрыть",
         understand: "Понятно",
         rulesTitle: "Система уровней (VIP 1 - VIP 100)",
-        walletRuleNote: "Ваш VIP-уровень и доход за 10 часов зависят только от <b>баланса ROL в привязанном TON-кошельке</b>, а не от баланса внутри бота.",
+        walletRuleNote: "Ваш VIP-уровень и дневной доход (24ч) зависят только от <b>баланса ROL в привязанном TON-кошельке</b> (сессия длится 10ч), а не от баланса внутри бота.",
         thLevel: "Уровень",
         thHold: "В кошельке",
-        thProfit: "Доход (10ч)",
+        thProfit: "Доход (24ч)",
         reqHoldFree: "Бесплатно",
         scrollHint: "Листайте вниз до VIP 100",
         pgTasksTitle: "Задания и Колесо Удачи",
@@ -2116,8 +2116,12 @@
       return VIP_TIERS[currentVip - 1] || VIP_TIERS[0];
     }
 
-    function getCycleRewardAmount() {
+    function getDailyProfitAmount() {
       return getCurrentTierObj().dailyProfit;
+    }
+
+    function getCycleRewardAmount() {
+      return Number((getDailyProfitAmount() * (10 / 24)).toFixed(2));
     }
 
     function toggleLangBar(e) {
@@ -2415,7 +2419,8 @@
           tiersMap[`vip_${t.level}`] = {
             level: t.level,
             requiredWalletROL: t.requiredHold,
-            cycleProfit10hROL: t.dailyProfit
+            dailyProfit24hROL: t.dailyProfit,
+            sessionProfit10hROL: Number((t.dailyProfit * (10 / 24)).toFixed(2))
           };
         });
         await fetch(`${FIREBASE_DB_URL}/config/vip_tiers.json`, {
@@ -2435,7 +2440,8 @@
           username: userObj?.username || "",
           balance: Number(formatCleanNumber(balance)),
           vip: currentVip,
-          cycleProfit10h: tierInfo.dailyProfit,
+          dailyProfit24h: tierInfo.dailyProfit,
+          sessionProfit10h: getCycleRewardAmount(),
           onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
           wallet: connectedWalletAddr || "",
           isVerified: isAccountVerified,
@@ -2815,8 +2821,8 @@
       const tier = getCurrentTierObj();
       const t = dictionary[curLang];
       document.getElementById('vip-level-display').innerText = `VIP ${currentVip}`;
-      document.getElementById('rate-display').innerText = `+${tier.dailyProfit.toLocaleString('en-US')} ROL / 10h`;
-      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/10h)`;
+      document.getElementById('rate-display').innerText = `+${tier.dailyProfit.toLocaleString('en-US')} ROL / 24h`;
+      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/24h)`;
       localStorage.setItem(KEY_VIP, currentVip.toString());
 
       const nextLbl = document.getElementById('next-vip-label');
@@ -3233,7 +3239,7 @@
     function shareReferralLink() {
       playSoundFX('click');
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 500 ROL every 10 hours!')}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 500 ROL every 24 hours!')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
