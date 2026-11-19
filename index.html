@@ -38,7 +38,6 @@
       overflow: hidden;
     }
 
-    /* ==================== شريط الإشعارات العلوي (Cyber Toast) ==================== */
     .cyber-toast {
       position: fixed;
       top: 14px;
@@ -68,7 +67,6 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== واجهة الاشتراك الإجباري داخل التطبيق ==================== */
     .force-gate-overlay {
       position: fixed;
       inset: 0;
@@ -202,7 +200,6 @@
       box-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
     }
 
-    /* ==================== 1. الصفحة الرئيسية ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -666,7 +663,6 @@
 
     .claim-badge-chip { background: rgba(2, 44, 34, 0.45); border: 1px solid rgba(167, 243, 208, 0.55); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 900; direction: ltr; }
 
-    /* ==================== الصفحات المستقلة ==================== */
     .sub-page {
       position: absolute;
       top: 0;
@@ -701,7 +697,6 @@
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
-    /* ==================== عجلة الحظ الأسطورية ==================== */
     .spin-arena-card {
       position: relative;
       background:
@@ -807,7 +802,6 @@
     .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
     .action-pill-btn.done { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid #10b981; pointer-events: none; }
 
-    /* ==================== تصميم صفحة الإحالات ==================== */
     .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; flex-shrink: 0; }
 
     .cyber-stat-box {
@@ -841,7 +835,6 @@
     .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
     .mini-copy-btn.copied { background: rgba(16, 185, 129, 0.25); border-color: #10b981; color: #34d399; }
 
-    /* ==================== تصميم صفحة المحفظة ==================== */
     .obsidian-vault-card {
       position: relative;
       background:
@@ -917,7 +910,6 @@
     .legendary-btn-cyan { width: 100%; padding: 13px 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%); color: #020712; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
     .legendary-btn-withdraw-open { width: 100%; padding: 13px 12px; border-radius: 14px; border: 1.5px solid #34d399; background: linear-gradient(135deg, #059669 0%, #10b981 55%, #047857 100%); color: #ffffff; font-size: 12.5px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35); }
 
-    /* ==================== الشريط السفلي المطور ==================== */
     .cyber-footer {
       position: absolute;
       bottom: 0;
@@ -959,7 +951,6 @@
     .cyber-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-top: 3px; white-space: nowrap; }
     .cyber-tab.active .cyber-label { color: #fde047; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
 
-    /* ==================== النوافذ المنبثقة ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1086,7 +1077,6 @@
 
   <div class="cyber-toast" id="cyber-toast"></div>
 
-  <!-- ==================== واجهة الاشتراك الإجباري داخل التطبيق فقط ==================== -->
   <div class="force-gate-overlay" id="force-join-modal">
     <div class="force-gate-card">
       <div class="force-gate-shield">
@@ -1098,7 +1088,7 @@
       <div class="force-gate-badge">MANDATORY CHANNEL ACCESS</div>
       <div class="force-gate-title">Join @ROL_TOKN Channel</div>
       <div class="force-gate-desc">
-        To unlock <b>ROL Mining</b>, subscribe to our official channel first. Leaving the channel locks access again until you rejoin.
+        To unlock <b>ROL Mining</b>, tap <b>Join Channel</b> first, stay on the channel, then return and tap <b>Verify Subscription</b> inside the app.
       </div>
 
       <div class="force-channel-box">
@@ -1120,13 +1110,12 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>I Have Joined — Unlock App</span>
+        <span>Verify Subscription</span>
       </button>
     </div>
   </div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
-    <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
       <div class="brand-title">ROL Mining</div>
@@ -1220,7 +1209,6 @@
       </div>
     </div>
 
-    <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
@@ -1363,7 +1351,6 @@
       </div>
     </div>
 
-    <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1429,7 +1416,6 @@
       </button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
@@ -1546,7 +1532,6 @@
       </div>
     </div>
 
-    <!-- ==================== الشريط السفلي المحسّن ==================== -->
     <div class="cyber-footer">
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
         <div class="cyber-box-wrap">
@@ -1637,7 +1622,6 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
       <div class="streak-banner" id="streak-badge">Check-in Streak: Day 1 / 30</div>
@@ -1653,7 +1637,6 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة قواعد المستويات ==================== -->
   <div class="modal-overlay" id="rules-modal" onclick="onOverlayClick(event, 'rules-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.45);">
       <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
@@ -1682,7 +1665,6 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة السحب المفتوحة ==================== -->
   <div class="modal-overlay" id="withdraw-modal" onclick="onOverlayClick(event, 'withdraw-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #10b981; box-shadow: 0 0 35px rgba(16, 185, 129, 0.3);">
       <h3 style="color: #34d399; font-size: 18px; margin-bottom: 8px;">Withdraw ROL</h3>
@@ -1698,7 +1680,6 @@
     </div>
   </div>
 
-  <!-- ==================== نافذة تنبيه المحفظة المستخدمة ==================== -->
   <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
       <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">Wallet Already Linked</h3>
@@ -1927,7 +1908,6 @@
       }
     }
 
-    // ==================== مستويات VIP: 400 للمجاني و +60 لكل مستوى بعده ====================
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
       let requiredHold = 0;
@@ -1983,15 +1963,10 @@
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
     const KEY_CHANNEL_JOINED = `rol_${uid}_joined_rol_tokn`;
-    const KEY_CHANNEL_LEFT_AT = `rol_${uid}_left_rol_tokn_at`;
-
-    // ==================== بوابة الاشتراك الإجباري داخل التطبيق فقط ====================
-    let channelJoinOpenedAt = 0;
+    const KEY_CHANNEL_OPENED_AT = `rol_${uid}_opened_rol_tokn_at`;
 
     function isChannelAccessGranted() {
-      const joinedFlag = localStorage.getItem(KEY_CHANNEL_JOINED) === 'true';
-      const leftAt = parseInt(localStorage.getItem(KEY_CHANNEL_LEFT_AT) || '0', 10);
-      return joinedFlag && leftAt === 0;
+      return localStorage.getItem(KEY_CHANNEL_JOINED) === 'true';
     }
 
     function enforceMandatoryChannelGate() {
@@ -2006,45 +1981,31 @@
 
     function openMandatoryChannel() {
       playSoundFX('click');
-      channelJoinOpenedAt = Date.now();
-      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
+      localStorage.setItem(KEY_CHANNEL_OPENED_AT, Date.now().toString());
       if (tg?.openTelegramLink) tg.openTelegramLink(REQUIRED_CHANNEL_URL);
       else window.open(REQUIRED_CHANNEL_URL, '_blank');
     }
 
     function verifyChannelSubscriptionInsideApp() {
       playSoundFX('click');
-      if (!channelJoinOpenedAt || (Date.now() - channelJoinOpenedAt < 1500)) {
-        showCyberToast('Tap Join Channel (@ROL_TOKN) first, then tap Verify inside the app', true);
+      const openedAt = parseInt(localStorage.getItem(KEY_CHANNEL_OPENED_AT) || '0', 10);
+      const elapsedSec = openedAt > 0 ? Math.floor((Date.now() - openedAt) / 1000) : 0;
+
+      if (!openedAt) {
+        showCyberToast('Tap Join Channel (@ROL_TOKN) first!', true);
         return;
       }
+      if (elapsedSec < 6) {
+        showCyberToast(`Stay on @ROL_TOKN for ${6 - elapsedSec}s, then tap Verify`, true);
+        return;
+      }
+
       localStorage.setItem(KEY_CHANNEL_JOINED, 'true');
-      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
       enforceMandatoryChannelGate();
       triggerRewardVisualBurst(0);
       showCyberToast('✓ Unlocked inside ROL Mining!');
     }
 
-    function lockChannelGateOnExit() {
-      if (localStorage.getItem(KEY_CHANNEL_JOINED) === 'true') {
-        localStorage.setItem(KEY_CHANNEL_LEFT_AT, Date.now().toString());
-        enforceMandatoryChannelGate();
-      }
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        lockChannelGateOnExit();
-      } else {
-        enforceMandatoryChannelGate();
-      }
-    });
-
-    window.addEventListener('focus', () => {
-      enforceMandatoryChannelGate();
-    });
-
-    // ==================== نظام السحب المفتوح وإرسال البيانات للمشرف ====================
     function openWithdrawModal() {
       playSoundFX('click');
       const addrInput = document.getElementById('withdraw-addr-input');
@@ -2422,7 +2383,6 @@
       }
     }
 
-    // ==================== 1. عجلة الحظ ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -2533,7 +2493,6 @@
       }, 4700);
     }
 
-    // ==================== 2. مزامنة التصفير عبر معامل URL ====================
     async function loadUserFromCloud() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -3062,6 +3021,10 @@
     }
 
     function handleMiningAction() {
+      if (!isChannelAccessGranted()) {
+        enforceMandatoryChannelGate();
+        return;
+      }
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
         playSoundFX('start');
