@@ -1088,7 +1088,7 @@
       <div class="force-gate-badge">MANDATORY CHANNEL ACCESS</div>
       <div class="force-gate-title">Join @ROL_TOKN Channel</div>
       <div class="force-gate-desc">
-        To unlock <b>ROL Mining</b>, tap <b>Join Channel</b> first, stay on the channel, then return and tap <b>Verify Subscription</b> inside the app.
+        To unlock <b>ROL Mining</b>, subscribe to our official channel first, then tap <b>Verify Subscription</b> right here.
       </div>
 
       <div class="force-channel-box">
@@ -1106,11 +1106,11 @@
         <span>Join Channel (@ROL_TOKN)</span>
       </button>
 
-      <button class="force-verify-btn" onclick="verifyChannelSubscriptionInsideApp()">
+      <button class="force-verify-btn" id="app-verify-channel-btn" onclick="verifyChannelSubscriptionInsideApp()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>Verify Subscription</span>
+        <span id="app-verify-channel-txt">Verify Subscription</span>
       </button>
     </div>
   </div>
@@ -1694,7 +1694,9 @@
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
-    const BOT_API_ENDPOINT = "https://fruit-titan-bot.onrender.com/api/withdraw";
+    const BOT_BASE_URL = "https://fruit-titan-bot.onrender.com";
+    const BOT_API_ENDPOINT = `${BOT_BASE_URL}/api/withdraw`;
+    const BOT_CHECK_CHANNEL_ENDPOINT = `${BOT_BASE_URL}/api/check-channel`;
     const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
 
@@ -1962,11 +1964,13 @@
     const KEY_REF_EARN = `rol_${uid}_ref_earn`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
-    const KEY_CHANNEL_JOINED = `rol_${uid}_joined_rol_tokn`;
-    const KEY_CHANNEL_OPENED_AT = `rol_${uid}_opened_rol_tokn_at`;
+    const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
+
+    // ==================== تحقق حقيقي عبر البوت في الخلفية بدون تحويل للشات ====================
+    let isCheckingChannel = false;
 
     function isChannelAccessGranted() {
-      return localStorage.getItem(KEY_CHANNEL_JOINED) === 'true';
+      return localStorage.getItem(KEY_CHANNEL_VERIFIED) === 'true';
     }
 
     function enforceMandatoryChannelGate() {
@@ -1979,32 +1983,74 @@
       }
     }
 
+    async function silentBackgroundChannelCheck() {
+      if (!userObj?.id || isCheckingChannel) return;
+      try {
+        const res = await fetch(`${BOT_CHECK_CHANNEL_ENDPOINT}?userId=${encodeURIComponent(userObj.id)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.joined === true) {
+            localStorage.setItem(KEY_CHANNEL_VERIFIED, 'true');
+            enforceMandatoryChannelGate();
+          } else {
+            localStorage.removeItem(KEY_CHANNEL_VERIFIED);
+            enforceMandatoryChannelGate();
+          }
+        }
+      } catch (e) {}
+    }
+
     function openMandatoryChannel() {
       playSoundFX('click');
-      localStorage.setItem(KEY_CHANNEL_OPENED_AT, Date.now().toString());
       if (tg?.openTelegramLink) tg.openTelegramLink(REQUIRED_CHANNEL_URL);
       else window.open(REQUIRED_CHANNEL_URL, '_blank');
     }
 
-    function verifyChannelSubscriptionInsideApp() {
+    async function verifyChannelSubscriptionInsideApp() {
       playSoundFX('click');
-      const openedAt = parseInt(localStorage.getItem(KEY_CHANNEL_OPENED_AT) || '0', 10);
-      const elapsedSec = openedAt > 0 ? Math.floor((Date.now() - openedAt) / 1000) : 0;
+      if (isCheckingChannel) return;
 
-      if (!openedAt) {
-        showCyberToast('Tap Join Channel (@ROL_TOKN) first!', true);
-        return;
-      }
-      if (elapsedSec < 6) {
-        showCyberToast(`Stay on @ROL_TOKN for ${6 - elapsedSec}s, then tap Verify`, true);
+      if (!userObj?.id) {
+        showCyberToast('Open inside Telegram to verify channel membership', true);
         return;
       }
 
-      localStorage.setItem(KEY_CHANNEL_JOINED, 'true');
-      enforceMandatoryChannelGate();
-      triggerRewardVisualBurst(0);
-      showCyberToast('✓ Unlocked inside ROL Mining!');
+      isCheckingChannel = true;
+      const btnTxt = document.getElementById('app-verify-channel-txt');
+      const prevTxt = btnTxt ? btnTxt.innerText : 'Verify Subscription';
+      if (btnTxt) btnTxt.innerText = 'Checking...';
+
+      try {
+        const res = await fetch(`${BOT_CHECK_CHANNEL_ENDPOINT}?userId=${encodeURIComponent(userObj.id)}`);
+        const data = res.ok ? await res.json() : { joined: false };
+
+        if (data && data.joined === true) {
+          localStorage.setItem(KEY_CHANNEL_VERIFIED, 'true');
+          enforceMandatoryChannelGate();
+          triggerRewardVisualBurst(0);
+          showCyberToast('✓ Channel verified! Welcome to ROL Mining');
+        } else {
+          localStorage.removeItem(KEY_CHANNEL_VERIFIED);
+          enforceMandatoryChannelGate();
+          showCyberToast('You have not joined @ROL_TOKN yet!', true);
+        }
+      } catch (e) {
+        showCyberToast('Verification failed, please try again', true);
+      } finally {
+        isCheckingChannel = false;
+        if (btnTxt) btnTxt.innerText = prevTxt;
+      }
     }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        silentBackgroundChannelCheck();
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      silentBackgroundChannelCheck();
+    });
 
     function openWithdrawModal() {
       playSoundFX('click');
@@ -3189,6 +3235,7 @@
       initRealTonConnect();
       loadUserFromCloud();
       enforceMandatoryChannelGate();
+      silentBackgroundChannelCheck();
     });
   </script>
 </body>
