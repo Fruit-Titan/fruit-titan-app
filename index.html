@@ -1760,8 +1760,8 @@
       } else {
         requiredHold = 45000 + (lvl - 51) * 2000;
       }
-      const cycleProfit = 500 + (lvl - 1) * 80;
-      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit: cycleProfit });
+      const dailyProfit = 500 + (lvl - 1) * 80;
+      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit });
     }
 
     function formatCleanNumber(num) {
@@ -2465,9 +2465,27 @@
     async function loadUserFromCloud() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
+        const globalResetRes = await fetch(`${FIREBASE_DB_URL}/config/global_reset_at.json`);
+        const globalResetAt = globalResetRes.ok ? (await globalResetRes.json()) : 0;
+
         const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
         if (!res.ok) return;
         const data = await res.json();
+
+        const localResetAck = parseInt(localStorage.getItem(`rol_${uid}_last_reset_ack`) || "0", 10);
+        if (typeof globalResetAt === "number" && globalResetAt > localResetAck) {
+          balance = 0;
+          startTime = 0;
+          isMining = false;
+          localStorage.setItem(KEY_BALANCE, "0");
+          localStorage.removeItem(KEY_START);
+          localStorage.setItem(`rol_${uid}_last_reset_ack`, globalResetAt.toString());
+          updateBalance();
+          renderMining();
+          await syncUserToCloud();
+          return;
+        }
+
         if (data && !data.error) {
           if (typeof data.balance === 'number') {
             balance = data.balance;
@@ -3084,7 +3102,7 @@
       } else {
         progressLine.style.width = '100%';
         timerVal.innerText = '00:00:00';
-        liveMinedVal.innerText = `+${cycleTotalReward.toLocaleString('en-US')} ROL`;
+        liveMinedVal.innerText = `+${formatCleanNumber(cycleTotalReward)} ROL`;
         mineTouchBtn.classList.add('claim-green-mode');
         mineBtnText.className = 'mine-btn-txt claim';
         mineBtnText.innerHTML = `
@@ -3092,7 +3110,7 @@
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           <span>${t.claim}</span>
-          <span class="claim-badge-chip">+${cycleTotalReward.toLocaleString('en-US')} ROL</span>
+          <span class="claim-badge-chip">+${formatCleanNumber(cycleTotalReward)} ROL</span>
         `;
         coinFxLayer.classList.add('active');
         ambientGlow.classList.add('active');
