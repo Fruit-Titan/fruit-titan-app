@@ -58,7 +58,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      z-index: 99999;
+      z-index: 999999;
       pointer-events: none;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
       opacity: 0;
@@ -67,6 +67,140 @@
 
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
+
+    /* ==================== واجهة الاشتراك الإجباري داخل التطبيق ==================== */
+    .force-gate-overlay {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(0, 240, 255, 0.24) 0%, transparent 55%),
+        radial-gradient(circle at 80% 82%, rgba(250, 204, 21, 0.16) 0%, transparent 50%),
+        rgba(2, 7, 18, 0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99998;
+      padding: 18px;
+    }
+
+    .force-gate-overlay.active { display: flex; }
+
+    .force-gate-card {
+      width: 100%;
+      max-width: 390px;
+      background: linear-gradient(155deg, rgba(13, 36, 80, 0.96) 0%, rgba(5, 14, 34, 0.98) 60%, rgba(2, 7, 18, 0.99) 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.65);
+      border-radius: 26px;
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 36px rgba(0, 240, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .force-gate-shield {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 12px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(250, 204, 21, 0.14));
+      border: 1.5px solid rgba(0, 240, 255, 0.55);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .force-gate-badge {
+      display: inline-block;
+      background: rgba(250, 204, 21, 0.14);
+      border: 1px solid rgba(250, 204, 21, 0.45);
+      color: #fde047;
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.4px;
+    }
+
+    .force-gate-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+      margin-bottom: 8px;
+    }
+
+    .force-gate-desc {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .force-channel-box {
+      background: rgba(2, 9, 24, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .force-channel-name {
+      font-size: 13px;
+      font-weight: 900;
+      color: #00f0ff;
+      font-family: ui-monospace, monospace;
+      direction: ltr;
+    }
+
+    .force-channel-sub {
+      font-size: 10.5px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .force-join-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+      color: #090500;
+      font-size: 13.5px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
+    }
+
+    .force-verify-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1.5px solid #00f0ff;
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35), rgba(0, 240, 255, 0.2));
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
+    }
 
     /* ==================== 1. الصفحة الرئيسية ==================== */
     #view-home {
@@ -95,7 +229,6 @@
     .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
     @keyframes ambientBreathe { 0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; } 50% { transform: translateX(-50%) scale(1.12); opacity: 1; } }
 
-    /* ==================== ضبط المواضع بدقة متطابقة مع الصورة ==================== */
     .brand-title {
       position: absolute;
       top: 1.85%;
@@ -392,7 +525,6 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; direction: ltr; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
-    /* ==================== لوحة التعدين المنظمة ==================== */
     .live-status-pill {
       position: absolute;
       top: 57.6%;
@@ -969,6 +1101,45 @@
 <body>
 
   <div class="cyber-toast" id="cyber-toast"></div>
+
+  <!-- ==================== واجهة الاشتراك الإجباري داخل التطبيق ==================== -->
+  <div class="force-gate-overlay" id="force-join-modal">
+    <div class="force-gate-card">
+      <div class="force-gate-shield">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4" stroke="#fde047" stroke-width="2.4"/>
+        </svg>
+      </div>
+      <div class="force-gate-badge">MANDATORY CHANNEL ACCESS</div>
+      <div class="force-gate-title">Join @ROL_TOKN Channel</div>
+      <div class="force-gate-desc">
+        To unlock <b>ROL Mining</b>, you must subscribe to our official channel first. If you leave the channel later, access will be locked again until you rejoin.
+      </div>
+
+      <div class="force-channel-box">
+        <div style="text-align: left;">
+          <div class="force-channel-name">https://t.me/ROL_TOKN</div>
+          <div class="force-channel-sub">Official ROL Announcements & Updates</div>
+        </div>
+        <span style="font-size: 16px;">⚡</span>
+      </div>
+
+      <button class="force-join-btn" onclick="openMandatoryChannel()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+        <span>Join Channel (@ROL_TOKN)</span>
+      </button>
+
+      <button class="force-verify-btn" onclick="verifyChannelSubscriptionInsideApp()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span>I Have Joined — Unlock App</span>
+      </button>
+    </div>
+  </div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
     <!-- ==================== 1. الصفحة الرئيسية ==================== -->
@@ -1551,6 +1722,7 @@
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
+    const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
 
     let toastTimer = null;
@@ -1821,6 +1993,67 @@
     const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
+    const KEY_CHANNEL_JOINED = `rol_${uid}_joined_rol_tokn`;
+    const KEY_CHANNEL_LEFT_AT = `rol_${uid}_left_rol_tokn_at`;
+
+    // ==================== بوابة الاشتراك الإجباري داخل التطبيق ====================
+    let clickedJoinChannelTimestamp = 0;
+
+    function isChannelAccessGranted() {
+      const joinedFlag = localStorage.getItem(KEY_CHANNEL_JOINED) === 'true';
+      const leftAt = parseInt(localStorage.getItem(KEY_CHANNEL_LEFT_AT) || '0', 10);
+      return joinedFlag && leftAt === 0;
+    }
+
+    function enforceMandatoryChannelGate() {
+      const gate = document.getElementById('force-join-modal');
+      if (!gate) return;
+      if (!isChannelAccessGranted()) {
+        gate.classList.add('active');
+      } else {
+        gate.classList.remove('active');
+      }
+    }
+
+    function openMandatoryChannel() {
+      playSoundFX('click');
+      clickedJoinChannelTimestamp = Date.now();
+      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
+      if (tg?.openTelegramLink) tg.openTelegramLink(REQUIRED_CHANNEL_URL);
+      else window.open(REQUIRED_CHANNEL_URL, '_blank');
+    }
+
+    function verifyChannelSubscriptionInsideApp() {
+      playSoundFX('click');
+      if (!clickedJoinChannelTimestamp || (Date.now() - clickedJoinChannelTimestamp < 2500)) {
+        showCyberToast('Please open https://t.me/ROL_TOKN and join first!', true);
+        return;
+      }
+      localStorage.setItem(KEY_CHANNEL_JOINED, 'true');
+      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
+      enforceMandatoryChannelGate();
+      triggerRewardVisualBurst(0);
+      showCyberToast('✓ Channel verified! Welcome to ROL Mining');
+    }
+
+    function lockChannelGateOnExit() {
+      if (localStorage.getItem(KEY_CHANNEL_JOINED) === 'true') {
+        localStorage.setItem(KEY_CHANNEL_LEFT_AT, Date.now().toString());
+        enforceMandatoryChannelGate();
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        lockChannelGateOnExit();
+      } else {
+        enforceMandatoryChannelGate();
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      enforceMandatoryChannelGate();
+    });
 
     if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
       localStorage.removeItem(KEY_IS_VERIFIED);
@@ -3129,9 +3362,11 @@
     updateSpinUI();
     updateNotificationDots();
     renderMining();
+    enforceMandatoryChannelGate();
     window.addEventListener('DOMContentLoaded', () => {
       initRealTonConnect();
       loadUserFromCloud();
+      enforceMandatoryChannelGate();
     });
   </script>
 </body>
