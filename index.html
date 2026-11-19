@@ -1142,7 +1142,7 @@
 
       <div class="tasks-section-divider">
         <span id="tasks-list-heading">Available Tasks</span>
-        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 3</span>
+        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 4</span>
       </div>
 
       <div id="tasks-list-container">
@@ -1154,41 +1154,56 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t1-name">Join Official ROL Channel</div>
-              <div class="task-reward">+20 ROL</div>
+              <div class="task-name" id="t1-name">Join ROL Community Group</div>
+              <div class="task-reward">+50 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">Start</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t2-name">Follow Project on X</div>
-              <div class="task-reward">+15 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">Start</button>
+          <button class="action-pill-btn" id="btn-task-1" onclick="completeGroupTask()">Start</button>
         </div>
 
         <div class="task-card">
           <div class="task-info">
             <div class="task-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t3-name">Connect Your TON Wallet</div>
-              <div class="task-reward">+50 ROL</div>
+              <div class="task-name" id="t2-name">3 Verified Referrals (Wallet Verified)</div>
+              <div class="task-reward">+100 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">Verify</button>
+          <button class="action-pill-btn" id="btn-task-2" onclick="completeReferralMilestoneTask(2, 3, 100)">0/3</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t3-name">10 Verified Referrals (Wallet Verified)</div>
+              <div class="task-reward">+300 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-3" onclick="completeReferralMilestoneTask(3, 10, 300)">0/10</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t4-name">20 Verified Referrals (Wallet Verified)</div>
+              <div class="task-reward">+500 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-4" onclick="completeReferralMilestoneTask(4, 20, 500)">0/20</button>
         </div>
       </div>
     </div>
@@ -1536,6 +1551,7 @@
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
+    const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -1851,11 +1867,11 @@
         spinLaunch: "Spin the Wheel Now",
         noSpins: "No Spins Available",
         tasksHeading: "Available Tasks",
-        t1Name: "Join Official ROL Channel",
-        t2Name: "Follow Project on X",
-        t3Name: "Connect Your TON Wallet",
+        t1Name: "Join ROL Community Group",
+        t2Name: "3 Verified Referrals (Wallet Verified)",
+        t3Name: "10 Verified Referrals (Wallet Verified)",
+        t4Name: "20 Verified Referrals (Wallet Verified)",
         doBtn: "Start",
-        verifyBtn: "Verify",
         doneBtn: "Done ✓",
         pgRefsTitle: "Referral Network",
         pgRefsSub: "Invite friends to earn ROL tokens and free Fortune Wheel spins",
@@ -1940,11 +1956,11 @@
         spinLaunch: "أدر العجلة الآن",
         noSpins: "لا توجد لفات متاحة حالياً",
         tasksHeading: "المهام المتاحة",
-        t1Name: "انضم لقناة ROL الرسمية",
-        t2Name: "تابع حساب المشروع على X",
-        t3Name: "اربط محفظة TON الخاصة بك",
+        t1Name: "الاشتراك في مجموعة ROL الرسمية",
+        t2Name: "جلب 3 إحالات صحيحة (محافظ موثقة)",
+        t3Name: "جلب 10 إحالات صحيحة (محافظ موثقة)",
+        t4Name: "جلب 20 إحالة صحيحة (محافظ موثقة)",
         doBtn: "تنفيذ",
-        verifyBtn: "تحقق",
         doneBtn: "مكتمل ✓",
         pgRefsTitle: "شبكة الإحالات",
         pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
@@ -2029,11 +2045,11 @@
         spinLaunch: "Крутить колесо",
         noSpins: "Нет доступных вращений",
         tasksHeading: "Доступные задания",
-        t1Name: "Подписаться на канал ROL",
-        t2Name: "Подписаться на X (Twitter)",
-        t3Name: "Привязать TON-кошелёк",
+        t1Name: "Вступить в группу ROL",
+        t2Name: "3 подтверждённых реферала",
+        t3Name: "10 подтверждённых рефералов",
+        t4Name: "20 подтверждённых рефералов",
         doBtn: "Начать",
-        verifyBtn: "Проверить",
         doneBtn: "Готово ✓",
         pgRefsTitle: "Реферальная сеть",
         pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
@@ -2760,6 +2776,7 @@
       document.getElementById('t1-name').innerText = t.t1Name;
       document.getElementById('t2-name').innerText = t.t2Name;
       document.getElementById('t3-name').innerText = t.t3Name;
+      document.getElementById('t4-name').innerText = t.t4Name;
       refreshTasksUI();
       updateSpinUI();
 
@@ -2797,15 +2814,24 @@
       const b1 = document.getElementById('btn-task-1');
       const b2 = document.getElementById('btn-task-2');
       const b3 = document.getElementById('btn-task-3');
+      const b4 = document.getElementById('btn-task-4');
 
-      if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
-      else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
-
-      if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
-      else { b2.innerText = t.doBtn; b2.classList.remove('done'); }
-
-      if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
-      else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
+      if (b1) {
+        if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
+        else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
+      }
+      if (b2) {
+        if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
+        else { b2.innerText = `${refCount}/3`; b2.classList.remove('done'); }
+      }
+      if (b3) {
+        if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
+        else { b3.innerText = `${refCount}/10`; b3.classList.remove('done'); }
+      }
+      if (b4) {
+        if (completedTasks.includes(4)) { b4.innerText = t.doneBtn; b4.classList.add('done'); }
+        else { b4.innerText = `${refCount}/20`; b4.classList.remove('done'); }
+      }
 
       const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
       const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
@@ -2813,37 +2839,39 @@
       if (pill) pill.innerText = `${doneCards} / ${totalCards}`;
     }
 
-    function completeTask(taskId, reward, url) {
+    function completeGroupTask() {
       playSoundFX('click');
-      if (completedTasks.includes(taskId)) return;
-      if (url) {
-        tg?.openTelegramLink && url.includes('t.me') ? tg.openTelegramLink(url) : window.open(url, '_blank');
-      }
+      if (completedTasks.includes(1)) return;
+      if (tg?.openTelegramLink) tg.openTelegramLink(GROUP_INVITE_URL);
+      else window.open(GROUP_INVITE_URL, '_blank');
+
       setTimeout(() => {
-        if (!completedTasks.includes(taskId)) {
-          completedTasks.push(taskId);
+        if (!completedTasks.includes(1)) {
+          completedTasks.push(1);
           localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-          balance += reward;
+          balance += 50;
           updateBalance();
           refreshTasksUI();
-          triggerRewardVisualBurst(reward);
+          triggerRewardVisualBurst(50);
+          showCyberToast('+50 ROL for joining ROL_TOKN_GROUP!');
         }
       }, 1500);
     }
 
-    function completeWalletTask() {
+    function completeReferralMilestoneTask(taskId, requiredRefs, reward) {
       playSoundFX('click');
-      if (completedTasks.includes(3)) return;
-      if (!connectedWalletAddr) {
-        switchTab('wallet');
+      if (completedTasks.includes(taskId)) return;
+      if (refCount < requiredRefs) {
+        showCyberToast(`Need ${requiredRefs} verified referrals (${refCount}/${requiredRefs})`, true);
         return;
       }
-      completedTasks.push(3);
+      completedTasks.push(taskId);
       localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-      balance += 50;
+      balance += reward;
       updateBalance();
       refreshTasksUI();
-      triggerRewardVisualBurst(50);
+      triggerRewardVisualBurst(reward);
+      showCyberToast(`+${reward} ROL claimed for ${requiredRefs} verified referrals!`);
     }
 
     let tickCounter = 0;
