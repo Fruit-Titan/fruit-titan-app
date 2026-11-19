@@ -449,8 +449,16 @@
     .live-timer-overlay {
       position: absolute;
       top: 64.9%;
-      left: 48.2%;
+      left: 50%;
       transform: translateX(-50%);
+      width: 66%;
+      height: 2.5%;
+      background: radial-gradient(ellipse at center, #03122c 68%, rgba(3, 18, 44, 0.92) 90%, transparent 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       font-family: ui-monospace, monospace;
       font-size: 12px;
       font-weight: 900;
@@ -458,7 +466,7 @@
       text-shadow: 0 0 8px rgba(250, 204, 21, 0.85);
       letter-spacing: 1.1px;
       direction: ltr;
-      z-index: 20;
+      z-index: 25;
       pointer-events: none;
       white-space: nowrap;
     }
@@ -469,7 +477,7 @@
     .mine-touch-btn {
       position: absolute;
       top: 78.1%;
-      left: 50.5%;
+      left: 50%;
       transform: translateX(-50%);
       width: 90%;
       height: 8.2%;
@@ -1040,7 +1048,13 @@
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
 
-      <div class="live-timer-overlay" id="timer-val">10:00:00</div>
+      <div class="live-timer-overlay">
+        <span id="timer-val">10:00:00</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.8));">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
 
       <div class="rules-touch-zone" onclick="openRulesModal()">
         <span class="rules-label" id="txt-rules-btn">Mining Tier Rules</span>
