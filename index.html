@@ -98,16 +98,15 @@
     /* ==================== ضبط المواضع بدقة متطابقة مع الصورة ==================== */
     .brand-title {
       position: absolute;
-      top: 1.75%;
-      left: 5.5%;
+      top: 1.85%;
+      left: 7.2%;
       display: flex;
       align-items: center;
-      gap: 4px;
       font-size: 13.5px;
       font-weight: 900;
-      letter-spacing: 0.25px;
+      letter-spacing: 0.4px;
       color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.85);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
       z-index: 20;
       pointer-events: none;
       white-space: nowrap;
@@ -243,20 +242,20 @@
 
     .rate-container {
       position: absolute;
-      top: 6.4%;
-      left: 41.5%;
-      width: 33.5%;
-      height: 8.8%;
+      top: 7.2%;
+      left: 41.2%;
+      width: 32.5%;
+      height: 8.6%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       pointer-events: none;
       z-index: 20;
     }
 
-    .rate-title { font-size: 9.5px; font-weight: 800; color: #cbd5e1; padding-left: 16px; white-space: nowrap; }
-    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 3px; direction: ltr; white-space: nowrap; }
+    .rate-title { font-size: 9.5px; font-weight: 800; color: #cbd5e1; white-space: nowrap; }
+    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
 
     .gift-touch-zone {
       position: absolute;
@@ -975,13 +974,7 @@
     <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
-      <div class="brand-title">
-        <span>ROL Mining</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" style="flex-shrink: 0; filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.85));">
-          <circle cx="12" cy="12" r="10.5" fill="#0ea5e9" stroke="#bae6fd" stroke-width="1.5"/>
-          <polyline points="7.5 12.5 10.5 15.5 16.5 9" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
+      <div class="brand-title">ROL Mining</div>
 
       <div class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">
         <svg id="icon-sound-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
