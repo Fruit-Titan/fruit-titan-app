@@ -1532,7 +1532,6 @@
   </div>
 
   <script>
-    const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
@@ -2177,7 +2176,6 @@
         lastFreeSpinTime = now;
         localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
         localStorage.setItem(KEY_LAST_FREE_SPIN, lastFreeSpinTime.toString());
-        syncUserToCloud();
       }
     }
 
@@ -2263,7 +2261,6 @@
         if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         isWheelSpinning = false;
         updateSpinUI();
-        syncUserToCloud();
       }, 4700);
     }
 
@@ -2402,197 +2399,31 @@
       renderMining();
       triggerRewardVisualBurst(0);
       showCyberToast(dictionary[curLang].toastVerified);
-
-      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
-      if (referrerId && referrerId !== uid) {
-        await confirmReferralBonusInCloud(referrerId);
-      }
-      await syncUserToCloud();
     }
 
-    // ==================== 3. مزامنة Firebase ====================
-    async function publishVipConfigToDatabase() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-      try {
-        const tiersMap = {};
-        VIP_TIERS.forEach(t => {
-          tiersMap[`vip_${t.level}`] = {
-            level: t.level,
-            requiredWalletROL: t.requiredHold,
-            dailyProfit24hROL: t.dailyProfit,
-            sessionProfit10hROL: Number((t.dailyProfit * (10 / 24)).toFixed(2))
-          };
-        });
-        await fetch(`${FIREBASE_DB_URL}/config/vip_tiers.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(tiersMap)
-        });
-      } catch (e) {}
-    }
-
-    async function syncUserToCloud() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
-      try {
-        const tierInfo = getCurrentTierObj();
-        const payload = {
-          uid: uid,
-          username: userObj?.username || "",
-          balance: Number(formatCleanNumber(balance)),
-          vip: currentVip,
-          dailyProfit24h: tierInfo.dailyProfit,
-          sessionProfit10h: getCycleRewardAmount(),
-          onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
-          wallet: connectedWalletAddr || "",
-          isVerified: isAccountVerified,
-          verifyProof: localStorage.getItem(KEY_VERIFY_PROOF) || "",
-          firstFreeUsed: firstFreeUsed,
-          spinTickets: spinTickets,
-          startTime: startTime,
-          checkinDay: checkinDay,
-          lastCheckinTime: lastCheckinTime,
-          completedTasks: completedTasks,
-          updatedAt: Date.now()
-        };
-        await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {}
-    }
-
+    // ==================== 3. مزامنة التصفير عبر معامل URL ====================
     async function loadUserFromCloud() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
-        const globalResetRes = await fetch(`${FIREBASE_DB_URL}/config/global_reset_at.json`);
-        const globalResetAt = globalResetRes.ok ? (await globalResetRes.json()) : 0;
+        const urlParams = new URLSearchParams(window.location.search);
+        let resetParam = parseInt(urlParams.get('reset') || '0', 10);
 
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
-        if (!res.ok) return;
-        const data = await res.json();
+        if (!resetParam && startParam && startParam.includes('reset_')) {
+          const match = startParam.match(/reset_(\d+)/);
+          if (match && match[1]) resetParam = parseInt(match[1], 10);
+        }
 
-        const localResetAck = parseInt(localStorage.getItem(`rol_${uid}_last_reset_ack`) || "0", 10);
-        if (typeof globalResetAt === "number" && globalResetAt > localResetAck) {
+        const ackKey = `rol_${uid}_last_reset_ack`;
+        const lastAck = parseInt(localStorage.getItem(ackKey) || '0', 10);
+
+        if (resetParam > 0 && resetParam > lastAck) {
           balance = 0;
           startTime = 0;
           isMining = false;
-          localStorage.setItem(KEY_BALANCE, "0");
+          localStorage.setItem(KEY_BALANCE, '0');
           localStorage.removeItem(KEY_START);
-          localStorage.setItem(`rol_${uid}_last_reset_ack`, globalResetAt.toString());
+          localStorage.setItem(ackKey, resetParam.toString());
           updateBalance();
           renderMining();
-          await syncUserToCloud();
-          return;
-        }
-
-        if (data && !data.error) {
-          if (typeof data.balance === 'number') {
-            balance = data.balance;
-            updateBalance();
-            if (data.balance === 0 && !data.startTime) {
-              startTime = 0;
-              isMining = false;
-              localStorage.removeItem(KEY_START);
-              renderMining();
-            }
-          }
-          if (typeof data.isVerified === 'boolean') {
-            if (data.isVerified && data.verifyProof) {
-              isAccountVerified = true;
-              localStorage.setItem(KEY_IS_VERIFIED, 'true');
-              localStorage.setItem(KEY_VERIFY_PROOF, data.verifyProof);
-            } else {
-              isAccountVerified = false;
-              localStorage.removeItem(KEY_IS_VERIFIED);
-              localStorage.removeItem(KEY_VERIFY_PROOF);
-            }
-            updateVerificationUI();
-            renderMining();
-          }
-          if (typeof data.firstFreeUsed === 'boolean') {
-            firstFreeUsed = data.firstFreeUsed;
-            localStorage.setItem(KEY_FIRST_FREE_USED, firstFreeUsed ? 'true' : 'false');
-          }
-          if (typeof data.spinTickets === 'number') {
-            spinTickets = data.spinTickets;
-            localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
-            updateSpinUI();
-          }
-          if (typeof data.startTime === 'number' && data.startTime > 0 && startTime === 0) {
-            startTime = data.startTime;
-            localStorage.setItem(KEY_START, startTime.toString());
-            isMining = true;
-            renderMining();
-          }
-          if (typeof data.refCount === 'number') {
-            refCount = data.refCount;
-            localStorage.setItem(KEY_REF_COUNT, refCount.toString());
-          }
-          if (typeof data.refEarn === 'number') {
-            refEarn = data.refEarn;
-            localStorage.setItem(KEY_REF_EARN, refEarn.toString());
-          }
-        } else if (data === null) {
-          balance = 0;
-          updateBalance();
-          if (startParam && startParam.startsWith("ref_")) {
-            const referrerId = startParam.replace("ref_", "");
-            if (referrerId && referrerId !== uid) {
-              localStorage.setItem(KEY_REFERRED_BY, referrerId);
-            }
-          }
-          await syncUserToCloud();
-        }
-      } catch (e) {}
-    }
-
-    async function confirmReferralBonusInCloud(referrerId) {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-      try {
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
-        if (!res.ok) return;
-        const refUser = await res.json();
-        if (refUser && !refUser.error) {
-          const newCount = (refUser.refCount || 0) + 1;
-          const newEarn = (refUser.refEarn || 0) + 60;
-          const newBal = (refUser.balance || 0) + 60;
-          const newSpins = (refUser.spinTickets || 0) + 1;
-          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              refCount: newCount,
-              refEarn: newEarn,
-              balance: newBal,
-              spinTickets: newSpins
-            })
-          });
-        }
-      } catch (e) {}
-    }
-
-    async function creditReferrerMiningCommission(minedAmount) {
-      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
-      if (!referrerId || referrerId === uid || !isAccountVerified) return;
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-
-      const commission = Number((minedAmount * 0.05).toFixed(2));
-      if (commission <= 0) return;
-
-      try {
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
-        if (!res.ok) return;
-        const refUser = await res.json();
-        if (refUser && !refUser.error) {
-          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              refEarn: (refUser.refEarn || 0) + commission,
-              balance: (refUser.balance || 0) + commission
-            })
-          });
         }
       } catch (e) {}
     }
@@ -2638,21 +2469,6 @@
       const localOwner = localStorage.getItem(localBoundKey);
       if (localOwner && localOwner !== uid && localOwner !== "guest_miner") return false;
 
-      if (FIREBASE_DB_URL && !FIREBASE_DB_URL.includes("your-project") && uid !== "guest_miner") {
-        try {
-          const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
-          if (res.ok) {
-            const ownerUid = await res.json();
-            if (ownerUid && typeof ownerUid === "string" && ownerUid !== uid && ownerUid !== "guest_miner") return false;
-            await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(uid)
-            });
-          }
-        } catch (e) {}
-      }
-
       localStorage.setItem(localBoundKey, uid);
       return true;
     }
@@ -2686,7 +2502,6 @@
 
       currentVip = matchedVip;
       updateVIPDisplay();
-      syncUserToCloud();
     }
 
     function initRealTonConnect() {
@@ -2740,7 +2555,6 @@
               currentVip = 1;
               updateVIPDisplay();
               updateWalletButtonUI();
-              syncUserToCloud();
             }
           });
         }
@@ -3013,7 +2827,6 @@
           updateBalance();
           refreshTasksUI();
           triggerRewardVisualBurst(reward);
-          syncUserToCloud();
         }
       }, 1500);
     }
@@ -3031,7 +2844,6 @@
       updateBalance();
       refreshTasksUI();
       triggerRewardVisualBurst(50);
-      syncUserToCloud();
     }
 
     let tickCounter = 0;
@@ -3134,7 +2946,6 @@
         for (let i = 0; i < 14; i++) setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 35);
         spawnPickaxeSpark();
         renderMining();
-        syncUserToCloud();
       } else {
         const elapsed = Date.now() - startTime;
         if (elapsed >= CYCLE) {
@@ -3150,13 +2961,11 @@
             firstFreeUsed = true;
             localStorage.setItem(KEY_FIRST_FREE_USED, 'true');
           }
-          creditReferrerMiningCommission(reward);
 
           isMining = false;
           startTime = 0;
           localStorage.removeItem(KEY_START);
           renderMining();
-          syncUserToCloud();
           lock = false;
         } else {
           playSoundFX('click');
@@ -3249,7 +3058,6 @@
         lastCheckinTime = Date.now();
         localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
         localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
-        syncUserToCloud();
         renderDaysGrid();
       }
     }
@@ -3295,7 +3103,6 @@
     renderMining();
     window.addEventListener('DOMContentLoaded', () => {
       initRealTonConnect();
-      publishVipConfigToDatabase();
       loadUserFromCloud();
     });
   </script>
