@@ -58,7 +58,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      z-index: 999999;
+      z-index: 99999;
       pointer-events: none;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
       opacity: 0;
@@ -67,140 +67,6 @@
 
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
-
-    /* ==================== واجهة الاشتراك الإجباري داخل التطبيق ==================== */
-    .force-gate-overlay {
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(0, 240, 255, 0.24) 0%, transparent 55%),
-        radial-gradient(circle at 80% 82%, rgba(250, 204, 21, 0.16) 0%, transparent 50%),
-        rgba(2, 7, 18, 0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 99998;
-      padding: 18px;
-    }
-
-    .force-gate-overlay.active { display: flex; }
-
-    .force-gate-card {
-      width: 100%;
-      max-width: 390px;
-      background: linear-gradient(155deg, rgba(13, 36, 80, 0.96) 0%, rgba(5, 14, 34, 0.98) 60%, rgba(2, 7, 18, 0.99) 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.65);
-      border-radius: 26px;
-      padding: 22px 18px;
-      text-align: center;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 36px rgba(0, 240, 255, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .force-gate-shield {
-      width: 62px;
-      height: 62px;
-      margin: 0 auto 12px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(250, 204, 21, 0.14));
-      border: 1.5px solid rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .force-gate-badge {
-      display: inline-block;
-      background: rgba(250, 204, 21, 0.14);
-      border: 1px solid rgba(250, 204, 21, 0.45);
-      color: #fde047;
-      font-size: 10.5px;
-      font-weight: 900;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      letter-spacing: 0.4px;
-    }
-
-    .force-gate-title {
-      font-size: 19px;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
-      margin-bottom: 8px;
-    }
-
-    .force-gate-desc {
-      font-size: 12px;
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .force-channel-box {
-      background: rgba(2, 9, 24, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .force-channel-name {
-      font-size: 13px;
-      font-weight: 900;
-      color: #00f0ff;
-      font-family: ui-monospace, monospace;
-      direction: ltr;
-    }
-
-    .force-channel-sub {
-      font-size: 10.5px;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-
-    .force-join-btn {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
-      color: #090500;
-      font-size: 13.5px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
-    }
-
-    .force-verify-btn {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
-      border: 1.5px solid #00f0ff;
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35), rgba(0, 240, 255, 0.2));
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
-    }
 
     /* ==================== 1. الصفحة الرئيسية ==================== */
     #view-home {
@@ -229,6 +95,7 @@
     .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
     @keyframes ambientBreathe { 0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; } 50% { transform: translateX(-50%) scale(1.12); opacity: 1; } }
 
+    /* ==================== ضبط المواضع بدقة متطابقة مع الصورة ==================== */
     .brand-title {
       position: absolute;
       top: 1.85%;
@@ -525,6 +392,7 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; direction: ltr; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
+    /* ==================== لوحة التعدين المنظمة ==================== */
     .live-status-pill {
       position: absolute;
       top: 57.6%;
@@ -1102,45 +970,6 @@
 
   <div class="cyber-toast" id="cyber-toast"></div>
 
-  <!-- ==================== واجهة الاشتراك الإجباري داخل التطبيق ==================== -->
-  <div class="force-gate-overlay" id="force-join-modal">
-    <div class="force-gate-card">
-      <div class="force-gate-shield">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="M9 12l2 2 4-4" stroke="#fde047" stroke-width="2.4"/>
-        </svg>
-      </div>
-      <div class="force-gate-badge">MANDATORY CHANNEL ACCESS</div>
-      <div class="force-gate-title">Join @ROL_TOKN Channel</div>
-      <div class="force-gate-desc">
-        To unlock <b>ROL Mining</b>, you must subscribe to our official channel first. If you leave the channel later, access will be locked again until you rejoin.
-      </div>
-
-      <div class="force-channel-box">
-        <div style="text-align: left;">
-          <div class="force-channel-name">https://t.me/ROL_TOKN</div>
-          <div class="force-channel-sub">Official ROL Announcements & Updates</div>
-        </div>
-        <span style="font-size: 16px;">⚡</span>
-      </div>
-
-      <button class="force-join-btn" onclick="openMandatoryChannel()">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-        </svg>
-        <span>Join Channel (@ROL_TOKN)</span>
-      </button>
-
-      <button class="force-verify-btn" onclick="verifyChannelSubscriptionInsideApp()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        <span>I Have Joined — Unlock App</span>
-      </button>
-    </div>
-  </div>
-
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
     <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
@@ -1313,7 +1142,7 @@
 
       <div class="tasks-section-divider">
         <span id="tasks-list-heading">Available Tasks</span>
-        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 4</span>
+        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 3</span>
       </div>
 
       <div id="tasks-list-container">
@@ -1325,56 +1154,41 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t1-name">Join ROL Community Group</div>
+              <div class="task-name" id="t1-name">Join Official ROL Channel</div>
+              <div class="task-reward">+20 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">Start</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t2-name">Follow Project on X</div>
+              <div class="task-reward">+15 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">Start</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t3-name">Connect Your TON Wallet</div>
               <div class="task-reward">+50 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-1" onclick="completeGroupTask()">Start</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t2-name">3 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+100 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-2" onclick="completeReferralMilestoneTask(2, 3, 100)">0/3</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t3-name">10 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+300 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-3" onclick="completeReferralMilestoneTask(3, 10, 300)">0/10</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t4-name">20 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+500 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-4" onclick="completeReferralMilestoneTask(4, 20, 500)">0/20</button>
+          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">Verify</button>
         </div>
       </div>
     </div>
@@ -1722,8 +1536,6 @@
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
-    const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
-    const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -1993,67 +1805,6 @@
     const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
-    const KEY_CHANNEL_JOINED = `rol_${uid}_joined_rol_tokn`;
-    const KEY_CHANNEL_LEFT_AT = `rol_${uid}_left_rol_tokn_at`;
-
-    // ==================== بوابة الاشتراك الإجباري داخل التطبيق ====================
-    let clickedJoinChannelTimestamp = 0;
-
-    function isChannelAccessGranted() {
-      const joinedFlag = localStorage.getItem(KEY_CHANNEL_JOINED) === 'true';
-      const leftAt = parseInt(localStorage.getItem(KEY_CHANNEL_LEFT_AT) || '0', 10);
-      return joinedFlag && leftAt === 0;
-    }
-
-    function enforceMandatoryChannelGate() {
-      const gate = document.getElementById('force-join-modal');
-      if (!gate) return;
-      if (!isChannelAccessGranted()) {
-        gate.classList.add('active');
-      } else {
-        gate.classList.remove('active');
-      }
-    }
-
-    function openMandatoryChannel() {
-      playSoundFX('click');
-      clickedJoinChannelTimestamp = Date.now();
-      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
-      if (tg?.openTelegramLink) tg.openTelegramLink(REQUIRED_CHANNEL_URL);
-      else window.open(REQUIRED_CHANNEL_URL, '_blank');
-    }
-
-    function verifyChannelSubscriptionInsideApp() {
-      playSoundFX('click');
-      if (!clickedJoinChannelTimestamp || (Date.now() - clickedJoinChannelTimestamp < 2500)) {
-        showCyberToast('Please open https://t.me/ROL_TOKN and join first!', true);
-        return;
-      }
-      localStorage.setItem(KEY_CHANNEL_JOINED, 'true');
-      localStorage.removeItem(KEY_CHANNEL_LEFT_AT);
-      enforceMandatoryChannelGate();
-      triggerRewardVisualBurst(0);
-      showCyberToast('✓ Channel verified! Welcome to ROL Mining');
-    }
-
-    function lockChannelGateOnExit() {
-      if (localStorage.getItem(KEY_CHANNEL_JOINED) === 'true') {
-        localStorage.setItem(KEY_CHANNEL_LEFT_AT, Date.now().toString());
-        enforceMandatoryChannelGate();
-      }
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        lockChannelGateOnExit();
-      } else {
-        enforceMandatoryChannelGate();
-      }
-    });
-
-    window.addEventListener('focus', () => {
-      enforceMandatoryChannelGate();
-    });
 
     if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
       localStorage.removeItem(KEY_IS_VERIFIED);
@@ -2100,11 +1851,11 @@
         spinLaunch: "Spin the Wheel Now",
         noSpins: "No Spins Available",
         tasksHeading: "Available Tasks",
-        t1Name: "Join ROL Community Group",
-        t2Name: "3 Verified Referrals (Wallet Verified)",
-        t3Name: "10 Verified Referrals (Wallet Verified)",
-        t4Name: "20 Verified Referrals (Wallet Verified)",
+        t1Name: "Join Official ROL Channel",
+        t2Name: "Follow Project on X",
+        t3Name: "Connect Your TON Wallet",
         doBtn: "Start",
+        verifyBtn: "Verify",
         doneBtn: "Done ✓",
         pgRefsTitle: "Referral Network",
         pgRefsSub: "Invite friends to earn ROL tokens and free Fortune Wheel spins",
@@ -2189,11 +1940,11 @@
         spinLaunch: "أدر العجلة الآن",
         noSpins: "لا توجد لفات متاحة حالياً",
         tasksHeading: "المهام المتاحة",
-        t1Name: "الاشتراك في مجموعة ROL الرسمية",
-        t2Name: "جلب 3 إحالات صحيحة (محافظ موثقة)",
-        t3Name: "جلب 10 إحالات صحيحة (محافظ موثقة)",
-        t4Name: "جلب 20 إحالة صحيحة (محافظ موثقة)",
+        t1Name: "انضم لقناة ROL الرسمية",
+        t2Name: "تابع حساب المشروع على X",
+        t3Name: "اربط محفظة TON الخاصة بك",
         doBtn: "تنفيذ",
+        verifyBtn: "تحقق",
         doneBtn: "مكتمل ✓",
         pgRefsTitle: "شبكة الإحالات",
         pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
@@ -2278,11 +2029,11 @@
         spinLaunch: "Крутить колесо",
         noSpins: "Нет доступных вращений",
         tasksHeading: "Доступные задания",
-        t1Name: "Вступить в группу ROL",
-        t2Name: "3 подтверждённых реферала",
-        t3Name: "10 подтверждённых рефералов",
-        t4Name: "20 подтверждённых рефералов",
+        t1Name: "Подписаться на канал ROL",
+        t2Name: "Подписаться на X (Twitter)",
+        t3Name: "Привязать TON-кошелёк",
         doBtn: "Начать",
+        verifyBtn: "Проверить",
         doneBtn: "Готово ✓",
         pgRefsTitle: "Реферальная сеть",
         pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
@@ -3009,7 +2760,6 @@
       document.getElementById('t1-name').innerText = t.t1Name;
       document.getElementById('t2-name').innerText = t.t2Name;
       document.getElementById('t3-name').innerText = t.t3Name;
-      document.getElementById('t4-name').innerText = t.t4Name;
       refreshTasksUI();
       updateSpinUI();
 
@@ -3047,24 +2797,15 @@
       const b1 = document.getElementById('btn-task-1');
       const b2 = document.getElementById('btn-task-2');
       const b3 = document.getElementById('btn-task-3');
-      const b4 = document.getElementById('btn-task-4');
 
-      if (b1) {
-        if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
-        else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
-      }
-      if (b2) {
-        if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
-        else { b2.innerText = `${refCount}/3`; b2.classList.remove('done'); }
-      }
-      if (b3) {
-        if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
-        else { b3.innerText = `${refCount}/10`; b3.classList.remove('done'); }
-      }
-      if (b4) {
-        if (completedTasks.includes(4)) { b4.innerText = t.doneBtn; b4.classList.add('done'); }
-        else { b4.innerText = `${refCount}/20`; b4.classList.remove('done'); }
-      }
+      if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
+      else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
+
+      if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
+      else { b2.innerText = t.doBtn; b2.classList.remove('done'); }
+
+      if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
+      else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
 
       const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
       const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
@@ -3072,39 +2813,37 @@
       if (pill) pill.innerText = `${doneCards} / ${totalCards}`;
     }
 
-    function completeGroupTask() {
+    function completeTask(taskId, reward, url) {
       playSoundFX('click');
-      if (completedTasks.includes(1)) return;
-      if (tg?.openTelegramLink) tg.openTelegramLink(GROUP_INVITE_URL);
-      else window.open(GROUP_INVITE_URL, '_blank');
-
+      if (completedTasks.includes(taskId)) return;
+      if (url) {
+        tg?.openTelegramLink && url.includes('t.me') ? tg.openTelegramLink(url) : window.open(url, '_blank');
+      }
       setTimeout(() => {
-        if (!completedTasks.includes(1)) {
-          completedTasks.push(1);
+        if (!completedTasks.includes(taskId)) {
+          completedTasks.push(taskId);
           localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-          balance += 50;
+          balance += reward;
           updateBalance();
           refreshTasksUI();
-          triggerRewardVisualBurst(50);
-          showCyberToast('+50 ROL for joining ROL_TOKN_GROUP!');
+          triggerRewardVisualBurst(reward);
         }
       }, 1500);
     }
 
-    function completeReferralMilestoneTask(taskId, requiredRefs, reward) {
+    function completeWalletTask() {
       playSoundFX('click');
-      if (completedTasks.includes(taskId)) return;
-      if (refCount < requiredRefs) {
-        showCyberToast(`Need ${requiredRefs} verified referrals (${refCount}/${requiredRefs})`, true);
+      if (completedTasks.includes(3)) return;
+      if (!connectedWalletAddr) {
+        switchTab('wallet');
         return;
       }
-      completedTasks.push(taskId);
+      completedTasks.push(3);
       localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-      balance += reward;
+      balance += 50;
       updateBalance();
       refreshTasksUI();
-      triggerRewardVisualBurst(reward);
-      showCyberToast(`+${reward} ROL claimed for ${requiredRefs} verified referrals!`);
+      triggerRewardVisualBurst(50);
     }
 
     let tickCounter = 0;
@@ -3362,11 +3101,9 @@
     updateSpinUI();
     updateNotificationDots();
     renderMining();
-    enforceMandatoryChannelGate();
     window.addEventListener('DOMContentLoaded', () => {
       initRealTonConnect();
       loadUserFromCloud();
-      enforceMandatoryChannelGate();
     });
   </script>
 </body>
