@@ -34,7 +34,11 @@
       max-width: 440px;
       height: 100vh;
       margin: 0 auto;
-      background-color: #020712;
+      background: url('1794058751809.jpg') center top / 100% 100% no-repeat, #020712;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px 14px 96px;
       overflow: hidden;
     }
 
@@ -68,12 +72,16 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
-    /* ==================== 1. الصفحة الرئيسية ==================== */
+    /* ==================== الصفحة الرئيسية (تخطيط متجاوب 100%) ==================== */
     #view-home {
       position: absolute;
       inset: 0;
       background: url('1794058751809.jpg') center top / 100% 100% no-repeat, #020712;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 12px 90px;
+      justify-content: flex-start;
     }
 
     .ambient-mining-glow {
@@ -94,26 +102,34 @@
     .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
     @keyframes ambientBreathe { 0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; } 50% { transform: translateX(-50%) scale(1.12); opacity: 1; } }
 
-    /* ==================== ضبط الجزء العلوي (فوق الخط الأحمر) بدقة بيكسل ببيكسل ==================== */
-    .brand-title {
-      position: absolute;
-      top: 1.85%;
-      left: 7.2%;
+    /* --- الهيدر العلوي --- */
+    .top-header-row {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2px;
+      z-index: 25;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       font-size: 13.5px;
       font-weight: 900;
-      letter-spacing: 0.4px;
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
-      z-index: 20;
-      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .top-controls-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .sound-toggle-btn {
-      position: absolute;
-      top: 1.35%;
-      left: 48.6%;
       width: 27px;
       height: 27px;
       border-radius: 50%;
@@ -124,37 +140,46 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 35;
-      transition: transform 0.15s ease, border-color 0.2s ease;
+      transition: transform 0.15s ease;
     }
-
     .sound-toggle-btn:active { transform: scale(0.88); }
     .sound-toggle-btn.muted { border-color: rgba(148, 163, 184, 0.35); box-shadow: none; opacity: 0.65; }
 
-    /* كبسولة اللغة: متمركزة في منتصف المساحة الفارغة يمين أيقونة الكرة الأرضية */
     .lang-touch-zone {
-      position: absolute;
-      top: 1.35%;
-      left: 68.2%;
-      width: 10.6%;
-      height: 3.7%;
+      background: rgba(6, 20, 48, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      padding: 4px 10px;
+      border-radius: 14px;
       cursor: pointer;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8.8px;
+      font-size: 9px;
       font-weight: 900;
       color: #00f0ff;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
       white-space: nowrap;
     }
 
+    .wallet-touch-zone {
+      background: rgba(6, 20, 48, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      padding: 4px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .wallet-btn-label {
+      font-size: 8.5px;
+      font-weight: 900;
+      color: #00f0ff;
+      font-family: ui-monospace, monospace;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
+      white-space: nowrap;
+    }
+
     .lang-dropdown-bar {
       position: absolute;
-      top: 6.2%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
+      top: 52px;
+      right: 50%;
+      transform: translateX(50%);
       background: linear-gradient(145deg, rgba(10, 28, 66, 0.97), rgba(3, 10, 26, 0.99));
       border: 1.5px solid rgba(0, 240, 255, 0.55);
       border-radius: 18px;
@@ -164,198 +189,125 @@
       gap: 6px;
       z-index: 95;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 22px rgba(0, 240, 255, 0.35);
-      animation: dropLangAnim 0.2s ease forwards;
     }
-
     .lang-dropdown-bar.open { display: flex; }
 
-    @keyframes dropLangAnim {
-      from { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.95); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    }
-
     .lang-pill-option {
-      padding: 7px 13px;
+      padding: 6px 12px;
       border-radius: 12px;
       border: 1px solid transparent;
       background: rgba(255, 255, 255, 0.04);
       color: #cbd5e1;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
-      transition: all 0.18s ease;
-      white-space: nowrap;
+      gap: 4px;
     }
-
     .lang-pill-option.selected {
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(2, 132, 199, 0.25));
       border-color: #00f0ff;
       color: #ffffff;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
     }
 
-    /* كبسولة المحفظة: متمركزة في منتصف المساحة الفارغة يمين أيقونة المحفظة */
-    .wallet-touch-zone {
-      position: absolute;
-      top: 1.35%;
-      left: 86.2%;
-      width: 11.4%;
-      height: 3.7%;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 30;
-      display: flex;
+    /* --- الصف الثاني من البطاقات (VIP / Profit / Rewards) --- */
+    .top-hud-row {
+      display: grid;
+      grid-template-columns: 22% 52% 22%;
+      gap: 3%;
       align-items: center;
-      justify-content: center;
+      width: 100%;
+      margin-top: 10px;
+      z-index: 25;
     }
 
-    .wallet-btn-label {
-      font-size: 8px;
-      font-weight: 900;
-      color: #00f0ff;
-      font-family: ui-monospace, -apple-system, sans-serif;
-      text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    /* شارة التاج الذهبي VIP */
     .vip-container {
-      position: absolute;
-      top: 6.8%;
-      left: 2.2%;
-      width: 19.6%;
-      height: 9.2%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    .vip-label { font-size: 7.5px; font-weight: 800; color: #facc15; margin-top: 13px; }
-    .vip-num { font-size: 12.5px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); margin-top: 1px; }
-
-    /* إطار معدل الربح: متمركز في المساحة الفارغة يمين الصاروخ */
-    .rate-container {
-      position: absolute;
-      top: 7.2%;
-      left: 38.2%;
-      width: 35.5%;
-      height: 8.6%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    .rate-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; }
-    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
-
-    /* صندوق المكافآت اليومية */
-    .gift-touch-zone {
-      position: absolute;
-      top: 6.4%;
-      left: 77.5%;
-      width: 19.5%;
-      height: 9.8%;
+      background: rgba(10, 25, 54, 0.6);
+      border: 1px solid rgba(250, 204, 21, 0.4);
       border-radius: 16px;
-      cursor: pointer;
-      z-index: 30;
+      padding: 6px 4px;
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      padding-bottom: 5px;
+      text-align: center;
+    }
+    .vip-label { font-size: 7.5px; font-weight: 800; color: #facc15; }
+    .vip-num { font-size: 12px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
+
+    .rate-container {
+      background: rgba(10, 25, 54, 0.6);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 16px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .rate-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; }
+    .rate-val { font-family: ui-monospace, monospace; font-size: 11.5px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); white-space: nowrap; direction: ltr; }
+
+    .gift-touch-zone {
+      position: relative;
+      background: rgba(10, 25, 54, 0.6);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      border-radius: 16px;
+      padding: 8px 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       animation: giftFloat 2.8s infinite ease-in-out;
     }
-
-    @keyframes giftFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
-    .gift-title { font-size: 8.5px; font-weight: 900; color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.7); pointer-events: none; }
+    @keyframes giftFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .gift-title { font-size: 8.5px; font-weight: 900; color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.7); }
 
     .notify-pulse-dot {
       position: absolute;
-      top: 6px;
-      right: 10px;
-      width: 9px;
-      height: 9px;
+      top: 5px;
+      right: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #facc15;
       border: 1.5px solid #020712;
-      box-shadow: 0 0 10px #facc15, 0 0 16px #f59e0b;
+      box-shadow: 0 0 8px #facc15;
       display: none;
-      animation: dotPing 1.4s infinite ease-in-out;
-      pointer-events: none;
-      z-index: 5;
     }
-
-    .notify-pulse-dot.visible { display: block; }
+    .notify-pulse-dot.visible { display: block; animation: dotPing 1.4s infinite ease-in-out; }
     @keyframes dotPing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.75; } }
 
-    /* مستطيل الرصيد الحالي: متمركز تماماً في قلب المستطيل دون ملامسة الخط الأزرق السفلي */
+    /* --- مستطيل الرصيد الحالي --- */
     .balance-container {
-      position: absolute;
-      top: 20.5%;
-      left: 50.5%;
-      transform: translateX(-50%);
-      width: 64%;
-      height: 5.6%;
+      width: 78%;
+      margin: 10px auto 0;
+      background: linear-gradient(145deg, rgba(14, 34, 74, 0.85), rgba(4, 12, 28, 0.92));
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
+      border-radius: 16px;
+      padding: 8px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
-      z-index: 20;
+      text-align: center;
+      z-index: 25;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
     }
-
-    .balance-title { font-size: 9px; font-weight: 800; color: #94a3b8; }
-    .balance-val { font-family: ui-monospace, monospace; font-size: 20.5px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 16px rgba(0, 240, 255, 0.9); margin-top: 1px; direction: ltr; transition: transform 0.25s ease, color 0.25s ease; white-space: nowrap; }
+    .balance-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; }
+    .balance-val { font-family: ui-monospace, monospace; font-size: 22px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 18px rgba(0, 240, 255, 0.9); margin-top: 2px; direction: ltr; white-space: nowrap; transition: transform 0.25s ease, color 0.25s ease; }
     .balance-val.pop { transform: scale(1.12); color: #fde047; text-shadow: 0 0 28px rgba(250, 204, 21, 1); }
 
-    /* كبسولة شراء ROL */
-    .home-buy-rol-pill {
-      position: absolute;
-      top: 41.2%;
-      right: 2.6%;
-      transform: translateY(-50%);
-      background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
-      border: 1.5px solid rgba(250, 204, 21, 0.75);
-      border-radius: 15px;
-      padding: 7px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      cursor: pointer;
-      z-index: 35;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(250, 204, 21, 0.35);
-      animation: buyPillPulse 2.6s infinite ease-in-out;
-      transition: transform 0.15s ease;
-    }
-
-    .home-buy-rol-pill:active { transform: translateY(-50%) scale(0.92); }
-    @keyframes buyPillPulse {
-      0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 12px rgba(250, 204, 21, 0.3); border-color: rgba(250, 204, 21, 0.65); }
-      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 22px rgba(250, 204, 21, 0.65); border-color: #fde047; }
-    }
-
-    .buy-pill-icon { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(250, 204, 21, 0.6); }
-    .buy-pill-text { font-size: 9px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
-    .buy-pill-sub { font-size: 7.2px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; }
-
+    /* --- العملة المركزية ---. */
     .coin-fx-layer {
-      position: absolute;
-      top: 41.2%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 192px;
-      height: 192px;
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin: 14px auto 0;
       border-radius: 50%;
       cursor: pointer;
       z-index: 22;
@@ -363,25 +315,196 @@
       align-items: center;
       justify-content: center;
     }
-
-    .coin-orbit-ring { position: absolute; inset: 8px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .coin-orbit-ring { position: absolute; inset: 4px; border-radius: 50%; border: 1.5px dashed rgba(0, 240, 255, 0.35); opacity: 0; pointer-events: none; }
     .coin-fx-layer.active .coin-orbit-ring { opacity: 1; animation: orbitSpin 12s linear infinite; }
     @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    .coin-pulse-ring { position: absolute; inset: 14px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
+    .coin-pulse-ring { position: absolute; inset: 10px; border-radius: 50%; border: 2px solid rgba(0, 240, 255, 0); opacity: 0; pointer-events: none; }
     .coin-fx-layer.active .coin-pulse-ring { animation: coinWave 2.4s infinite cubic-bezier(0.22, 1, 0.36, 1); }
     .coin-fx-layer.active .coin-pulse-ring.delay { animation-delay: 1.2s; }
-
     @keyframes coinWave {
-      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 22px rgba(0, 240, 255, 0.6), inset 0 0 14px rgba(0, 240, 255, 0.35); opacity: 0.95; }
-      100% { transform: scale(1.36); border-color: rgba(0, 240, 255, 0); box-shadow: 0 0 0 rgba(0, 240, 255, 0); opacity: 0; }
+      0% { transform: scale(0.88); border-color: rgba(0, 240, 255, 0.85); box-shadow: 0 0 22px rgba(0, 240, 255, 0.6); opacity: 0.95; }
+      100% { transform: scale(1.36); border-color: rgba(0, 240, 255, 0); opacity: 0; }
     }
 
-    .pickaxe-fx-spot { position: absolute; top: 57.5%; left: 20%; width: 44px; height: 44px; pointer-events: none; z-index: 22; }
+    /* كبسولة شراء ROL الجانبية */
+    .home-buy-rol-pill {
+      position: absolute;
+      top: 48%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
+      border: 1.5px solid rgba(250, 204, 21, 0.75);
+      border-radius: 14px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      z-index: 35;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+    }
+    .buy-pill-icon { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; }
+    .buy-pill-text { font-size: 8.5px; font-weight: 900; color: #fde047; white-space: nowrap; }
+    .buy-pill-sub { font-size: 6.8px; font-weight: 800; color: #38bdf8; }
 
-    .energy-particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #00f0ff; box-shadow: 0 0 8px #00f0ff, 0 0 14px #38bdf8; pointer-events: none; animation: floatSpark 1.8s ease-out forwards; }
-    .energy-particle.gold { width: 5px; height: 5px; background: #fde047; box-shadow: 0 0 10px #facc15, 0 0 16px #f59e0b; }
+    /* --- لوحة التعدين السفلية --- */
+    .mining-console-card {
+      position: absolute;
+      bottom: 110px;
+      left: 14px;
+      right: 14px;
+      background: linear-gradient(160deg, rgba(10, 26, 58, 0.88), rgba(3, 10, 24, 0.94));
+      border: 1.5px solid rgba(0, 240, 255, 0.35);
+      border-radius: 20px;
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 25;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
 
+    .console-top-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .console-pickaxe-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-mined-counter {
+      font-family: ui-monospace, monospace;
+      font-size: 20px;
+      font-weight: 900;
+      color: #00f0ff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.85);
+      direction: ltr;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(6, 20, 48, 0.8);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 3px 10px;
+      border-radius: 14px;
+      font-size: 9.5px;
+      font-weight: 900;
+      color: #10b981;
+      text-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+    }
+    .live-status-pill.idle { color: #94a3b8; border-color: rgba(148, 163, 184, 0.3); text-shadow: none; }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 5.5px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(0, 240, 255, 0.12);
+    }
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc);
+      box-shadow: 0 0 10px #00f0ff;
+      border-radius: 4px;
+      transition: width 0.4s linear;
+    }
+
+    .console-bottom-line {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+    .live-timer-overlay {
+      font-family: ui-monospace, monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #facc15;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.8);
+      direction: ltr;
+    }
+
+    /* --- أزرار القواعد والتعدين الرئيسية --- */
+    .rules-touch-zone {
+      position: absolute;
+      bottom: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 86%;
+      height: 38px;
+      background: linear-gradient(145deg, rgba(12, 32, 70, 0.85), rgba(4, 12, 28, 0.92));
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 14px;
+      cursor: pointer;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .rules-label { font-size: 13px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); }
+
+    .mine-touch-btn {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 48px;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+      border: 2px solid #fde047;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.45);
+      overflow: hidden;
+    }
+    .mine-touch-btn.claim-green-mode {
+      background: linear-gradient(135deg, #059669 0%, #10b981 48%, #047857 100%);
+      border-color: #6ee7b7;
+      box-shadow: 0 0 28px rgba(16, 185, 129, 0.85);
+      animation: greenClaimPulse 1.4s infinite ease-in-out;
+    }
+    .mine-touch-btn.verify-gram-mode {
+      background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #0369a1 100%);
+      border-color: #67e8f9;
+      box-shadow: 0 0 26px rgba(6, 182, 212, 0.85);
+    }
+    @keyframes greenClaimPulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.15); }
+    }
+
+    .mine-btn-txt {
+      font-size: 15px;
+      font-weight: 900;
+      color: #1a0f00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .mine-btn-txt.mining { color: #cbd5e1; }
+    .mine-btn-txt.claim { color: #ffffff; text-shadow: 0 2px 6px rgba(0,0,0,0.55); }
+
+    .claim-badge-chip { background: rgba(2, 44, 34, 0.5); border: 1px solid rgba(167, 243, 208, 0.6); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 12px; font-weight: 900; direction: ltr; }
+
+    /* تأثيرات الشرر والريبل */
+    .pickaxe-fx-spot { position: absolute; top: 48%; left: 22%; width: 30px; height: 30px; pointer-events: none; z-index: 22; }
+    .energy-particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #00f0ff; box-shadow: 0 0 8px #00f0ff; pointer-events: none; animation: floatSpark 1.8s ease-out forwards; }
+    .energy-particle.gold { width: 5px; height: 5px; background: #fde047; box-shadow: 0 0 10px #facc15; }
     @keyframes floatSpark {
       0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
       100% { transform: translate(var(--dx), var(--dy)) scale(0.1); opacity: 0; }
@@ -396,153 +519,7 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
-    /* ==================== لوحة التعدين المنظمة ==================== */
-    .live-status-pill {
-      position: absolute;
-      top: 57.6%;
-      left: 76.4%;
-      width: 16.2%;
-      height: 3.7%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      font-size: 10px;
-      font-weight: 900;
-      color: #10b981;
-      text-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
-      pointer-events: none;
-      z-index: 20;
-    }
-    .live-status-pill.idle { color: #94a3b8; text-shadow: none; }
-
-    .live-mined-counter {
-      position: absolute;
-      top: 58.6%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: ui-monospace, monospace;
-      font-size: 22px;
-      font-weight: 900;
-      color: #00f0ff;
-      text-shadow: 0 0 14px rgba(0, 240, 255, 0.9);
-      letter-spacing: 0.5px;
-      direction: ltr;
-      z-index: 20;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .progress-bar-container {
-      position: absolute;
-      top: 63.95%;
-      left: 11.4%;
-      width: 77.2%;
-      height: 5.2px;
-      border-radius: 4px;
-      overflow: hidden;
-      background: rgba(0, 240, 255, 0.12);
-      z-index: 20;
-    }
-
-    .progress-bar-fill { position: relative; width: 0%; height: 100%; background: linear-gradient(90deg, #0284c7, #00f0ff, #7dd3fc); box-shadow: 0 0 12px #00f0ff; border-radius: 4px; transition: width 0.4s linear; overflow: hidden; }
-    .progress-bar-fill::before { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent); animation: barLaserScan 2s infinite linear; }
-    @keyframes barLaserScan { 0% { left: -40%; } 100% { left: 110%; } }
-
-    .live-timer-overlay {
-      position: absolute;
-      top: 65.4%;
-      left: 55.2%;
-      transform: translateX(-50%);
-      font-family: ui-monospace, monospace;
-      font-size: 12px;
-      font-weight: 900;
-      color: #facc15;
-      text-shadow: 0 0 8px rgba(250, 204, 21, 0.85);
-      letter-spacing: 1.2px;
-      direction: ltr;
-      z-index: 20;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .rules-touch-zone { position: absolute; top: 69.9%; left: 52.5%; transform: translateX(-50%); width: 64%; height: 6.8%; border-radius: 16px; cursor: pointer; z-index: 30; display: flex; align-items: center; justify-content: center; }
-    .rules-label { font-size: 14px; font-weight: 800; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); pointer-events: none; text-align: center; white-space: nowrap; }
-
-    .mine-touch-btn {
-      position: absolute;
-      top: 78.1%;
-      left: 50.5%;
-      transform: translateX(-50%);
-      width: 90%;
-      height: 8.2%;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 30;
-      overflow: hidden;
-      transition: transform 0.12s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .mine-touch-btn::after { content: ''; position: absolute; top: 0; left: -60%; width: 45%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent); transform: skewX(-25deg); animation: btnShimmer 3s infinite ease-in-out; pointer-events: none; }
-    @keyframes btnShimmer { 0%, 40% { left: -60%; } 100% { left: 130%; } }
-    .mine-touch-btn:active { transform: translateX(-50%) scale(0.96); }
-
-    .mine-touch-btn.claim-green-mode {
-      top: 78.2%;
-      left: 50%;
-      width: 89%;
-      height: 7.7%;
-      background: linear-gradient(135deg, #059669 0%, #10b981 48%, #047857 100%);
-      border: 2px solid #6ee7b7;
-      border-radius: 16px;
-      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
-      box-shadow: 0 0 28px rgba(16, 185, 129, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-      animation: greenClaimPulse 1.4s infinite ease-in-out;
-    }
-
-    .mine-touch-btn.verify-gram-mode {
-      top: 78.2%;
-      left: 50%;
-      width: 89%;
-      height: 7.7%;
-      background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #0369a1 100%);
-      border: 2px solid #67e8f9;
-      border-radius: 16px;
-      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
-      box-shadow: 0 0 26px rgba(6, 182, 212, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    }
-
-    @keyframes greenClaimPulse {
-      0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(16, 185, 129, 0.65)); }
-      50% { filter: brightness(1.14) drop-shadow(0 0 20px rgba(52, 211, 153, 0.95)); }
-    }
-
-    .mine-btn-txt {
-      font-size: 15.5px;
-      font-weight: 900;
-      color: #1a0f00;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      max-width: 56%;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .mine-touch-btn.claim-green-mode .mine-btn-txt,
-    .mine-touch-btn.verify-gram-mode .mine-btn-txt { max-width: 92%; }
-
-    .mine-btn-txt.mining { color: #cbd5e1; }
-    .mine-btn-txt.claim { color: #ffffff; font-size: 14.5px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
-
-    .claim-badge-chip { background: rgba(2, 44, 34, 0.45); border: 1px solid rgba(167, 243, 208, 0.55); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 900; direction: ltr; }
-
-    /* ==================== الصفحات المستقلة ==================== */
+    /* --- الصفحات المستقلة والشريط السفلي --- */
     .sub-page {
       position: absolute;
       top: 0;
@@ -555,303 +532,43 @@
       flex-direction: column;
       padding: 16px 15px 28px;
       overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
       animation: fadeInPage 0.22s ease;
     }
-
     .sub-page.active { display: flex; }
+    @keyframes fadeInPage { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .sub-page::-webkit-scrollbar { width: 4px; }
-    .sub-page::-webkit-scrollbar-track { background: transparent; }
-    .sub-page::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.35); border-radius: 4px; }
-
-    @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .page-header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.18); display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-    .header-badge-icon { width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.06)); border: 1px solid rgba(0, 240, 255, 0.35); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-    .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
-    .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
-
-    /* ==================== عجلة الحظ الأسطورية ==================== */
-    .spin-arena-card {
-      position: relative;
-      background:
-        radial-gradient(circle at 50% 48%, rgba(0, 240, 255, 0.2) 0%, transparent 62%),
-        linear-gradient(160deg, #0d2552 0%, #051129 60%, #020817 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.45);
-      border-radius: 24px;
-      padding: 14px 14px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65), 0 0 28px rgba(0, 240, 255, 0.18);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .spin-top-hud { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px; }
-    .spin-tickets-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(250, 204, 21, 0.16); border: 1px solid rgba(250, 204, 21, 0.5); color: #fde047; padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 900; box-shadow: 0 0 12px rgba(250, 204, 21, 0.25); }
-    .spin-free-timer { font-size: 10.5px; font-weight: 800; color: #38bdf8; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.28); padding: 5px 10px; border-radius: 20px; font-family: ui-monospace, monospace; direction: ltr; }
-
-    .wheel-stage { position: relative; width: 256px; height: 256px; display: flex; align-items: center; justify-content: center; margin: 6px auto 16px; flex-shrink: 0; }
-    .wheel-outer-halo { position: absolute; inset: -4px; border-radius: 50%; border: 2px dashed rgba(0, 240, 255, 0.5); box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(250, 204, 21, 0.2); animation: orbitSpin 18s linear infinite; pointer-events: none; }
-    .wheel-pointer { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); z-index: 20; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(250, 204, 21, 0.95)); }
-
-    .wheel-rotor {
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px #091a3a, 0 0 0 6.5px #facc15, 0 10px 26px rgba(0, 0, 0, 0.85);
-      transition: transform 4.6s cubic-bezier(0.12, 0.85, 0.18, 1);
-      will-change: transform;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .wheel-rotor svg { width: 240px; height: 240px; display: block; }
-
-    .wheel-center-hub {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fef08a 0%, #f59e0b 65%, #92400e 100%);
-      border: 3px solid #ffffff;
-      box-shadow: 0 0 22px rgba(250, 204, 21, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11.5px;
-      font-weight: 900;
-      color: #1a0f00;
-      cursor: pointer;
-      z-index: 15;
-      transition: transform 0.15s ease;
-    }
-
-    .wheel-center-hub:active { transform: translate(-50%, -50%) scale(0.92); }
-
-    .spin-launch-btn {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
-      color: #090500;
-      font-size: 14px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-      transition: transform 0.15s ease, opacity 0.2s ease;
-    }
-
-    .spin-launch-btn:disabled { opacity: 0.55; cursor: not-allowed; background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; box-shadow: none; }
-
-    .tasks-section-divider { display: flex; align-items: center; justify-content: space-between; margin: 4px 2px 10px; font-size: 12px; font-weight: 900; color: #38bdf8; flex-shrink: 0; }
-
-    .task-card {
-      background: linear-gradient(145deg, rgba(12, 30, 66, 0.85), rgba(6, 16, 38, 0.92));
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      border-radius: 16px;
-      padding: 13px 14px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-      flex-shrink: 0;
-    }
-
-    .task-info { display: flex; align-items: center; gap: 12px; }
-    .task-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .task-name { font-size: 13px; font-weight: 800; color: #ffffff; }
-    .task-reward { font-size: 11.5px; font-weight: 900; color: #facc15; margin-top: 2px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
-
-    .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
-    .action-pill-btn.done { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid #10b981; pointer-events: none; }
-
-    /* ==================== تصميم صفحة الإحالات ==================== */
-    .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; flex-shrink: 0; }
-
-    .cyber-stat-box {
-      position: relative;
-      background: linear-gradient(160deg, rgba(14, 34, 74, 0.9), rgba(5, 14, 34, 0.95));
-      border: 1px solid rgba(250, 204, 21, 0.35);
-      border-radius: 18px;
-      padding: 15px 12px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-    }
-
-    .cyber-stat-box.cyan-accent { border-color: rgba(0, 240, 255, 0.35); }
-    .cyber-stat-box::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; height: 2px; background: linear-gradient(90deg, transparent, #facc15, transparent); }
-    .cyber-stat-box.cyan-accent::before { background: linear-gradient(90deg, transparent, #00f0ff, transparent); }
-
-    .stat-val-big { font-size: 24px; font-weight: 900; color: #facc15; font-family: ui-monospace, monospace; text-shadow: 0 0 12px rgba(250, 204, 21, 0.45); }
-    .cyber-stat-box.cyan-accent .stat-val-big { color: #00f0ff; text-shadow: 0 0 12px rgba(0, 240, 255, 0.45); }
-    .stat-caption { font-size: 11px; font-weight: 700; color: #94a3b8; margin-top: 4px; }
-
-    .ref-perks-card { background: rgba(10, 25, 54, 0.82); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 16px; padding: 13px 14px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
-    .perk-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #e2e8f0; font-weight: 600; line-height: 1.45; }
-    .perk-dot { width: 26px; height: 26px; border-radius: 8px; background: rgba(250, 204, 21, 0.14); border: 1px solid rgba(250, 204, 21, 0.38); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
-    .ref-verify-note { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(250, 204, 21, 0.4); border-radius: 12px; padding: 10px 12px; font-size: 11px; color: #fef08a; line-height: 1.55; margin-bottom: 14px; flex-shrink: 0; }
-
-    .invite-link-wrapper { background: #030917; border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 14px; padding: 6px 6px 6px 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6); flex-shrink: 0; }
-    .invite-url-text { font-family: ui-monospace, monospace; font-size: 11px; color: #38bdf8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; flex: 1; }
-
-    .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
-    .mini-copy-btn.copied { background: rgba(16, 185, 129, 0.25); border-color: #10b981; color: #34d399; }
-
-    /* ==================== تصميم صفحة المحفظة ==================== */
-    .obsidian-vault-card {
-      position: relative;
-      background:
-        radial-gradient(circle at 90% 10%, rgba(0, 240, 255, 0.28) 0%, transparent 45%),
-        radial-gradient(circle at 10% 90%, rgba(250, 204, 21, 0.18) 0%, transparent 50%),
-        linear-gradient(145deg, #0e2859 0%, #061430 50%, #020817 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.55);
-      border-radius: 24px;
-      padding: 16px 18px 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.7), 0 0 32px rgba(0, 240, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .obsidian-vault-card::after { content: ''; position: absolute; top: -50%; left: -60%; width: 45%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent); transform: rotate(25deg); animation: vaultHoloSweep 5s infinite ease-in-out; pointer-events: none; }
-    @keyframes vaultHoloSweep { 0%, 45% { left: -60%; } 100% { left: 140%; } }
-
-    .vault-top-row { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .vault-chip-group { display: flex; align-items: center; gap: 8px; }
-    .emv-gold-chip { width: 32px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, #fef08a 0%, #facc15 45%, #ca8a04 100%); border: 1px solid rgba(255, 255, 255, 0.4); position: relative; }
-    .emv-gold-chip::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(113, 63, 18, 0.45); border-radius: 3px; }
-
-    .ton-chain-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(0, 240, 255, 0.14); border: 1px solid rgba(0, 240, 255, 0.35); padding: 4px 9px; border-radius: 20px; font-size: 10px; font-weight: 900; color: #00f0ff; }
-    .conn-status-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(2, 8, 22, 0.72); border: 1px solid rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 800; color: #cbd5e1; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
-    .status-dot.connected { background-color: #10b981; box-shadow: 0 0 10px #10b981; animation: pulseGreen 1.8s infinite; }
-    @keyframes pulseGreen { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.7; } }
-
-    .vault-main-balance { position: relative; z-index: 2; margin-bottom: 12px; }
-    .vault-bal-caption { font-size: 10.5px; color: #94a3b8; font-weight: 700; }
-    .vault-bal-figure { font-size: 30px; font-weight: 900; color: #ffffff; font-family: ui-monospace, monospace; text-shadow: 0 0 22px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; }
-    .vault-bal-figure span { font-size: 15px; color: #00f0ff; font-weight: 900; }
-
-    .vault-analytics-row { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-    .v-glass-stat { background: rgba(2, 8, 22, 0.62); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 9px 11px; display: flex; flex-direction: column; gap: 2px; }
-    .v-metric-lbl { font-size: 9.5px; color: #94a3b8; font-weight: 700; }
-    .v-metric-val { font-size: 12px; font-weight: 900; color: #facc15; font-family: ui-monospace, monospace; }
-
-    .vip-upgrade-box { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 5px; }
-    .vip-up-header { display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 800; color: #cbd5e1; }
-    .vip-up-track { width: 100%; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
-    .vip-up-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #f59e0b, #facc15, #fef08a); box-shadow: 0 0 10px rgba(250, 204, 21, 0.7); transition: width 0.5s ease; }
-
-    .gram-verify-card {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%);
-      border: 1.5px solid rgba(34, 211, 238, 0.5);
-      border-radius: 18px;
-      padding: 13px 14px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.15);
-      flex-shrink: 0;
-    }
-
-    .gram-verify-card.verified { border-color: rgba(16, 185, 129, 0.55); background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%); }
-
-    .stonfi-dex-card {
-      position: relative;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(12, 30, 68, 0.94) 55%, rgba(0, 240, 255, 0.16) 100%);
-      border: 1.5px solid rgba(250, 204, 21, 0.6);
-      border-radius: 20px;
-      padding: 13px;
-      margin-bottom: 12px;
-      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.18);
-      flex-shrink: 0;
-    }
-
-    .stonfi-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .stonfi-gem-icon { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(145deg, rgba(250, 204, 21, 0.28), rgba(217, 119, 6, 0.15)); border: 1px solid rgba(250, 204, 21, 0.55); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .stonfi-title { font-size: 13.5px; font-weight: 900; color: #fde047; }
-    .stonfi-desc { font-size: 10.5px; color: #cbd5e1; margin-top: 2px; line-height: 1.35; }
-    .stonfi-actions-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
-
-    .stonfi-buy-btn { padding: 11px 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%); color: #090500; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; }
-    .refresh-bal-btn { padding: 0 14px; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.45); background: rgba(0, 240, 255, 0.14); color: #00f0ff; font-size: 11.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
-
-    .compact-address-capsule { background: rgba(6, 16, 38, 0.92); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 14px; padding: 10px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-shrink: 0; }
-    .addr-left-info { display: flex; align-items: center; gap: 10px; overflow: hidden; }
-    .addr-shield-box { width: 34px; height: 34px; border-radius: 10px; background: rgba(0, 240, 255, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .addr-short-code { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: 800; color: #ffffff; direction: ltr; }
-
-    .wallet-bottom-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-shrink: 0; }
-
-    .legendary-btn-gold { width: 100%; padding: 14px 16px; border-radius: 14px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%); color: #090500; font-size: 14px; font-weight: 900; cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
-    .legendary-btn-cyan { width: 100%; padding: 13px 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%); color: #020712; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
-    .legendary-btn-locked { width: 100%; padding: 13px 12px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(15, 23, 42, 0.75); color: #64748b; font-size: 11.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
-
-    /* ==================== الشريط السفلي المطور ==================== */
     .cyber-footer {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 88px;
+      height: 82px;
       background: linear-gradient(180deg, rgba(2, 8, 22, 0.85) 0%, #01040c 45%, #000205 100%);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border-top: 1px solid rgba(0, 229, 255, 0.3);
-      box-shadow: 0 -8px 25px rgba(0, 150, 255, 0.18);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 6px 8px 8px;
+      gap: 4px;
+      padding: 4px 6px 6px;
       z-index: 80;
     }
-
-    .cyber-tab { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .cyber-tab:active { transform: scale(0.92); }
-    .cyber-tab.active { transform: translateY(-2px); }
-
-    .cyber-box-wrap { position: relative; width: 100%; height: 54px; display: flex; align-items: center; justify-content: center; }
+    .cyber-tab { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+    .cyber-box-wrap { position: relative; width: 100%; height: 50px; display: flex; align-items: center; justify-content: center; }
     .frame-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
     .frame-bg { fill: url(#blueCardBg); }
-    .frame-border { fill: none; stroke: #00d2ff; stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.7)); }
+    .frame-border { fill: none; stroke: #00d2ff; stroke-width: 1.6; }
     .frame-accent { fill: #00f0ff; opacity: 0.85; }
-
     .cyber-tab.active .frame-bg { fill: url(#goldCardBg); }
-    .cyber-tab.active .frame-border { stroke: #facc15; stroke-width: 2; filter: drop-shadow(0 0 7px rgba(250, 204, 21, 0.9)); }
+    .cyber-tab.active .frame-border { stroke: #facc15; stroke-width: 2; }
     .cyber-tab.active .frame-accent { fill: #fef08a; }
+    .icon-aura { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, transparent 70%); pointer-events: none; }
+    .cyber-tab.active .icon-aura { background: radial-gradient(circle, rgba(250, 204, 21, 0.55) 0%, transparent 70%); }
+    .cyber-icon { position: relative; z-index: 2; width: 22px; height: 22px; }
+    .cyber-label { font-size: 9.5px; font-weight: 800; color: #94a3b8; margin-top: 2px; }
+    .cyber-tab.active .cyber-label { color: #fde047; }
 
-    .icon-aura { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, transparent 70%); pointer-events: none; }
-    .cyber-tab.active .icon-aura { width: 34px; height: 34px; background: radial-gradient(circle, rgba(250, 204, 21, 0.55) 0%, transparent 70%); }
-
-    .cyber-icon { position: relative; z-index: 2; width: 25px; height: 25px; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85)); }
-    .cyber-tab.active .cyber-icon { transform: scale(1.08); filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.75)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85)); }
-
-    .cyber-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-top: 3px; }
-    .cyber-tab.active .cyber-label { color: #fde047; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
-
-    /* ==================== النوافذ المنبثقة ==================== */
+    /* النوافذ المنبثقة */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -864,7 +581,6 @@
       padding: 14px;
       pointer-events: none;
     }
-
     .modal-overlay.active { display: flex !important; pointer-events: auto !important; }
 
     .daily-modal-box {
@@ -880,7 +596,6 @@
       display: flex;
       flex-direction: column;
     }
-
     .streak-banner { display: inline-block; align-self: center; background: rgba(250, 204, 21, 0.15); border: 1px solid rgba(250, 204, 21, 0.4); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
     .days-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin: 14px 0; overflow-y: auto; }
     .day-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 8px 2px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -889,72 +604,16 @@
     .day-card.claimed { background: linear-gradient(180deg, rgba(16, 185, 129, 0.25), rgba(6, 78, 59, 0.3)); border-color: #10b981; }
     .day-card.claimed .d-val { color: #34d399; }
     .day-card.today { background: linear-gradient(180deg, rgba(245, 158, 11, 0.35), rgba(180, 83, 9, 0.35)); border: 1.5px solid #fbbf24; box-shadow: 0 0 14px rgba(251, 191, 36, 0.6); transform: scale(1.04); }
-    .day-card.today .d-num { color: #fef08a; }
-    .day-card.today .d-val { color: #ffffff; }
 
     .wallet-rule-notice { background: rgba(0, 240, 255, 0.09); border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 14px; padding: 10px 12px; font-size: 11.5px; color: #e0f2fe; line-height: 1.6; margin-bottom: 10px; text-align: start; }
-
-    .vip-table-header {
-      display: grid;
-      grid-template-columns: 0.85fr 1.25fr 1.1fr;
-      padding: 9px 10px;
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.16));
-      border-radius: 12px 12px 0 0;
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      border-bottom: none;
-      font-size: 11px;
-      font-weight: 900;
-      color: #38bdf8;
-      text-align: center;
-    }
-
-    .vip-scroll-wrapper {
-      position: relative;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(0, 240, 255, 0.28);
-      border-radius: 0 0 14px 14px;
-      background: rgba(2, 8, 22, 0.85);
-    }
-
-    .vip-scroll-container { flex: 1; overflow-y: auto; max-height: 41vh; padding: 4px 6px 26px; touch-action: pan-y; }
-    .vip-scroll-container::-webkit-scrollbar { width: 4px; }
-    .vip-scroll-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); border-radius: 4px; }
-    .vip-scroll-container::-webkit-scrollbar-thumb { background: #00f0ff; border-radius: 4px; }
-
-    .vip-tier-row { display: grid; grid-template-columns: 0.85fr 1.25fr 1.1fr; align-items: center; padding: 10px 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 11.5px; border-radius: 8px; text-align: center; }
-    .vip-tier-row:last-child { border-bottom: none; }
+    .vip-table-header { display: grid; grid-template-columns: 0.85fr 1.25fr 1.1fr; padding: 9px 10px; background: linear-gradient(90deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.16)); border-radius: 12px 12px 0 0; border: 1px solid rgba(0, 240, 255, 0.3); border-bottom: none; font-size: 11px; font-weight: 900; color: #38bdf8; text-align: center; }
+    .vip-scroll-wrapper { position: relative; flex: 1; display: flex; flex-direction: column; margin-bottom: 10px; overflow: hidden; border: 1px solid rgba(0, 240, 255, 0.28); border-radius: 0 0 14px 14px; background: rgba(2, 8, 22, 0.85); }
+    .vip-scroll-container { flex: 1; overflow-y: auto; max-height: 41vh; padding: 4px 6px 26px; }
+    .vip-tier-row { display: grid; grid-template-columns: 0.85fr 1.25fr 1.1fr; align-items: center; padding: 10px 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 11.5px; text-align: center; }
     .vip-tier-row.current-active { background: rgba(250, 204, 21, 0.18); border: 1px solid rgba(250, 204, 21, 0.55); }
-
     .vip-tier-badge { font-weight: 900; color: #facc15; font-family: ui-monospace, monospace; font-size: 12px; direction: ltr; }
-    .vip-tier-req { color: #cbd5e1; font-size: 11px; font-weight: 700; font-family: ui-monospace, monospace; direction: ltr; }
+    .vip-tier-req { color: #cbd5e1; font-size: 11px; font-family: ui-monospace, monospace; direction: ltr; }
     .vip-tier-reward { color: #00f0ff; font-weight: 900; font-size: 11.5px; font-family: ui-monospace, monospace; direction: ltr; }
-
-    .scroll-down-hint {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(180deg, rgba(2, 8, 22, 0) 0%, rgba(2, 8, 22, 0.96) 45%, #020816 100%);
-      padding: 10px 8px 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #00f0ff;
-      text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .scroll-down-hint.hidden { opacity: 0; }
-    .bounce-arrow { animation: arrowBounce 1.2s infinite ease-in-out; }
-    @keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -968,19 +627,18 @@
     <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
-      <div class="brand-title">ROL Mining</div>
 
-      <div class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">
-        <svg id="icon-sound-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-        </svg>
-        <svg id="icon-sound-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-        </svg>
-      </div>
-
-      <div class="lang-touch-zone" onclick="toggleLangBar(event)">
-        <span id="lang-btn-txt">EN 🇺🇸</span>
+      <!-- الهيدر العلوي المتجاوب -->
+      <div class="top-header-row">
+        <div class="brand-title">ROL Mining <span><svg width="14" height="14" viewBox="0 0 24 24" fill="#38bdf8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span></div>
+        <div class="top-controls-group">
+          <div class="sound-toggle-btn" id="sound-btn" onclick="toggleSound()">
+            <svg id="icon-sound-on" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            <svg id="icon-sound-off" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          </div>
+          <div class="lang-touch-zone" onclick="toggleLangBar(event)"><span id="lang-btn-txt">EN 🇺🇸</span></div>
+          <div class="wallet-touch-zone" onclick="switchTab('wallet')"><span class="wallet-btn-label" id="wallet-btn-label">Connect</span></div>
+        </div>
       </div>
 
       <div class="lang-dropdown-bar" id="lang-dropdown-bar" onclick="event.stopPropagation()">
@@ -989,37 +647,31 @@
         <button class="lang-pill-option" id="opt-lang-ru" onclick="selectLanguage('ru')">RU 🇷🇺</button>
       </div>
 
-      <div class="wallet-touch-zone" onclick="switchTab('wallet')">
-        <span class="wallet-btn-label" id="wallet-btn-label">Connect</span>
+      <!-- الصف الثاني (VIP / Profit / Rewards) -->
+      <div class="top-hud-row">
+        <div class="vip-container">
+          <span class="vip-label" id="txt-vip-label">Gold Tier</span>
+          <span class="vip-num" id="vip-level-display">VIP 1</span>
+        </div>
+        <div class="rate-container">
+          <span class="rate-title" id="txt-rate-label">Cycle Profit</span>
+          <span class="rate-val" id="rate-display">+500 ROL / 10h</span>
+        </div>
+        <div class="gift-touch-zone" onclick="openCheckinModal()">
+          <span class="notify-pulse-dot" id="dot-checkin"></span>
+          <span class="gift-title" id="txt-gift-label">Rewards</span>
+        </div>
       </div>
 
-      <div class="vip-container">
-        <span class="vip-label" id="txt-vip-label">Gold Tier</span>
-        <span class="vip-num" id="vip-level-display">VIP 1</span>
-      </div>
-
-      <div class="rate-container">
-        <span class="rate-title" id="txt-rate-label">Cycle Profit</span>
-        <span class="rate-val" id="rate-display">+500 ROL / 10h</span>
-      </div>
-
-      <div class="gift-touch-zone" onclick="openCheckinModal()">
-        <span class="notify-pulse-dot" id="dot-checkin"></span>
-        <span class="gift-title" id="txt-gift-label">Rewards</span>
-      </div>
-
+      <!-- مستطيل الرصيد الحالي المتمركز تلقائياً -->
       <div class="balance-container">
         <span class="balance-title" id="txt-balance-label">Current Balance</span>
         <span class="balance-val" id="balance-display">0 ROL</span>
       </div>
 
+      <!-- العملة المركزية -->
       <div class="home-buy-rol-pill" onclick="openStonFiBuy()">
-        <div class="buy-pill-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 22 9 12 22 2 9 12 2"/>
-            <line x1="2" y1="9" x2="22" y2="9"/>
-          </svg>
-        </div>
+        <div class="buy-pill-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.6"><polygon points="12 2 22 9 12 22 2 9 12 2"/><line x1="2" y1="9" x2="22" y2="9"/></svg></div>
         <span class="buy-pill-text" id="home-buy-txt">Buy ROL</span>
         <span class="buy-pill-sub">STON.fi</span>
       </div>
@@ -1029,20 +681,26 @@
         <div class="coin-pulse-ring"></div>
         <div class="coin-pulse-ring delay"></div>
       </div>
-
       <div class="pickaxe-fx-spot" id="pickaxe-fx-spot"></div>
 
-      <div class="live-status-pill" id="live-status-pill">
-        <span>⚡</span> <span id="txt-active-label">Active</span>
+      <!-- لوحة التعدين السفلية المتجاوبة -->
+      <div class="mining-console-card">
+        <div class="console-top-line">
+          <div class="console-pickaxe-group">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <div class="live-mined-counter" id="live-mined-val">+0.00 ROL</div>
+          </div>
+          <div class="live-status-pill" id="live-status-pill"><span>⚡</span> <span id="txt-active-label">Active</span></div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progress-line"></div>
+        </div>
+
+        <div class="console-bottom-line">
+          <div class="live-timer-overlay" id="timer-val">10:00:00 🕒</div>
+        </div>
       </div>
-
-      <div class="live-mined-counter" id="live-mined-val">+0.00 ROL</div>
-
-      <div class="progress-bar-container">
-        <div class="progress-bar-fill" id="progress-line"></div>
-      </div>
-
-      <div class="live-timer-overlay" id="timer-val">10:00:00</div>
 
       <div class="rules-touch-zone" onclick="openRulesModal()">
         <span class="rules-label" id="txt-rules-btn">Mining Tier Rules</span>
@@ -1059,124 +717,24 @@
         <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
         <div class="page-subtitle" id="pg-tasks-sub">Spin daily and complete official tasks to multiply your ROL balance</div>
       </div>
-
       <div class="spin-arena-card">
         <div class="spin-top-hud">
-          <div class="spin-tickets-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="2.4">
-              <circle cx="12" cy="12" r="10"/><polygon points="12 6 14 10 18 10.5 15 13.5 15.8 17.5 12 15.5 8.2 17.5 9 13.5 6 10.5 10 10 12 6"/>
-            </svg>
-            <span id="spin-tickets-lbl">Available Spins: 1</span>
-          </div>
+          <div class="spin-tickets-badge"><span id="spin-tickets-lbl">Available Spins: 1</span></div>
           <div class="spin-free-timer" id="spin-timer-badge">FREE SPIN READY</div>
         </div>
-
         <div class="wheel-stage">
           <div class="wheel-outer-halo"></div>
-          <div class="wheel-pointer">
-            <svg width="26" height="30" viewBox="0 0 28 32">
-              <polygon points="14,32 2,6 14,11 26,6" fill="url(#gold3D)" stroke="#ffffff" stroke-width="1.5"/>
-            </svg>
-          </div>
-
-          <div class="wheel-rotor" id="wheel-rotor">
-            <svg width="240" height="240" viewBox="0 0 260 260">
-              <defs>
-                <radialGradient id="segDark" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#0f2956"/>
-                  <stop offset="100%" stop-color="#051129"/>
-                </radialGradient>
-                <radialGradient id="segCyan" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#0369a1"/>
-                  <stop offset="100%" stop-color="#082f49"/>
-                </radialGradient>
-                <radialGradient id="segGold" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#b45309"/>
-                  <stop offset="100%" stop-color="#451a03"/>
-                </radialGradient>
-              </defs>
-              <g transform="translate(130,130)">
-                <path d="M0,0 L0,-126 A126,126 0 0,1 89.1,-89.1 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L89.1,-89.1 A126,126 0 0,1 126,0 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L126,0 A126,126 0 0,1 89.1,89.1 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L89.1,89.1 A126,126 0 0,1 0,126 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L0,126 A126,126 0 0,1 -89.1,89.1 Z" fill="url(#segGold)" stroke="#facc15" stroke-width="1.4"/>
-                <path d="M0,0 L-89.1,89.1 A126,126 0 0,1 -126,0 Z" fill="url(#segDark)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L-126,0 A126,126 0 0,1 -89.1,-89.1 Z" fill="url(#segCyan)" stroke="#00f0ff" stroke-width="1.2"/>
-                <path d="M0,0 L-89.1,-89.1 A126,126 0 0,1 0,-126 Z" fill="url(#segGold)" stroke="#facc15" stroke-width="1.5"/>
-
-                <g transform="rotate(22.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">5</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(67.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">10</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(112.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">30</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(157.5)"><text x="0" y="-82" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle">50</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(202.5)"><text x="0" y="-82" fill="#fde047" font-size="13" font-weight="900" text-anchor="middle">100</text><text x="0" y="-68" fill="#facc15" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(247.5)"><text x="0" y="-82" fill="#ffffff" font-size="12.5" font-weight="900" text-anchor="middle">500</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(292.5)"><text x="0" y="-82" fill="#ffffff" font-size="12" font-weight="900" text-anchor="middle">1,000</text><text x="0" y="-68" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-                <g transform="rotate(337.5)"><text x="0" y="-82" fill="#fde047" font-size="11.5" font-weight="900" text-anchor="middle">10,000</text><text x="0" y="-68" fill="#facc15" font-size="9" font-weight="800" text-anchor="middle">ROL</text></g>
-              </g>
-            </svg>
-          </div>
-
+          <div class="wheel-pointer"><svg width="26" height="30" viewBox="0 0 28 32"><polygon points="14,32 2,6 14,11 26,6" fill="#facc15" stroke="#ffffff" stroke-width="1.5"/></svg></div>
+          <div class="wheel-rotor" id="wheel-rotor"><svg width="240" height="240" viewBox="0 0 260 260"><g transform="translate(130,130)"><path d="M0,0 L0,-126 A126,126 0 0,1 89.1,-89.1 Z" fill="#0f2956" stroke="#00f0ff" stroke-width="1.2"/></g></svg></div>
           <div class="wheel-center-hub" onclick="triggerSpinWheel()">SPIN</div>
         </div>
-
-        <button class="spin-launch-btn" id="spin-btn-main" onclick="triggerSpinWheel()">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-          </svg>
-          <span id="spin-btn-txt">Spin the Wheel Now</span>
-        </button>
+        <button class="spin-launch-btn" id="spin-btn-main" onclick="triggerSpinWheel()"><span id="spin-btn-txt">Spin the Wheel Now</span></button>
       </div>
-
-      <div class="tasks-section-divider">
-        <span id="tasks-list-heading">Available Tasks</span>
-        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 3</span>
-      </div>
-
+      <div class="tasks-section-divider"><span id="tasks-list-heading">Available Tasks</span></div>
       <div id="tasks-list-container">
         <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t1-name">Join Official ROL Channel</div>
-              <div class="task-reward">+20 ROL</div>
-            </div>
-          </div>
+          <div class="task-info"><div class="task-name" id="t1-name">Join Official ROL Channel</div><div class="task-reward">+20 ROL</div></div>
           <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">Start</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t2-name">Follow Project on X</div>
-              <div class="task-reward">+15 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">Start</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t3-name">Connect Your TON Wallet</div>
-              <div class="task-reward">+50 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">Verify</button>
         </div>
       </div>
     </div>
@@ -1184,338 +742,80 @@
     <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
-        <div class="header-badge-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-        </div>
         <div class="page-title" id="pg-refs-title">Referral Network</div>
-        <div class="page-subtitle" id="pg-refs-sub">Invite friends to earn ROL tokens and free Fortune Wheel spins</div>
+        <div class="page-subtitle" id="pg-refs-sub">Invite friends to earn ROL tokens</div>
       </div>
-
       <div class="ref-stats-grid">
-        <div class="cyber-stat-box cyan-accent">
-          <div class="stat-val-big" id="ref-count-val">0</div>
-          <div class="stat-caption" id="pg-refs-friends">Verified Referrals</div>
-        </div>
-        <div class="cyber-stat-box">
-          <div class="stat-val-big" id="ref-earn-val">0</div>
-          <div class="stat-caption" id="pg-refs-earned">Referral Earnings (ROL)</div>
-        </div>
+        <div class="cyber-stat-box cyan-accent"><div class="stat-val-big" id="ref-count-val">0</div><div class="stat-caption" id="pg-refs-friends">Verified Referrals</div></div>
+        <div class="cyber-stat-box"><div class="stat-val-big" id="ref-earn-val">0</div><div class="stat-caption" id="pg-refs-earned">Referral Earnings (ROL)</div></div>
       </div>
-
-      <div class="ref-perks-card">
-        <div class="perk-row">
-          <div class="perk-dot">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.5">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span id="perk-1-txt">+60 ROL instant bonus + 1 Free Spin per verified referral</span>
-        </div>
-        <div class="perk-row">
-          <div class="perk-dot">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.5">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-            </svg>
-          </div>
-          <span id="perk-2-txt">5% continuous commission from your invited friends' mining profits</span>
-        </div>
-      </div>
-
-      <div class="ref-verify-note" id="ref-verify-rule-box">
-        Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.
-      </div>
-
-      <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">Your Personal Invite Link</div>
       <div class="invite-link-wrapper">
         <div class="invite-url-text" id="user-ref-link">https://t.me/ROL_Mining_bot?start=ref_miner</div>
-        <button class="mini-copy-btn" id="mini-copy-btn" onclick="copyReferralLink()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
-          <span id="copy-btn-lbl">Copy</span>
-        </button>
+        <button class="mini-copy-btn" id="mini-copy-btn" onclick="copyReferralLink()"><span id="copy-btn-lbl">Copy</span></button>
       </div>
-
-      <button class="legendary-btn-gold" onclick="shareReferralLink()" id="pg-refs-share-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-        </svg>
-        <span id="share-btn-lbl">Share Invite Link</span>
-      </button>
     </div>
 
     <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
-        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet and buy ROL tokens to boost your mining tier</div>
+        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet and buy ROL tokens</div>
       </div>
-
       <div class="obsidian-vault-card">
         <div class="vault-top-row">
-          <div class="vault-chip-group">
-            <div class="emv-gold-chip"></div>
-            <div class="ton-chain-badge">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5">
-                <polygon points="12 2 22 8.5 12 22 2 8.5 12 2"/>
-              </svg>
-              <span>TON</span>
-            </div>
-          </div>
-          <div class="conn-status-pill">
-            <span class="status-dot" id="wallet-live-dot"></span>
-            <span id="wallet-conn-badge">Not Connected</span>
-          </div>
+          <div class="vault-chip-group"><div class="emv-gold-chip"></div><div class="ton-chain-badge"><span>TON</span></div></div>
+          <div class="conn-status-pill"><span class="status-dot" id="wallet-live-dot"></span><span id="wallet-conn-badge">Not Connected</span></div>
         </div>
-
-        <div class="vault-main-balance">
-          <div class="vault-bal-caption" id="pg-w-bal-lbl">Total Bot Mining Balance</div>
-          <div class="vault-bal-figure" id="pg-wallet-balance">0 <span>ROL</span></div>
-        </div>
-
-        <div class="vault-analytics-row">
-          <div class="v-glass-stat">
-            <span class="v-metric-lbl" id="pg-w-vip-lbl">Active Tier</span>
-            <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/10h)</span>
-          </div>
-          <div class="v-glass-stat">
-            <span class="v-metric-lbl" id="pg-w-chain-lbl">TON Wallet Balance</span>
-            <span class="v-metric-val" style="color: #38bdf8;" id="pg-onchain-rol">0 ROL</span>
-          </div>
-        </div>
-
-        <div class="vip-upgrade-box">
-          <div class="vip-up-header">
-            <span id="next-vip-label">Progress to VIP 2</span>
-            <span id="next-vip-req" style="color: #facc15; font-family: ui-monospace, monospace;">0 / 500 ROL</span>
-          </div>
-          <div class="vip-up-track">
-            <div class="vip-up-fill" id="next-vip-bar"></div>
-          </div>
-        </div>
+        <div class="vault-main-balance"><div class="vault-bal-caption">Total Bot Mining Balance</div><div class="vault-bal-figure" id="pg-wallet-balance">0 <span>ROL</span></div></div>
       </div>
-
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
-          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
-          <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining after 1st session & unlock withdrawals</div>
+          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)[span_0](start_span)[span_0](end_span)</div>
+          <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining[span_1](start_span)[span_1](end_span)</div>
         </div>
         <button class="action-pill-btn" id="gram-verify-btn" onclick="triggerDirectGramVerification()">Verify</button>
       </div>
-
-      <div class="stonfi-dex-card">
-        <div class="stonfi-header">
-          <div class="stonfi-gem-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 22 9 12 22 2 9 12 2"/>
-              <line x1="2" y1="9" x2="22" y2="9"/>
-            </svg>
-          </div>
-          <div>
-            <div class="stonfi-title" id="stonfi-card-title">Buy ROL on STON.fi DEX</div>
-            <div class="stonfi-desc" id="stonfi-card-desc">Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards</div>
-          </div>
-        </div>
-
-        <div class="stonfi-actions-row">
-          <button class="stonfi-buy-btn" onclick="openStonFiBuy()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            <span id="stonfi-btn-lbl">Buy ROL on STON.fi</span>
-          </button>
-
-          <button class="refresh-bal-btn" onclick="manualRefreshOnChain()" id="refresh-chain-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-            </svg>
-            <span id="refresh-btn-lbl">Sync</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="compact-address-capsule">
-        <div class="addr-left-info">
-          <div class="addr-shield-box">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 2px;">
-            <span style="font-size: 10px; color: #94a3b8; font-weight: 700;" id="pg-w-addr-lbl">Connected Wallet Address</span>
-            <span class="addr-short-code" id="wallet-status-lbl">Not Connected</span>
-          </div>
-        </div>
-        <button class="mini-copy-btn" id="wallet-copy-btn" onclick="copyWalletAddress()" style="display: none;">
-          <span id="wallet-copy-lbl">Copy</span>
-        </button>
-      </div>
-
       <div class="wallet-bottom-actions">
-        <button class="legendary-btn-cyan" onclick="handleRealTonConnect()" id="modal-ton-connect-action">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-          </svg>
-          <span id="ton-btn-txt">Connect Wallet</span>
-        </button>
-
-        <button class="legendary-btn-locked" id="pg-w-withdraw-btn" onclick="handleWithdrawClick()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <span id="withdraw-locked-txt">Withdraw (Verify First)</span>
-        </button>
+        <button class="legendary-btn-cyan" onclick="handleRealTonConnect()" id="modal-ton-connect-action"><span id="ton-btn-txt">Connect Wallet</span></button>
+        <button class="legendary-btn-locked" id="pg-w-withdraw-btn" onclick="handleWithdrawClick()"><span id="withdraw-locked-txt">Withdraw (Verify First)</span></button>
       </div>
     </div>
 
-    <!-- ==================== الشريط السفلي المحسّن ==================== -->
+    <!-- ==================== الشريط السفلي ==================== -->
     <div class="cyber-footer">
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
         <div class="cyber-box-wrap">
-          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
-            <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/>
-            <rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/>
-          </svg>
+          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none"><polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/><rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/></svg>
           <div class="icon-aura"></div>
-          <svg class="cyber-icon" viewBox="0 0 24 24">
-            <path fill="url(#gold3D)" d="M12 2.5L2 11.5h3v9h6v-6h2v6h6v-9h3L12 2.5z"/>
-            <path fill="#fef9c3" opacity="0.5" d="M12 2.5L2 11.5h2.5L12 4.8l7.5 6.7H22L12 2.5z"/>
-          </svg>
+          <svg class="cyber-icon" viewBox="0 0 24 24"><path fill="#facc15" d="M12 2.5L2 11.5h3v9h6v-6h2v6h6v-9h3L12 2.5z"/></svg>
         </div>
         <span class="cyber-label" id="txt-nav-home">Home</span>
       </div>
-
       <div class="cyber-tab" id="tab-tasks" onclick="switchTab('tasks')">
         <span class="notify-pulse-dot" id="dot-tasks"></span>
         <div class="cyber-box-wrap">
-          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
-            <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/>
-            <rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/>
-          </svg>
+          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none"><polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/><rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/></svg>
           <div class="icon-aura"></div>
-          <svg class="cyber-icon" viewBox="0 0 24 24">
-            <path fill="url(#gold3D)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-          </svg>
+          <svg class="cyber-icon" viewBox="0 0 24 24"><path fill="#00f0ff" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
         </div>
         <span class="cyber-label" id="txt-nav-tasks">Tasks</span>
       </div>
-
       <div class="cyber-tab" id="tab-refs" onclick="switchTab('refs')">
         <div class="cyber-box-wrap">
-          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
-            <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/>
-            <rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/>
-          </svg>
+          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none"><polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/><rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/></svg>
           <div class="icon-aura"></div>
-          <svg class="cyber-icon" viewBox="0 0 24 24">
-            <path fill="url(#gold3D)" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-          </svg>
+          <svg class="cyber-icon" viewBox="0 0 24 24"><path fill="#00f0ff" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3z"/></svg>
         </div>
         <span class="cyber-label" id="txt-nav-refs">Referrals</span>
       </div>
-
       <div class="cyber-tab" id="tab-wallet" onclick="switchTab('wallet')">
         <div class="cyber-box-wrap">
-          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
-            <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
-            <rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/>
-            <rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/>
-          </svg>
+          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none"><polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/><rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/><rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/></svg>
           <div class="icon-aura"></div>
-          <svg class="cyber-icon" viewBox="0 0 24 24">
-            <path fill="url(#gold3D)" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-          </svg>
+          <svg class="cyber-icon" viewBox="0 0 24 24"><path fill="#00f0ff" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9z"/></svg>
         </div>
         <span class="cyber-label" id="txt-nav-wallet">Wallet</span>
       </div>
-
-      <svg width="0" height="0" style="position:absolute;">
-        <defs>
-          <radialGradient id="blueCardBg" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stop-color="#0d295c"/>
-            <stop offset="70%" stop-color="#051330"/>
-            <stop offset="100%" stop-color="#020817"/>
-          </radialGradient>
-          <radialGradient id="goldCardBg" cx="50%" cy="50%" r="65%">
-            <stop offset="0%" stop-color="#453007"/>
-            <stop offset="70%" stop-color="#1f1503"/>
-            <stop offset="100%" stop-color="#0a0702"/>
-          </radialGradient>
-          <linearGradient id="gold3D" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fef9c3"/>
-            <stop offset="35%" stop-color="#facc15"/>
-            <stop offset="75%" stop-color="#eab308"/>
-            <stop offset="100%" stop-color="#a16207"/>
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-  </div>
-
-  <!-- ==================== نافذة المكافآت اليومية ==================== -->
-  <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
-    <div class="daily-modal-box">
-      <div class="streak-banner" id="streak-badge">Check-in Streak: Day 1 / 30</div>
-      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 6px;" id="txt-modal-checkin-title">Daily Rewards (30 Days)</h3>
-      <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5;" id="txt-modal-checkin-desc">
-        Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!
-      </p>
-      
-      <div class="days-grid" id="days-grid-container"></div>
-
-      <button class="legendary-btn-gold" id="claim-daily-btn" onclick="claimDailyReward()">Claim Today's Reward</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="txt-close-1">Close</button>
-    </div>
-  </div>
-
-  <!-- ==================== نافذة قواعد المستويات ==================== -->
-  <div class="modal-overlay" id="rules-modal" onclick="onOverlayClick(event, 'rules-modal')" dir="auto">
-    <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.45);">
-      <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
-      
-      <div class="wallet-rule-notice" id="txt-wallet-rule-note">
-        Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.
-      </div>
-
-      <div class="vip-table-header">
-        <span id="th-level">Tier</span>
-        <span id="th-hold">Wallet Hold</span>
-        <span id="th-profit">Profit (10h)</span>
-      </div>
-
-      <div class="vip-scroll-wrapper">
-        <div class="vip-scroll-container" id="vip-tiers-list" onscroll="handleVipScroll(this)"></div>
-        <div class="scroll-down-hint" id="vip-scroll-hint">
-          <svg class="bounce-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
-          </svg>
-          <span id="scroll-hint-txt">Scroll down to view all tiers up to VIP 100</span>
-        </div>
-      </div>
-
-      <button onclick="closeAllModals()" class="legendary-btn-cyan" style="margin-bottom: 0;" id="txt-close-2">Understood</button>
-    </div>
-  </div>
-
-  <!-- ==================== نافذة تنبيه المحفظة المستخدمة ==================== -->
-  <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
-    <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
-      <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">Wallet Already Linked</h3>
-      <p style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px;" id="txt-wused-desc">
-        Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.
-      </p>
-      <button onclick="closeAllModals()" class="legendary-btn-gold" id="txt-wused-btn">Understood</button>
     </div>
   </div>
 
@@ -1535,184 +835,54 @@
       if (isWarn) toast.classList.add('warn');
       toast.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3400);
+      toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 3400);
     }
 
     let soundMuted = localStorage.getItem('rol_sound_muted') === 'true';
     let audioCtx = null;
-
-    function getAudioCtx() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) audioCtx = new AudioContext();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume().catch(() => {});
-      }
-      return audioCtx;
-    }
-
     function playSoundFX(type) {
       if (soundMuted) return;
       try {
-        const ctx = getAudioCtx();
-        if (!ctx) return;
-        const now = ctx.currentTime;
-
-        if (type === 'click') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(720, now);
-          osc.frequency.exponentialRampToValueAtTime(340, now + 0.055);
-          gain.gain.setValueAtTime(0.07, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.06);
-        } else if (type === 'tick') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(1100, now);
-          osc.frequency.exponentialRampToValueAtTime(520, now + 0.03);
-          gain.gain.setValueAtTime(0.06, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.032);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.035);
-        } else if (type === 'tapCoin') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(980, now);
-          osc.frequency.exponentialRampToValueAtTime(1450, now + 0.09);
-          gain.gain.setValueAtTime(0.09, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.1);
-        } else if (type === 'start') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(180, now);
-          osc.frequency.exponentialRampToValueAtTime(860, now + 0.4);
-          gain.gain.setValueAtTime(0.11, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.45);
-        } else if (type === 'claim') {
-          const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
-          notes.forEach((freq, idx) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            const tStart = now + idx * 0.065;
-            osc.frequency.setValueAtTime(freq, tStart);
-            gain.gain.setValueAtTime(0.13, tStart);
-            gain.gain.exponentialRampToValueAtTime(0.001, tStart + 0.28);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(tStart);
-            osc.stop(tStart + 0.3);
-          });
-        }
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(type === 'tapCoin' ? 980 : 720, now);
+        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(now); osc.stop(now + 0.07);
       } catch (e) {}
-    }
-
-    function updateSoundIconUI() {
-      const btn = document.getElementById('sound-btn');
-      const onIco = document.getElementById('icon-sound-on');
-      const offIco = document.getElementById('icon-sound-off');
-      if (soundMuted) {
-        btn.classList.add('muted');
-        onIco.style.display = 'none';
-        offIco.style.display = 'block';
-      } else {
-        btn.classList.remove('muted');
-        onIco.style.display = 'block';
-        offIco.style.display = 'none';
-      }
     }
 
     function toggleSound() {
       soundMuted = !soundMuted;
       localStorage.setItem('rol_sound_muted', soundMuted.toString());
-      updateSoundIconUI();
+      const btn = document.getElementById('sound-btn');
+      btn.classList.toggle('muted', soundMuted);
+      document.getElementById('icon-sound-on').style.display = soundMuted ? 'none' : 'block';
+      document.getElementById('icon-sound-off').style.display = soundMuted ? 'block' : 'none';
       if (!soundMuted) playSoundFX('click');
     }
 
     function onGlobalScreenClick(e) {
-      spawnTouchRipple(e);
-      const langBar = document.getElementById('lang-dropdown-bar');
-      if (langBar && langBar.classList.contains('open')) {
-        langBar.classList.remove('open');
-      }
-    }
-
-    function spawnTouchRipple(e) {
       const ripple = document.createElement('div');
       ripple.className = 'tap-ripple';
       ripple.style.left = `${e.clientX}px`;
       ripple.style.top = `${e.clientY}px`;
       document.body.appendChild(ripple);
       setTimeout(() => ripple.remove(), 660);
+      document.getElementById('lang-dropdown-bar').classList.remove('open');
     }
 
     function onCoinInteractiveTap(e) {
       e.stopPropagation();
-      spawnTouchRipple(e);
       playSoundFX('tapCoin');
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      for (let i = 0; i < 8; i++) {
-        spawnEnergySpark(i % 2 === 0);
-      }
-    }
-
-    function spawnEnergySpark(isGold = false) {
-      const layer = document.getElementById('coin-fx-layer');
-      if (!layer) return;
-      const spark = document.createElement('div');
-      spark.className = isGold ? 'energy-particle gold' : 'energy-particle';
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 66 + Math.random() * 14;
-      const cx = 96 + Math.cos(angle) * radius;
-      const cy = 96 + Math.sin(angle) * radius;
-      spark.style.left = `${cx}px`;
-      spark.style.top = `${cy}px`;
-      spark.style.setProperty('--dx', `${Math.cos(angle) * 42}px`);
-      spark.style.setProperty('--dy', `${Math.sin(angle) * 42 - 22}px`);
-      layer.appendChild(spark);
-      setTimeout(() => spark.remove(), 1800);
-    }
-
-    function spawnPickaxeSpark() {
-      const spot = document.getElementById('pickaxe-fx-spot');
-      if (!spot) return;
-      for (let i = 0; i < 3; i++) {
-        const spark = document.createElement('div');
-        spark.className = 'energy-particle gold';
-        spark.style.left = '20px';
-        spark.style.top = '22px';
-        const dx = (Math.random() - 0.3) * 45;
-        const dy = -15 - Math.random() * 28;
-        spark.style.setProperty('--dx', `${dx}px`);
-        spark.style.setProperty('--dy', `${dy}px`);
-        spot.appendChild(spark);
-        setTimeout(() => spark.remove(), 1800);
-      }
+      if (window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
     }
 
     function triggerRewardVisualBurst(amount) {
-      playSoundFX('claim');
       const wave = document.createElement('div');
       wave.className = 'claim-shockwave';
       document.body.appendChild(wave);
@@ -1721,1285 +891,142 @@
       if (amount > 0) {
         const el = document.createElement('div');
         el.className = 'floating-reward-fx';
-        el.innerText = `+${formatCleanNumber(amount)} ROL`;
+        el.innerText = `+${Number(amount.toFixed(2))} ROL`;
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 1650);
-      }
-
-      const balEl = document.getElementById('balance-display');
-      if (balEl) {
-        balEl.classList.add('pop');
-        setTimeout(() => balEl.classList.remove('pop'), 380);
-      }
-      for (let i = 0; i < 24; i++) {
-        setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 25);
       }
     }
 
     const VIP_TIERS = [];
     for (let lvl = 1; lvl <= 100; lvl++) {
-      let requiredHold = 0;
-      if (lvl === 1) {
-        requiredHold = 0;
-      } else if (lvl <= 10) {
-        requiredHold = (lvl - 1) * 500;
-      } else if (lvl <= 50) {
-        requiredHold = 5000 + (lvl - 11) * 1000;
-      } else {
-        requiredHold = 45000 + (lvl - 51) * 2000;
-      }
-      const cycleProfit = 500 + (lvl - 1) * 80;
-      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit: cycleProfit });
-    }
-
-    function formatCleanNumber(num) {
-      const val = parseFloat(num || 0);
-      if (isNaN(val) || val === 0) return "0";
-      return Number(val.toFixed(2)).toString();
-    }
-
-    function formatPrettyNumber(num) {
-      const val = parseFloat(num || 0);
-      if (isNaN(val) || val === 0) return "0";
-      const clean = Number(val.toFixed(2));
-      return clean.toLocaleString('en-US');
+      let requiredHold = lvl === 1 ? 0 : (lvl <= 10 ? (lvl - 1) * 500 : (lvl <= 50 ? 5000 + (lvl - 11) * 1000 : 45000 + (lvl - 51) * 2000));
+      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit: 500 + (lvl - 1) * 80 });
     }
 
     const tg = window.Telegram?.WebApp;
-    if (tg) {
-      try { tg.ready(); tg.expand(); } catch (e) {}
-    }
+    if (tg) { try { tg.ready(); tg.expand(); } catch (e) {} }
 
     const userObj = tg?.initDataUnsafe?.user;
     const uid = userObj?.id ? userObj.id.toString() : "guest_miner";
     const startParam = tg?.initDataUnsafe?.start_param || "";
 
-    const lastActiveUid = localStorage.getItem('rol_last_active_uid');
-    const isSwitchedUser = (lastActiveUid && lastActiveUid !== uid);
-    localStorage.setItem('rol_last_active_uid', uid);
-
     const KEY_BALANCE = `rol_${uid}_balance`;
     const KEY_START = `rol_${uid}_mine_start`;
-    const KEY_CHECKIN_DAY = `rol_${uid}_checkin_day`;
-    const KEY_CHECKIN_TIME = `rol_${uid}_checkin_time`;
     const KEY_LANG = `rol_${uid}_lang`;
     const KEY_VIP = `rol_${uid}_vip`;
     const KEY_WALLET = `rol_${uid}_wallet_addr`;
     const KEY_TASKS = `rol_${uid}_completed_tasks`;
-    const KEY_REF_COUNT = `rol_${uid}_ref_count`;
-    const KEY_REF_EARN = `rol_${uid}_ref_earn`;
-    const KEY_REFERRED_BY = `rol_${uid}_referred_by`;
-    const KEY_FIRST_FREE_USED = `rol_${uid}_first_free_used`;
     const KEY_IS_VERIFIED = `rol_${uid}_is_verified_gram`;
     const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
-    const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
-    const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
-
-    if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
-      localStorage.removeItem(KEY_IS_VERIFIED);
-    }
 
     const dictionary = {
-      en: {
-        flagBadge: "EN 🇺🇸",
-        walletConnect: "Connect",
-        vip: "Gold Tier",
-        rate: "Cycle Profit",
-        gift: "Rewards",
-        balance: "Current Balance",
-        homeBuy: "Buy ROL",
-        active: "Active",
-        idle: "Idle",
-        rulesBtn: "Mining Tier Rules",
-        start: "Start Mining",
-        mining: "Mining Now...",
-        claim: "Claim Rewards",
-        verifyToContinue: "Verify Account (0.04 GRAM)",
-        navHome: "Home",
-        navTasks: "Tasks",
-        navRefs: "Referrals",
-        navWallet: "Wallet",
-        modalCheckinTitle: "Daily Rewards (30 Days)",
-        modalCheckinDesc: "Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!",
-        streakTxt: "Check-in Streak: Day",
-        claimDay: "Claim Today's Reward",
-        claimedDone: "Claimed - Come back tomorrow",
-        close: "Close",
-        understand: "Understood",
-        rulesTitle: "VIP Mining Tiers (VIP 1 - VIP 100)",
-        walletRuleNote: "Your VIP tier and 10-hour cycle profit are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b>, not the balance inside your bot account.",
-        thLevel: "Tier",
-        thHold: "Wallet Hold",
-        thProfit: "Profit (10h)",
-        reqHoldFree: "Free",
-        scrollHint: "Scroll down to view all tiers up to VIP 100",
-        pgTasksTitle: "Tasks & Fortune Spin",
-        pgTasksSub: "Spin daily and complete official tasks to multiply your ROL balance",
-        spinTickets: "Available Spins:",
-        spinReady: "FREE SPIN READY",
-        spinLaunch: "Spin the Wheel Now",
-        noSpins: "No Spins Available",
-        tasksHeading: "Available Tasks",
-        t1Name: "Join Official ROL Channel",
-        t2Name: "Follow Project on X",
-        t3Name: "Connect Your TON Wallet",
-        doBtn: "Start",
-        verifyBtn: "Verify",
-        doneBtn: "Done ✓",
-        pgRefsTitle: "Referral Network",
-        pgRefsSub: "Invite friends to earn ROL tokens and free Fortune Wheel spins",
-        pgRefsFriends: "Verified Referrals",
-        pgRefsEarned: "Referral Earnings (ROL)",
-        perk1: "+60 ROL instant bonus + 1 Free Spin per verified referral",
-        perk2: "5% continuous commission from your invited friends' mining profits",
-        refVerifyNote: "Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.",
-        pgRefsLinkLbl: "Your Personal Invite Link",
-        copyBtn: "Copy",
-        copiedBtn: "Copied ✓",
-        pgRefsShare: "Share Invite Link",
-        pgWalletTitle: "Digital Asset Vault",
-        pgWalletSub: "Manage TON wallet and buy ROL tokens to boost your mining tier",
-        pgWBalLbl: "Total Bot Mining Balance",
-        pgWVipLbl: "Active Tier",
-        pgWChainLbl: "TON Wallet Balance",
-        gramTitle: "Wallet Verification (0.04 GRAM)",
-        gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
-        gramVerifiedTitle: "Account Verified ✓",
-        gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
-        gramBtn: "Verify",
-        gramVerifiedBtn: "Verified ✓",
-        stonTitle: "Buy ROL on STON.fi DEX",
-        stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
-        stonBtn: "Buy ROL on STON.fi",
-        refreshBtn: "Sync",
-        pgWAddrLbl: "Connected Wallet Address",
-        walletBtnModal: "Connect Wallet",
-        walletDisconnectModal: "Disconnect",
-        connActive: "Connected",
-        notConnected: "Not Connected",
-        pgWWithdrawLock: "Withdraw (Verify First)",
-        pgWWithdrawReady: "Withdraw (At Listing)",
-        nextVipProg: "Progress to",
-        maxVipReached: "Max Tier VIP 100 Reached",
-        wUsedTitle: "Wallet Already Linked",
-        wUsedDesc: "Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.",
-        wUsedBtn: "Understood",
-        dayLabel: "Day",
-        toastCopied: "✓ Copied to clipboard",
-        toastVerified: "✓ Account verified with 0.04 GRAM!",
-        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment..."
-      },
-      ar: {
-        flagBadge: "AR 🇸🇦",
-        walletConnect: "ربط",
-        vip: "المستوى الذهبي",
-        rate: "ربح الدورة",
-        gift: "المكافآت",
-        balance: "رصيدك الحالي",
-        homeBuy: "شراء ROL",
-        active: "نشط",
-        idle: "متوقف",
-        rulesBtn: "قواعد مستويات التعدين",
-        start: "ابدأ التعدين الآن",
-        mining: "جاري التعدين...",
-        claim: "استلام الأرباح",
-        verifyToContinue: "توثيق الحساب للاستمرار (0.04 GRAM)",
-        navHome: "الرئيسية",
-        navTasks: "المهام",
-        navRefs: "الإحالات",
-        navWallet: "المحفظة",
-        modalCheckinTitle: "المكافآت اليومية (30 يوماً)",
-        modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
-        streakTxt: "سلسلة الحضور: يوم",
-        claimDay: "استلام مكافأة اليوم",
-        claimedDone: "تم الاستلام - عد غداً",
-        close: "إغلاق",
-        understand: "فهمت ذلك",
-        rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
-        walletRuleNote: "يتم تحديد مستواك وربح الدورة (كل 10 ساعات) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b>، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
-        thLevel: "المستوى",
-        thHold: "رصيد المحفظة",
-        thProfit: "الربح (10h)",
-        reqHoldFree: "مجاني",
-        scrollHint: "اسحب للأسفل لعرض باقي المستويات حتى VIP 100",
-        pgTasksTitle: "المهام وعجلة الحظ",
-        pgTasksSub: "أدر العجلة يومياً وأكمل المهام لمضاعفة رصيدك من ROL",
-        spinTickets: "اللفات المتاحة:",
-        spinReady: "لفة مجانية جاهزة",
-        spinLaunch: "أدر العجلة الآن",
-        noSpins: "لا توجد لفات متاحة حالياً",
-        tasksHeading: "المهام المتاحة",
-        t1Name: "انضم لقناة ROL الرسمية",
-        t2Name: "تابع حساب المشروع على X",
-        t3Name: "اربط محفظة TON الخاصة بك",
-        doBtn: "تنفيذ",
-        verifyBtn: "تحقق",
-        doneBtn: "مكتمل ✓",
-        pgRefsTitle: "شبكة الإحالات",
-        pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
-        pgRefsFriends: "الإحالات المؤكدة",
-        pgRefsEarned: "أرباح الإحالات (ROL)",
-        perk1: "+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة",
-        perk2: "5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته",
-        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
-        pgRefsLinkLbl: "رابط الدعوة الخاص بك",
-        copyBtn: "نسخ",
-        copiedBtn: "تم النسخ ✓",
-        pgRefsShare: "مشاركة الرابط مع الأصدقاء",
-        pgWalletTitle: "خزنة الأصول الرقمية",
-        pgWalletSub: "تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً",
-        pgWBalLbl: "الرصيد الإجمالي في البوت",
-        pgWVipLbl: "المستوى النشط",
-        pgWChainLbl: "رصيد محفظة TON",
-        gramTitle: "توثيق المحفظة (0.04 GRAM)",
-        gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
-        gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
-        gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
-        gramBtn: "توثيق",
-        gramVerifiedBtn: "موثق ✓",
-        stonTitle: "شراء عملة ROL عبر STON.fi",
-        stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
-        stonBtn: "شراء ROL من STON.fi",
-        refreshBtn: "تحديث",
-        pgWAddrLbl: "عنوان المحفظة المربوطة",
-        walletBtnModal: "ربط المحفظة",
-        walletDisconnectModal: "فصل المحفظة",
-        connActive: "متصلة",
-        notConnected: "غير متصلة",
-        pgWWithdrawLock: "السحب (يتطلب توثيق)",
-        pgWWithdrawReady: "سحب الأرباح (قريباً)",
-        nextVipProg: "التقدم نحو",
-        maxVipReached: "وصلت للحد الأقصى VIP 100",
-        wUsedTitle: "المحفظة مربوطة بحساب آخر",
-        wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
-        wUsedBtn: "حسناً، فهمت",
-        dayLabel: "يوم",
-        toastCopied: "✓ تم النسخ إلى الحافظة",
-        toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
-        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM..."
-      },
-      ru: {
-        flagBadge: "RU 🇷🇺",
-        walletConnect: "Кошелёк",
-        vip: "Золотой статус",
-        rate: "Доход цикла",
-        gift: "Награды",
-        balance: "Текущий баланс",
-        homeBuy: "Купить ROL",
-        active: "Активен",
-        idle: "Ожидает",
-        rulesBtn: "Уровни майнинга VIP",
-        start: "Начать майнинг",
-        mining: "Идёт майнинг...",
-        claim: "Забрать награду",
-        verifyToContinue: "Верификация (0.04 GRAM)",
-        navHome: "Главная",
-        navTasks: "Задания",
-        navRefs: "Друзья",
-        navWallet: "Кошелёк",
-        modalCheckinTitle: "Ежедневные награды (30 дней)",
-        modalCheckinDesc: "Заходите каждый день, чтобы увеличить награду до 250 ROL. Пропуск >48ч сбрасывает серию!",
-        streakTxt: "Серия входов: День",
-        claimDay: "Забрать награду дня",
-        claimedDone: "Получено - Приходите завтра",
-        close: "Закрыть",
-        understand: "Понятно",
-        rulesTitle: "Система уровней (VIP 1 - VIP 100)",
-        walletRuleNote: "Ваш VIP-уровень и доход за 10 часов зависят только от <b>баланса ROL в привязанном TON-кошельке</b>, а не от баланса внутри бота.",
-        thLevel: "Уровень",
-        thHold: "В кошельке",
-        thProfit: "Доход (10ч)",
-        reqHoldFree: "Бесплатно",
-        scrollHint: "Листайте вниз до VIP 100",
-        pgTasksTitle: "Задания и Колесо Удачи",
-        pgTasksSub: "Крутите колесо каждый день и выполняйте задания за ROL",
-        spinTickets: "Доступно вращений:",
-        spinReady: "БЕСПЛАТНЫЙ СПИН",
-        spinLaunch: "Крутить колесо",
-        noSpins: "Нет доступных вращений",
-        tasksHeading: "Доступные задания",
-        t1Name: "Подписаться на канал ROL",
-        t2Name: "Подписаться на X (Twitter)",
-        t3Name: "Привязать TON-кошелёк",
-        doBtn: "Начать",
-        verifyBtn: "Проверить",
-        doneBtn: "Готово ✓",
-        pgRefsTitle: "Реферальная сеть",
-        pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
-        pgRefsFriends: "Подтверждённые",
-        pgRefsEarned: "Доход от друзей (ROL)",
-        perk1: "+60 ROL бонус + 1 спин за каждого подтверждённого друга",
-        perk2: "5% постоянный доход от майнинга приглашённых друзей",
-        refVerifyNote: "Условие: приглашённый друг должен пройти верификацию <b>0.04 GRAM</b>, чтобы вы получили 60 ROL и 1 спин.",
-        pgRefsLinkLbl: "Ваша реферальная ссылка",
-        copyBtn: "Копия",
-        copiedBtn: "Скопировано ✓",
-        pgRefsShare: "Пригласить друзей",
-        pgWalletTitle: "Хранилище активов",
-        pgWalletSub: "Управляйте кошельком TON и покупайте ROL для роста VIP",
-        pgWBalLbl: "Общий баланс в боте",
-        pgWVipLbl: "Активный уровень",
-        pgWChainLbl: "Баланс в TON кошельке",
-        gramTitle: "Верификация (0.04 GRAM)",
-        gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
-        gramVerifiedTitle: "Аккаунт подтверждён ✓",
-        gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
-        gramBtn: "Подтвердить",
-        gramVerifiedBtn: "Подтверждено ✓",
-        stonTitle: "Купить ROL на STON.fi",
-        stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
-        stonBtn: "Купить ROL на STON.fi",
-        refreshBtn: "Обновить",
-        pgWAddrLbl: "Привязанный адрес кошелька",
-        walletBtnModal: "Подключить",
-        walletDisconnectModal: "Отключить",
-        connActive: "Подключён",
-        notConnected: "Не подключён",
-        pgWWithdrawLock: "Вывод (нужна верификация)",
-        pgWWithdrawReady: "Вывод (при листинге)",
-        nextVipProg: "Прогресс до",
-        maxVipReached: "Достигнут максимум VIP 100",
-        wUsedTitle: "Кошелёк уже используется",
-        wUsedDesc: "Этот адрес TON уже привязан к другому аккаунту. Используйте другой кошелёк.",
-        wUsedBtn: "Понятно",
-        dayLabel: "День",
-        toastCopied: "✓ Скопировано в буфер",
-        toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
-        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM..."
-      }
+      en: { flagBadge: "EN 🇺🇸", walletConnect: "Connect", vip: "Gold Tier", rate: "Cycle Profit", gift: "Rewards", balance: "Current Balance", homeBuy: "Buy ROL", active: "Active", idle: "Idle", rulesBtn: "Mining Tier Rules", start: "Start Mining", mining: "Mining Now...", claim: "Claim Rewards", verifyToContinue: "Verify (0.04 GRAM)", navHome: "Home", navTasks: "Tasks", navRefs: "Referrals", navWallet: "Wallet" },
+      ar: { flagBadge: "AR 🇸🇦", walletConnect: "ربط", vip: "المستوى الذهبي", rate: "ربح الدورة", gift: "المكافآت", balance: "رصيدك الحالي", homeBuy: "شراء ROL", active: "نشط", idle: "متوقف", rulesBtn: "قواعد مستويات التعدين", start: "ابدأ التعدين", mining: "جاري التعدين...", claim: "استلام الأرباح", verifyToContinue: "توثيق (0.04 GRAM)", navHome: "الرئيسية", navTasks: "المهام", navRefs: "الإحالات", navWallet: "المحفظة" },
+      ru: { flagBadge: "RU 🇷🇺", walletConnect: "Кошелёк", vip: "Золотой статус", rate: "Доход цикла", gift: "Награды", balance: "Баланс", homeBuy: "Купить ROL", active: "Активен", idle: "Ожидает", rulesBtn: "Уровни VIP", start: "Начать", mining: "Майнинг...", claim: "Забрать", verifyToContinue: "Верификация", navHome: "Главная", navTasks: "Задания", navRefs: "Друзья", navWallet: "Кошелёк" }
     };
 
     let curLang = localStorage.getItem(KEY_LANG) || 'en';
-    if (!dictionary[curLang]) curLang = 'en';
-
     let connectedWalletAddr = localStorage.getItem(KEY_WALLET) || null;
     let completedTasks = JSON.parse(localStorage.getItem(KEY_TASKS) || '[]');
-    let refCount = parseInt(localStorage.getItem(KEY_REF_COUNT) || '0', 10);
-    let refEarn = parseFloat(localStorage.getItem(KEY_REF_EARN) || '0');
     let onChainRolBalance = 0;
-
-    let firstFreeUsed = localStorage.getItem(KEY_FIRST_FREE_USED) === 'true';
     let isAccountVerified = localStorage.getItem(KEY_IS_VERIFIED) === 'true' && Boolean(localStorage.getItem(KEY_VERIFY_PROOF));
-    let spinTickets = parseInt(localStorage.getItem(KEY_SPIN_TICKETS) || '0', 10);
-    let lastFreeSpinTime = parseInt(localStorage.getItem(KEY_LAST_FREE_SPIN) || '0', 10);
-
-    const DAILY_REWARDS = [
-      5, 8, 12, 16, 20, 25, 30, 35, 40, 48,
-      56, 64, 72, 80, 90, 100, 110, 120, 130, 142,
-      155, 168, 180, 192, 205, 218, 228, 238, 245, 250
-    ];
 
     let balance = parseFloat(localStorage.getItem(KEY_BALANCE) || '0');
     let startTime = parseInt(localStorage.getItem(KEY_START) || '0', 10);
-    let checkinDay = parseInt(localStorage.getItem(KEY_CHECKIN_DAY) || '0', 10);
-    let lastCheckinTime = parseInt(localStorage.getItem(KEY_CHECKIN_TIME) || '0', 10);
     let currentVip = parseInt(localStorage.getItem(KEY_VIP) || '1', 10);
-    if (currentVip < 1 || currentVip > 100) currentVip = 1;
-
     const CYCLE = 10 * 60 * 60 * 1000;
     let isMining = startTime > 0;
-    let lock = false;
 
-    function getCurrentTierObj() {
-      return VIP_TIERS[currentVip - 1] || VIP_TIERS[0];
-    }
-
-    function getCycleRewardAmount() {
-      return getCurrentTierObj().dailyProfit;
-    }
-
-    function toggleLangBar(e) {
-      e.stopPropagation();
-      playSoundFX('click');
-      const bar = document.getElementById('lang-dropdown-bar');
-      bar.classList.toggle('open');
-    }
-
+    function toggleLangBar(e) { e.stopPropagation(); document.getElementById('lang-dropdown-bar').classList.toggle('open'); }
     function selectLanguage(langCode) {
-      playSoundFX('click');
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
       localStorage.setItem(KEY_LANG, langCode);
+      curLang = langCode;
       applyLanguage(langCode);
-      renderDaysGrid();
       document.getElementById('lang-dropdown-bar').classList.remove('open');
-    }
-
-    function updateNotificationDots() {
-      const dotCheckin = document.getElementById('dot-checkin');
-      const dotTasks = document.getElementById('dot-tasks');
-      const canCheckin = isCheckinAvailable();
-      if (dotCheckin) {
-        if (canCheckin) dotCheckin.classList.add('visible');
-        else dotCheckin.classList.remove('visible');
-      }
-      if (dotTasks) {
-        if (spinTickets > 0) dotTasks.classList.add('visible');
-        else dotTasks.classList.remove('visible');
-      }
-    }
-
-    // ==================== 1. عجلة الحظ ====================
-    const SPIN_PRIZES = [
-      { index: 0, amount: 5, weight: 20 },
-      { index: 1, amount: 10, weight: 25 },
-      { index: 2, amount: 30, weight: 20 },
-      { index: 3, amount: 50, weight: 19 },
-      { index: 4, amount: 100, weight: 16 },
-      { index: 5, amount: 500, weight: 0 },
-      { index: 6, amount: 1000, weight: 0 },
-      { index: 7, amount: 10000, weight: 0 }
-    ];
-
-    let isWheelSpinning = false;
-    let currentWheelRotation = 0;
-
-    function checkDailyFreeSpin() {
-      const now = Date.now();
-      const dayMs = 24 * 60 * 60 * 1000;
-      if (now - lastFreeSpinTime >= dayMs) {
-        spinTickets += 1;
-        lastFreeSpinTime = now;
-        localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
-        localStorage.setItem(KEY_LAST_FREE_SPIN, lastFreeSpinTime.toString());
-        syncUserToCloud();
-      }
-    }
-
-    function updateSpinUI() {
-      checkDailyFreeSpin();
-      updateNotificationDots();
-      const t = dictionary[curLang];
-      const lbl = document.getElementById('spin-tickets-lbl');
-      const timerBadge = document.getElementById('spin-timer-badge');
-      const spinBtn = document.getElementById('spin-btn-main');
-      const spinBtnTxt = document.getElementById('spin-btn-txt');
-
-      lbl.innerText = `${t.spinTickets} ${spinTickets}`;
-
-      const leftMs = Math.max(0, (24 * 60 * 60 * 1000) - (Date.now() - lastFreeSpinTime));
-      if (leftMs === 0) {
-        timerBadge.innerText = t.spinReady;
-      } else {
-        const h = Math.floor(leftMs / 3600000);
-        const m = Math.floor((leftMs % 3600000) / 60000);
-        const s = Math.floor((leftMs % 60000) / 1000);
-        timerBadge.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-      }
-
-      if (spinTickets > 0 && !isWheelSpinning) {
-        spinBtn.disabled = false;
-        spinBtnTxt.innerText = t.spinLaunch;
-      } else {
-        spinBtn.disabled = true;
-        spinBtnTxt.innerText = isWheelSpinning ? "..." : t.noSpins;
-      }
-    }
-
-    function pickWeightedSpinPrize() {
-      const roll = Math.random() * 100;
-      let cumulative = 0;
-      for (const item of SPIN_PRIZES) {
-        cumulative += item.weight;
-        if (roll < cumulative) {
-          return item;
-        }
-      }
-      return SPIN_PRIZES[0];
-    }
-
-    function triggerSpinWheel() {
-      if (isWheelSpinning) return;
-      checkDailyFreeSpin();
-      if (spinTickets <= 0) {
-        playSoundFX('click');
-        return;
-      }
-
-      isWheelSpinning = true;
-      spinTickets -= 1;
-      localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
-      updateSpinUI();
-
-      const chosen = pickWeightedSpinPrize();
-      const sectorCenter = chosen.index * 45 + 22.5;
-      const targetAngle = (360 - sectorCenter) % 360;
-      const extraSpins = 360 * 7;
-      const randomOffset = (Math.random() - 0.5) * 18;
-
-      const baseMod = currentWheelRotation % 360;
-      currentWheelRotation += extraSpins + ((targetAngle - baseMod + 360) % 360) + randomOffset;
-
-      const rotor = document.getElementById('wheel-rotor');
-      rotor.style.transform = `rotate(${currentWheelRotation}deg)`;
-
-      let ticks = 0;
-      const tickTimer = setInterval(() => {
-        ticks++;
-        playSoundFX('tick');
-        if (ticks > 28) clearInterval(tickTimer);
-      }, 140);
-
-      setTimeout(() => {
-        clearInterval(tickTimer);
-        balance += chosen.amount;
-        updateBalance();
-        triggerRewardVisualBurst(chosen.amount);
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        isWheelSpinning = false;
-        updateSpinUI();
-        syncUserToCloud();
-      }, 4700);
-    }
-
-    // ==================== 2. توثيق المحفظة الحقيقي بـ 0.04 GRAM ====================
-    let verifyPollInterval = null;
-    let pendingGramAfterConnect = false;
-    let verificationSessionStartTime = 0;
-
-    function normalizeTonAddress(addr) {
-      if (!addr) return "";
-      try {
-        if (window.TON_CONNECT_UI?.toUserFriendlyAddress) {
-          return window.TON_CONNECT_UI.toUserFriendlyAddress(addr);
-        }
-      } catch (e) {}
-      return addr.trim();
-    }
-
-    function updateVerificationUI() {
-      const t = dictionary[curLang];
-      const card = document.getElementById('gram-verify-card');
-      const title = document.getElementById('gram-card-title');
-      const desc = document.getElementById('gram-card-desc');
-      const btn = document.getElementById('gram-verify-btn');
-      const wBtnTxt = document.getElementById('withdraw-locked-txt');
-
-      if (isAccountVerified) {
-        card.classList.add('verified');
-        title.innerText = t.gramVerifiedTitle;
-        desc.innerText = t.gramVerifiedDesc;
-        btn.innerText = t.gramVerifiedBtn;
-        btn.classList.add('done');
-        wBtnTxt.innerText = t.pgWWithdrawReady;
-      } else {
-        card.classList.remove('verified');
-        title.innerText = t.gramTitle;
-        desc.innerText = t.gramDesc;
-        btn.innerText = t.gramBtn;
-        btn.classList.remove('done');
-        wBtnTxt.innerText = t.pgWWithdrawLock;
-      }
-    }
-
-    function handleWithdrawClick() {
-      playSoundFX('click');
-      if (!isAccountVerified) {
-        triggerDirectGramVerification();
-      }
-    }
-
-    async function triggerDirectGramVerification() {
-      playSoundFX('click');
-      if (isAccountVerified) return;
-
-      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
-        pendingGramAfterConnect = true;
-        if (tonConnectUI) {
-          await tonConnectUI.openModal();
-        } else {
-          switchTab('wallet');
-        }
-        return;
-      }
-
-      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
-      startAutoGramVerificationPolling();
-      showCyberToast(dictionary[curLang].toastWaitingGram);
-
-      try {
-        const result = await tonConnectUI.sendTransaction({
-          validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [
-            {
-              address: VERIFY_DEST_WALLET,
-              amount: "40000000" // 0.04 GRAM
-            }
-          ]
-        });
-
-        if (result && result.boc) {
-          await completeAccountVerificationSuccess(result.boc);
-        }
-      } catch (err) {
-        console.warn("User rejected or closed payment sheet:", err);
-        if (verifyPollInterval) clearInterval(verifyPollInterval);
-      }
-    }
-
-    function startAutoGramVerificationPolling() {
-      if (verifyPollInterval) clearInterval(verifyPollInterval);
-      let attempts = 0;
-      verifyPollInterval = setInterval(async () => {
-        attempts++;
-        if (isAccountVerified || attempts > 36) {
-          clearInterval(verifyPollInterval);
-          return;
-        }
-        await checkGramVerificationSilently();
-      }, 5000);
-    }
-
-    async function checkGramVerificationSilently() {
-      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
-      try {
-        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
-        if (res.ok) {
-          const history = await res.json();
-          const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
-
-          for (const ev of (history.events || [])) {
-            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
-
-            for (const act of (ev.actions || [])) {
-              if (act.type === "TonTransfer" && act.TonTransfer) {
-                const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
-                const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
-
-                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
-                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
-                  return;
-                }
-              }
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
-    async function completeAccountVerificationSuccess(txProof = "") {
-      if (isAccountVerified) return;
-      isAccountVerified = true;
-      localStorage.setItem(KEY_IS_VERIFIED, 'true');
-      localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
-      if (verifyPollInterval) clearInterval(verifyPollInterval);
-      updateVerificationUI();
-      renderMining();
-      triggerRewardVisualBurst(0);
-      showCyberToast(dictionary[curLang].toastVerified);
-
-      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
-      if (referrerId && referrerId !== uid) {
-        await confirmReferralBonusInCloud(referrerId);
-      }
-      await syncUserToCloud();
-    }
-
-    // ==================== 3. مزامنة Firebase ====================
-    async function publishVipConfigToDatabase() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-      try {
-        const tiersMap = {};
-        VIP_TIERS.forEach(t => {
-          tiersMap[`vip_${t.level}`] = {
-            level: t.level,
-            requiredWalletROL: t.requiredHold,
-            cycleProfit10hROL: t.dailyProfit
-          };
-        });
-        await fetch(`${FIREBASE_DB_URL}/config/vip_tiers.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(tiersMap)
-        });
-      } catch (e) {}
-    }
-
-    async function syncUserToCloud() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
-      try {
-        const tierInfo = getCurrentTierObj();
-        const payload = {
-          uid: uid,
-          username: userObj?.username || "",
-          balance: Number(formatCleanNumber(balance)),
-          vip: currentVip,
-          cycleProfit10h: tierInfo.dailyProfit,
-          onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
-          wallet: connectedWalletAddr || "",
-          isVerified: isAccountVerified,
-          verifyProof: localStorage.getItem(KEY_VERIFY_PROOF) || "",
-          firstFreeUsed: firstFreeUsed,
-          spinTickets: spinTickets,
-          startTime: startTime,
-          checkinDay: checkinDay,
-          lastCheckinTime: lastCheckinTime,
-          completedTasks: completedTasks,
-          updatedAt: Date.now()
-        };
-        await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {}
-    }
-
-    async function loadUserFromCloud() {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
-      try {
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data && !data.error) {
-          if (typeof data.balance === 'number') {
-            balance = data.balance;
-            updateBalance();
-            if (data.balance === 0 && !data.startTime) {
-              startTime = 0;
-              isMining = false;
-              localStorage.removeItem(KEY_START);
-              renderMining();
-            }
-          }
-          if (typeof data.isVerified === 'boolean') {
-            if (data.isVerified && data.verifyProof) {
-              isAccountVerified = true;
-              localStorage.setItem(KEY_IS_VERIFIED, 'true');
-              localStorage.setItem(KEY_VERIFY_PROOF, data.verifyProof);
-            } else {
-              isAccountVerified = false;
-              localStorage.removeItem(KEY_IS_VERIFIED);
-              localStorage.removeItem(KEY_VERIFY_PROOF);
-            }
-            updateVerificationUI();
-            renderMining();
-          }
-          if (typeof data.firstFreeUsed === 'boolean') {
-            firstFreeUsed = data.firstFreeUsed;
-            localStorage.setItem(KEY_FIRST_FREE_USED, firstFreeUsed ? 'true' : 'false');
-          }
-          if (typeof data.spinTickets === 'number') {
-            spinTickets = data.spinTickets;
-            localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
-            updateSpinUI();
-          }
-          if (typeof data.startTime === 'number' && data.startTime > 0 && startTime === 0) {
-            startTime = data.startTime;
-            localStorage.setItem(KEY_START, startTime.toString());
-            isMining = true;
-            renderMining();
-          }
-          if (typeof data.refCount === 'number') {
-            refCount = data.refCount;
-            localStorage.setItem(KEY_REF_COUNT, refCount.toString());
-          }
-          if (typeof data.refEarn === 'number') {
-            refEarn = data.refEarn;
-            localStorage.setItem(KEY_REF_EARN, refEarn.toString());
-          }
-        } else if (data === null) {
-          balance = 0;
-          updateBalance();
-          if (startParam && startParam.startsWith("ref_")) {
-            const referrerId = startParam.replace("ref_", "");
-            if (referrerId && referrerId !== uid) {
-              localStorage.setItem(KEY_REFERRED_BY, referrerId);
-            }
-          }
-          await syncUserToCloud();
-        }
-      } catch (e) {}
-    }
-
-    async function confirmReferralBonusInCloud(referrerId) {
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-      try {
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
-        if (!res.ok) return;
-        const refUser = await res.json();
-        if (refUser && !refUser.error) {
-          const newCount = (refUser.refCount || 0) + 1;
-          const newEarn = (refUser.refEarn || 0) + 60;
-          const newBal = (refUser.balance || 0) + 60;
-          const newSpins = (refUser.spinTickets || 0) + 1;
-          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              refCount: newCount,
-              refEarn: newEarn,
-              balance: newBal,
-              spinTickets: newSpins
-            })
-          });
-        }
-      } catch (e) {}
-    }
-
-    async function creditReferrerMiningCommission(minedAmount) {
-      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
-      if (!referrerId || referrerId === uid || !isAccountVerified) return;
-      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
-
-      const commission = Number((minedAmount * 0.05).toFixed(2));
-      if (commission <= 0) return;
-
-      try {
-        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
-        if (!res.ok) return;
-        const refUser = await res.json();
-        if (refUser && !refUser.error) {
-          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              refEarn: (refUser.refEarn || 0) + commission,
-              balance: (refUser.balance || 0) + commission
-            })
-          });
-        }
-      } catch (e) {}
-    }
-
-    function openStonFiBuy() {
-      playSoundFX('click');
-      if (tg?.openLink) tg.openLink(STONFI_SWAP_URL);
-      else window.open(STONFI_SWAP_URL, '_blank');
-    }
-
-    async function manualRefreshOnChain() {
-      playSoundFX('click');
-      const lbl = document.getElementById('refresh-btn-lbl');
-      lbl.innerText = "...";
-      if (connectedWalletAddr) {
-        await fetchRealOnChainROLBalance(connectedWalletAddr);
-        await checkGramVerificationSilently();
-        showCyberToast("✓ On-chain balance updated");
-      }
-      setTimeout(() => { lbl.innerText = dictionary[curLang].refreshBtn; }, 600);
-    }
-
-    function copyWalletAddress() {
-      if (!connectedWalletAddr) return;
-      playSoundFX('click');
-      navigator.clipboard?.writeText(connectedWalletAddr);
-      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      showCyberToast(dictionary[curLang].toastCopied);
-      const btn = document.getElementById('wallet-copy-btn');
-      const lbl = document.getElementById('wallet-copy-lbl');
-      btn.classList.add('copied');
-      lbl.innerText = dictionary[curLang].copiedBtn;
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        lbl.innerText = dictionary[curLang].copyBtn;
-      }, 1800);
-    }
-
-    async function checkWalletUniqueness(friendlyAddress) {
-      const safeKey = friendlyAddress.replace(/[^a-zA-Z0-9]/g, '_');
-      const localBoundKey = `rol_global_wallet_${safeKey}`;
-
-      const localOwner = localStorage.getItem(localBoundKey);
-      if (localOwner && localOwner !== uid && localOwner !== "guest_miner") return false;
-
-      if (FIREBASE_DB_URL && !FIREBASE_DB_URL.includes("your-project") && uid !== "guest_miner") {
-        try {
-          const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
-          if (res.ok) {
-            const ownerUid = await res.json();
-            if (ownerUid && typeof ownerUid === "string" && ownerUid !== uid && ownerUid !== "guest_miner") return false;
-            await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(uid)
-            });
-          }
-        } catch (e) {}
-      }
-
-      localStorage.setItem(localBoundKey, uid);
-      return true;
-    }
-
-    let tonConnectUI = null;
-
-    async function fetchRealOnChainROLBalance(walletAddr) {
-      try {
-        const response = await fetch(`https://tonapi.io/v2/accounts/${walletAddr}/jettons/${ROL_JETTON_MASTER}`);
-        if (response.ok) {
-          const data = await response.json();
-          const rawBal = parseFloat(data.balance || "0");
-          const decimals = data.jetton?.decimals || 9;
-          onChainRolBalance = rawBal / Math.pow(10, decimals);
-        } else {
-          onChainRolBalance = 0;
-        }
-      } catch (e) {
-        onChainRolBalance = 0;
-      }
-
-      document.getElementById('pg-onchain-rol').innerText = `${formatPrettyNumber(onChainRolBalance)} ROL`;
-
-      let matchedVip = 1;
-      for (let i = VIP_TIERS.length - 1; i >= 0; i--) {
-        if (onChainRolBalance >= VIP_TIERS[i].requiredHold) {
-          matchedVip = VIP_TIERS[i].level;
-          break;
-        }
-      }
-
-      currentVip = matchedVip;
-      updateVIPDisplay();
-      syncUserToCloud();
-    }
-
-    function initRealTonConnect() {
-      try {
-        if (window.TON_CONNECT_UI) {
-          const manifestUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}tonconnect-manifest.json`;
-          tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-            manifestUrl: manifestUrl,
-            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}` }
-          });
-
-          if (isSwitchedUser && tonConnectUI.connected) {
-            tonConnectUI.disconnect().catch(() => {});
-            connectedWalletAddr = null;
-            localStorage.removeItem(KEY_WALLET);
-            updateWalletButtonUI();
-          }
-
-          tonConnectUI.onStatusChange(async (wallet) => {
-            if (wallet && wallet.account) {
-              let friendlyAddr = wallet.account.address;
-              try {
-                if (TON_CONNECT_UI.toUserFriendlyAddress) {
-                  friendlyAddr = TON_CONNECT_UI.toUserFriendlyAddress(wallet.account.address);
-                }
-              } catch (err) {}
-
-              const isAvailable = await checkWalletUniqueness(friendlyAddr);
-              if (!isAvailable) {
-                await tonConnectUI.disconnect();
-                connectedWalletAddr = null;
-                localStorage.removeItem(KEY_WALLET);
-                updateWalletButtonUI();
-                openModal('wallet-used-modal');
-                return;
-              }
-
-              connectedWalletAddr = friendlyAddr;
-              localStorage.setItem(KEY_WALLET, friendlyAddr);
-              updateWalletButtonUI();
-              await fetchRealOnChainROLBalance(friendlyAddr);
-
-              if (pendingGramAfterConnect && !isAccountVerified) {
-                pendingGramAfterConnect = false;
-                setTimeout(() => triggerDirectGramVerification(), 800);
-              }
-            } else {
-              connectedWalletAddr = null;
-              localStorage.removeItem(KEY_WALLET);
-              onChainRolBalance = 0;
-              currentVip = 1;
-              updateVIPDisplay();
-              updateWalletButtonUI();
-              syncUserToCloud();
-            }
-          });
-        }
-      } catch (err) {}
-    }
-
-    async function handleRealTonConnect() {
-      playSoundFX('click');
-      if (!tonConnectUI) return;
-      if (tonConnectUI.connected) {
-        await tonConnectUI.disconnect();
-      } else {
-        await tonConnectUI.openModal();
-      }
-    }
-
-    function renderVipTiersList() {
-      const container = document.getElementById('vip-tiers-list');
-      const hint = document.getElementById('vip-scroll-hint');
-      const t = dictionary[curLang];
-      let html = '';
-
-      VIP_TIERS.forEach(tier => {
-        const isCurrent = (tier.level === currentVip);
-        const reqText = (tier.requiredHold === 0)
-          ? t.reqHoldFree
-          : `${tier.requiredHold.toLocaleString('en-US')} ROL`;
-
-        html += `
-          <div class="vip-tier-row ${isCurrent ? 'current-active' : ''}">
-            <span class="vip-tier-badge">VIP ${tier.level}</span>
-            <span class="vip-tier-req">${reqText}</span>
-            <span class="vip-tier-reward">${tier.dailyProfit.toLocaleString('en-US')} ROL</span>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-      container.scrollTop = 0;
-      hint.classList.remove('hidden');
-    }
-
-    function handleVipScroll(el) {
-      const hint = document.getElementById('vip-scroll-hint');
-      if (!hint) return;
-      const isNearBottom = (el.scrollTop + el.clientHeight) >= (el.scrollHeight - 30);
-      if (isNearBottom) hint.classList.add('hidden');
-      else hint.classList.remove('hidden');
-    }
-
-    function openRulesModal() {
-      playSoundFX('click');
-      renderVipTiersList();
-      openModal('rules-modal');
-    }
-
-    function switchTab(tabName) {
-      playSoundFX('click');
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      closeAllModals();
-      document.getElementById('lang-dropdown-bar').classList.remove('open');
-
-      document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.cyber-tab').forEach(n => n.classList.remove('active'));
-
-      if (tabName === 'home') {
-        document.getElementById('tab-home').classList.add('active');
-      } else if (tabName === 'tasks') {
-        const pTasks = document.getElementById('page-tasks');
-        pTasks.classList.add('active');
-        pTasks.scrollTop = 0;
-        document.getElementById('tab-tasks').classList.add('active');
-        refreshTasksUI();
-        updateSpinUI();
-      } else if (tabName === 'refs') {
-        const pRefs = document.getElementById('page-refs');
-        pRefs.classList.add('active');
-        pRefs.scrollTop = 0;
-        document.getElementById('tab-refs').classList.add('active');
-        document.getElementById('ref-count-val').innerText = refCount;
-        document.getElementById('ref-earn-val').innerText = formatCleanNumber(refEarn);
-        document.getElementById('user-ref-link').innerText = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      } else if (tabName === 'wallet') {
-        const pWallet = document.getElementById('page-wallet');
-        pWallet.classList.add('active');
-        pWallet.scrollTop = 0;
-        document.getElementById('tab-wallet').classList.add('active');
-        updateBalance();
-        updateVIPDisplay();
-        updateWalletButtonUI();
-        updateVerificationUI();
-      }
-    }
-
-    function updateVIPDisplay() {
-      const tier = getCurrentTierObj();
-      const t = dictionary[curLang];
-      document.getElementById('vip-level-display').innerText = `VIP ${currentVip}`;
-      document.getElementById('rate-display').innerText = `+${tier.dailyProfit.toLocaleString('en-US')} ROL / 10h`;
-      document.getElementById('pg-w-vip-status').innerText = `VIP ${currentVip} (${tier.dailyProfit.toLocaleString('en-US')}/10h)`;
-      localStorage.setItem(KEY_VIP, currentVip.toString());
-
-      const nextLbl = document.getElementById('next-vip-label');
-      const nextReq = document.getElementById('next-vip-req');
-      const nextBar = document.getElementById('next-vip-bar');
-      if (currentVip >= 100) {
-        nextLbl.innerText = t.maxVipReached;
-        nextReq.innerText = "100%";
-        nextBar.style.width = "100%";
-      } else {
-        const nextTier = VIP_TIERS[currentVip];
-        const target = nextTier.requiredHold;
-        const pct = Math.min(100, (onChainRolBalance / target) * 100);
-        nextLbl.innerText = `${t.nextVipProg} VIP ${nextTier.level}`;
-        nextReq.innerText = `${formatPrettyNumber(onChainRolBalance)} / ${target.toLocaleString('en-US')} ROL`;
-        nextBar.style.width = `${pct}%`;
-      }
-    }
-
-    function updateBalance() {
-      const cleanNum = formatCleanNumber(balance);
-      const prettyNum = formatPrettyNumber(balance);
-      document.getElementById('balance-display').innerText = `${cleanNum} ROL`;
-      document.getElementById('pg-wallet-balance').innerHTML = `${prettyNum} <span>ROL</span>`;
-      localStorage.setItem(KEY_BALANCE, balance.toString());
-    }
-
-    function updateWalletButtonUI() {
-      const btnLbl = document.getElementById('wallet-btn-label');
-      const statusLbl = document.getElementById('wallet-status-lbl');
-      const modalBtn = document.getElementById('modal-ton-connect-action');
-      const tonBtnTxt = document.getElementById('ton-btn-txt');
-      const liveDot = document.getElementById('wallet-live-dot');
-      const connBadge = document.getElementById('wallet-conn-badge');
-      const copyBtn = document.getElementById('wallet-copy-btn');
-
-      if (connectedWalletAddr) {
-        const shortTop = `${connectedWalletAddr.substring(0, 4)}...${connectedWalletAddr.substring(connectedWalletAddr.length - 4)}`;
-        const shortCard = `${connectedWalletAddr.substring(0, 6)}......${connectedWalletAddr.substring(connectedWalletAddr.length - 6)}`;
-        btnLbl.innerText = shortTop;
-        statusLbl.innerText = shortCard;
-        copyBtn.style.display = 'flex';
-        tonBtnTxt.innerText = dictionary[curLang].walletDisconnectModal;
-        modalBtn.style.background = "linear-gradient(135deg, #ef4444, #b91c1c)";
-        modalBtn.style.color = "#ffffff";
-        liveDot.classList.add('connected');
-        connBadge.innerText = dictionary[curLang].connActive;
-        connBadge.style.color = "#34d399";
-      } else {
-        btnLbl.innerText = dictionary[curLang].walletConnect;
-        statusLbl.innerText = dictionary[curLang].notConnected;
-        copyBtn.style.display = 'none';
-        tonBtnTxt.innerText = dictionary[curLang].walletBtnModal;
-        modalBtn.style.background = "linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%)";
-        modalBtn.style.color = "#020712";
-        liveDot.classList.remove('connected');
-        connBadge.innerText = dictionary[curLang].notConnected;
-        connBadge.style.color = "#cbd5e1";
-      }
     }
 
     function applyLanguage(lang) {
-      curLang = lang;
       const t = dictionary[lang];
       document.getElementById('lang-btn-txt').innerText = t.flagBadge;
-
-      document.querySelectorAll('.lang-pill-option').forEach(btn => btn.classList.remove('selected'));
-      const activePill = document.getElementById(`opt-lang-${lang}`);
-      if (activePill) activePill.classList.add('selected');
-
       document.getElementById('txt-vip-label').innerText = t.vip;
       document.getElementById('txt-rate-label').innerText = t.rate;
       document.getElementById('txt-gift-label').innerText = t.gift;
       document.getElementById('txt-balance-label').innerText = t.balance;
       document.getElementById('home-buy-txt').innerText = t.homeBuy;
       document.getElementById('txt-rules-btn').innerText = t.rulesBtn;
-
       document.getElementById('txt-nav-home').innerText = t.navHome;
       document.getElementById('txt-nav-tasks').innerText = t.navTasks;
       document.getElementById('txt-nav-refs').innerText = t.navRefs;
       document.getElementById('txt-nav-wallet').innerText = t.navWallet;
-
-      document.getElementById('txt-modal-checkin-title').innerText = t.modalCheckinTitle;
-      document.getElementById('txt-modal-checkin-desc').innerText = t.modalCheckinDesc;
-      document.getElementById('txt-rules-title').innerText = t.rulesTitle;
-      document.getElementById('txt-wallet-rule-note').innerHTML = t.walletRuleNote;
-      document.getElementById('th-level').innerText = t.thLevel;
-      document.getElementById('th-hold').innerText = t.thHold;
-      document.getElementById('th-profit').innerText = t.thProfit;
-      document.getElementById('scroll-hint-txt').innerText = t.scrollHint;
-      document.getElementById('txt-close-1').innerText = t.close;
-      document.getElementById('txt-close-2').innerText = t.understand;
-
-      document.getElementById('txt-wused-title').innerText = t.wUsedTitle;
-      document.getElementById('txt-wused-desc').innerText = t.wUsedDesc;
-      document.getElementById('txt-wused-btn').innerText = t.wUsedBtn;
-
-      document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
-      document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
-      document.getElementById('tasks-list-heading').innerText = t.tasksHeading;
-      document.getElementById('t1-name').innerText = t.t1Name;
-      document.getElementById('t2-name').innerText = t.t2Name;
-      document.getElementById('t3-name').innerText = t.t3Name;
-      refreshTasksUI();
-      updateSpinUI();
-
-      document.getElementById('pg-refs-title').innerText = t.pgRefsTitle;
-      document.getElementById('pg-refs-sub').innerText = t.pgRefsSub;
-      document.getElementById('pg-refs-friends').innerText = t.pgRefsFriends;
-      document.getElementById('pg-refs-earned').innerText = t.pgRefsEarned;
-      document.getElementById('perk-1-txt').innerText = t.perk1;
-      document.getElementById('perk-2-txt').innerText = t.perk2;
-      document.getElementById('ref-verify-rule-box').innerHTML = t.refVerifyNote;
-      document.getElementById('pg-refs-link-lbl').innerText = t.pgRefsLinkLbl;
-      document.getElementById('copy-btn-lbl').innerText = t.copyBtn;
-      document.getElementById('share-btn-lbl').innerText = t.pgRefsShare;
-
-      document.getElementById('pg-wallet-title').innerText = t.pgWalletTitle;
-      document.getElementById('pg-wallet-sub').innerText = t.pgWalletSub;
-      document.getElementById('pg-w-bal-lbl').innerText = t.pgWBalLbl;
-      document.getElementById('pg-w-vip-lbl').innerText = t.pgWVipLbl;
-      document.getElementById('pg-w-chain-lbl').innerText = t.pgWChainLbl;
-      document.getElementById('stonfi-card-title').innerText = t.stonTitle;
-      document.getElementById('stonfi-card-desc').innerText = t.stonDesc;
-      document.getElementById('stonfi-btn-lbl').innerText = t.stonBtn;
-      document.getElementById('refresh-btn-lbl').innerText = t.refreshBtn;
-      document.getElementById('pg-w-addr-lbl').innerText = t.pgWAddrLbl;
-      document.getElementById('wallet-copy-lbl').innerText = t.copyBtn;
-
-      updateWalletButtonUI();
-      updateVerificationUI();
-      updateVIPDisplay();
-      renderMining();
     }
 
-    function refreshTasksUI() {
-      const t = dictionary[curLang];
-      const b1 = document.getElementById('btn-task-1');
-      const b2 = document.getElementById('btn-task-2');
-      const b3 = document.getElementById('btn-task-3');
-
-      if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
-      else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
-
-      if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
-      else { b2.innerText = t.doBtn; b2.classList.remove('done'); }
-
-      if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
-      else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
-
-      const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
-      const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
-      const pill = document.getElementById('tasks-progress-pill');
-      if (pill) pill.innerText = `${doneCards} / ${totalCards}`;
-    }
-
-    function completeTask(taskId, reward, url) {
-      playSoundFX('click');
-      if (completedTasks.includes(taskId)) return;
-      if (url) {
-        tg?.openTelegramLink && url.includes('t.me') ? tg.openTelegramLink(url) : window.open(url, '_blank');
+    let tonConnectUI = null;
+    function initRealTonConnect() {
+      if (window.TON_CONNECT_UI) {
+        tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: `${window.location.origin}${window.location.pathname.replace('index.html', '')}tonconnect-manifest.json`
+        });
+        tonConnectUI.onStatusChange(wallet => {
+          if (wallet && wallet.account) {
+            connectedWalletAddr = wallet.account.address;
+            localStorage.setItem(KEY_WALLET, connectedWalletAddr);
+            document.getElementById('wallet-btn-label').innerText = `${connectedWalletAddr.substring(0,4)}...${connectedWalletAddr.substring(connectedWalletAddr.length-4)}`;
+            document.getElementById('wallet-conn-badge').innerText = "Connected";
+            document.getElementById('wallet-live-dot').classList.add('connected');
+          }
+        });
       }
-      setTimeout(() => {
-        if (!completedTasks.includes(taskId)) {
-          completedTasks.push(taskId);
-          localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-          balance += reward;
-          updateBalance();
-          refreshTasksUI();
-          triggerRewardVisualBurst(reward);
+    }
+
+    async function handleRealTonConnect() {
+      if (tonConnectUI?.connected) await tonConnectUI.disconnect();
+      else await tonConnectUI?.openModal();
+    }
+
+    function triggerDirectGramVerification() {
+      if (!connectedWalletAddr || !tonConnectUI?.connected) { tonConnectUI?.openModal(); return; }
+      tonConnectUI.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 300,
+        messages: [{ address: VERIFY_DEST_WALLET, amount: "40000000" }]
+      }).then(res => {
+        if (res?.boc) {
+          isAccountVerified = true;
+          localStorage.setItem(KEY_IS_VERIFIED, 'true');
+          localStorage.setItem(KEY_VERIFY_PROOF, res.boc);
+          showCyberToast(dictionary[curLang].toastVerified);
           syncUserToCloud();
         }
-      }, 1500);
+      }).catch(() => {});
     }
 
-    function completeWalletTask() {
-      playSoundFX('click');
-      if (completedTasks.includes(3)) return;
-      if (!connectedWalletAddr) {
-        switchTab('wallet');
-        return;
-      }
-      completedTasks.push(3);
-      localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-      balance += 50;
-      updateBalance();
-      refreshTasksUI();
-      triggerRewardVisualBurst(50);
-      syncUserToCloud();
+    async function syncUserToCloud() {
+      if (!FIREBASE_DB_URL || uid === "guest_miner") return;
+      try {
+        await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ balance: Number(balance.toFixed(2)), isVerified: isAccountVerified, updatedAt: Date.now() })
+        });
+      } catch (e) {}
     }
 
-    let tickCounter = 0;
+    async function loadUserFromCloud() {
+      if (!FIREBASE_DB_URL || uid === "guest_miner") return;
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.balance === 'number') {
+            balance = data.balance;
+            document.getElementById('balance-display').innerText = `${Number(balance.toFixed(2))} ROL`;
+            localStorage.setItem(KEY_BALANCE, balance.toString());
+            if (data.balance === 0 && !data.startTime) { startTime = 0; isMining = false; localStorage.removeItem(KEY_START); }
+          }
+        }
+      } catch (e) {}
+    }
 
     function renderMining() {
-      const t = dictionary[curLang];
       const timerVal = document.getElementById('timer-val');
       const liveMinedVal = document.getElementById('live-mined-val');
       const progressLine = document.getElementById('progress-line');
@@ -3007,259 +1034,88 @@
       const mineBtnText = document.getElementById('mine-btn-text');
       const coinFxLayer = document.getElementById('coin-fx-layer');
       const ambientGlow = document.getElementById('ambient-glow');
-      const statusPill = document.getElementById('live-status-pill');
-      const activeLabel = document.getElementById('txt-active-label');
-
-      mineTouchBtn.classList.remove('claim-green-mode', 'verify-gram-mode');
 
       if (!isMining || startTime <= 0) {
-        timerVal.innerText = '10:00:00';
+        timerVal.innerText = '10:00:00 🕒';
         liveMinedVal.innerText = '+0.00 ROL';
         progressLine.style.width = '0%';
         coinFxLayer.classList.remove('active');
         ambientGlow.classList.remove('active');
-        statusPill.classList.add('idle');
-        activeLabel.innerText = t.idle;
-
-        if (firstFreeUsed && !isAccountVerified) {
-          mineTouchBtn.classList.add('verify-gram-mode');
-          mineBtnText.className = 'mine-btn-txt claim';
-          mineBtnText.innerHTML = `<span>${t.verifyToContinue}</span>`;
-        } else {
-          mineBtnText.className = 'mine-btn-txt';
-          mineBtnText.innerText = t.start;
-        }
+        mineBtnText.className = 'mine-btn-txt';
+        mineBtnText.innerText = dictionary[curLang].start;
         return;
       }
 
-      const now = Date.now();
-      const elapsed = Math.max(0, now - startTime);
+      const elapsed = Math.max(0, Date.now() - startTime);
       const left = Math.max(0, CYCLE - elapsed);
-      const cycleTotalReward = getCycleRewardAmount();
+      const totalReward = VIP_TIERS[currentVip - 1].dailyProfit;
 
       if (left > 0) {
         const ratio = Math.min(1, elapsed / CYCLE);
-        const pct = (ratio * 100).toFixed(2);
-        progressLine.style.width = `${pct}%`;
-
-        const minedSoFar = ratio * cycleTotalReward;
-        liveMinedVal.innerText = `+${minedSoFar.toFixed(2)} ROL`;
+        progressLine.style.width = `${(ratio * 100).toFixed(2)}%`;
+        liveMinedVal.innerText = `+${(ratio * totalReward).toFixed(2)} ROL`;
 
         const totalSec = Math.ceil(left / 1000);
         const h = Math.floor(totalSec / 3600);
         const m = Math.floor((totalSec % 3600) / 60);
         const s = totalSec % 60;
-        timerVal.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        timerVal.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} 🕒`;
 
         mineBtnText.className = 'mine-btn-txt mining';
-        mineBtnText.innerText = t.mining;
+        mineBtnText.innerText = dictionary[curLang].mining;
         coinFxLayer.classList.add('active');
         ambientGlow.classList.add('active');
-        statusPill.classList.remove('idle');
-        activeLabel.innerText = t.active;
-
-        tickCounter++;
-        spawnEnergySpark(tickCounter % 4 === 0);
-        if (tickCounter % 2 === 0) spawnPickaxeSpark();
       } else {
         progressLine.style.width = '100%';
-        timerVal.innerText = '00:00:00';
-        liveMinedVal.innerText = `+${cycleTotalReward.toLocaleString('en-US')} ROL`;
+        timerVal.innerText = '00:00:00 🕒';
+        liveMinedVal.innerText = `+${totalReward} ROL`;
         mineTouchBtn.classList.add('claim-green-mode');
         mineBtnText.className = 'mine-btn-txt claim';
-        mineBtnText.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          <span>${t.claim}</span>
-          <span class="claim-badge-chip">+${cycleTotalReward.toLocaleString('en-US')} ROL</span>
-        `;
-        coinFxLayer.classList.add('active');
-        ambientGlow.classList.add('active');
-        statusPill.classList.remove('idle');
-        activeLabel.innerText = t.active;
+        mineBtnText.innerHTML = `<span>${dictionary[curLang].claim}</span> <span class="claim-badge-chip">+${totalReward} ROL</span>`;
       }
     }
 
     function handleMiningAction() {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
-        if (firstFreeUsed && !isAccountVerified) {
-          triggerDirectGramVerification();
-          return;
-        }
-
-        playSoundFX('start');
         startTime = Date.now();
         localStorage.setItem(KEY_START, startTime.toString());
         isMining = true;
-        for (let i = 0; i < 14; i++) setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 35);
-        spawnPickaxeSpark();
         renderMining();
         syncUserToCloud();
-      } else {
-        const elapsed = Date.now() - startTime;
-        if (elapsed >= CYCLE) {
-          if (lock) return;
-          lock = true;
-          const reward = getCycleRewardAmount();
-          balance += reward;
-          updateBalance();
-          triggerRewardVisualBurst(reward);
-          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-
-          if (!firstFreeUsed) {
-            firstFreeUsed = true;
-            localStorage.setItem(KEY_FIRST_FREE_USED, 'true');
-          }
-          creditReferrerMiningCommission(reward);
-
-          isMining = false;
-          startTime = 0;
-          localStorage.removeItem(KEY_START);
-          renderMining();
-          syncUserToCloud();
-          lock = false;
-        } else {
-          playSoundFX('click');
-        }
-      }
-    }
-
-    function verifyStreak() {
-      const now = Date.now();
-      const hoursSinceLast = (now - lastCheckinTime) / (1000 * 60 * 60);
-      if (lastCheckinTime > 0 && hoursSinceLast > 48) {
-        checkinDay = 0;
-        localStorage.setItem(KEY_CHECKIN_DAY, '0');
-      }
-    }
-
-    function isCheckinAvailable() {
-      return (Date.now() - lastCheckinTime) >= (24 * 60 * 60 * 1000);
-    }
-
-    function renderDaysGrid() {
-      verifyStreak();
-      updateNotificationDots();
-      const grid = document.getElementById('days-grid-container');
-      grid.innerHTML = '';
-      const canClaim = isCheckinAvailable();
-      const t = dictionary[curLang];
-
-      document.getElementById('streak-badge').innerText = `${t.streakTxt} ${checkinDay + 1} / 30`;
-
-      for (let i = 0; i < 30; i++) {
-        const box = document.createElement('div');
-        box.className = 'day-card';
-        if (i < checkinDay) {
-          box.classList.add('claimed');
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">✓</span>`;
-        } else if (i === checkinDay && canClaim) {
-          box.classList.add('today');
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
-        } else {
-          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
-        }
-        grid.appendChild(box);
-      }
-
-      const claimBtn = document.getElementById('claim-daily-btn');
-      if (canClaim) {
-        claimBtn.disabled = false;
-        claimBtn.style.opacity = '1';
-        claimBtn.innerText = `${t.claimDay} (+${DAILY_REWARDS[checkinDay]} ROL)`;
-      } else {
-        claimBtn.disabled = true;
-        claimBtn.style.opacity = '0.6';
-        claimBtn.innerText = t.claimedDone;
-      }
-    }
-
-    function openModal(id) {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-      closeAllModals();
-      const m = document.getElementById(id);
-      if (m) m.classList.add('active');
-    }
-
-    function openCheckinModal() {
-      playSoundFX('click');
-      renderDaysGrid();
-      openModal('checkin-modal');
-    }
-
-    function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-    }
-
-    function onOverlayClick(e, id) {
-      if (e.target.id === id) {
-        playSoundFX('click');
-        closeAllModals();
-      }
-    }
-
-    function claimDailyReward() {
-      if (isCheckinAvailable()) {
-        const reward = DAILY_REWARDS[checkinDay];
-        balance += reward;
-        updateBalance();
-        triggerRewardVisualBurst(reward);
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        checkinDay = (checkinDay + 1) % 30;
-        lastCheckinTime = Date.now();
-        localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
-        localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
+      } else if (Date.now() - startTime >= CYCLE) {
+        balance += VIP_TIERS[currentVip - 1].dailyProfit;
+        document.getElementById('balance-display').innerText = `${Number(balance.toFixed(2))} ROL`;
+        localStorage.setItem(KEY_BALANCE, balance.toString());
+        triggerRewardVisualBurst(VIP_TIERS[currentVip - 1].dailyProfit);
+        isMining = false;
+        startTime = 0;
+        localStorage.removeItem(KEY_START);
+        document.getElementById('mine-touch-btn').classList.remove('claim-green-mode');
+        renderMining();
         syncUserToCloud();
-        renderDaysGrid();
       }
     }
 
-    function shareReferralLink() {
-      playSoundFX('click');
-      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 500 ROL every 10 hours!')}`;
-      tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
+    function switchTab(tabName) {
+      document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.cyber-tab').forEach(n => n.classList.remove('active'));
+      if (tabName === 'tasks') { document.getElementById('page-tasks').classList.add('active'); document.getElementById('tab-tasks').classList.add('active'); }
+      else if (tabName === 'refs') { document.getElementById('page-refs').classList.add('active'); document.getElementById('tab-refs').classList.add('active'); }
+      else if (tabName === 'wallet') { document.getElementById('page-wallet').classList.add('active'); document.getElementById('tab-wallet').classList.add('active'); }
+      else { document.getElementById('tab-home').classList.add('active'); }
     }
 
-    function copyReferralLink() {
-      playSoundFX('click');
-      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      navigator.clipboard?.writeText(link);
-      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      showCyberToast(dictionary[curLang].toastCopied);
+    function openCheckinModal() { openModal('checkin-modal'); }
+    function openRulesModal() { openModal('rules-modal'); }
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeAllModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); }
+    function onOverlayClick(e, id) { if (e.target.id === id) closeAllModals(); }
 
-      const copyBtn = document.getElementById('mini-copy-btn');
-      const copyLbl = document.getElementById('copy-btn-lbl');
-      copyBtn.classList.add('copied');
-      copyLbl.innerText = dictionary[curLang].copiedBtn;
-
-      setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        copyLbl.innerText = dictionary[curLang].copyBtn;
-      }, 2000);
-    }
-
-    setInterval(() => {
-      renderMining();
-      updateNotificationDots();
-      if (document.getElementById('page-tasks').classList.contains('active')) {
-        updateSpinUI();
-      }
-    }, 1000);
-
-    updateSoundIconUI();
+    setInterval(() => { renderMining(); }, 1000);
     applyLanguage(curLang);
-    updateBalance();
-    updateSpinUI();
-    updateNotificationDots();
+    document.getElementById('balance-display').innerText = `${Number(balance.toFixed(2))} ROL`;
     renderMining();
-    window.addEventListener('DOMContentLoaded', () => {
-      initRealTonConnect();
-      publishVipConfigToDatabase();
-      loadUserFromCloud();
-    });
+    window.addEventListener('DOMContentLoaded', () => { initRealTonConnect(); loadUserFromCloud(); });
   </script>
 </body>
 </html>
