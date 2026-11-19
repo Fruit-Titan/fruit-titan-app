@@ -3071,4 +3071,172 @@
         enforceMandatoryChannelGate();
         return;
       }
-      if (tg?.H
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+      if (!isMining) {
+        playSoundFX('start');
+        startTime = Date.now();
+        localStorage.setItem(KEY_START, startTime.toString());
+        isMining = true;
+        for (let i = 0; i < 14; i++) setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 35);
+        spawnPickaxeSpark();
+        renderMining();
+      } else {
+        const elapsed = Date.now() - startTime;
+        if (elapsed >= CYCLE) {
+          if (lock) return;
+          lock = true;
+          const reward = getCycleRewardAmount();
+          balance += reward;
+          updateBalance();
+          triggerRewardVisualBurst(reward);
+          if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+
+          isMining = false;
+          startTime = 0;
+          localStorage.removeItem(KEY_START);
+          renderMining();
+          lock = false;
+        } else {
+          playSoundFX('click');
+        }
+      }
+    }
+
+    function verifyStreak() {
+      const now = Date.now();
+      const hoursSinceLast = (now - lastCheckinTime) / (1000 * 60 * 60);
+      if (lastCheckinTime > 0 && hoursSinceLast > 48) {
+        checkinDay = 0;
+        localStorage.setItem(KEY_CHECKIN_DAY, '0');
+      }
+    }
+
+    function isCheckinAvailable() {
+      return (Date.now() - lastCheckinTime) >= (24 * 60 * 60 * 1000);
+    }
+
+    function renderDaysGrid() {
+      verifyStreak();
+      updateNotificationDots();
+      const grid = document.getElementById('days-grid-container');
+      grid.innerHTML = '';
+      const canClaim = isCheckinAvailable();
+      const t = dictionary[curLang];
+
+      document.getElementById('streak-badge').innerText = `${t.streakTxt} ${checkinDay + 1} / 30`;
+
+      for (let i = 0; i < 30; i++) {
+        const box = document.createElement('div');
+        box.className = 'day-card';
+        if (i < checkinDay) {
+          box.classList.add('claimed');
+          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">✓</span>`;
+        } else if (i === checkinDay && canClaim) {
+          box.classList.add('today');
+          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
+        } else {
+          box.innerHTML = `<span class="d-num">${t.dayLabel} ${i + 1}</span><span class="d-val">+${DAILY_REWARDS[i]}</span>`;
+        }
+        grid.appendChild(box);
+      }
+
+      const claimBtn = document.getElementById('claim-daily-btn');
+      if (canClaim) {
+        claimBtn.disabled = false;
+        claimBtn.style.opacity = '1';
+        claimBtn.innerText = `${t.claimDay} (+${DAILY_REWARDS[checkinDay]} ROL)`;
+      } else {
+        claimBtn.disabled = true;
+        claimBtn.style.opacity = '0.6';
+        claimBtn.innerText = t.claimedDone;
+      }
+    }
+
+    function openModal(id) {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+      closeAllModals();
+      const m = document.getElementById(id);
+      if (m) m.classList.add('active');
+    }
+
+    function openCheckinModal() {
+      playSoundFX('click');
+      renderDaysGrid();
+      openModal('checkin-modal');
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+
+    function onOverlayClick(e, id) {
+      if (e.target.id === id) {
+        playSoundFX('click');
+        closeAllModals();
+      }
+    }
+
+    function claimDailyReward() {
+      if (isCheckinAvailable()) {
+        const reward = DAILY_REWARDS[checkinDay];
+        balance += reward;
+        updateBalance();
+        triggerRewardVisualBurst(reward);
+        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+        checkinDay = (checkinDay + 1) % 30;
+        lastCheckinTime = Date.now();
+        localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
+        localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
+        renderDaysGrid();
+      }
+    }
+
+    function shareReferralLink() {
+      playSoundFX('click');
+      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 400 ROL every 24 hours!')}`;
+      tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
+    }
+
+    function copyReferralLink() {
+      playSoundFX('click');
+      const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
+      navigator.clipboard?.writeText(link);
+      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      showCyberToast(dictionary[curLang].toastCopied);
+
+      const copyBtn = document.getElementById('mini-copy-btn');
+      const copyLbl = document.getElementById('copy-btn-lbl');
+      copyBtn.classList.add('copied');
+      copyLbl.innerText = dictionary[curLang].copiedBtn;
+
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyLbl.innerText = dictionary[curLang].copyBtn;
+      }, 2000);
+    }
+
+    setInterval(() => {
+      renderMining();
+      updateNotificationDots();
+      if (document.getElementById('page-tasks').classList.contains('active')) {
+        updateSpinUI();
+      }
+    }, 1000);
+
+    updateSoundIconUI();
+    applyLanguage(curLang);
+    updateBalance();
+    updateSpinUI();
+    updateNotificationDots();
+    renderMining();
+    enforceMandatoryChannelGate();
+    window.addEventListener('DOMContentLoaded', () => {
+      initRealTonConnect();
+      loadUserFromCloud();
+      enforceMandatoryChannelGate();
+      silentBackgroundChannelCheck();
+    });
+  </script>
+</body>
+</html>
