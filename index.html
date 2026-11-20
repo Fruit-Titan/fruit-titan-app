@@ -637,6 +637,18 @@
       animation: greenClaimPulse 1.4s infinite ease-in-out;
     }
 
+    .mine-touch-btn.verify-gram-mode {
+      top: 78.2%;
+      left: 50%;
+      width: 89%;
+      height: 7.7%;
+      background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #0369a1 100%);
+      border: 2px solid #67e8f9;
+      border-radius: 16px;
+      clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+      box-shadow: 0 0 26px rgba(6, 182, 212, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
     @keyframes greenClaimPulse {
       0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(16, 185, 129, 0.65)); }
       50% { filter: brightness(1.14) drop-shadow(0 0 20px rgba(52, 211, 153, 0.95)); }
@@ -657,7 +669,8 @@
       white-space: nowrap;
     }
 
-    .mine-touch-btn.claim-green-mode .mine-btn-txt { max-width: 92%; }
+    .mine-touch-btn.claim-green-mode .mine-btn-txt,
+    .mine-touch-btn.verify-gram-mode .mine-btn-txt { max-width: 92%; }
     .mine-btn-txt.mining { color: #ffffff; }
     .mine-btn-txt.claim { color: #ffffff; font-size: 14.5px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
 
@@ -878,6 +891,22 @@
     .vip-up-header { display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 800; color: #cbd5e1; }
     .vip-up-track { width: 100%; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
     .vip-up-fill { height: 100%; width: 0%; border-radius: 6px; background: linear-gradient(90deg, #f59e0b, #facc15, #fef08a); box-shadow: 0 0 10px rgba(250, 204, 21, 0.7); transition: width 0.5s ease; }
+
+    .gram-verify-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%);
+      border: 1.5px solid rgba(34, 211, 238, 0.5);
+      border-radius: 18px;
+      padding: 13px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.15);
+      flex-shrink: 0;
+    }
+
+    .gram-verify-card.verified { border-color: rgba(16, 185, 129, 0.55); background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(10, 25, 54, 0.94) 100%); }
 
     .stonfi-dex-card {
       position: relative;
@@ -1393,7 +1422,7 @@
       </div>
 
       <div class="ref-verify-note" id="ref-verify-rule-box">
-        Referral Milestone Rewards: Unlock +100 ROL at 3 verified referrals, +300 ROL at 10, and +500 ROL at 20.
+        Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.
       </div>
 
       <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">Your Personal Invite Link</div>
@@ -1419,7 +1448,7 @@
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
-        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet, buy ROL tokens, and withdraw your earnings</div>
+        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet, verify with 0.04 GRAM, buy ROL, and withdraw</div>
       </div>
 
       <div class="obsidian-vault-card">
@@ -1464,6 +1493,15 @@
             <div class="vip-up-fill" id="next-vip-bar"></div>
           </div>
         </div>
+      </div>
+
+      <!-- خانة توثيق الحساب بـ 0.04 GRAM -->
+      <div class="gram-verify-card" id="gram-verify-card">
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
+          <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining after 1st session & unlock withdrawals</div>
+        </div>
+        <button class="action-pill-btn" id="gram-verify-btn" onclick="triggerDirectGramVerification()">Verify</button>
       </div>
 
       <div class="stonfi-dex-card">
@@ -1669,7 +1707,7 @@
     <div class="daily-modal-box" style="border-color: #10b981; box-shadow: 0 0 35px rgba(16, 185, 129, 0.3);">
       <h3 style="color: #34d399; font-size: 18px; margin-bottom: 8px;">Withdraw ROL</h3>
       <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 10px;">
-        Minimum withdrawal is <b>10,000 ROL</b>. Enter your TON wallet address and withdrawal amount (ROL). Your wallet address and username will be sent to the admin.
+        Minimum withdrawal is <b>10,000 ROL</b> (Account verification with 0.04 GRAM required). Enter your TON wallet address and withdrawal amount.
       </p>
 
       <input type="text" id="withdraw-addr-input" class="cyber-input-box" placeholder="TON Wallet Address (UQ... / EQ...)" dir="ltr">
@@ -1692,6 +1730,7 @@
 
   <script>
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
+    const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
     const BOT_BASE_URL = "https://fruit-titan-bot.onrender.com";
@@ -1963,9 +2002,16 @@
     const KEY_TASKS = `rol_${uid}_completed_tasks`;
     const KEY_REF_COUNT = `rol_${uid}_ref_count`;
     const KEY_REF_EARN = `rol_${uid}_ref_earn`;
+    const KEY_FIRST_FREE_USED = `rol_${uid}_first_free_used`;
+    const KEY_IS_VERIFIED = `rol_${uid}_is_verified_gram`;
+    const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
     const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
+
+    if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
+      localStorage.removeItem(KEY_IS_VERIFIED);
+    }
 
     let isCheckingChannel = false;
 
@@ -2052,8 +2098,146 @@
       silentBackgroundChannelCheck();
     });
 
+    // ==================== توثيق المحفظة بـ 0.04 GRAM ====================
+    let verifyPollInterval = null;
+    let pendingGramAfterConnect = false;
+    let verificationSessionStartTime = 0;
+
+    function normalizeTonAddress(addr) {
+      if (!addr) return "";
+      try {
+        if (window.TON_CONNECT_UI?.toUserFriendlyAddress) {
+          return window.TON_CONNECT_UI.toUserFriendlyAddress(addr);
+        }
+      } catch (e) {}
+      return addr.trim();
+    }
+
+    function updateVerificationUI() {
+      const t = dictionary[curLang];
+      const card = document.getElementById('gram-verify-card');
+      const title = document.getElementById('gram-card-title');
+      const desc = document.getElementById('gram-card-desc');
+      const btn = document.getElementById('gram-verify-btn');
+      const wBtnTxt = document.getElementById('withdraw-open-txt');
+
+      if (!card || !title || !desc || !btn) return;
+
+      if (isAccountVerified) {
+        card.classList.add('verified');
+        title.innerText = t.gramVerifiedTitle;
+        desc.innerText = t.gramVerifiedDesc;
+        btn.innerText = t.gramVerifiedBtn;
+        btn.classList.add('done');
+        if (wBtnTxt) wBtnTxt.innerText = t.withdrawOpenTxt;
+      } else {
+        card.classList.remove('verified');
+        title.innerText = t.gramTitle;
+        desc.innerText = t.gramDesc;
+        btn.innerText = t.gramBtn;
+        btn.classList.remove('done');
+        if (wBtnTxt) wBtnTxt.innerText = t.withdrawOpenTxt;
+      }
+    }
+
+    async function triggerDirectGramVerification() {
+      playSoundFX('click');
+      if (isAccountVerified) return;
+
+      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
+        pendingGramAfterConnect = true;
+        if (tonConnectUI) {
+          await tonConnectUI.openModal();
+        } else {
+          switchTab('wallet');
+        }
+        return;
+      }
+
+      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
+      startAutoGramVerificationPolling();
+      showCyberToast(dictionary[curLang].toastWaitingGram);
+
+      try {
+        const result = await tonConnectUI.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 300,
+          messages: [
+            {
+              address: VERIFY_DEST_WALLET,
+              amount: "40000000" // 0.04 GRAM
+            }
+          ]
+        });
+
+        if (result && result.boc) {
+          await completeAccountVerificationSuccess(result.boc);
+        }
+      } catch (err) {
+        console.warn("User rejected or closed payment sheet:", err);
+        if (verifyPollInterval) clearInterval(verifyPollInterval);
+      }
+    }
+
+    function startAutoGramVerificationPolling() {
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      let attempts = 0;
+      verifyPollInterval = setInterval(async () => {
+        attempts++;
+        if (isAccountVerified || attempts > 36) {
+          clearInterval(verifyPollInterval);
+          return;
+        }
+        await checkGramVerificationSilently();
+      }, 5000);
+    }
+
+    async function checkGramVerificationSilently() {
+      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
+      try {
+        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
+        if (res.ok) {
+          const history = await res.json();
+          const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
+
+          for (const ev of (history.events || [])) {
+            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
+
+            for (const act of (ev.actions || [])) {
+              if (act.type === "TonTransfer" && act.TonTransfer) {
+                const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
+                const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
+
+                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
+                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
+                  return;
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function completeAccountVerificationSuccess(txProof = "") {
+      if (isAccountVerified) return;
+      isAccountVerified = true;
+      localStorage.setItem(KEY_IS_VERIFIED, 'true');
+      localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      updateVerificationUI();
+      renderMining();
+      triggerRewardVisualBurst(0);
+      showCyberToast(dictionary[curLang].toastVerified);
+    }
+
+    // ==================== السحب (الحد الأدنى 10,000 ROL + التحقق) ====================
     function openWithdrawModal() {
       playSoundFX('click');
+      if (!isAccountVerified) {
+        showCyberToast(dictionary[curLang].verifyFirstToast, true);
+        triggerDirectGramVerification();
+        return;
+      }
       const addrInput = document.getElementById('withdraw-addr-input');
       const amtInput = document.getElementById('withdraw-amt-input');
       if (addrInput && connectedWalletAddr) {
@@ -2067,6 +2251,12 @@
 
     async function submitWithdrawalRequest() {
       playSoundFX('click');
+      if (!isAccountVerified) {
+        showCyberToast(dictionary[curLang].verifyFirstToast, true);
+        closeAllModals();
+        triggerDirectGramVerification();
+        return;
+      }
       const addrInput = document.getElementById('withdraw-addr-input');
       const amtInput = document.getElementById('withdraw-amt-input');
       const walletAddr = (addrInput?.value || '').trim();
@@ -2133,6 +2323,7 @@
         start: "Start Mining",
         mining: "Mining Now...",
         claim: "Claim Rewards",
+        verifyToContinue: "Verify Account (0.04 GRAM)",
         navHome: "Home",
         navTasks: "Tasks",
         navRefs: "Referrals",
@@ -2170,16 +2361,22 @@
         pgRefsEarned: "Referral Earnings (ROL)",
         perk1: "+60 ROL instant bonus + 1 Free Spin per verified referral",
         perk2: "5% continuous commission from your invited friends' mining profits",
-        refVerifyNote: "Referral Milestone Rewards: Unlock +100 ROL at 3 verified referrals, +300 ROL at 10, and +500 ROL at 20.",
+        refVerifyNote: "Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.",
         pgRefsLinkLbl: "Your Personal Invite Link",
         copyBtn: "Copy",
         copiedBtn: "Copied ✓",
         pgRefsShare: "Share Invite Link",
         pgWalletTitle: "Digital Asset Vault",
-        pgWalletSub: "Manage TON wallet, buy ROL tokens, and withdraw your earnings",
+        pgWalletSub: "Manage TON wallet, verify with 0.04 GRAM, buy ROL, and withdraw",
         pgWBalLbl: "Total Bot Mining Balance",
         pgWVipLbl: "Active Tier",
         pgWChainLbl: "TON Wallet Balance",
+        gramTitle: "Wallet Verification (0.04 GRAM)",
+        gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
+        gramVerifiedTitle: "Account Verified ✓",
+        gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
+        gramBtn: "Verify",
+        gramVerifiedBtn: "Verified ✓",
         stonTitle: "Buy ROL on STON.fi DEX",
         stonDesc: "Swap TON for ROL to boost your wallet hold and unlock higher VIP rewards",
         stonBtn: "Buy ROL on STON.fi",
@@ -2196,7 +2393,10 @@
         wUsedDesc: "Sorry, this TON wallet address is already linked to another account. Please connect a different TON wallet.",
         wUsedBtn: "Understood",
         dayLabel: "Day",
-        toastCopied: "✓ Copied to clipboard"
+        toastCopied: "✓ Copied to clipboard",
+        toastVerified: "✓ Account verified with 0.04 GRAM!",
+        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment...",
+        verifyFirstToast: "Please verify your account with 0.04 GRAM first!"
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -2212,6 +2412,7 @@
         start: "ابدأ التعدين الآن",
         mining: "جاري التعدين...",
         claim: "استلام الأرباح",
+        verifyToContinue: "توثيق الحساب للاستمرار (0.04 GRAM)",
         navHome: "الرئيسية",
         navTasks: "المهام",
         navRefs: "الإحالات",
@@ -2249,16 +2450,22 @@
         pgRefsEarned: "أرباح الإحالات (ROL)",
         perk1: "+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة",
         perk2: "5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته",
-        refVerifyNote: "مكافآت milestones الإحالات: +100 ROL عند 3 إحالات مؤكدة، +300 ROL عند 10، و+500 ROL عند 20.",
+        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
         pgRefsLinkLbl: "رابط الدعوة الخاص بك",
         copyBtn: "نسخ",
         copiedBtn: "تم النسخ ✓",
         pgRefsShare: "مشاركة الرابط مع الأصدقاء",
         pgWalletTitle: "خزنة الأصول الرقمية",
-        pgWalletSub: "تحكم في محفظة TON واشترِ عملات ROL واسحب أرباحك",
+        pgWalletSub: "تحكم في محفظة TON، وثّق حسابك بـ 0.04 GRAM، واشترِ واسحب ROL",
         pgWBalLbl: "الرصيد الإجمالي في البوت",
         pgWVipLbl: "المستوى النشط",
         pgWChainLbl: "رصيد محفظة TON",
+        gramTitle: "توثيق المحفظة (0.04 GRAM)",
+        gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
+        gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
+        gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
+        gramBtn: "توثيق",
+        gramVerifiedBtn: "موثق ✓",
         stonTitle: "شراء عملة ROL عبر STON.fi",
         stonDesc: "اشترِ ROL لزيادة رصيد محفظتك وترقية مستوى VIP",
         stonBtn: "شراء ROL من STON.fi",
@@ -2275,7 +2482,10 @@
         wUsedDesc: "عذراً، عنوان محفظة TON هذا تم ربطه بحساب آخر مسبقاً. يرجى ربط محفظة TON جديدة ومختلفة لهذا الحساب.",
         wUsedBtn: "حسناً، فهمت",
         dayLabel: "يوم",
-        toastCopied: "✓ تم النسخ إلى الحافظة"
+        toastCopied: "✓ تم النسخ إلى الحافظة",
+        toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
+        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM...",
+        verifyFirstToast: "يرجى توثيق حسابك بـ 0.04 GRAM أولاً!"
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2291,6 +2501,7 @@
         start: "Начать майнинг",
         mining: "Идёт майнинг...",
         claim: "Забрать награду",
+        verifyToContinue: "Верификация (0.04 GRAM)",
         navHome: "Главная",
         navTasks: "Задания",
         navRefs: "Друзья",
@@ -2328,16 +2539,22 @@
         pgRefsEarned: "Доход от друзей (ROL)",
         perk1: "+60 ROL бонус + 1 спин за каждого подтверждённого друга",
         perk2: "5% постоянный доход от майнинга приглашённых друзей",
-        refVerifyNote: "Награды за рефералов: +100 ROL за 3, +300 ROL за 10 и +500 ROL за 20 подтверждённых рефералов.",
+        refVerifyNote: "Условие: приглашённый друг должен пройти верификацию <b>0.04 GRAM</b>, чтобы вы получили 60 ROL и 1 спин.",
         pgRefsLinkLbl: "Ваша реферальная ссылка",
         copyBtn: "Копия",
         copiedBtn: "Скопировано ✓",
         pgRefsShare: "Пригласить друзей",
         pgWalletTitle: "Хранилище активов",
-        pgWalletSub: "Управляйте кошельком TON, покупайте ROL и выводите средства",
+        pgWalletSub: "Управляйте кошельком TON, подтвердите 0.04 GRAM, покупайте и выводите ROL",
         pgWBalLbl: "Общий баланс в боте",
         pgWVipLbl: "Активный уровень",
         pgWChainLbl: "Баланс в TON кошельке",
+        gramTitle: "Верификация (0.04 GRAM)",
+        gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
+        gramVerifiedTitle: "Аккаунт подтверждён ✓",
+        gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
+        gramBtn: "Подтвердить",
+        gramVerifiedBtn: "Подтверждено ✓",
         stonTitle: "Купить ROL на STON.fi",
         stonDesc: "Обменяйте TON на ROL для повышения уровня VIP",
         stonBtn: "Купить ROL на STON.fi",
@@ -2354,7 +2571,10 @@
         wUsedDesc: "Этот адрес TON уже привязан к другому аккаунту. Используйте другой кошелёк.",
         wUsedBtn: "Понятно",
         dayLabel: "День",
-        toastCopied: "✓ Скопировано в буфер"
+        toastCopied: "✓ Скопировано в буфер",
+        toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
+        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM...",
+        verifyFirstToast: "Сначала подтвердите аккаунт (0.04 GRAM)!"
       }
     };
 
@@ -2367,6 +2587,8 @@
     let refEarn = parseFloat(localStorage.getItem(KEY_REF_EARN) || '0');
     let onChainRolBalance = 0;
 
+    let firstFreeUsed = localStorage.getItem(KEY_FIRST_FREE_USED) === 'true';
+    let isAccountVerified = localStorage.getItem(KEY_IS_VERIFIED) === 'true' && Boolean(localStorage.getItem(KEY_VERIFY_PROOF));
     let spinTickets = parseInt(localStorage.getItem(KEY_SPIN_TICKETS) || '0', 10);
     let lastFreeSpinTime = parseInt(localStorage.getItem(KEY_LAST_FREE_SPIN) || '0', 10);
 
@@ -2577,6 +2799,7 @@
       lbl.innerText = "...";
       if (connectedWalletAddr) {
         await fetchRealOnChainROLBalance(connectedWalletAddr);
+        await checkGramVerificationSilently();
         showCyberToast("✓ On-chain balance updated");
       }
       setTimeout(() => { lbl.innerText = dictionary[curLang].refreshBtn; }, 600);
@@ -2679,6 +2902,11 @@
               localStorage.setItem(KEY_WALLET, friendlyAddr);
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
+
+              if (pendingGramAfterConnect && !isAccountVerified) {
+                pendingGramAfterConnect = false;
+                setTimeout(() => triggerDirectGramVerification(), 800);
+              }
             } else {
               connectedWalletAddr = null;
               localStorage.removeItem(KEY_WALLET);
@@ -2776,6 +3004,7 @@
         updateBalance();
         updateVIPDisplay();
         updateWalletButtonUI();
+        updateVerificationUI();
       }
     }
 
@@ -2919,6 +3148,7 @@
       document.getElementById('withdraw-open-txt').innerText = t.withdrawOpenTxt;
 
       updateWalletButtonUI();
+      updateVerificationUI();
       updateVIPDisplay();
       renderMining();
     }
@@ -3002,7 +3232,7 @@
       const statusPill = document.getElementById('live-status-pill');
       const activeLabel = document.getElementById('txt-active-label');
 
-      mineTouchBtn.classList.remove('claim-green-mode');
+      mineTouchBtn.classList.remove('claim-green-mode', 'verify-gram-mode');
 
       if (!isMining || startTime <= 0) {
         timerVal.innerText = '10:00:00';
@@ -3012,8 +3242,15 @@
         ambientGlow.classList.remove('active');
         statusPill.classList.add('idle');
         activeLabel.innerText = t.idle;
-        mineBtnText.className = 'mine-btn-txt';
-        mineBtnText.innerText = t.start;
+
+        if (firstFreeUsed && !isAccountVerified) {
+          mineTouchBtn.classList.add('verify-gram-mode');
+          mineBtnText.className = 'mine-btn-txt claim';
+          mineBtnText.innerHTML = `<span>${t.verifyToContinue}</span>`;
+        } else {
+          mineBtnText.className = 'mine-btn-txt';
+          mineBtnText.innerText = t.start;
+        }
         return;
       }
 
@@ -3073,6 +3310,11 @@
       }
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
+        if (firstFreeUsed && !isAccountVerified) {
+          triggerDirectGramVerification();
+          return;
+        }
+
         playSoundFX('start');
         startTime = Date.now();
         localStorage.setItem(KEY_START, startTime.toString());
@@ -3090,6 +3332,11 @@
           updateBalance();
           triggerRewardVisualBurst(reward);
           if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+
+          if (!firstFreeUsed) {
+            firstFreeUsed = true;
+            localStorage.setItem(KEY_FIRST_FREE_USED, 'true');
+          }
 
           isMining = false;
           startTime = 0;
