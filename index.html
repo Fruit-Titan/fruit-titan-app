@@ -57,7 +57,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      z-index: 999999;
+      z-index: 99999;
       pointer-events: none;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
       opacity: 0;
@@ -66,139 +66,6 @@
 
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
-
-    .force-gate-overlay {
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(0, 240, 255, 0.24) 0%, transparent 55%),
-        radial-gradient(circle at 80% 82%, rgba(250, 204, 21, 0.16) 0%, transparent 50%),
-        rgba(2, 7, 18, 0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 99998;
-      padding: 18px;
-    }
-
-    .force-gate-overlay.active { display: flex; }
-
-    .force-gate-card {
-      width: 100%;
-      max-width: 390px;
-      background: linear-gradient(155deg, rgba(13, 36, 80, 0.96) 0%, rgba(5, 14, 34, 0.98) 60%, rgba(2, 7, 18, 0.99) 100%);
-      border: 1.5px solid rgba(0, 240, 255, 0.65);
-      border-radius: 26px;
-      padding: 22px 18px;
-      text-align: center;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 36px rgba(0, 240, 255, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .force-gate-shield {
-      width: 62px;
-      height: 62px;
-      margin: 0 auto 12px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(0, 240, 255, 0.2), rgba(250, 204, 21, 0.14));
-      border: 1.5px solid rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .force-gate-badge {
-      display: inline-block;
-      background: rgba(250, 204, 21, 0.14);
-      border: 1px solid rgba(250, 204, 21, 0.45);
-      color: #fde047;
-      font-size: 10.5px;
-      font-weight: 900;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      letter-spacing: 0.4px;
-    }
-
-    .force-gate-title {
-      font-size: 19px;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
-      margin-bottom: 8px;
-    }
-
-    .force-gate-desc {
-      font-size: 12px;
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .force-channel-box {
-      background: rgba(2, 9, 24, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .force-channel-name {
-      font-size: 13px;
-      font-weight: 900;
-      color: #00f0ff;
-      font-family: ui-monospace, monospace;
-      direction: ltr;
-    }
-
-    .force-channel-sub {
-      font-size: 10.5px;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-
-    .force-join-btn {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
-      color: #090500;
-      font-size: 13.5px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
-    }
-
-    .force-verify-btn {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
-      border: 1.5px solid #00f0ff;
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35), rgba(0, 240, 255, 0.2));
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
-    }
 
     #view-home {
       position: absolute;
@@ -372,20 +239,20 @@
 
     .rate-container {
       position: absolute;
-      top: 7.2%;
-      left: 38.2%;
-      width: 35.5%;
-      height: 8.6%;
+      top: 6.4%;
+      left: 41.2%;
+      width: 32.5%;
+      height: 8.8%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       pointer-events: none;
       z-index: 20;
     }
 
-    .rate-title { font-size: 9.5px; font-weight: 800; color: #94a3b8; white-space: nowrap; }
-    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 2px; direction: ltr; white-space: nowrap; }
+    .rate-title { font-size: 9.5px; font-weight: 800; color: #cbd5e1; padding-left: 16px; white-space: nowrap; }
+    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 3px; direction: ltr; white-space: nowrap; }
 
     .gift-touch-zone {
       position: absolute;
@@ -578,16 +445,8 @@
     .live-timer-overlay {
       position: absolute;
       top: 64.9%;
-      left: 50%;
+      left: 48.2%;
       transform: translateX(-50%);
-      width: 66%;
-      height: 2.5%;
-      background: radial-gradient(ellipse at center, #03122c 68%, rgba(3, 18, 44, 0.92) 90%, transparent 100%);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
       font-family: ui-monospace, monospace;
       font-size: 12px;
       font-weight: 900;
@@ -595,7 +454,7 @@
       text-shadow: 0 0 8px rgba(250, 204, 21, 0.85);
       letter-spacing: 1.1px;
       direction: ltr;
-      z-index: 25;
+      z-index: 20;
       pointer-events: none;
       white-space: nowrap;
     }
@@ -671,6 +530,7 @@
 
     .mine-touch-btn.claim-green-mode .mine-btn-txt,
     .mine-touch-btn.verify-gram-mode .mine-btn-txt { max-width: 92%; }
+
     .mine-btn-txt.mining { color: #ffffff; }
     .mine-btn-txt.claim { color: #ffffff; font-size: 14.5px; letter-spacing: 0.2px; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
 
@@ -937,7 +797,7 @@
 
     .legendary-btn-gold { width: 100%; padding: 14px 16px; border-radius: 14px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%); color: #090500; font-size: 14px; font-weight: 900; cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
     .legendary-btn-cyan { width: 100%; padding: 13px 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%); color: #020712; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
-    .legendary-btn-withdraw-open { width: 100%; padding: 13px 12px; border-radius: 14px; border: 1.5px solid #34d399; background: linear-gradient(135deg, #059669 0%, #10b981 55%, #047857 100%); color: #ffffff; font-size: 12.5px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35); }
+    .legendary-btn-locked { width: 100%; padding: 13px 12px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(15, 23, 42, 0.75); color: #64748b; font-size: 11.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
 
     .cyber-footer {
       position: absolute;
@@ -1084,19 +944,21 @@
     .bounce-arrow { animation: arrowBounce 1.2s infinite ease-in-out; }
     @keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
-    .cyber-input-box {
-      width: 100%;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 240, 255, 0.45);
-      background: rgba(2, 9, 24, 0.92);
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      outline: none;
-      font-family: ui-monospace, monospace;
+    .maintenance-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 20%, #102a5c 0%, #040b1a 65%, #020611 100%);
+      z-index: 99990;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      gap: 14px;
     }
+
+    .maintenance-screen.active { display: flex; }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -1105,44 +967,6 @@
 <body>
 
   <div class="cyber-toast" id="cyber-toast"></div>
-
-  <div class="force-gate-overlay" id="force-join-modal">
-    <div class="force-gate-card">
-      <div class="force-gate-shield">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="M9 12l2 2 4-4" stroke="#fde047" stroke-width="2.4"/>
-        </svg>
-      </div>
-      <div class="force-gate-badge">MANDATORY CHANNEL ACCESS</div>
-      <div class="force-gate-title">Join @ROL_TOKN Channel</div>
-      <div class="force-gate-desc">
-        To unlock <b>ROL Mining</b>, subscribe to our official channel first, then tap <b>Verify Subscription</b> right here.
-      </div>
-
-      <div class="force-channel-box">
-        <div style="text-align: left;">
-          <div class="force-channel-name">https://t.me/ROL_TOKN</div>
-          <div class="force-channel-sub">Official ROL Announcements & Updates</div>
-        </div>
-        <span style="font-size: 16px;">⚡</span>
-      </div>
-
-      <button class="force-join-btn" onclick="openMandatoryChannel()">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-        </svg>
-        <span>Join Channel (@ROL_TOKN)</span>
-      </button>
-
-      <button class="force-verify-btn" id="app-verify-channel-btn" onclick="verifyChannelSubscriptionInsideApp()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        <span id="app-verify-channel-txt">Verify Subscription</span>
-      </button>
-    </div>
-  </div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
     <div id="view-home">
@@ -1179,7 +1003,7 @@
 
       <div class="rate-container">
         <span class="rate-title" id="txt-rate-label">Daily Profit</span>
-        <span class="rate-val" id="rate-display">+400 ROL / 24h</span>
+        <span class="rate-val" id="rate-display">+500 ROL / 24h</span>
       </div>
 
       <div class="gift-touch-zone" onclick="openCheckinModal()">
@@ -1221,13 +1045,7 @@
         <div class="progress-bar-fill" id="progress-line"></div>
       </div>
 
-      <div class="live-timer-overlay">
-        <span id="timer-val">10:00:00</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.8));">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-      </div>
+      <div class="live-timer-overlay" id="timer-val">10:00:00</div>
 
       <div class="rules-touch-zone" onclick="openRulesModal()">
         <span class="rules-label" id="txt-rules-btn">Mining Tier Rules</span>
@@ -1314,7 +1132,7 @@
 
       <div class="tasks-section-divider">
         <span id="tasks-list-heading">Available Tasks</span>
-        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 4</span>
+        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 3</span>
       </div>
 
       <div id="tasks-list-container">
@@ -1326,56 +1144,41 @@
               </svg>
             </div>
             <div>
-              <div class="task-name" id="t1-name">Join ROL Community Group</div>
+              <div class="task-name" id="t1-name">Join Official ROL Channel</div>
+              <div class="task-reward">+20 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 20, 'https://t.me/ROL_Mining_bot')">Start</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#00f0ff">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t2-name">Follow Project on X</div>
+              <div class="task-reward">+15 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-2" onclick="completeTask(2, 15, 'https://x.com')">Start</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t3-name">Connect Your TON Wallet</div>
               <div class="task-reward">+50 ROL</div>
             </div>
           </div>
-          <button class="action-pill-btn" id="btn-task-1" onclick="completeGroupTask()">Start</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t2-name">3 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+100 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-2" onclick="completeReferralMilestoneTask(2, 3, 100)">0/3</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t3-name">10 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+300 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-3" onclick="completeReferralMilestoneTask(3, 10, 300)">0/10</button>
-        </div>
-
-        <div class="task-card">
-          <div class="task-info">
-            <div class="task-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            </div>
-            <div>
-              <div class="task-name" id="t4-name">20 Verified Referrals (Wallet Verified)</div>
-              <div class="task-reward">+500 ROL</div>
-            </div>
-          </div>
-          <button class="action-pill-btn" id="btn-task-4" onclick="completeReferralMilestoneTask(4, 20, 500)">0/20</button>
+          <button class="action-pill-btn" id="btn-task-3" onclick="completeWalletTask()">Verify</button>
         </div>
       </div>
     </div>
@@ -1448,7 +1251,7 @@
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
-        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet, verify with 0.04 GRAM, buy ROL, and withdraw</div>
+        <div class="page-subtitle" id="pg-wallet-sub">Manage TON wallet and buy ROL tokens to boost your mining tier</div>
       </div>
 
       <div class="obsidian-vault-card">
@@ -1476,7 +1279,7 @@
         <div class="vault-analytics-row">
           <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-vip-lbl">Active Tier</span>
-            <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (400/24h)</span>
+            <span class="v-metric-val" id="pg-w-vip-status">VIP 1 (500/24h)</span>
           </div>
           <div class="v-glass-stat">
             <span class="v-metric-lbl" id="pg-w-chain-lbl">TON Wallet Balance</span>
@@ -1560,11 +1363,11 @@
           <span id="ton-btn-txt">Connect Wallet</span>
         </button>
 
-        <button class="legendary-btn-withdraw-open" id="pg-w-withdraw-btn" onclick="openWithdrawModal()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/>
+        <button class="legendary-btn-locked" id="pg-w-withdraw-btn" onclick="handleWithdrawClick()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
-          <span id="withdraw-open-txt">Withdraw ROL</span>
+          <span id="withdraw-locked-txt">Withdraw (Verify First)</span>
         </button>
       </div>
     </div>
@@ -1659,6 +1462,14 @@
     </div>
   </div>
 
+  <div class="maintenance-screen" id="maintenance-screen" dir="auto">
+    <div style="width: 58px; height: 58px; border-radius: 18px; background: rgba(250, 204, 21, 0.16); border: 1.5px solid #facc15; display: flex; align-items: center; justify-content: center; font-size: 26px;">🛠️</div>
+    <h2 style="font-size: 20px; font-weight: 900; color: #fde047;">وضع الصيانة قيد التشغيل</h2>
+    <p id="maintenance-msg-text" style="font-size: 13px; color: #cbd5e1; max-width: 320px; line-height: 1.6;">
+      نقوم حالياً بتحديث النظام وتحسين الأداء. سنعود للعمل قريباً.
+    </p>
+  </div>
+
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
       <div class="streak-banner" id="streak-badge">Check-in Streak: Day 1 / 30</div>
@@ -1679,7 +1490,7 @@
       <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
       
       <div class="wallet-rule-notice" id="txt-wallet-rule-note">
-        Free tier (VIP 1) earns <b>400 ROL / 24h</b> and each VIP tier increases daily profit by <b>+60 ROL</b> (VIP 2 = 460 ROL, VIP 3 = 520 ROL) in 10-hour mining sessions.
+        Your VIP tier and daily profit (24h) are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b> (each mining session lasts 10h), not the balance inside your bot account.
       </div>
 
       <div class="vip-table-header">
@@ -1702,21 +1513,6 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="withdraw-modal" onclick="onOverlayClick(event, 'withdraw-modal')" dir="auto">
-    <div class="daily-modal-box" style="border-color: #10b981; box-shadow: 0 0 35px rgba(16, 185, 129, 0.3);">
-      <h3 style="color: #34d399; font-size: 18px; margin-bottom: 8px;">Withdraw ROL</h3>
-      <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 10px;">
-        Minimum withdrawal is <b>10,000 ROL</b> (Account verification with 0.04 GRAM required). Enter your TON wallet address and withdrawal amount.
-      </p>
-
-      <input type="text" id="withdraw-addr-input" class="cyber-input-box" placeholder="TON Wallet Address (UQ... / EQ...)" dir="ltr">
-      <input type="number" id="withdraw-amt-input" class="cyber-input-box" placeholder="Amount in ROL (Min 10,000)" min="10000" step="any" dir="ltr">
-
-      <button class="legendary-btn-withdraw-open" style="margin-bottom: 10px;" onclick="submitWithdrawalRequest()">Confirm Withdrawal</button>
-      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;">Cancel</button>
-    </div>
-  </div>
-
   <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
       <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">Wallet Already Linked</h3>
@@ -1728,16 +1524,11 @@
   </div>
 
   <script>
+    const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
     const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
-    const BOT_BASE_URL = "https://fruit-titan-bot.onrender.com";
-    const BOT_API_ENDPOINT = `${BOT_BASE_URL}/api/withdraw`;
-    const BOT_CHECK_CHANNEL_ENDPOINT = `${BOT_BASE_URL}/api/check-channel`;
-    const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
-    const GROUP_INVITE_URL = "https://t.me/ROL_TOKN_GROUP";
-    const MIN_WITHDRAW_ROL = 10000;
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -1961,8 +1752,8 @@
       } else {
         requiredHold = 45000 + (lvl - 51) * 2000;
       }
-      const dailyProfit = 400 + (lvl - 1) * 60;
-      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit });
+      const cycleProfit = 500 + (lvl - 1) * 80;
+      VIP_TIERS.push({ level: lvl, requiredHold, dailyProfit: cycleProfit });
     }
 
     function formatCleanNumber(num) {
@@ -2001,330 +1792,15 @@
     const KEY_TASKS = `rol_${uid}_completed_tasks`;
     const KEY_REF_COUNT = `rol_${uid}_ref_count`;
     const KEY_REF_EARN = `rol_${uid}_ref_earn`;
+    const KEY_REFERRED_BY = `rol_${uid}_referred_by`;
     const KEY_FIRST_FREE_USED = `rol_${uid}_first_free_used`;
     const KEY_IS_VERIFIED = `rol_${uid}_is_verified_gram`;
     const KEY_VERIFY_PROOF = `rol_${uid}_verify_proof`;
     const KEY_SPIN_TICKETS = `rol_${uid}_spin_tickets`;
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
-    const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
 
     if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
       localStorage.removeItem(KEY_IS_VERIFIED);
-    }
-
-    let isCheckingChannel = false;
-
-    function isChannelAccessGranted() {
-      return localStorage.getItem(KEY_CHANNEL_VERIFIED) === 'true';
-    }
-
-    function enforceMandatoryChannelGate() {
-      const gate = document.getElementById('force-join-modal');
-      if (!gate) return;
-      if (!isChannelAccessGranted()) {
-        gate.classList.add('active');
-      } else {
-        gate.classList.remove('active');
-      }
-    }
-
-    async function silentBackgroundChannelCheck() {
-      if (!userObj?.id || isCheckingChannel) return;
-      try {
-        const res = await fetch(`${BOT_CHECK_CHANNEL_ENDPOINT}?userId=${encodeURIComponent(userObj.id)}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.joined === true) {
-            localStorage.setItem(KEY_CHANNEL_VERIFIED, 'true');
-            enforceMandatoryChannelGate();
-          } else {
-            localStorage.removeItem(KEY_CHANNEL_VERIFIED);
-            enforceMandatoryChannelGate();
-          }
-        }
-      } catch (e) {}
-    }
-
-    function openMandatoryChannel() {
-      playSoundFX('click');
-      if (tg?.openTelegramLink) tg.openTelegramLink(REQUIRED_CHANNEL_URL);
-      else window.open(REQUIRED_CHANNEL_URL, '_blank');
-    }
-
-    async function verifyChannelSubscriptionInsideApp() {
-      playSoundFX('click');
-      if (isCheckingChannel) return;
-
-      if (!userObj?.id) {
-        showCyberToast('Open inside Telegram to verify channel membership', true);
-        return;
-      }
-
-      isCheckingChannel = true;
-      const btnTxt = document.getElementById('app-verify-channel-txt');
-      const prevTxt = btnTxt ? btnTxt.innerText : 'Verify Subscription';
-      if (btnTxt) btnTxt.innerText = 'Checking...';
-
-      try {
-        const res = await fetch(`${BOT_CHECK_CHANNEL_ENDPOINT}?userId=${encodeURIComponent(userObj.id)}`);
-        const data = res.ok ? await res.json() : { joined: false };
-
-        if (data && data.joined === true) {
-          localStorage.setItem(KEY_CHANNEL_VERIFIED, 'true');
-          enforceMandatoryChannelGate();
-          triggerRewardVisualBurst(0);
-          showCyberToast('✓ Channel verified! Welcome to ROL Mining');
-        } else {
-          localStorage.removeItem(KEY_CHANNEL_VERIFIED);
-          enforceMandatoryChannelGate();
-          showCyberToast('You have not joined @ROL_TOKN yet!', true);
-        }
-      } catch (e) {
-        showCyberToast('Verification failed, please try again', true);
-      } finally {
-        isCheckingChannel = false;
-        if (btnTxt) btnTxt.innerText = prevTxt;
-      }
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        silentBackgroundChannelCheck();
-      }
-    });
-
-    window.addEventListener('focus', () => {
-      silentBackgroundChannelCheck();
-    });
-
-    // ==================== توثيق المحفظة بـ 0.04 GRAM مع دعم فتح Tonkeeper مباشرة ====================
-    let verifyPollInterval = null;
-    let pendingGramAfterConnect = false;
-    let verificationSessionStartTime = 0;
-
-    function normalizeTonAddress(addr) {
-      if (!addr) return "";
-      try {
-        if (window.TON_CONNECT_UI?.toUserFriendlyAddress) {
-          return window.TON_CONNECT_UI.toUserFriendlyAddress(addr);
-        }
-      } catch (e) {}
-      return addr.trim();
-    }
-
-    function updateVerificationUI() {
-      const t = dictionary[curLang];
-      const card = document.getElementById('gram-verify-card');
-      const title = document.getElementById('gram-card-title');
-      const desc = document.getElementById('gram-card-desc');
-      const btn = document.getElementById('gram-verify-btn');
-      const wBtnTxt = document.getElementById('withdraw-open-txt');
-
-      if (!card || !title || !desc || !btn) return;
-
-      if (isAccountVerified) {
-        card.classList.add('verified');
-        title.innerText = t.gramVerifiedTitle;
-        desc.innerText = t.gramVerifiedDesc;
-        btn.innerText = t.gramVerifiedBtn;
-        btn.classList.add('done');
-        if (wBtnTxt) wBtnTxt.innerText = t.withdrawOpenTxt;
-      } else {
-        card.classList.remove('verified');
-        title.innerText = t.gramTitle;
-        desc.innerText = t.gramDesc;
-        btn.innerText = t.gramBtn;
-        btn.classList.remove('done');
-        if (wBtnTxt) wBtnTxt.innerText = t.withdrawOpenTxt;
-      }
-    }
-
-    function launchTonkeeperFallback() {
-      const tkUrl = "https://app.tonkeeper.com/ton-connect";
-      if (tg?.openLink) {
-        tg.openLink(tkUrl);
-      } else {
-        window.open(tkUrl, "_blank");
-      }
-    }
-
-    async function triggerDirectGramVerification() {
-      playSoundFX('click');
-      if (isAccountVerified) return;
-
-      if (!tonConnectUI) {
-        initRealTonConnect();
-      }
-
-      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
-        pendingGramAfterConnect = true;
-        if (tonConnectUI) {
-          await tonConnectUI.openModal();
-        } else {
-          switchTab('wallet');
-        }
-        return;
-      }
-
-      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
-      startAutoGramVerificationPolling();
-      showCyberToast(dictionary[curLang].toastWaitingGram);
-
-      const fallbackTimer = setTimeout(() => {
-        if (!isAccountVerified && document.visibilityState === 'visible') {
-          launchTonkeeperFallback();
-        }
-      }, 2200);
-
-      try {
-        const result = await tonConnectUI.sendTransaction({
-          validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [
-            {
-              address: VERIFY_DEST_WALLET,
-              amount: "40000000" // 0.04 GRAM
-            }
-          ]
-        });
-
-        clearTimeout(fallbackTimer);
-        if (result && result.boc) {
-          await completeAccountVerificationSuccess(result.boc);
-        }
-      } catch (err) {
-        clearTimeout(fallbackTimer);
-        console.warn("Transaction prompt issue or canceled:", err);
-      }
-    }
-
-    function startAutoGramVerificationPolling() {
-      if (verifyPollInterval) clearInterval(verifyPollInterval);
-      let attempts = 0;
-      verifyPollInterval = setInterval(async () => {
-        attempts++;
-        if (isAccountVerified || attempts > 36) {
-          clearInterval(verifyPollInterval);
-          return;
-        }
-        await checkGramVerificationSilently();
-      }, 5000);
-    }
-
-    async function checkGramVerificationSilently() {
-      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
-      try {
-        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
-        if (res.ok) {
-          const history = await res.json();
-          const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
-
-          for (const ev of (history.events || [])) {
-            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
-
-            for (const act of (ev.actions || [])) {
-              if (act.type === "TonTransfer" && act.TonTransfer) {
-                const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
-                const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
-
-                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
-                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
-                  return;
-                }
-              }
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
-    async function completeAccountVerificationSuccess(txProof = "") {
-      if (isAccountVerified) return;
-      isAccountVerified = true;
-      localStorage.setItem(KEY_IS_VERIFIED, 'true');
-      localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
-      if (verifyPollInterval) clearInterval(verifyPollInterval);
-      updateVerificationUI();
-      renderMining();
-      triggerRewardVisualBurst(0);
-      showCyberToast(dictionary[curLang].toastVerified);
-    }
-
-    // ==================== السحب (الحد الأدنى 10,000 ROL + التحقق) ====================
-    function openWithdrawModal() {
-      playSoundFX('click');
-      if (!isAccountVerified) {
-        showCyberToast(dictionary[curLang].verifyFirstToast, true);
-        triggerDirectGramVerification();
-        return;
-      }
-      const addrInput = document.getElementById('withdraw-addr-input');
-      const amtInput = document.getElementById('withdraw-amt-input');
-      if (addrInput && connectedWalletAddr) {
-        addrInput.value = connectedWalletAddr;
-      }
-      if (amtInput) {
-        amtInput.value = '';
-      }
-      openModal('withdraw-modal');
-    }
-
-    async function submitWithdrawalRequest() {
-      playSoundFX('click');
-      if (!isAccountVerified) {
-        showCyberToast(dictionary[curLang].verifyFirstToast, true);
-        closeAllModals();
-        triggerDirectGramVerification();
-        return;
-      }
-      const addrInput = document.getElementById('withdraw-addr-input');
-      const amtInput = document.getElementById('withdraw-amt-input');
-      const walletAddr = (addrInput?.value || '').trim();
-      const amount = parseFloat(amtInput?.value || '0');
-
-      if (!walletAddr || walletAddr.length < 10) {
-        showCyberToast('Please enter a valid TON wallet address', true);
-        return;
-      }
-      if (isNaN(amount) || amount < MIN_WITHDRAW_ROL) {
-        showCyberToast(`Minimum withdrawal is ${MIN_WITHDRAW_ROL.toLocaleString('en-US')} ROL`, true);
-        return;
-      }
-      if (amount > balance) {
-        showCyberToast('Insufficient ROL balance', true);
-        return;
-      }
-
-      const usernameDisplay = userObj?.username ? `@${userObj.username}` : 'No Username';
-      const fullNameDisplay = [userObj?.first_name, userObj?.last_name].filter(Boolean).join(' ') || 'Miner';
-
-      balance = Number((balance - amount).toFixed(2));
-      updateBalance();
-      closeAllModals();
-      triggerRewardVisualBurst(0);
-      showCyberToast(`✓ Withdrawal request sent (${amount} ROL)`);
-
-      const payload = {
-        userId: uid,
-        username: usernameDisplay,
-        fullName: fullNameDisplay,
-        walletAddress: walletAddr,
-        amount: amount,
-        timestamp: Date.now()
-      };
-
-      try {
-        await fetch(BOT_API_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {}
-
-      if (tg?.sendData) {
-        try {
-          tg.sendData(JSON.stringify({ type: 'withdraw_request', ...payload }));
-        } catch (e) {}
-      }
     }
 
     const dictionary = {
@@ -2355,7 +1831,7 @@
         close: "Close",
         understand: "Understood",
         rulesTitle: "VIP Mining Tiers (VIP 1 - VIP 100)",
-        walletRuleNote: "Free tier (VIP 1) earns <b>400 ROL / 24h</b> and each VIP tier increases daily profit by <b>+60 ROL</b> (VIP 2 = 460 ROL, VIP 3 = 520 ROL) in 10-hour mining sessions.",
+        walletRuleNote: "Your VIP tier and daily profit (24h) are calculated strictly based on <b>the ROL token balance held inside your connected TON wallet</b> (each mining session lasts 10h), not the balance inside your bot account.",
         thLevel: "Tier",
         thHold: "Wallet Hold",
         thProfit: "Daily Profit",
@@ -2368,11 +1844,11 @@
         spinLaunch: "Spin the Wheel Now",
         noSpins: "No Spins Available",
         tasksHeading: "Available Tasks",
-        t1Name: "Join ROL Community Group",
-        t2Name: "3 Verified Referrals (Wallet Verified)",
-        t3Name: "10 Verified Referrals (Wallet Verified)",
-        t4Name: "20 Verified Referrals (Wallet Verified)",
+        t1Name: "Join Official ROL Channel",
+        t2Name: "Follow Project on X",
+        t3Name: "Connect Your TON Wallet",
         doBtn: "Start",
+        verifyBtn: "Verify",
         doneBtn: "Done ✓",
         pgRefsTitle: "Referral Network",
         pgRefsSub: "Invite friends to earn ROL tokens and free Fortune Wheel spins",
@@ -2386,7 +1862,7 @@
         copiedBtn: "Copied ✓",
         pgRefsShare: "Share Invite Link",
         pgWalletTitle: "Digital Asset Vault",
-        pgWalletSub: "Manage TON wallet, verify with 0.04 GRAM, buy ROL, and withdraw",
+        pgWalletSub: "Manage TON wallet and buy ROL tokens to boost your mining tier",
         pgWBalLbl: "Total Bot Mining Balance",
         pgWVipLbl: "Active Tier",
         pgWChainLbl: "TON Wallet Balance",
@@ -2405,7 +1881,8 @@
         walletDisconnectModal: "Disconnect",
         connActive: "Connected",
         notConnected: "Not Connected",
-        withdrawOpenTxt: "Withdraw ROL",
+        pgWWithdrawLock: "Withdraw (Verify First)",
+        pgWWithdrawReady: "Withdraw (At Listing)",
         nextVipProg: "Progress to",
         maxVipReached: "Max Tier VIP 100 Reached",
         wUsedTitle: "Wallet Already Linked",
@@ -2414,8 +1891,7 @@
         dayLabel: "Day",
         toastCopied: "✓ Copied to clipboard",
         toastVerified: "✓ Account verified with 0.04 GRAM!",
-        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment...",
-        verifyFirstToast: "Please verify your account with 0.04 GRAM first!"
+        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment..."
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -2444,7 +1920,7 @@
         close: "إغلاق",
         understand: "فهمت ذلك",
         rulesTitle: "نظام مستويات التعدين (VIP 1 - VIP 100)",
-        walletRuleNote: "المستوى المجاني (VIP 1) يربح <b>400 ROL يومياً</b> وكل مستوى بعده يضيف <b>+60 ROL</b> (VIP 2 = 460 ROL، VIP 3 = 520 ROL) خلال جلسات تعدين مدة كل منها 10 ساعات.",
+        walletRuleNote: "يتم تحديد مستواك والربح اليومي (24 ساعة) تلقائياً بناءً على <b>رصيد عملة ROL المحتفظ به داخل محفظة TON المربوطة فقط</b> (مدة الجلسة الواحدة 10 ساعات)، ولا يُحتسب الرصيد المجمّع داخل حسابك في البوت.",
         thLevel: "المستوى",
         thHold: "رصيد المحفظة",
         thProfit: "الربح اليومي",
@@ -2457,11 +1933,11 @@
         spinLaunch: "أدر العجلة الآن",
         noSpins: "لا توجد لفات متاحة حالياً",
         tasksHeading: "المهام المتاحة",
-        t1Name: "الاشتراك في مجموعة ROL الرسمية",
-        t2Name: "جلب 3 إحالات صحيحة (محافظ موثقة)",
-        t3Name: "جلب 10 إحالات صحيحة (محافظ موثقة)",
-        t4Name: "جلب 20 إحالة صحيحة (محافظ موثقة)",
+        t1Name: "انضم لقناة ROL الرسمية",
+        t2Name: "تابع حساب المشروع على X",
+        t3Name: "اربط محفظة TON الخاصة بك",
         doBtn: "تنفيذ",
+        verifyBtn: "تحقق",
         doneBtn: "مكتمل ✓",
         pgRefsTitle: "شبكة الإحالات",
         pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
@@ -2475,7 +1951,7 @@
         copiedBtn: "تم النسخ ✓",
         pgRefsShare: "مشاركة الرابط مع الأصدقاء",
         pgWalletTitle: "خزنة الأصول الرقمية",
-        pgWalletSub: "تحكم في محفظة TON، وثّق حسابك بـ 0.04 GRAM، واشترِ واسحب ROL",
+        pgWalletSub: "تحكم في محفظة TON واشترِ عملات ROL لرفع أرباحك فوراً",
         pgWBalLbl: "الرصيد الإجمالي في البوت",
         pgWVipLbl: "المستوى النشط",
         pgWChainLbl: "رصيد محفظة TON",
@@ -2494,7 +1970,8 @@
         walletDisconnectModal: "فصل المحفظة",
         connActive: "متصلة",
         notConnected: "غير متصلة",
-        withdrawOpenTxt: "سحب ROL",
+        pgWWithdrawLock: "السحب (يتطلب توثيق)",
+        pgWWithdrawReady: "سحب الأرباح (قريباً)",
         nextVipProg: "التقدم نحو",
         maxVipReached: "وصلت للحد الأقصى VIP 100",
         wUsedTitle: "المحفظة مربوطة بحساب آخر",
@@ -2503,8 +1980,7 @@
         dayLabel: "يوم",
         toastCopied: "✓ تم النسخ إلى الحافظة",
         toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
-        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM...",
-        verifyFirstToast: "يرجى توثيق حسابك بـ 0.04 GRAM أولاً!"
+        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM..."
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2533,7 +2009,7 @@
         close: "Закрыть",
         understand: "Понятно",
         rulesTitle: "Система уровней (VIP 1 - VIP 100)",
-        walletRuleNote: "Бесплатный уровень (VIP 1) приносит <b>400 ROL / 24ч</b>, а каждый следующий VIP добавляет <b>+60 ROL</b> (VIP 2 = 460 ROL, VIP 3 = 520 ROL) за сессии по 10ч.",
+        walletRuleNote: "Ваш VIP-уровень и дневной доход (24ч) зависят только от <b>баланса ROL в привязанном TON-кошельке</b> (сессия длится 10ч), а не от баланса внутри бота.",
         thLevel: "Уровень",
         thHold: "В кошельке",
         thProfit: "Доход (24ч)",
@@ -2546,11 +2022,11 @@
         spinLaunch: "Крутить колесо",
         noSpins: "Нет доступных вращений",
         tasksHeading: "Доступные задания",
-        t1Name: "Вступить в группу ROL",
-        t2Name: "3 подтверждённых реферала",
-        t3Name: "10 подтверждённых рефералов",
-        t4Name: "20 подтверждённых рефералов",
+        t1Name: "Подписаться на канал ROL",
+        t2Name: "Подписаться на X (Twitter)",
+        t3Name: "Привязать TON-кошелёк",
         doBtn: "Начать",
+        verifyBtn: "Проверить",
         doneBtn: "Готово ✓",
         pgRefsTitle: "Реферальная сеть",
         pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
@@ -2564,7 +2040,7 @@
         copiedBtn: "Скопировано ✓",
         pgRefsShare: "Пригласить друзей",
         pgWalletTitle: "Хранилище активов",
-        pgWalletSub: "Управляйте кошельком TON, подтвердите 0.04 GRAM, покупайте и выводите ROL",
+        pgWalletSub: "Управляйте кошельком TON и покупайте ROL для роста VIP",
         pgWBalLbl: "Общий баланс в боте",
         pgWVipLbl: "Активный уровень",
         pgWChainLbl: "Баланс в TON кошельке",
@@ -2583,7 +2059,8 @@
         walletDisconnectModal: "Отключить",
         connActive: "Подключён",
         notConnected: "Не подключён",
-        withdrawOpenTxt: "Вывести ROL",
+        pgWWithdrawLock: "Вывод (нужна верификация)",
+        pgWWithdrawReady: "Вывод (при листинге)",
         nextVipProg: "Прогресс до",
         maxVipReached: "Достигнут максимум VIP 100",
         wUsedTitle: "Кошелёк уже используется",
@@ -2592,8 +2069,7 @@
         dayLabel: "День",
         toastCopied: "✓ Скопировано в буфер",
         toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
-        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM...",
-        verifyFirstToast: "Сначала подтвердите аккаунт (0.04 GRAM)!"
+        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM..."
       }
     };
 
@@ -2692,6 +2168,7 @@
         lastFreeSpinTime = now;
         localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
         localStorage.setItem(KEY_LAST_FREE_SPIN, lastFreeSpinTime.toString());
+        syncUserToCloud();
       }
     }
 
@@ -2777,31 +2254,357 @@
         if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         isWheelSpinning = false;
         updateSpinUI();
+        syncUserToCloud();
       }, 4700);
     }
 
-    async function loadUserFromCloud() {
+    let verifyPollInterval = null;
+    let pendingGramAfterConnect = false;
+    let verificationSessionStartTime = 0;
+
+    function normalizeTonAddress(addr) {
+      if (!addr) return "";
       try {
-        const urlParams = new URLSearchParams(window.location.search);
-        let resetParam = parseInt(urlParams.get('reset') || '0', 10);
-
-        if (!resetParam && startParam && startParam.includes('reset_')) {
-          const match = startParam.match(/reset_(\d+)/);
-          if (match && match[1]) resetParam = parseInt(match[1], 10);
+        if (window.TON_CONNECT_UI?.toUserFriendlyAddress) {
+          return window.TON_CONNECT_UI.toUserFriendlyAddress(addr);
         }
+      } catch (e) {}
+      return addr.trim();
+    }
 
-        const ackKey = `rol_${uid}_last_reset_ack`;
-        const lastAck = parseInt(localStorage.getItem(ackKey) || '0', 10);
+    function updateVerificationUI() {
+      const t = dictionary[curLang];
+      const card = document.getElementById('gram-verify-card');
+      const title = document.getElementById('gram-card-title');
+      const desc = document.getElementById('gram-card-desc');
+      const btn = document.getElementById('gram-verify-btn');
+      const wBtnTxt = document.getElementById('withdraw-locked-txt');
 
-        if (resetParam > 0 && resetParam > lastAck) {
+      if (isAccountVerified) {
+        card.classList.add('verified');
+        title.innerText = t.gramVerifiedTitle;
+        desc.innerText = t.gramVerifiedDesc;
+        btn.innerText = t.gramVerifiedBtn;
+        btn.classList.add('done');
+        wBtnTxt.innerText = t.pgWWithdrawReady;
+      } else {
+        card.classList.remove('verified');
+        title.innerText = t.gramTitle;
+        desc.innerText = t.gramDesc;
+        btn.innerText = t.gramBtn;
+        btn.classList.remove('done');
+        wBtnTxt.innerText = t.pgWWithdrawLock;
+      }
+    }
+
+    async function handleWithdrawClick() {
+      playSoundFX('click');
+      if (!isAccountVerified) {
+        triggerDirectGramVerification();
+        return;
+      }
+      if (!connectedWalletAddr) {
+        showCyberToast("⚠️ اربط محفظة TON أولاً", true);
+        return;
+      }
+      if (balance <= 0) {
+        showCyberToast("⚠️ رصيدك الحالي 0 ROL", true);
+        return;
+      }
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+
+      const reqId = `wd_${uid}_${Date.now()}`;
+      const amountToWithdraw = Number(formatCleanNumber(balance));
+      const payload = {
+        id: reqId,
+        uid: uid,
+        username: userObj?.username || "",
+        amount: amountToWithdraw,
+        address: connectedWalletAddr,
+        network: "TON",
+        status: "pending",
+        createdAt: Date.now()
+      };
+
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/withdrawals/${reqId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
           balance = 0;
-          startTime = 0;
-          isMining = false;
-          localStorage.setItem(KEY_BALANCE, '0');
-          localStorage.removeItem(KEY_START);
-          localStorage.setItem(ackKey, resetParam.toString());
+          localStorage.setItem(KEY_BALANCE, "0");
           updateBalance();
-          renderMining();
+          await syncUserToCloud();
+          showCyberToast("✓ تم إرسال طلب السحب للمراجعة بنجاح");
+        } else {
+          showCyberToast("⚠️ تعذر إرسال طلب السحب", true);
+        }
+      } catch (e) {
+        showCyberToast("⚠️ خطأ في الاتصال بالخادم", true);
+      }
+    }
+
+    async function triggerDirectGramVerification() {
+      playSoundFX('click');
+      if (isAccountVerified) return;
+
+      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
+        pendingGramAfterConnect = true;
+        if (tonConnectUI) {
+          await tonConnectUI.openModal();
+        } else {
+          switchTab('wallet');
+        }
+        return;
+      }
+
+      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
+      startAutoGramVerificationPolling();
+      showCyberToast(dictionary[curLang].toastWaitingGram);
+
+      try {
+        const result = await tonConnectUI.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 300,
+          messages: [
+            {
+              address: VERIFY_DEST_WALLET,
+              amount: "40000000"
+            }
+          ]
+        });
+
+        if (result && result.boc) {
+          await completeAccountVerificationSuccess(result.boc);
+        }
+      } catch (err) {
+        console.warn("User rejected or closed payment sheet:", err);
+        if (verifyPollInterval) clearInterval(verifyPollInterval);
+      }
+    }
+
+    function startAutoGramVerificationPolling() {
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      let attempts = 0;
+      verifyPollInterval = setInterval(async () => {
+        attempts++;
+        if (isAccountVerified || attempts > 36) {
+          clearInterval(verifyPollInterval);
+          return;
+        }
+        await checkGramVerificationSilently();
+      }, 5000);
+    }
+
+    async function checkGramVerificationSilently() {
+      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
+      try {
+        const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
+        if (res.ok) {
+          const history = await res.json();
+          const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
+
+          for (const ev of (history.events || [])) {
+            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
+
+            for (const act of (ev.actions || [])) {
+              if (act.type === "TonTransfer" && act.TonTransfer) {
+                const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
+                const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
+
+                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
+                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
+                  return;
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function completeAccountVerificationSuccess(txProof = "") {
+      if (isAccountVerified) return;
+      isAccountVerified = true;
+      localStorage.setItem(KEY_IS_VERIFIED, 'true');
+      localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
+      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      updateVerificationUI();
+      renderMining();
+      triggerRewardVisualBurst(0);
+      showCyberToast(dictionary[curLang].toastVerified);
+
+      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
+      if (referrerId && referrerId !== uid) {
+        await confirmReferralBonusInCloud(referrerId);
+      }
+      await syncUserToCloud();
+    }
+
+    async function publishVipConfigToDatabase() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
+      try {
+        const tiersMap = {};
+        VIP_TIERS.forEach(t => {
+          tiersMap[`vip_${t.level}`] = {
+            level: t.level,
+            requiredWalletROL: t.requiredHold,
+            cycleProfit10hROL: t.dailyProfit
+          };
+        });
+        await fetch(`${FIREBASE_DB_URL}/config/vip_tiers.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(tiersMap)
+        });
+      } catch (e) {}
+    }
+
+    async function syncUserToCloud() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+      try {
+        const tierInfo = getCurrentTierObj();
+        const payload = {
+          uid: uid,
+          username: userObj?.username || "",
+          balance: Number(formatCleanNumber(balance)),
+          vip: currentVip,
+          cycleProfit10h: tierInfo.dailyProfit,
+          onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
+          wallet: connectedWalletAddr || "",
+          isVerified: isAccountVerified,
+          verifyProof: localStorage.getItem(KEY_VERIFY_PROOF) || "",
+          firstFreeUsed: firstFreeUsed,
+          spinTickets: spinTickets,
+          startTime: startTime,
+          checkinDay: checkinDay,
+          lastCheckinTime: lastCheckinTime,
+          completedTasks: completedTasks,
+          updatedAt: Date.now()
+        };
+        await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
+    }
+
+    async function loadUserFromCloud() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${uid}.json`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && !data.error) {
+          if (typeof data.balance === 'number') {
+            balance = data.balance;
+            localStorage.setItem(KEY_BALANCE, String(balance));
+            updateBalance();
+            if (data.balance === 0 && !data.startTime) {
+              startTime = 0;
+              isMining = false;
+              localStorage.removeItem(KEY_START);
+              renderMining();
+            }
+          }
+          if (typeof data.isVerified === 'boolean') {
+            if (data.isVerified && data.verifyProof) {
+              isAccountVerified = true;
+              localStorage.setItem(KEY_IS_VERIFIED, 'true');
+              localStorage.setItem(KEY_VERIFY_PROOF, data.verifyProof);
+            } else {
+              isAccountVerified = false;
+              localStorage.removeItem(KEY_IS_VERIFIED);
+              localStorage.removeItem(KEY_VERIFY_PROOF);
+            }
+            updateVerificationUI();
+            renderMining();
+          }
+          if (typeof data.firstFreeUsed === 'boolean') {
+            firstFreeUsed = data.firstFreeUsed;
+            localStorage.setItem(KEY_FIRST_FREE_USED, firstFreeUsed ? 'true' : 'false');
+          }
+          if (typeof data.spinTickets === 'number') {
+            spinTickets = data.spinTickets;
+            localStorage.setItem(KEY_SPIN_TICKETS, spinTickets.toString());
+            updateSpinUI();
+          }
+          if (typeof data.startTime === 'number' && data.startTime > 0 && startTime === 0) {
+            startTime = data.startTime;
+            localStorage.setItem(KEY_START, startTime.toString());
+            isMining = true;
+            renderMining();
+          }
+          if (typeof data.refCount === 'number') {
+            refCount = data.refCount;
+            localStorage.setItem(KEY_REF_COUNT, refCount.toString());
+          }
+          if (typeof data.refEarn === 'number') {
+            refEarn = data.refEarn;
+            localStorage.setItem(KEY_REF_EARN, refEarn.toString());
+          }
+        } else if (data === null) {
+          balance = 0;
+          updateBalance();
+          if (startParam && startParam.startsWith("ref_")) {
+            const referrerId = startParam.replace("ref_", "");
+            if (referrerId && referrerId !== uid) {
+              localStorage.setItem(KEY_REFERRED_BY, referrerId);
+            }
+          }
+          await syncUserToCloud();
+        }
+      } catch (e) {}
+    }
+
+    async function confirmReferralBonusInCloud(referrerId) {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
+        if (!res.ok) return;
+        const refUser = await res.json();
+        if (refUser && !refUser.error) {
+          const newCount = (refUser.refCount || 0) + 1;
+          const newEarn = (refUser.refEarn || 0) + 60;
+          const newBal = (refUser.balance || 0) + 60;
+          const newSpins = (refUser.spinTickets || 0) + 1;
+          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              refCount: newCount,
+              refEarn: newEarn,
+              balance: newBal,
+              spinTickets: newSpins
+            })
+          });
+        }
+      } catch (e) {}
+    }
+
+    async function creditReferrerMiningCommission(minedAmount) {
+      const referrerId = localStorage.getItem(KEY_REFERRED_BY) || (startParam.startsWith("ref_") ? startParam.replace("ref_", "") : "");
+      if (!referrerId || referrerId === uid || !isAccountVerified) return;
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
+
+      const commission = Number((minedAmount * 0.05).toFixed(2));
+      if (commission <= 0) return;
+
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`);
+        if (!res.ok) return;
+        const refUser = await res.json();
+        if (refUser && !refUser.error) {
+          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              refEarn: (refUser.refEarn || 0) + commission,
+              balance: (refUser.balance || 0) + commission
+            })
+          });
         }
       } catch (e) {}
     }
@@ -2847,6 +2650,21 @@
       const localOwner = localStorage.getItem(localBoundKey);
       if (localOwner && localOwner !== uid && localOwner !== "guest_miner") return false;
 
+      if (FIREBASE_DB_URL && !FIREBASE_DB_URL.includes("your-project") && uid !== "guest_miner") {
+        try {
+          const res = await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`);
+          if (res.ok) {
+            const ownerUid = await res.json();
+            if (ownerUid && typeof ownerUid === "string" && ownerUid !== uid && ownerUid !== "guest_miner") return false;
+            await fetch(`${FIREBASE_DB_URL}/wallets/${safeKey}.json`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(uid)
+            });
+          }
+        } catch (e) {}
+      }
+
       localStorage.setItem(localBoundKey, uid);
       return true;
     }
@@ -2880,6 +2698,7 @@
 
       currentVip = matchedVip;
       updateVIPDisplay();
+      syncUserToCloud();
     }
 
     function initRealTonConnect() {
@@ -2888,7 +2707,7 @@
           const manifestUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}tonconnect-manifest.json`;
           tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: manifestUrl,
-            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}/app` }
+            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}` }
           });
 
           if (isSwitchedUser && tonConnectUI.connected) {
@@ -2933,6 +2752,7 @@
               currentVip = 1;
               updateVIPDisplay();
               updateWalletButtonUI();
+              syncUserToCloud();
             }
           });
         }
@@ -2941,9 +2761,6 @@
 
     async function handleRealTonConnect() {
       playSoundFX('click');
-      if (!tonConnectUI) {
-        initRealTonConnect();
-      }
       if (!tonConnectUI) return;
       if (tonConnectUI.connected) {
         await tonConnectUI.disconnect();
@@ -3141,7 +2958,6 @@
       document.getElementById('t1-name').innerText = t.t1Name;
       document.getElementById('t2-name').innerText = t.t2Name;
       document.getElementById('t3-name').innerText = t.t3Name;
-      document.getElementById('t4-name').innerText = t.t4Name;
       refreshTasksUI();
       updateSpinUI();
 
@@ -3167,7 +2983,6 @@
       document.getElementById('refresh-btn-lbl').innerText = t.refreshBtn;
       document.getElementById('pg-w-addr-lbl').innerText = t.pgWAddrLbl;
       document.getElementById('wallet-copy-lbl').innerText = t.copyBtn;
-      document.getElementById('withdraw-open-txt').innerText = t.withdrawOpenTxt;
 
       updateWalletButtonUI();
       updateVerificationUI();
@@ -3180,24 +2995,15 @@
       const b1 = document.getElementById('btn-task-1');
       const b2 = document.getElementById('btn-task-2');
       const b3 = document.getElementById('btn-task-3');
-      const b4 = document.getElementById('btn-task-4');
 
-      if (b1) {
-        if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
-        else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
-      }
-      if (b2) {
-        if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
-        else { b2.innerText = `${refCount}/3`; b2.classList.remove('done'); }
-      }
-      if (b3) {
-        if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
-        else { b3.innerText = `${refCount}/10`; b3.classList.remove('done'); }
-      }
-      if (b4) {
-        if (completedTasks.includes(4)) { b4.innerText = t.doneBtn; b4.classList.add('done'); }
-        else { b4.innerText = `${refCount}/20`; b4.classList.remove('done'); }
-      }
+      if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
+      else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
+
+      if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
+      else { b2.innerText = t.doBtn; b2.classList.remove('done'); }
+
+      if (completedTasks.includes(3)) { b3.innerText = t.doneBtn; b3.classList.add('done'); }
+      else { b3.innerText = t.verifyBtn; b3.classList.remove('done'); }
 
       const totalCards = document.querySelectorAll('#tasks-list-container .task-card').length;
       const doneCards = document.querySelectorAll('#tasks-list-container .action-pill-btn.done').length;
@@ -3205,39 +3011,39 @@
       if (pill) pill.innerText = `${doneCards} / ${totalCards}`;
     }
 
-    function completeGroupTask() {
+    function completeTask(taskId, reward, url) {
       playSoundFX('click');
-      if (completedTasks.includes(1)) return;
-      if (tg?.openTelegramLink) tg.openTelegramLink(GROUP_INVITE_URL);
-      else window.open(GROUP_INVITE_URL, '_blank');
-
+      if (completedTasks.includes(taskId)) return;
+      if (url) {
+        tg?.openTelegramLink && url.includes('t.me') ? tg.openTelegramLink(url) : window.open(url, '_blank');
+      }
       setTimeout(() => {
-        if (!completedTasks.includes(1)) {
-          completedTasks.push(1);
+        if (!completedTasks.includes(taskId)) {
+          completedTasks.push(taskId);
           localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-          balance += 50;
+          balance += reward;
           updateBalance();
           refreshTasksUI();
-          triggerRewardVisualBurst(50);
-          showCyberToast('+50 ROL for joining ROL_TOKN_GROUP!');
+          triggerRewardVisualBurst(reward);
+          syncUserToCloud();
         }
       }, 1500);
     }
 
-    function completeReferralMilestoneTask(taskId, requiredRefs, reward) {
+    function completeWalletTask() {
       playSoundFX('click');
-      if (completedTasks.includes(taskId)) return;
-      if (refCount < requiredRefs) {
-        showCyberToast(`Need ${requiredRefs} verified referrals (${refCount}/${requiredRefs})`, true);
+      if (completedTasks.includes(3)) return;
+      if (!connectedWalletAddr) {
+        switchTab('wallet');
         return;
       }
-      completedTasks.push(taskId);
+      completedTasks.push(3);
       localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
-      balance += reward;
+      balance += 50;
       updateBalance();
       refreshTasksUI();
-      triggerRewardVisualBurst(reward);
-      showCyberToast(`+${reward} ROL claimed for ${requiredRefs} verified referrals!`);
+      triggerRewardVisualBurst(50);
+      syncUserToCloud();
     }
 
     let tickCounter = 0;
@@ -3308,7 +3114,7 @@
       } else {
         progressLine.style.width = '100%';
         timerVal.innerText = '00:00:00';
-        liveMinedVal.innerText = `+${formatCleanNumber(cycleTotalReward)} ROL`;
+        liveMinedVal.innerText = `+${cycleTotalReward.toLocaleString('en-US')} ROL`;
         mineTouchBtn.classList.add('claim-green-mode');
         mineBtnText.className = 'mine-btn-txt claim';
         mineBtnText.innerHTML = `
@@ -3316,7 +3122,7 @@
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           <span>${t.claim}</span>
-          <span class="claim-badge-chip">+${formatCleanNumber(cycleTotalReward)} ROL</span>
+          <span class="claim-badge-chip">+${cycleTotalReward.toLocaleString('en-US')} ROL</span>
         `;
         coinFxLayer.classList.add('active');
         ambientGlow.classList.add('active');
@@ -3326,10 +3132,6 @@
     }
 
     function handleMiningAction() {
-      if (!isChannelAccessGranted()) {
-        enforceMandatoryChannelGate();
-        return;
-      }
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
       if (!isMining) {
         if (firstFreeUsed && !isAccountVerified) {
@@ -3344,6 +3146,7 @@
         for (let i = 0; i < 14; i++) setTimeout(() => spawnEnergySpark(i % 2 === 0), i * 35);
         spawnPickaxeSpark();
         renderMining();
+        syncUserToCloud();
       } else {
         const elapsed = Date.now() - startTime;
         if (elapsed >= CYCLE) {
@@ -3359,11 +3162,13 @@
             firstFreeUsed = true;
             localStorage.setItem(KEY_FIRST_FREE_USED, 'true');
           }
+          creditReferrerMiningCommission(reward);
 
           isMining = false;
           startTime = 0;
           localStorage.removeItem(KEY_START);
           renderMining();
+          syncUserToCloud();
           lock = false;
         } else {
           playSoundFX('click');
@@ -3456,6 +3261,7 @@
         lastCheckinTime = Date.now();
         localStorage.setItem(KEY_CHECKIN_DAY, checkinDay.toString());
         localStorage.setItem(KEY_CHECKIN_TIME, lastCheckinTime.toString());
+        syncUserToCloud();
         renderDaysGrid();
       }
     }
@@ -3463,7 +3269,7 @@
     function shareReferralLink() {
       playSoundFX('click');
       const link = `https://t.me/${BOT_USERNAME}?start=ref_${uid}`;
-      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 400 ROL every 24 hours!')}`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join ROL Mining and earn 500 ROL every 10 hours!')}`;
       tg?.openTelegramLink ? tg.openTelegramLink(url) : window.open(url, '_blank');
     }
 
@@ -3499,12 +3305,61 @@
     updateSpinUI();
     updateNotificationDots();
     renderMining();
-    enforceMandatoryChannelGate();
+
+    const ADMIN_IDS = ["1932161126"];
+    let maintenanceEnabled = false;
+    let maintenanceMessage = "نقوم حالياً بتحديث النظام وتحسين الأداء. سنعود للعمل قريباً.";
+    let allowedTesters = [];
+
+    function isAdminUser() {
+      return ADMIN_IDS.includes(String(uid));
+    }
+
+    function isTesterUser() {
+      return isAdminUser() || allowedTesters.map(String).includes(String(uid));
+    }
+
+    function applyMaintenanceGate() {
+      const screen = document.getElementById('maintenance-screen');
+      const msgEl = document.getElementById('maintenance-msg-text');
+      if (!screen) return;
+      if (msgEl) msgEl.innerText = maintenanceMessage;
+
+      if (maintenanceEnabled && !isTesterUser()) {
+        screen.classList.add('active');
+      } else {
+        screen.classList.remove('active');
+      }
+    }
+
+    async function loadSystemSettingsFromCloud() {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) {
+        applyMaintenanceGate();
+        return;
+      }
+      try {
+        const res = await fetch(`${FIREBASE_DB_URL}/config/system.json`);
+        if (res.ok) {
+          const cfg = await res.json();
+          if (cfg && typeof cfg === 'object') {
+            maintenanceEnabled = Boolean(cfg.maintenanceEnabled);
+            if (cfg.maintenanceMessage) maintenanceMessage = String(cfg.maintenanceMessage);
+            allowedTesters = Array.isArray(cfg.allowedTesters) ? cfg.allowedTesters.map(String) : [];
+          }
+        }
+      } catch (e) {}
+      applyMaintenanceGate();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      applyMaintenanceGate();
+      loadSystemSettingsFromCloud();
       initRealTonConnect();
+      publishVipConfigToDatabase();
       loadUserFromCloud();
-      enforceMandatoryChannelGate();
-      silentBackgroundChannelCheck();
+      setInterval(() => {
+        loadSystemSettingsFromCloud();
+      }, 15000);
     });
   </script>
 </body>
