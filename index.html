@@ -1495,7 +1495,6 @@
         </div>
       </div>
 
-      <!-- خانة توثيق الحساب بـ 0.04 GRAM -->
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
           <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
@@ -2098,7 +2097,7 @@
       silentBackgroundChannelCheck();
     });
 
-    // ==================== توثيق المحفظة بـ 0.04 GRAM ====================
+    // ==================== توثيق المحفظة بـ 0.04 GRAM مع دعم فتح Tonkeeper مباشرة ====================
     let verifyPollInterval = null;
     let pendingGramAfterConnect = false;
     let verificationSessionStartTime = 0;
@@ -2140,9 +2139,22 @@
       }
     }
 
+    function launchTonkeeperFallback() {
+      const tkUrl = "https://app.tonkeeper.com/ton-connect";
+      if (tg?.openLink) {
+        tg.openLink(tkUrl);
+      } else {
+        window.open(tkUrl, "_blank");
+      }
+    }
+
     async function triggerDirectGramVerification() {
       playSoundFX('click');
       if (isAccountVerified) return;
+
+      if (!tonConnectUI) {
+        initRealTonConnect();
+      }
 
       if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
         pendingGramAfterConnect = true;
@@ -2158,6 +2170,12 @@
       startAutoGramVerificationPolling();
       showCyberToast(dictionary[curLang].toastWaitingGram);
 
+      const fallbackTimer = setTimeout(() => {
+        if (!isAccountVerified && document.visibilityState === 'visible') {
+          launchTonkeeperFallback();
+        }
+      }, 2200);
+
       try {
         const result = await tonConnectUI.sendTransaction({
           validUntil: Math.floor(Date.now() / 1000) + 300,
@@ -2169,12 +2187,13 @@
           ]
         });
 
+        clearTimeout(fallbackTimer);
         if (result && result.boc) {
           await completeAccountVerificationSuccess(result.boc);
         }
       } catch (err) {
-        console.warn("User rejected or closed payment sheet:", err);
-        if (verifyPollInterval) clearInterval(verifyPollInterval);
+        clearTimeout(fallbackTimer);
+        console.warn("Transaction prompt issue or canceled:", err);
       }
     }
 
@@ -2869,7 +2888,7 @@
           const manifestUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}tonconnect-manifest.json`;
           tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: manifestUrl,
-            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}` }
+            actionsConfiguration: { twaReturnUrl: `https://t.me/${BOT_USERNAME}/app` }
           });
 
           if (isSwitchedUser && tonConnectUI.connected) {
@@ -2922,6 +2941,9 @@
 
     async function handleRealTonConnect() {
       playSoundFX('click');
+      if (!tonConnectUI) {
+        initRealTonConnect();
+      }
       if (!tonConnectUI) return;
       if (tonConnectUI.connected) {
         await tonConnectUI.disconnect();
