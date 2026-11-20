@@ -968,7 +968,8 @@
       gap: 14px;
     }
 
-    .maintenance-screen.active { display: flex !important; }
+    .maintenance-screen.active { display: flex; }
+
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -979,6 +980,7 @@
   <div class="cyber-toast" id="cyber-toast"></div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
+    <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
       <div class="brand-title">ROL Mining</div>
@@ -1066,6 +1068,7 @@
       </div>
     </div>
 
+    <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
@@ -1193,6 +1196,7 @@
       </div>
     </div>
 
+    <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1258,6 +1262,7 @@
       </button>
     </div>
 
+    <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
@@ -1362,6 +1367,10 @@
         <button class="mini-copy-btn" id="wallet-copy-btn" onclick="copyWalletAddress()" style="display: none;">
           <span id="wallet-copy-lbl">Copy</span>
         </button>
+      </div>
+
+      <div class="wallet-rule-notice" id="withdraw-terms-notice" style="margin-bottom: 12px;">
+        <b>Withdrawal Rule:</b> Hold at least <b>25%</b> of your withdrawal amount in your connected TON wallet; a <b>5%</b> withdrawal fee applies (e.g., withdrawing 10,000 ROL requires 2,500 ROL in wallet and delivers 9,500 ROL).
       </div>
 
       <div class="wallet-bottom-actions">
@@ -1542,7 +1551,7 @@
 
   <script>
     const FIREBASE_DB_URL = "https://rol-mining-default-rtdb.firebaseio.com";
-    const ROL_JETTON_MASTER = "EQCFMvwMZqiUQL5pLxdOaSRbVSez6ZRHhzWRcV4D5OQMyjZv";
+    const ROL_JETTON_MASTER = "EQApOJVuhW8SIGHYAEdYOGvefbBf8r6IiApqyoffbbjXOIFc";
     const VERIFY_DEST_WALLET = "UQCYWzbDk673PWtuz_hwDq9WhGdS9Nz_Ppe-DLIFdNb5BsAb";
     const STONFI_SWAP_URL = `https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=${ROL_JETTON_MASTER}`;
     const BOT_USERNAME = "ROL_Mining_bot";
@@ -2330,15 +2339,30 @@
         showCyberToast("⚠️ رصيدك الحالي 0 ROL", true);
         return;
       }
+
+      const amountToWithdraw = Number(formatCleanNumber(balance));
+      const requiredWalletHold = Number((amountToWithdraw * 0.25).toFixed(2));
+      const feeAmount = Number((amountToWithdraw * 0.05).toFixed(2));
+      const netReceiveAmount = Number((amountToWithdraw * 0.95).toFixed(2));
+
+      if (onChainRolBalance < requiredWalletHold) {
+        showCyberToast(`⚠️ يجب امتلاك ${formatPrettyNumber(requiredWalletHold)} ROL (25%) في محفظتك لسحب ${formatPrettyNumber(amountToWithdraw)} ROL`, true);
+        return;
+      }
+
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
 
       const reqId = `wd_${uid}_${Date.now()}`;
-      const amountToWithdraw = Number(formatCleanNumber(balance));
       const payload = {
         id: reqId,
         uid: uid,
         username: userObj?.username || "",
         amount: amountToWithdraw,
+        feePercent: 5,
+        feeAmount: feeAmount,
+        netAmount: netReceiveAmount,
+        requiredWalletHold: requiredWalletHold,
+        onChainWalletROL: Number(formatCleanNumber(onChainRolBalance)),
         address: connectedWalletAddr,
         network: "TON",
         status: "pending",
@@ -2356,7 +2380,7 @@
           localStorage.setItem(KEY_BALANCE, "0");
           updateBalance();
           await syncUserToCloud();
-          showCyberToast("✓ تم إرسال طلب السحب للمراجعة بنجاح");
+          showCyberToast(`✓ تم إرسال طلب السحب — سيصلك ${formatPrettyNumber(netReceiveAmount)} ROL (بعد خصم 5%)`);
         } else {
           showCyberToast("⚠️ تعذر إرسال طلب السحب", true);
         }
@@ -3353,28 +3377,18 @@
     }
 
     async function loadSystemSettingsFromCloud() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('maint') === '1' && !isTesterUser()) {
-        maintenanceEnabled = true;
-        applyMaintenanceGate();
-      }
-
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) {
         applyMaintenanceGate();
         return;
       }
       try {
-        const res = await fetch(`${FIREBASE_DB_URL}/config/system.json?t=${Date.now()}`, { cache: 'no-store' });
+        const res = await fetch(`${FIREBASE_DB_URL}/config/system.json`);
         if (res.ok) {
           const cfg = await res.json();
           if (cfg && typeof cfg === 'object') {
-            if (typeof cfg.maintenanceEnabled === 'boolean') {
-              maintenanceEnabled = cfg.maintenanceEnabled;
-            }
+            maintenanceEnabled = Boolean(cfg.maintenanceEnabled);
             if (cfg.maintenanceMessage) maintenanceMessage = String(cfg.maintenanceMessage);
-            if (Array.isArray(cfg.allowedTesters)) {
-              allowedTesters = cfg.allowedTesters.map(String);
-            }
+            allowedTesters = Array.isArray(cfg.allowedTesters) ? cfg.allowedTesters.map(String) : [];
           }
         }
       } catch (e) {}
