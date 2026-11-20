@@ -970,6 +970,7 @@
     }
 
     .maintenance-screen.active { display: flex; }
+
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -980,6 +981,7 @@
   <div class="cyber-toast" id="cyber-toast"></div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
+    <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
       <div class="brand-title">ROL Mining</div>
@@ -1067,6 +1069,7 @@
       </div>
     </div>
 
+    <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
@@ -1194,6 +1197,7 @@
       </div>
     </div>
 
+    <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1259,6 +1263,7 @@
       </button>
     </div>
 
+    <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
@@ -1387,6 +1392,7 @@
       </div>
     </div>
 
+    <!-- ==================== الشريط السفلي المحسّن ==================== -->
     <div class="cyber-footer">
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
         <div class="cyber-box-wrap">
@@ -1475,6 +1481,8 @@
         </defs>
       </svg>
     </div>
+
+
   </div>
 
   <!-- ==================== شاشة الصيانة المؤقتة ==================== -->
@@ -1901,7 +1909,7 @@
         connActive: "Connected",
         notConnected: "Not Connected",
         pgWWithdrawLock: "Withdraw (Verify First)",
-        pgWWithdrawReady: "Withdraw (At Listing)",
+        pgWWithdrawReady: "Withdraw",
         nextVipProg: "Progress to",
         maxVipReached: "Max Tier VIP 100 Reached",
         wUsedTitle: "Wallet Already Linked",
@@ -1990,7 +1998,7 @@
         connActive: "متصلة",
         notConnected: "غير متصلة",
         pgWWithdrawLock: "السحب (يتطلب توثيق)",
-        pgWWithdrawReady: "سحب الأرباح (قريباً)",
+        pgWWithdrawReady: "سحب الأرباح",
         nextVipProg: "التقدم نحو",
         maxVipReached: "وصلت للحد الأقصى VIP 100",
         wUsedTitle: "المحفظة مربوطة بحساب آخر",
@@ -2079,7 +2087,7 @@
         connActive: "Подключён",
         notConnected: "Не подключён",
         pgWWithdrawLock: "Вывод (нужна верификация)",
-        pgWWithdrawReady: "Вывод (при листинге)",
+        pgWWithdrawReady: "Вывод",
         nextVipProg: "Прогресс до",
         maxVipReached: "Достигнут максимум VIP 100",
         wUsedTitle: "Кошелёк уже используется",
@@ -2302,6 +2310,7 @@
       const btn = document.getElementById('gram-verify-btn');
       const wBtnTxt = document.getElementById('withdraw-locked-txt');
 
+      const wBtn = document.getElementById('pg-w-withdraw-btn');
       if (isAccountVerified) {
         card.classList.add('verified');
         title.innerText = t.gramVerifiedTitle;
@@ -2309,6 +2318,10 @@
         btn.innerText = t.gramVerifiedBtn;
         btn.classList.add('done');
         wBtnTxt.innerText = t.pgWWithdrawReady;
+        if (wBtn) {
+          wBtn.className = 'legendary-btn-gold';
+          wBtn.style.marginBottom = '0';
+        }
       } else {
         card.classList.remove('verified');
         title.innerText = t.gramTitle;
@@ -2316,6 +2329,10 @@
         btn.innerText = t.gramBtn;
         btn.classList.remove('done');
         wBtnTxt.innerText = t.pgWWithdrawLock;
+        if (wBtn) {
+          wBtn.className = 'legendary-btn-locked';
+          wBtn.style.marginBottom = '0';
+        }
       }
     }
 
