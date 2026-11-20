@@ -38,6 +38,7 @@
       overflow: hidden;
     }
 
+    /* ==================== شريط الإشعارات العلوي (Cyber Toast) ==================== */
     .cyber-toast {
       position: fixed;
       top: 14px;
@@ -67,6 +68,7 @@
     .cyber-toast.show { transform: translate(-50%, 0); opacity: 1; }
     .cyber-toast.warn { border-color: #facc15; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(250, 204, 21, 0.4); color: #fef08a; }
 
+    /* ==================== 1. الصفحة الرئيسية ==================== */
     #view-home {
       position: absolute;
       inset: 0;
@@ -93,6 +95,7 @@
     .ambient-mining-glow.active { opacity: 1; animation: ambientBreathe 3.2s infinite ease-in-out; }
     @keyframes ambientBreathe { 0%, 100% { transform: translateX(-50%) scale(0.95); opacity: 0.75; } 50% { transform: translateX(-50%) scale(1.12); opacity: 1; } }
 
+    /* ==================== ضبط المواضع بدقة متطابقة مع الصورة ==================== */
     .brand-title {
       position: absolute;
       top: 1.85%;
@@ -389,6 +392,7 @@
     .floating-reward-fx { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: ui-monospace, monospace; font-size: 26px; font-weight: 900; color: #fde047; text-shadow: 0 0 18px rgba(250, 204, 21, 1), 0 2px 8px #000; pointer-events: none; z-index: 99999; animation: rewardFlyUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; direction: ltr; }
     @keyframes rewardFlyUp { 0% { opacity: 0; transform: translate(-50%, 12px) scale(0.7); } 20% { opacity: 1; transform: translate(-50%, -18px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -130px) scale(1); } }
 
+    /* ==================== لوحة التعدين المنظمة ==================== */
     .live-status-pill {
       position: absolute;
       top: 57.6%;
@@ -536,6 +540,7 @@
 
     .claim-badge-chip { background: rgba(2, 44, 34, 0.45); border: 1px solid rgba(167, 243, 208, 0.55); color: #ecfdf5; padding: 3px 10px; border-radius: 20px; font-family: ui-monospace, monospace; font-size: 13px; font-weight: 900; direction: ltr; }
 
+    /* ==================== الصفحات المستقلة ==================== */
     .sub-page {
       position: absolute;
       top: 0;
@@ -570,6 +575,7 @@
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
+    /* ==================== عجلة الحظ الأسطورية ==================== */
     .spin-arena-card {
       position: relative;
       background:
@@ -675,6 +681,7 @@
     .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
     .action-pill-btn.done { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid #10b981; pointer-events: none; }
 
+    /* ==================== تصميم صفحة الإحالات ==================== */
     .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; flex-shrink: 0; }
 
     .cyber-stat-box {
@@ -708,6 +715,7 @@
     .mini-copy-btn { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 10px; padding: 8px 12px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px; flex-shrink: 0; transition: all 0.2s ease; }
     .mini-copy-btn.copied { background: rgba(16, 185, 129, 0.25); border-color: #10b981; color: #34d399; }
 
+    /* ==================== تصميم صفحة المحفظة ==================== */
     .obsidian-vault-card {
       position: relative;
       background:
@@ -799,6 +807,7 @@
     .legendary-btn-cyan { width: 100%; padding: 13px 12px; border-radius: 14px; border: none; background: linear-gradient(135deg, #0284c7 0%, #00f0ff 50%, #0369a1 100%); color: #020712; font-size: 12.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 18px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45); }
     .legendary-btn-locked { width: 100%; padding: 13px 12px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(15, 23, 42, 0.75); color: #64748b; font-size: 11.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
 
+    /* ==================== الشريط السفلي المطور ==================== */
     .cyber-footer {
       position: absolute;
       bottom: 0;
@@ -840,6 +849,7 @@
     .cyber-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-top: 3px; white-space: nowrap; }
     .cyber-tab.active .cyber-label { color: #fde047; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
 
+    /* ==================== النوافذ المنبثقة ==================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -958,7 +968,7 @@
       gap: 14px;
     }
 
-    .maintenance-screen.active { display: flex; }
+    .maintenance-screen.active { display: flex !important; }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -1372,6 +1382,7 @@
       </div>
     </div>
 
+    <!-- ==================== الشريط السفلي المحسّن ==================== -->
     <div class="cyber-footer">
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
         <div class="cyber-box-wrap">
@@ -1460,8 +1471,11 @@
         </defs>
       </svg>
     </div>
+
+
   </div>
 
+  <!-- ==================== شاشة الصيانة المؤقتة ==================== -->
   <div class="maintenance-screen" id="maintenance-screen" dir="auto">
     <div style="width: 58px; height: 58px; border-radius: 18px; background: rgba(250, 204, 21, 0.16); border: 1.5px solid #facc15; display: flex; align-items: center; justify-content: center; font-size: 26px;">🛠️</div>
     <h2 style="font-size: 20px; font-weight: 900; color: #fde047;">وضع الصيانة قيد التشغيل</h2>
@@ -1470,6 +1484,7 @@
     </p>
   </div>
 
+  <!-- ==================== نافذة المكافآت اليومية ==================== -->
   <div class="modal-overlay" id="checkin-modal" onclick="onOverlayClick(event, 'checkin-modal')" dir="auto">
     <div class="daily-modal-box">
       <div class="streak-banner" id="streak-badge">Check-in Streak: Day 1 / 30</div>
@@ -1485,6 +1500,7 @@
     </div>
   </div>
 
+  <!-- ==================== نافذة قواعد المستويات ==================== -->
   <div class="modal-overlay" id="rules-modal" onclick="onOverlayClick(event, 'rules-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.45);">
       <h3 style="color: #00f0ff; margin-bottom: 8px; font-size: 17px;" id="txt-rules-title">VIP Mining Tiers (VIP 1 - VIP 100)</h3>
@@ -1513,6 +1529,7 @@
     </div>
   </div>
 
+  <!-- ==================== نافذة تنبيه المحفظة المستخدمة ==================== -->
   <div class="modal-overlay" id="wallet-used-modal" onclick="onOverlayClick(event, 'wallet-used-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: #f59e0b; box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);">
       <h3 style="color: #fbbf24; font-size: 18px; margin-bottom: 8px;" id="txt-wused-title">Wallet Already Linked</h3>
@@ -2146,6 +2163,7 @@
       }
     }
 
+    // ==================== 1. عجلة الحظ ====================
     const SPIN_PRIZES = [
       { index: 0, amount: 5, weight: 20 },
       { index: 1, amount: 10, weight: 25 },
@@ -2258,6 +2276,7 @@
       }, 4700);
     }
 
+    // ==================== 2. توثيق المحفظة الحقيقي بـ 0.04 GRAM ====================
     let verifyPollInterval = null;
     let pendingGramAfterConnect = false;
     let verificationSessionStartTime = 0;
@@ -2370,7 +2389,7 @@
           messages: [
             {
               address: VERIFY_DEST_WALLET,
-              amount: "40000000"
+              amount: "40000000" // 0.04 GRAM
             }
           ]
         });
@@ -2442,6 +2461,7 @@
       await syncUserToCloud();
     }
 
+    // ==================== 3. مزامنة Firebase ====================
     async function publishVipConfigToDatabase() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) return;
       try {
@@ -3333,18 +3353,28 @@
     }
 
     async function loadSystemSettingsFromCloud() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('maint') === '1' && !isTesterUser()) {
+        maintenanceEnabled = true;
+        applyMaintenanceGate();
+      }
+
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project")) {
         applyMaintenanceGate();
         return;
       }
       try {
-        const res = await fetch(`${FIREBASE_DB_URL}/config/system.json`);
+        const res = await fetch(`${FIREBASE_DB_URL}/config/system.json?t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const cfg = await res.json();
           if (cfg && typeof cfg === 'object') {
-            maintenanceEnabled = Boolean(cfg.maintenanceEnabled);
+            if (typeof cfg.maintenanceEnabled === 'boolean') {
+              maintenanceEnabled = cfg.maintenanceEnabled;
+            }
             if (cfg.maintenanceMessage) maintenanceMessage = String(cfg.maintenanceMessage);
-            allowedTesters = Array.isArray(cfg.allowedTesters) ? cfg.allowedTesters.map(String) : [];
+            if (Array.isArray(cfg.allowedTesters)) {
+              allowedTesters = cfg.allowedTesters.map(String);
+            }
           }
         }
       } catch (e) {}
