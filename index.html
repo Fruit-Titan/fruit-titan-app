@@ -242,20 +242,21 @@
 
     .rate-container {
       position: absolute;
-      top: 6.4%;
-      left: 41.2%;
-      width: 32.5%;
-      height: 8.8%;
+      top: 6.9%;
+      left: 43.2%;
+      width: 30.5%;
+      height: 8.2%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       pointer-events: none;
       z-index: 20;
+      text-align: center;
     }
 
-    .rate-title { font-size: 9.5px; font-weight: 800; color: #cbd5e1; padding-left: 16px; white-space: nowrap; }
-    .rate-val { font-family: ui-monospace, monospace; font-size: 11.4px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 3px; direction: ltr; white-space: nowrap; }
+    .rate-title { font-size: 9.2px; font-weight: 800; color: #cbd5e1; padding-left: 0; line-height: 1.25; white-space: nowrap; }
+    .rate-val { font-family: ui-monospace, monospace; font-size: 11.2px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); margin-top: 3px; line-height: 1.25; direction: ltr; white-space: nowrap; }
 
     .gift-touch-zone {
       position: absolute;
@@ -969,7 +970,6 @@
     }
 
     .maintenance-screen.active { display: flex; }
-
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -980,7 +980,6 @@
   <div class="cyber-toast" id="cyber-toast"></div>
 
   <div class="app-screen" onclick="onGlobalScreenClick(event)">
-    <!-- ==================== 1. الصفحة الرئيسية ==================== -->
     <div id="view-home">
       <div class="ambient-mining-glow" id="ambient-glow"></div>
       <div class="brand-title">ROL Mining</div>
@@ -1068,7 +1067,6 @@
       </div>
     </div>
 
-    <!-- ==================== 2. صفحة المهام + عجلة السبين ==================== -->
     <div class="sub-page" id="page-tasks" dir="auto">
       <div class="page-header">
         <div class="page-title" id="pg-tasks-title">Tasks & Fortune Spin</div>
@@ -1196,7 +1194,6 @@
       </div>
     </div>
 
-    <!-- ==================== 3. صفحة الإحالات ==================== -->
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1262,7 +1259,6 @@
       </button>
     </div>
 
-    <!-- ==================== 4. صفحة المحفظة ==================== -->
     <div class="sub-page" id="page-wallet" dir="auto">
       <div class="page-header" style="margin-bottom: 12px; padding-bottom: 8px;">
         <div class="page-title" id="pg-wallet-title">Digital Asset Vault</div>
@@ -1391,7 +1387,6 @@
       </div>
     </div>
 
-    <!-- ==================== الشريط السفلي المحسّن ==================== -->
     <div class="cyber-footer">
       <div class="cyber-tab active" id="tab-home" onclick="switchTab('home')">
         <div class="cyber-box-wrap">
@@ -1480,8 +1475,6 @@
         </defs>
       </svg>
     </div>
-
-
   </div>
 
   <!-- ==================== شاشة الصيانة المؤقتة ==================== -->
@@ -2277,6 +2270,7 @@
         clearInterval(tickTimer);
         balance += chosen.amount;
         updateBalance();
+        logUserHistory('Fortune Spin', chosen.amount, 'Wheel prize');
         triggerRewardVisualBurst(chosen.amount);
         if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         isWheelSpinning = false;
@@ -2379,6 +2373,7 @@
           balance = 0;
           localStorage.setItem(KEY_BALANCE, "0");
           updateBalance();
+          await logUserHistory('Withdrawal Request', -amountToWithdraw, `Net: ${netReceiveAmount} ROL (Fee 5%)`);
           await syncUserToCloud();
           showCyberToast(`✓ تم إرسال طلب السحب — سيصلك ${formatPrettyNumber(netReceiveAmount)} ROL (بعد خصم 5%)`);
         } else {
@@ -2505,6 +2500,25 @@
       } catch (e) {}
     }
 
+
+    async function logUserHistory(source, amount, details = "") {
+      if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
+      try {
+        const entry = {
+          source: source,
+          amount: Number(formatCleanNumber(amount)),
+          details: details,
+          balanceAfter: Number(formatCleanNumber(balance)),
+          timestamp: Date.now()
+        };
+        await fetch(`${FIREBASE_DB_URL}/users/${uid}/history.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        });
+      } catch (e) {}
+    }
+
     async function syncUserToCloud() {
       if (!FIREBASE_DB_URL || FIREBASE_DB_URL.includes("your-project") || uid === "guest_miner") return;
       try {
@@ -2624,6 +2638,17 @@
               spinTickets: newSpins
             })
           });
+          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}/history.json`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              source: 'Verified Referral',
+              amount: 60,
+              details: `From user ${uid}`,
+              balanceAfter: newBal,
+              timestamp: Date.now()
+            })
+          });
         }
       } catch (e) {}
     }
@@ -2641,12 +2666,24 @@
         if (!res.ok) return;
         const refUser = await res.json();
         if (refUser && !refUser.error) {
+          const newRefBal = (refUser.balance || 0) + commission;
           await fetch(`${FIREBASE_DB_URL}/users/${referrerId}.json`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               refEarn: (refUser.refEarn || 0) + commission,
-              balance: (refUser.balance || 0) + commission
+              balance: newRefBal
+            })
+          });
+          await fetch(`${FIREBASE_DB_URL}/users/${referrerId}/history.json`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              source: 'Referral 5% Commission',
+              amount: commission,
+              details: `From user ${uid}`,
+              balanceAfter: newRefBal,
+              timestamp: Date.now()
             })
           });
         }
@@ -3067,6 +3104,7 @@
           localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
           balance += reward;
           updateBalance();
+          logUserHistory('Task Reward', reward, `Task #${taskId}`);
           refreshTasksUI();
           triggerRewardVisualBurst(reward);
           syncUserToCloud();
@@ -3085,6 +3123,7 @@
       localStorage.setItem(KEY_TASKS, JSON.stringify(completedTasks));
       balance += 50;
       updateBalance();
+      logUserHistory('Task Reward', 50, 'Connect TON Wallet');
       refreshTasksUI();
       triggerRewardVisualBurst(50);
       syncUserToCloud();
@@ -3199,6 +3238,7 @@
           const reward = getCycleRewardAmount();
           balance += reward;
           updateBalance();
+          logUserHistory('Mining Cycle', reward, `10h Cycle (VIP ${currentVip})`);
           triggerRewardVisualBurst(reward);
           if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 
@@ -3299,6 +3339,7 @@
         const reward = DAILY_REWARDS[checkinDay];
         balance += reward;
         updateBalance();
+        logUserHistory('Daily Check-in', reward, `Day ${checkinDay + 1}`);
         triggerRewardVisualBurst(reward);
         if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         checkinDay = (checkinDay + 1) % 30;
