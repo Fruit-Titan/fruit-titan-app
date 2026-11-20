@@ -2338,16 +2338,25 @@
 
     async function handleWithdrawClick() {
       playSoundFX('click');
+      const isAr = curLang === 'ar';
+      const isRu = curLang === 'ru';
+
       if (!isAccountVerified) {
         triggerDirectGramVerification();
         return;
       }
       if (!connectedWalletAddr) {
-        showCyberToast("⚠️ اربط محفظة TON أولاً", true);
+        showCyberToast(
+          isAr ? "⚠️ اربط محفظة TON أولاً" : (isRu ? "⚠️ Сначала подключите TON кошелёк" : "⚠️ Connect your TON wallet first"),
+          true
+        );
         return;
       }
       if (balance <= 0) {
-        showCyberToast("⚠️ رصيدك الحالي 0 ROL", true);
+        showCyberToast(
+          isAr ? "⚠️ رصيدك الحالي 0 ROL" : (isRu ? "⚠️ Ваш текущий баланс 0 ROL" : "⚠️ Your current balance is 0 ROL"),
+          true
+        );
         return;
       }
 
@@ -2357,7 +2366,14 @@
       const netReceiveAmount = Number((amountToWithdraw * 0.95).toFixed(2));
 
       if (onChainRolBalance < requiredWalletHold) {
-        showCyberToast(`⚠️ يجب امتلاك ${formatPrettyNumber(requiredWalletHold)} ROL (25%) في محفظتك لسحب ${formatPrettyNumber(amountToWithdraw)} ROL`, true);
+        showCyberToast(
+          isAr
+            ? `⚠️ يجب امتلاك ${formatPrettyNumber(requiredWalletHold)} ROL (25%) في محفظتك لسحب ${formatPrettyNumber(amountToWithdraw)} ROL`
+            : (isRu
+                ? `⚠️ Держите минимум ${formatPrettyNumber(requiredWalletHold)} ROL (25%) в кошельке для вывода ${formatPrettyNumber(amountToWithdraw)} ROL`
+                : `⚠️ Hold at least ${formatPrettyNumber(requiredWalletHold)} ROL (25%) in your wallet to withdraw ${formatPrettyNumber(amountToWithdraw)} ROL`),
+          true
+        );
         return;
       }
 
@@ -2392,12 +2408,24 @@
           updateBalance();
           await logUserHistory('Withdrawal Request', -amountToWithdraw, `Net: ${netReceiveAmount} ROL (Fee 5%)`);
           await syncUserToCloud();
-          showCyberToast(`✓ تم إرسال طلب السحب — سيصلك ${formatPrettyNumber(netReceiveAmount)} ROL (بعد خصم 5%)`);
+          showCyberToast(
+            isAr
+              ? `✓ تم إرسال طلب السحب — سيصلك ${formatPrettyNumber(netReceiveAmount)} ROL (بعد خصم 5%)`
+              : (isRu
+                  ? `✓ Заявка на вывод отправлена — вы получите ${formatPrettyNumber(netReceiveAmount)} ROL (комиссия 5%)`
+                  : `✓ Withdrawal submitted — you will receive ${formatPrettyNumber(netReceiveAmount)} ROL (after 5% fee)`)
+          );
         } else {
-          showCyberToast("⚠️ تعذر إرسال طلب السحب", true);
+          showCyberToast(
+            isAr ? "⚠️ تعذر إرسال طلب السحب" : (isRu ? "⚠️ Не удалось отправить заявку на вывод" : "⚠️ Failed to submit withdrawal"),
+            true
+          );
         }
       } catch (e) {
-        showCyberToast("⚠️ خطأ في الاتصال بالخادم", true);
+        showCyberToast(
+          isAr ? "⚠️ خطأ في الاتصال بالخادم" : (isRu ? "⚠️ Ошибка подключения к серверу" : "⚠️ Server connection error"),
+          true
+        );
       }
     }
 
