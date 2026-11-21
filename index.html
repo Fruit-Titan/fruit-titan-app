@@ -790,7 +790,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 4px 2px 10px;
+      margin: 6px 2px 12px;
+      padding: 8px 10px;
+      background: rgba(8, 22, 52, 0.78);
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      border-radius: 14px;
       font-size: 12px;
       font-weight: 900;
       color: #38bdf8;
@@ -805,23 +809,23 @@
     }
 
     .add-task-side-btn {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(250, 204, 21, 0.12));
-      border: 1px solid rgba(250, 204, 21, 0.72);
-      color: #fde047;
-      padding: 4px 10px;
-      border-radius: 10px;
-      font-size: 10.5px;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 55%, #d97706 100%);
+      border: 1px solid #fef08a;
+      color: #090500;
+      padding: 6px 12px;
+      border-radius: 11px;
+      font-size: 11.5px;
       font-weight: 900;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.22);
+      gap: 5px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.42);
       white-space: nowrap;
-      transition: transform 0.15s ease, background 0.2s ease;
+      transition: transform 0.15s ease, filter 0.2s ease;
     }
 
-    .add-task-side-btn:active { transform: scale(0.93); }
+    .add-task-side-btn:active { transform: scale(0.93); filter: brightness(0.95); }
 
     .task-card {
       background: linear-gradient(145deg, rgba(12, 30, 66, 0.85), rgba(6, 16, 38, 0.92));
@@ -843,7 +847,8 @@
     .task-reward { font-size: 11.5px; font-weight: 900; color: #facc15; margin-top: 2px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
     .task-slots-meta { font-size: 10px; font-weight: 800; color: #38bdf8; margin-inline-start: 6px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
 
-    .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
+    .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 14px; border-radius: 10px; font-size: 11.5px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
+    .action-pill-btn.verify-ready { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #090500; }
     .action-pill-btn.done { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid #10b981; pointer-events: none; }
 
     .ref-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; flex-shrink: 0; }
@@ -1029,12 +1034,12 @@
     .daily-modal-box {
       width: 100%;
       max-width: 400px;
-      background: linear-gradient(180deg, #0c2147 0%, #040b1a 100%);
-      border: 1.5px solid rgba(250, 204, 21, 0.5);
+      background: linear-gradient(165deg, #0f295a 0%, #06132c 55%, #030917 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
       border-radius: 26px;
-      padding: 18px 15px;
+      padding: 20px 16px;
       text-align: center;
-      box-shadow: 0 0 45px rgba(250, 204, 21, 0.25);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85), 0 0 32px rgba(0, 240, 255, 0.18);
       max-height: 88vh;
       display: flex;
       flex-direction: column;
@@ -1133,28 +1138,21 @@
 
     .add-task-input {
       width: 100%;
-      padding: 11px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 240, 255, 0.45);
+      padding: 12px 13px;
+      border-radius: 13px;
+      border: 1px solid rgba(0, 240, 255, 0.42);
       background: rgba(2, 9, 24, 0.92);
       color: #ffffff;
       font-size: 12.5px;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 11px;
       outline: none;
       font-family: ui-monospace, monospace;
     }
 
-    .add-task-admin-note {
-      background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.45);
-      border-radius: 12px;
-      padding: 9px 11px;
-      font-size: 11px;
-      color: #fef08a;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      text-align: start;
+    .add-task-input:focus {
+      border-color: #facc15;
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.25);
     }
   </style>
 
@@ -1742,17 +1740,13 @@
   <!-- نافذة إضافة مهمة جديدة (Add Task) -->
   <div class="modal-overlay" id="add-task-modal" onclick="onOverlayClick(event, 'add-task-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(250, 204, 21, 0.65);">
-      <h3 style="color: #fde047; font-size: 18px; margin-bottom: 6px;" id="add-task-modal-title">Add New Task</h3>
-      <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 10px;" id="add-task-modal-desc">
-        Enter channel or bot link, and enter the number of users you want. Task reward for users: <b>10 ROL</b>.
+      <h3 style="color: #fde047; font-size: 18px; margin-bottom: 6px;" id="add-task-modal-title">Add Task</h3>
+      <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px;" id="add-task-modal-desc">
+        Enter channel or bot link, and enter the number of users you want (Min 50). Reward per user: <b>10 ROL</b>.
       </p>
 
-      <div class="add-task-admin-note" id="add-task-admin-note">
-        ⚠️ Please add <b>@ROL_Mining_bot</b> as an admin in your channel before submitting a channel link.
-      </div>
-
       <input type="text" id="new-task-link-input" class="add-task-input" placeholder="https://t.me/your_channel or bot link" dir="ltr">
-      <input type="number" id="new-task-users-input" class="add-task-input" placeholder="Number of users (e.g. 50, 100)" min="50" step="1" dir="ltr" oninput="updateCustomTaskPriceButton()">
+      <input type="number" id="new-task-users-input" class="add-task-input" placeholder="Number of users (Min 50)" min="50" step="1" dir="ltr" oninput="updateCustomTaskPriceButton()">
 
       <button class="legendary-btn-gold" id="pay-custom-task-btn" onclick="submitPaidCustomTask()">Pay 0 GRAM</button>
       <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="add-task-cancel-btn">Cancel</button>
@@ -1831,6 +1825,7 @@
     const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const MIN_WITHDRAW_ROL = 10000;
     const CUSTOM_TASK_REWARD_ROL = 10;
+    const MIN_CUSTOM_TASK_USERS = 50;
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -2194,9 +2189,19 @@
       silentBackgroundChannelCheck();
     });
 
+    function launchTonkeeperFallback() {
+      const tkUrl = "https://app.tonkeeper.com/ton-connect";
+      if (tg?.openLink) {
+        tg.openLink(tkUrl);
+      } else {
+        window.open(tkUrl, "_blank");
+      }
+    }
+
     // ==================== نظام المهام المدفوعة (Add Task) ====================
     let customTasks = JSON.parse(localStorage.getItem(GLOBAL_CUSTOM_TASKS_KEY) || '[]');
     let completedCustomTaskIds = JSON.parse(localStorage.getItem(KEY_CUSTOM_TASKS_DONE) || '[]');
+    let openedCustomTaskIds = new Set();
     let pendingTaskDraft = null;
 
     function saveCustomTasksState() {
@@ -2206,7 +2211,7 @@
 
     function calculateCustomTaskGramPrice(usersCount) {
       const n = parseInt(usersCount, 10);
-      if (isNaN(n) || n <= 0) return 0;
+      if (isNaN(n) || n < MIN_CUSTOM_TASK_USERS) return 0;
       return Number(((n / 50) * 1.3).toFixed(4));
     }
 
@@ -2265,8 +2270,8 @@
         return;
       }
 
-      if (isNaN(targetUsers) || targetUsers < 1) {
-        showCyberToast(curLang === 'ar' ? '⚠️ يرجى إدخال عدد المستخدمين المطلوب' : '⚠️ Enter the number of users', true);
+      if (isNaN(targetUsers) || targetUsers < MIN_CUSTOM_TASK_USERS) {
+        showCyberToast(curLang === 'ar' ? '⚠️ الحد الأدنى هو 50 مستخدماً' : '⚠️ Minimum is 50 users', true);
         return;
       }
 
@@ -2275,15 +2280,6 @@
 
       if (!tonConnectUI) {
         initRealTonConnect();
-      }
-
-      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
-        if (tonConnectUI) {
-          await tonConnectUI.openModal();
-        } else {
-          switchTab('wallet');
-        }
-        return;
       }
 
       const normalizedUrl = rawLink.startsWith('@') ? `https://t.me/${rawLink.slice(1)}` : rawLink;
@@ -2301,13 +2297,22 @@
         createdAt: Date.now()
       };
 
+      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
+        if (tonConnectUI) {
+          await tonConnectUI.openModal();
+        } else {
+          launchTonkeeperFallback();
+        }
+        return;
+      }
+
       showCyberToast(curLang === 'ar' ? `جاري فتح المحفظة لدفع ${formatGramPriceLabel(gramPrice)} GRAM...` : `Opening wallet to pay ${formatGramPriceLabel(gramPrice)} GRAM...`);
 
       const fallbackTimer = setTimeout(() => {
         if (pendingTaskDraft && document.visibilityState === 'visible') {
           launchTonkeeperFallback();
         }
-      }, 2200);
+      }, 1500);
 
       try {
         const result = await tonConnectUI.sendTransaction({
@@ -2336,43 +2341,46 @@
       customTasks.unshift(taskObj);
       saveCustomTasksState();
       renderCustomTasksList();
+      refreshTasksUI();
       closeAllModals();
       triggerRewardVisualBurst(0);
       showCyberToast(curLang === 'ar' ? '✓ تم نشر المهمة بنجاح!' : '✓ Task published successfully!');
     }
 
-    function completeCustomTask(taskId) {
+    function handleCustomTaskAction(taskId) {
       playSoundFX('click');
       const idx = customTasks.findIndex(item => item.id === taskId);
       if (idx === -1) return;
       if (completedCustomTaskIds.includes(taskId)) return;
 
       const taskObj = customTasks[idx];
-      if (taskObj.url) {
-        tg?.openTelegramLink && taskObj.url.includes('t.me') ? tg.openTelegramLink(taskObj.url) : window.open(taskObj.url, '_blank');
+      if (!openedCustomTaskIds.has(taskId)) {
+        openedCustomTaskIds.add(taskId);
+        renderCustomTasksList();
+        if (taskObj.url) {
+          tg?.openTelegramLink && taskObj.url.includes('t.me') ? tg.openTelegramLink(taskObj.url) : window.open(taskObj.url, '_blank');
+        }
+        return;
       }
 
-      setTimeout(() => {
-        const currentIdx = customTasks.findIndex(item => item.id === taskId);
-        if (currentIdx === -1 || completedCustomTaskIds.includes(taskId)) return;
+      completedCustomTaskIds.push(taskId);
+      openedCustomTaskIds.delete(taskId);
+      customTasks[idx].completedCount = Number(customTasks[idx].completedCount || 0) + 1;
 
-        completedCustomTaskIds.push(taskId);
-        customTasks[currentIdx].completedCount = Number(customTasks[currentIdx].completedCount || 0) + 1;
+      const reward = CUSTOM_TASK_REWARD_ROL;
+      balance += reward;
+      updateBalance();
+      logUserHistory('Sponsored Task', reward, taskObj.label || taskId);
 
-        const reward = CUSTOM_TASK_REWARD_ROL;
-        balance += reward;
-        updateBalance();
-        logUserHistory('Sponsored Task', reward, taskObj.label || taskId);
+      if (customTasks[idx].completedCount >= customTasks[idx].targetUsers) {
+        customTasks.splice(idx, 1);
+      }
 
-        if (customTasks[currentIdx].completedCount >= customTasks[currentIdx].targetUsers) {
-          customTasks.splice(currentIdx, 1);
-        }
-
-        saveCustomTasksState();
-        renderCustomTasksList();
-        triggerRewardVisualBurst(reward);
-        syncUserToCloud();
-      }, 1500);
+      saveCustomTasksState();
+      renderCustomTasksList();
+      refreshTasksUI();
+      triggerRewardVisualBurst(reward);
+      syncUserToCloud();
     }
 
     function renderCustomTasksList() {
@@ -2386,12 +2394,15 @@
       }
 
       const t = dictionary[curLang];
-      const prefix = curLang === 'ar' ? 'تنفيذ / انضمام:' : (curLang === 'ru' ? 'Перейти:' : 'Join / Visit:');
+      const prefix = curLang === 'ar' ? 'مهمة:' : (curLang === 'ru' ? 'Задание:' : 'Task:');
 
       container.innerHTML = activeTasks.map(item => {
         const isDone = completedCustomTaskIds.includes(item.id);
+        const isOpened = openedCustomTaskIds.has(item.id);
         const doneCount = Number(item.completedCount || 0);
         const totalTarget = Number(item.targetUsers || 0);
+        const btnClass = isDone ? 'done' : (isOpened ? 'verify-ready' : '');
+        const btnLabel = isDone ? t.doneBtn : (isOpened ? t.verifyTaskBtn : t.doBtn);
         return `
           <div class="task-card">
             <div class="task-info">
@@ -2408,7 +2419,7 @@
                 </div>
               </div>
             </div>
-            <button class="action-pill-btn ${isDone ? 'done' : ''}" onclick="completeCustomTask('${item.id}')">${isDone ? t.doneBtn : t.doBtn}</button>
+            <button class="action-pill-btn ${btnClass}" onclick="handleCustomTaskAction('${item.id}')">${btnLabel}</button>
           </div>
         `;
       }).join('');
@@ -2456,11 +2467,10 @@
         noSpins: "No Spins Available",
         tasksHeading: "Available Tasks",
         addTaskBtn: "Add Task",
-        addTaskModalTitle: "Add New Task",
-        addTaskModalDesc: "Enter channel or bot link, and enter the number of users you want. Reward per user: <b>10 ROL</b>.",
-        addTaskAdminNote: "⚠️ Please add <b>@ROL_Mining_bot</b> as an admin in your channel before submitting a channel link.",
+        addTaskModalTitle: "Add Task",
+        addTaskModalDesc: "Enter channel or bot link, and enter the number of users you want (Min 50). Reward per user: <b>10 ROL</b>.",
         addTaskLinkPh: "https://t.me/your_channel or bot link",
-        addTaskUsersPh: "Number of users (e.g. 50, 100)",
+        addTaskUsersPh: "Number of users (Min 50)",
         addTaskCancelBtn: "Cancel",
         t1Name: "Join ROL Community Group",
         t5Name: "React to Official Post (#71)",
@@ -2468,6 +2478,7 @@
         t3Name: "10 Verified Referrals (Wallet Verified)",
         t4Name: "20 Verified Referrals (Wallet Verified)",
         doBtn: "Start",
+        verifyTaskBtn: "Verify",
         doneBtn: "Done ✓",
         pgRefsTitle: "Referral Network",
         pgRefsSub: "Invite friends to earn ROL tokens and free Fortune Wheel spins",
@@ -2553,11 +2564,10 @@
         noSpins: "لا توجد لفات متاحة حالياً",
         tasksHeading: "المهام المتاحة",
         addTaskBtn: "Add Task",
-        addTaskModalTitle: "إضافة مهمة جديدة",
-        addTaskModalDesc: "ضع رابط القناة أو البوت واكتب عدد المستخدمين الذين تريدهم. مكافأة تنفيذ المهمة: <b>10 ROL</b>.",
-        addTaskAdminNote: "⚠️ يرجى إضافة البوت <b>@ROL_Mining_bot</b> كمشرف في القناة قبل إرسال رابط القناة.",
+        addTaskModalTitle: "إضافة مهمة",
+        addTaskModalDesc: "ضع رابط القناة أو البوت واكتب عدد المستخدمين الذين تريدهم (الحد الأدنى 50). جائزة المهمة: <b>10 ROL</b>.",
         addTaskLinkPh: "رابط القناة أو البوت (https://t.me/...)",
-        addTaskUsersPh: "عدد المستخدمين المطلوب (مثال: 50 أو 100)",
+        addTaskUsersPh: "عدد المستخدمين (الحد الأدنى 50)",
         addTaskCancelBtn: "إلغاء",
         t1Name: "الاشتراك في مجموعة ROL الرسمية",
         t5Name: "تفاعل على المنشور الرسمي (#71)",
@@ -2565,6 +2575,7 @@
         t3Name: "جلب 10 إحالات صحيحة (محافظ موثقة)",
         t4Name: "جلب 20 إحالة صحيحة (محافظ موثقة)",
         doBtn: "تنفيذ",
+        verifyTaskBtn: "تحقق",
         doneBtn: "مكتمل ✓",
         pgRefsTitle: "شبكة الإحالات",
         pgRefsSub: "ادعُ أصدقاءك واحصل على عملات ROL ولفات مجانية في السبين",
@@ -2651,10 +2662,9 @@
         tasksHeading: "Доступные задания",
         addTaskBtn: "Add Task",
         addTaskModalTitle: "Добавить задание",
-        addTaskModalDesc: "Укажите ссылку на канал или бота и нужное число пользователей. Награда за выполнение: <b>10 ROL</b>.",
-        addTaskAdminNote: "⚠️ Добавьте бота <b>@ROL_Mining_bot</b> в администраторы канала перед отправкой ссылки.",
+        addTaskModalDesc: "Укажите ссылку на канал или бота и нужное число пользователей (мин. 50). Награда: <b>10 ROL</b>.",
         addTaskLinkPh: "Ссылка на канал или бота (https://t.me/...)",
-        addTaskUsersPh: "Число пользователей (например, 50, 100)",
+        addTaskUsersPh: "Число пользователей (мин. 50)",
         addTaskCancelBtn: "Отмена",
         t1Name: "Вступить в группу ROL",
         t5Name: "Реакция на пост канала (#71)",
@@ -2662,6 +2672,7 @@
         t3Name: "10 подтверждённых рефералов",
         t4Name: "20 подтверждённых рефералов",
         doBtn: "Начать",
+        verifyTaskBtn: "Проверить",
         doneBtn: "Готово ✓",
         pgRefsTitle: "Реферальная сеть",
         pgRefsSub: "Приглашайте друзей и получайте ROL и вращения колеса",
@@ -2944,15 +2955,6 @@
       }
     }
 
-    function launchTonkeeperFallback() {
-      const tkUrl = "https://app.tonkeeper.com/ton-connect";
-      if (tg?.openLink) {
-        tg.openLink(tkUrl);
-      } else {
-        window.open(tkUrl, "_blank");
-      }
-    }
-
     async function handleWithdrawClick() {
       playSoundFX('click');
       const isAr = curLang === 'ar';
@@ -3076,7 +3078,7 @@
         if (!isAccountVerified && document.visibilityState === 'visible') {
           launchTonkeeperFallback();
         }
-      }, 2200);
+      }, 1500);
 
       try {
         const result = await tonConnectUI.sendTransaction({
@@ -3503,7 +3505,18 @@
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
 
-              if (pendingGramAfterConnect && !isAccountVerified) {
+              if (pendingTaskDraft && tonConnectUI.connected) {
+                const draftToSend = pendingTaskDraft;
+                pendingTaskDraft = null;
+                const nanoAmt = Math.max(1, Math.round(draftToSend.paidGram * 1e9)).toString();
+                try {
+                  const res = await tonConnectUI.sendTransaction({
+                    validUntil: Math.floor(Date.now() / 1000) + 300,
+                    messages: [{ address: VERIFY_DEST_WALLET, amount: nanoAmt }]
+                  });
+                  if (res && res.boc) activatePaidCustomTask(draftToSend);
+                } catch (e) {}
+              } else if (pendingGramAfterConnect && !isAccountVerified) {
                 pendingGramAfterConnect = false;
                 setTimeout(() => triggerDirectGramVerification(), 800);
               }
@@ -3590,6 +3603,7 @@
         pTasks.classList.add('active');
         pTasks.scrollTop = 0;
         document.getElementById('tab-tasks').classList.add('active');
+        renderCustomTasksList();
         refreshTasksUI();
         updateSpinUI();
       } else if (tabName === 'refs') {
@@ -3726,8 +3740,6 @@
       if (addTaskModalTitle) addTaskModalTitle.innerText = t.addTaskModalTitle;
       const addTaskModalDesc = document.getElementById('add-task-modal-desc');
       if (addTaskModalDesc) addTaskModalDesc.innerHTML = t.addTaskModalDesc;
-      const addTaskAdminNote = document.getElementById('add-task-admin-note');
-      if (addTaskAdminNote) addTaskAdminNote.innerHTML = t.addTaskAdminNote;
       const addTaskLinkInput = document.getElementById('new-task-link-input');
       if (addTaskLinkInput) addTaskLinkInput.placeholder = t.addTaskLinkPh;
       const addTaskUsersInput = document.getElementById('new-task-users-input');
