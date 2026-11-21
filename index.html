@@ -1304,7 +1304,7 @@
 
       <div class="tasks-section-divider">
         <span id="tasks-list-heading">Available Tasks</span>
-        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 4</span>
+        <span id="tasks-progress-pill" style="color: #facc15; font-family: ui-monospace, monospace; direction: ltr;">0 / 5</span>
       </div>
 
       <div id="tasks-list-container">
@@ -1321,6 +1321,21 @@
             </div>
           </div>
           <button class="action-pill-btn" id="btn-task-1" onclick="completeTask(1, 15, 'https://t.me/ROL_TOKN_GROUP')">Start</button>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <div class="task-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="task-name" id="t5-name">React to Official Post (#71)</div>
+              <div class="task-reward">+15 ROL</div>
+            </div>
+          </div>
+          <button class="action-pill-btn" id="btn-task-5" onclick="completeTask(5, 15, 'https://t.me/ROL_TOKN/71')">Start</button>
         </div>
 
         <div class="task-card">
@@ -2127,6 +2142,7 @@
         noSpins: "No Spins Available",
         tasksHeading: "Available Tasks",
         t1Name: "Join ROL Community Group",
+        t5Name: "React to Official Post (#71)",
         t2Name: "3 Verified Referrals (Wallet Verified)",
         t3Name: "10 Verified Referrals (Wallet Verified)",
         t4Name: "20 Verified Referrals (Wallet Verified)",
@@ -2216,6 +2232,7 @@
         noSpins: "لا توجد لفات متاحة حالياً",
         tasksHeading: "المهام المتاحة",
         t1Name: "الاشتراك في مجموعة ROL الرسمية",
+        t5Name: "تفاعل على المنشور الرسمي (#71)",
         t2Name: "جلب 3 إحالات صحيحة (محافظ موثقة)",
         t3Name: "جلب 10 إحالات صحيحة (محافظ موثقة)",
         t4Name: "جلب 20 إحالة صحيحة (محافظ موثقة)",
@@ -2305,6 +2322,7 @@
         noSpins: "Нет доступных вращений",
         tasksHeading: "Доступные задания",
         t1Name: "Вступить в группу ROL",
+        t5Name: "Реакция на пост канала (#71)",
         t2Name: "3 подтверждённых реферала",
         t3Name: "10 подтверждённых рефералов",
         t4Name: "20 подтверждённых рефералов",
@@ -3368,6 +3386,7 @@
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
       document.getElementById('tasks-list-heading').innerText = t.tasksHeading;
       document.getElementById('t1-name').innerText = t.t1Name;
+      document.getElementById('t5-name').innerText = t.t5Name;
       document.getElementById('t2-name').innerText = t.t2Name;
       document.getElementById('t3-name').innerText = t.t3Name;
       document.getElementById('t4-name').innerText = t.t4Name;
@@ -3406,6 +3425,7 @@
     function refreshTasksUI() {
       const t = dictionary[curLang];
       const b1 = document.getElementById('btn-task-1');
+      const b5 = document.getElementById('btn-task-5');
       const b2 = document.getElementById('btn-task-2');
       const b3 = document.getElementById('btn-task-3');
       const b4 = document.getElementById('btn-task-4');
@@ -3413,6 +3433,10 @@
       if (b1) {
         if (completedTasks.includes(1)) { b1.innerText = t.doneBtn; b1.classList.add('done'); }
         else { b1.innerText = t.doBtn; b1.classList.remove('done'); }
+      }
+      if (b5) {
+        if (completedTasks.includes(5)) { b5.innerText = t.doneBtn; b5.classList.add('done'); }
+        else { b5.innerText = t.doBtn; b5.classList.remove('done'); }
       }
       if (b2) {
         if (completedTasks.includes(2)) { b2.innerText = t.doneBtn; b2.classList.add('done'); }
