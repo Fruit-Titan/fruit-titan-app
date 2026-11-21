@@ -2271,7 +2271,7 @@
     function calculateCustomTaskGramPrice(usersCount) {
       const n = parseInt(usersCount, 10);
       if (isNaN(n) || n < MIN_CUSTOM_TASK_USERS) return 0;
-      return Number(((n / 50) * 1.3).toFixed(4));
+      return Number(((n / 50) * 1).toFixed(4));
     }
 
     function formatGramPriceLabel(gramVal) {
