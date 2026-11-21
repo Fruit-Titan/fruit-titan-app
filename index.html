@@ -845,7 +845,6 @@
     .task-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .task-name { font-size: 13px; font-weight: 800; color: #ffffff; word-break: break-word; }
     .task-reward { font-size: 11.5px; font-weight: 900; color: #facc15; margin-top: 2px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
-    .task-slots-meta { font-size: 10px; font-weight: 800; color: #38bdf8; margin-inline-start: 6px; font-family: ui-monospace, monospace; direction: ltr; display: inline-block; }
 
     .action-pill-btn { background: linear-gradient(135deg, #0284c7, #00f0ff); color: #020712; border: none; padding: 8px 14px; border-radius: 10px; font-size: 11.5px; font-weight: 900; cursor: pointer; flex-shrink: 0; }
     .action-pill-btn.verify-ready { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #090500; }
@@ -1737,7 +1736,6 @@
     </div>
   </div>
 
-  <!-- نافذة إضافة مهمة جديدة (Add Task) -->
   <div class="modal-overlay" id="add-task-modal" onclick="onOverlayClick(event, 'add-task-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(250, 204, 21, 0.65);">
       <h3 style="color: #fde047; font-size: 18px; margin-bottom: 6px;" id="add-task-modal-title">Add Task</h3>
@@ -1822,6 +1820,8 @@
     const BOT_USERNAME = "ROL_Mining_bot";
     const BOT_BASE_URL = "https://fruit-titan-bot.onrender.com";
     const BOT_CHECK_CHANNEL_ENDPOINT = `${BOT_BASE_URL}/api/check-channel`;
+    const BOT_TASKS_ENDPOINT = `${BOT_BASE_URL}/api/tasks`;
+    const BOT_TASK_COMPLETE_ENDPOINT = `${BOT_BASE_URL}/api/tasks/complete`;
     const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const MIN_WITHDRAW_ROL = 10000;
     const CUSTOM_TASK_REWARD_ROL = 10;
@@ -2098,7 +2098,6 @@
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
     const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
     const KEY_CUSTOM_TASKS_DONE = `rol_${uid}_custom_tasks_done`;
-    const GLOBAL_CUSTOM_TASKS_KEY = 'rol_global_paid_tasks_v1';
 
     if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
       localStorage.removeItem(KEY_IS_VERIFIED);
@@ -2258,14 +2257,27 @@
     }
 
     // ==================== نظام المهام المدفوعة (Add Task) ====================
-    let customTasks = JSON.parse(localStorage.getItem(GLOBAL_CUSTOM_TASKS_KEY) || '[]');
+    let customTasks = [];
     let completedCustomTaskIds = JSON.parse(localStorage.getItem(KEY_CUSTOM_TASKS_DONE) || '[]');
     let openedCustomTaskIds = new Set();
     let pendingTaskDraft = null;
 
-    function saveCustomTasksState() {
-      localStorage.setItem(GLOBAL_CUSTOM_TASKS_KEY, JSON.stringify(customTasks));
+    function saveCompletedCustomTasksLocal() {
       localStorage.setItem(KEY_CUSTOM_TASKS_DONE, JSON.stringify(completedCustomTaskIds));
+    }
+
+    async function fetchSharedCustomTasks() {
+      try {
+        const res = await fetch(BOT_TASKS_ENDPOINT);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ok && Array.isArray(data.tasks)) {
+            customTasks = data.tasks;
+            renderCustomTasksList();
+            refreshTasksUI();
+          }
+        }
+      } catch (e) {}
     }
 
     function calculateCustomTaskGramPrice(usersCount) {
@@ -2355,7 +2367,7 @@
         gramPrice,
         async () => {
           if (pendingTaskDraft) {
-            activatePaidCustomTask(pendingTaskDraft);
+            await activatePaidCustomTask(pendingTaskDraft);
             pendingTaskDraft = null;
           }
         },
@@ -2365,9 +2377,27 @@
       );
     }
 
-    function activatePaidCustomTask(taskObj) {
-      customTasks.unshift(taskObj);
-      saveCustomTasksState();
+    async function activatePaidCustomTask(taskObj) {
+      try {
+        const res = await fetch(BOT_TASKS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(taskObj)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ok && data.task) {
+            customTasks.unshift(data.task);
+          } else {
+            customTasks.unshift(taskObj);
+          }
+        } else {
+          customTasks.unshift(taskObj);
+        }
+      } catch (e) {
+        customTasks.unshift(taskObj);
+      }
+
       renderCustomTasksList();
       refreshTasksUI();
       closeAllModals();
@@ -2375,7 +2405,7 @@
       showCyberToast(curLang === 'ar' ? '✓ تم نشر المهمة بنجاح!' : '✓ Task published successfully!');
     }
 
-    function handleCustomTaskAction(taskId) {
+    async function handleCustomTaskAction(taskId) {
       playSoundFX('click');
       const idx = customTasks.findIndex(item => item.id === taskId);
       if (idx === -1) return;
@@ -2391,22 +2421,43 @@
         return;
       }
 
+      try {
+        const res = await fetch(BOT_TASK_COMPLETE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ taskId, uid })
+        });
+        const data = res.ok ? await res.json() : { ok: true, rewardRol: CUSTOM_TASK_REWARD_ROL };
+
+        if (data && data.expired) {
+          customTasks = customTasks.filter(item => item.id !== taskId);
+          renderCustomTasksList();
+          refreshTasksUI();
+          showCyberToast(curLang === 'ar' ? 'انتهى عدد المنفذين لهذه المهمة' : 'This task has reached its limit', true);
+          return;
+        }
+
+        if (data && data.alreadyCompleted) {
+          if (!completedCustomTaskIds.includes(taskId)) {
+            completedCustomTaskIds.push(taskId);
+            saveCompletedCustomTasksLocal();
+          }
+          renderCustomTasksList();
+          refreshTasksUI();
+          return;
+        }
+      } catch (e) {}
+
       completedCustomTaskIds.push(taskId);
       openedCustomTaskIds.delete(taskId);
-      customTasks[idx].completedCount = Number(customTasks[idx].completedCount || 0) + 1;
+      saveCompletedCustomTasksLocal();
 
       const reward = CUSTOM_TASK_REWARD_ROL;
       balance += reward;
       updateBalance();
       logUserHistory('Sponsored Task', reward, taskObj.label || taskId);
 
-      if (customTasks[idx].completedCount >= customTasks[idx].targetUsers) {
-        customTasks.splice(idx, 1);
-      }
-
-      saveCustomTasksState();
-      renderCustomTasksList();
-      refreshTasksUI();
+      await fetchSharedCustomTasks();
       triggerRewardVisualBurst(reward);
       syncUserToCloud();
     }
@@ -2416,19 +2467,12 @@
       if (!container) return;
 
       const activeTasks = customTasks.filter(item => Number(item.completedCount || 0) < Number(item.targetUsers || 0));
-      if (activeTasks.length !== customTasks.length) {
-        customTasks = activeTasks;
-        saveCustomTasksState();
-      }
-
       const t = dictionary[curLang];
       const prefix = curLang === 'ar' ? 'مهمة:' : (curLang === 'ru' ? 'Задание:' : 'Task:');
 
       container.innerHTML = activeTasks.map(item => {
         const isDone = completedCustomTaskIds.includes(item.id);
         const isOpened = openedCustomTaskIds.has(item.id);
-        const doneCount = Number(item.completedCount || 0);
-        const totalTarget = Number(item.targetUsers || 0);
         const btnClass = isDone ? 'done' : (isOpened ? 'verify-ready' : '');
         const btnLabel = isDone ? t.doneBtn : (isOpened ? t.verifyTaskBtn : t.doBtn);
         return `
@@ -2441,10 +2485,7 @@
               </div>
               <div>
                 <div class="task-name">${prefix} ${item.label}</div>
-                <div>
-                  <span class="task-reward">+${CUSTOM_TASK_REWARD_ROL} ROL</span>
-                  <span class="task-slots-meta">${doneCount}/${totalTarget}</span>
-                </div>
+                <div class="task-reward">+${CUSTOM_TASK_REWARD_ROL} ROL</div>
               </div>
             </div>
             <button class="action-pill-btn ${btnClass}" onclick="handleCustomTaskAction('${item.id}')">${btnLabel}</button>
@@ -3507,7 +3548,7 @@
                 const draftToSend = pendingTaskDraft;
                 pendingTaskDraft = null;
                 await executeWalletPayment(draftToSend.paidGram, async () => {
-                  activatePaidCustomTask(draftToSend);
+                  await activatePaidCustomTask(draftToSend);
                 });
               } else if (pendingGramAfterConnect && !isAccountVerified) {
                 pendingGramAfterConnect = false;
@@ -3596,6 +3637,7 @@
         pTasks.classList.add('active');
         pTasks.scrollTop = 0;
         document.getElementById('tab-tasks').classList.add('active');
+        fetchSharedCustomTasks();
         renderCustomTasksList();
         refreshTasksUI();
         updateSpinUI();
@@ -4117,6 +4159,7 @@
     updateNotificationDots();
     renderMining();
     enforceMandatoryChannelGate();
+    fetchSharedCustomTasks();
 
     const ADMIN_IDS = ["1932161126"];
     let maintenanceEnabled = false;
@@ -4169,6 +4212,7 @@
       initRealTonConnect();
       publishVipConfigToDatabase();
       loadUserFromCloud();
+      fetchSharedCustomTasks();
       enforceMandatoryChannelGate();
       silentBackgroundChannelCheck();
       setInterval(() => {
