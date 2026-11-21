@@ -2189,12 +2189,71 @@
       silentBackgroundChannelCheck();
     });
 
-    function launchTonkeeperFallback() {
-      const tkUrl = "https://app.tonkeeper.com/ton-connect";
+    function launchTonkeeperFallback(gramAmount = 0) {
+      const nano = gramAmount > 0 ? Math.max(1, Math.round(gramAmount * 1e9)) : 0;
+      const tkUrl = nano > 0
+        ? `https://app.tonkeeper.com/transfer/${VERIFY_DEST_WALLET}?amount=${nano}`
+        : "https://app.tonkeeper.com/ton-connect";
       if (tg?.openLink) {
         tg.openLink(tkUrl);
       } else {
         window.open(tkUrl, "_blank");
+      }
+    }
+
+    async function executeWalletPayment(gramAmount, onSuccessCallback, onCancelCallback) {
+      const nanoAmount = Math.max(1, Math.round(gramAmount * 1e9)).toString();
+      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
+      startAutoGramVerificationPolling();
+      showCyberToast(
+        curLang === 'ar'
+          ? `جاري فتح المحفظة لدفع ${formatGramPriceLabel(gramAmount)} GRAM...`
+          : `Opening wallet to pay ${formatGramPriceLabel(gramAmount)} GRAM...`
+      );
+
+      let settled = false;
+      const fallbackTimer = setTimeout(() => {
+        if (!settled && document.visibilityState === 'visible') {
+          launchTonkeeperFallback(gramAmount);
+        }
+      }, 650);
+
+      try {
+        if (!tonConnectUI) {
+          initRealTonConnect();
+        }
+        if (tonConnectUI && !tonConnectUI.connected) {
+          await tonConnectUI.openModal();
+        }
+        if (tonConnectUI && tonConnectUI.connected) {
+          const result = await tonConnectUI.sendTransaction({
+            validUntil: Math.floor(Date.now() / 1000) + 300,
+            messages: [
+              {
+                address: VERIFY_DEST_WALLET,
+                amount: nanoAmount
+              }
+            ]
+          });
+          settled = true;
+          clearTimeout(fallbackTimer);
+          if (result && result.boc && typeof onSuccessCallback === 'function') {
+            await onSuccessCallback(result.boc);
+          } else if (typeof onCancelCallback === 'function') {
+            onCancelCallback();
+          }
+        } else {
+          settled = true;
+          clearTimeout(fallbackTimer);
+          launchTonkeeperFallback(gramAmount);
+        }
+      } catch (err) {
+        settled = true;
+        clearTimeout(fallbackTimer);
+        console.warn("Wallet transaction prompt error:", err);
+        if (typeof onCancelCallback === 'function') {
+          onCancelCallback(err);
+        }
       }
     }
 
@@ -2278,12 +2337,7 @@
       const gramPrice = calculateCustomTaskGramPrice(targetUsers);
       if (gramPrice <= 0) return;
 
-      if (!tonConnectUI) {
-        initRealTonConnect();
-      }
-
       const normalizedUrl = rawLink.startsWith('@') ? `https://t.me/${rawLink.slice(1)}` : rawLink;
-      const nanoAmount = Math.max(1, Math.round(gramPrice * 1e9)).toString();
 
       pendingTaskDraft = {
         id: `ctask_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
@@ -2297,44 +2351,18 @@
         createdAt: Date.now()
       };
 
-      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
-        if (tonConnectUI) {
-          await tonConnectUI.openModal();
-        } else {
-          launchTonkeeperFallback();
-        }
-        return;
-      }
-
-      showCyberToast(curLang === 'ar' ? `جاري فتح المحفظة لدفع ${formatGramPriceLabel(gramPrice)} GRAM...` : `Opening wallet to pay ${formatGramPriceLabel(gramPrice)} GRAM...`);
-
-      const fallbackTimer = setTimeout(() => {
-        if (pendingTaskDraft && document.visibilityState === 'visible') {
-          launchTonkeeperFallback();
-        }
-      }, 1500);
-
-      try {
-        const result = await tonConnectUI.sendTransaction({
-          validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [
-            {
-              address: VERIFY_DEST_WALLET,
-              amount: nanoAmount
-            }
-          ]
-        });
-
-        clearTimeout(fallbackTimer);
-        if (result && result.boc && pendingTaskDraft) {
-          activatePaidCustomTask(pendingTaskDraft);
+      await executeWalletPayment(
+        gramPrice,
+        async () => {
+          if (pendingTaskDraft) {
+            activatePaidCustomTask(pendingTaskDraft);
+            pendingTaskDraft = null;
+          }
+        },
+        () => {
           pendingTaskDraft = null;
         }
-      } catch (err) {
-        clearTimeout(fallbackTimer);
-        pendingTaskDraft = null;
-        console.warn("Custom task payment canceled or failed:", err);
-      }
+      );
     }
 
     function activatePaidCustomTask(taskObj) {
@@ -3056,50 +3084,20 @@
       playSoundFX('click');
       if (isAccountVerified) return;
 
-      if (!tonConnectUI) {
-        initRealTonConnect();
-      }
-
-      if (!connectedWalletAddr || !tonConnectUI || !tonConnectUI.connected) {
+      if (!connectedWalletAddr && tonConnectUI) {
         pendingGramAfterConnect = true;
-        if (tonConnectUI) {
-          await tonConnectUI.openModal();
-        } else {
-          switchTab('wallet');
-        }
-        return;
       }
 
-      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
-      startAutoGramVerificationPolling();
-      showCyberToast(dictionary[curLang].toastWaitingGram);
-
-      const fallbackTimer = setTimeout(() => {
-        if (!isAccountVerified && document.visibilityState === 'visible') {
-          launchTonkeeperFallback();
+      await executeWalletPayment(
+        0.04,
+        async (boc) => {
+          await completeAccountVerificationSuccess(boc);
+        },
+        (err) => {
+          console.warn("Verification payment canceled:", err);
+          if (verifyPollInterval) clearInterval(verifyPollInterval);
         }
-      }, 1500);
-
-      try {
-        const result = await tonConnectUI.sendTransaction({
-          validUntil: Math.floor(Date.now() / 1000) + 300,
-          messages: [
-            {
-              address: VERIFY_DEST_WALLET,
-              amount: "40000000" // 0.04 GRAM
-            }
-          ]
-        });
-
-        clearTimeout(fallbackTimer);
-        if (result && result.boc) {
-          await completeAccountVerificationSuccess(result.boc);
-        }
-      } catch (err) {
-        clearTimeout(fallbackTimer);
-        console.warn("User rejected or closed payment sheet:", err);
-        if (verifyPollInterval) clearInterval(verifyPollInterval);
-      }
+      );
     }
 
     function startAutoGramVerificationPolling() {
@@ -3508,17 +3506,12 @@
               if (pendingTaskDraft && tonConnectUI.connected) {
                 const draftToSend = pendingTaskDraft;
                 pendingTaskDraft = null;
-                const nanoAmt = Math.max(1, Math.round(draftToSend.paidGram * 1e9)).toString();
-                try {
-                  const res = await tonConnectUI.sendTransaction({
-                    validUntil: Math.floor(Date.now() / 1000) + 300,
-                    messages: [{ address: VERIFY_DEST_WALLET, amount: nanoAmt }]
-                  });
-                  if (res && res.boc) activatePaidCustomTask(draftToSend);
-                } catch (e) {}
+                await executeWalletPayment(draftToSend.paidGram, async () => {
+                  activatePaidCustomTask(draftToSend);
+                });
               } else if (pendingGramAfterConnect && !isAccountVerified) {
                 pendingGramAfterConnect = false;
-                setTimeout(() => triggerDirectGramVerification(), 800);
+                setTimeout(() => triggerDirectGramVerification(), 500);
               }
             } else {
               connectedWalletAddr = null;
