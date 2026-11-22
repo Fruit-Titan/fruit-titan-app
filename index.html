@@ -1278,6 +1278,18 @@
       border-color: #facc15;
       box-shadow: 0 0 12px rgba(250, 204, 21, 0.25);
     }
+
+    .withdraw-info-box {
+      background: rgba(2, 9, 24, 0.82);
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      text-align: start;
+      font-size: 11.5px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -1871,6 +1883,28 @@
           </linearGradient>
         </defs>
       </svg>
+    </div>
+  </div>
+
+  <!-- نافذة السحب وإدخال الكمية -->
+  <div class="modal-overlay" id="withdraw-modal" onclick="onOverlayClick(event, 'withdraw-modal')" dir="auto">
+    <div class="daily-modal-box" style="border-color: rgba(250, 204, 21, 0.65);">
+      <h3 style="color: #fde047; font-size: 18px; margin-bottom: 6px;" id="withdraw-modal-title">Withdraw ROL</h3>
+      <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 10px;" id="withdraw-modal-desc">
+        Enter the amount of ROL you want to withdraw (Min 10,000 ROL).
+      </p>
+
+      <div class="withdraw-info-box" id="withdraw-modal-summary">
+        <div>Available Balance: <b id="wd-avail-bal">0 ROL</b></div>
+        <div>Wallet ROL Hold: <b id="wd-wallet-hold">0 ROL</b></div>
+        <div>Required Hold (25%): <b id="wd-req-hold">0 ROL</b></div>
+        <div>You Receive (Fee 5%): <b id="wd-net-receive">0 ROL</b></div>
+      </div>
+
+      <input type="number" id="withdraw-amount-input" class="add-task-input" placeholder="Enter amount to withdraw (Min 10,000)" min="10000" step="1" dir="ltr" oninput="updateWithdrawModalPreview()">
+
+      <button class="legendary-btn-gold" id="submit-withdraw-req-btn" onclick="submitWithdrawRequest()">Submit Withdrawal Request</button>
+      <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="withdraw-cancel-btn">Cancel</button>
     </div>
   </div>
 
@@ -2733,6 +2767,11 @@
         notConnected: "Not Connected",
         pgWWithdrawLock: "Withdraw (Verify First)",
         pgWWithdrawReady: "Withdraw",
+        wdModalTitle: "Withdraw ROL",
+        wdModalDesc: "Enter the amount of ROL you want to withdraw (Min 10,000 ROL).",
+        wdAmountPh: "Enter ROL amount (Min 10,000)",
+        wdSubmitBtn: "Submit Withdrawal Request",
+        wdCancelBtn: "Cancel",
         nextVipProg: "Progress to",
         maxVipReached: "Max Tier VIP 100 Reached",
         wUsedTitle: "Wallet Already Linked",
@@ -2837,6 +2876,11 @@
         notConnected: "غير متصلة",
         pgWWithdrawLock: "السحب (يتطلب توثيق)",
         pgWWithdrawReady: "سحب الأرباح",
+        wdModalTitle: "سحب ROL",
+        wdModalDesc: "اكتب الكمية التي تريد سحبها (الحد الأدنى 10,000 ROL).",
+        wdAmountPh: "أدخل كمية السحب (الحد الأدنى 10,000)",
+        wdSubmitBtn: "إرسال طلب السحب",
+        wdCancelBtn: "إغلاق",
         nextVipProg: "التقدم نحو",
         maxVipReached: "وصلت للحد الأقصى VIP 100",
         wUsedTitle: "المحفظة مربوطة بحساب آخر",
@@ -2941,6 +2985,11 @@
         notConnected: "Не подключён",
         pgWWithdrawLock: "Вывод (нужна верификация)",
         pgWWithdrawReady: "Вывод",
+        wdModalTitle: "Вывод ROL",
+        wdModalDesc: "Введите сумму ROL для вывода (мин. 10,000 ROL).",
+        wdAmountPh: "Введите сумму (мин. 10,000)",
+        wdSubmitBtn: "Отправить заявку",
+        wdCancelBtn: "Закрыть",
         nextVipProg: "Прогресс до",
         maxVipReached: "Достигнут максимум VIP 100",
         wUsedTitle: "Кошелёк уже используется",
@@ -3189,6 +3238,33 @@
       }
     }
 
+    function updateWithdrawModalPreview() {
+      const inp = document.getElementById('withdraw-amount-input');
+      const reqHoldEl = document.getElementById('wd-req-hold');
+      const netEl = document.getElementById('wd-net-receive');
+      const availEl = document.getElementById('wd-avail-bal');
+      const holdEl = document.getElementById('wd-wallet-hold');
+
+      const val = parseFloat(inp?.value || '0');
+      const safeVal = isNaN(val) || val < 0 ? 0 : val;
+      const reqHold = Number((safeVal * 0.25).toFixed(2));
+      const netAmt = Number((safeVal * 0.95).toFixed(2));
+
+      if (availEl) availEl.innerText = `${formatPrettyNumber(balance)} ROL`;
+      if (holdEl) holdEl.innerText = `${formatPrettyNumber(onChainRolBalance)} ROL`;
+      if (reqHoldEl) reqHoldEl.innerText = `${formatPrettyNumber(reqHold)} ROL`;
+      if (netEl) netEl.innerText = `${formatPrettyNumber(netAmt)} ROL`;
+    }
+
+    function openWithdrawModal() {
+      const inp = document.getElementById('withdraw-amount-input');
+      if (inp) {
+        inp.value = balance >= MIN_WITHDRAW_ROL ? String(Math.floor(balance)) : '';
+      }
+      updateWithdrawModalPreview();
+      openModal('withdraw-modal');
+    }
+
     async function handleWithdrawClick() {
       playSoundFX('click');
       const isAr = curLang === 'ar';
@@ -3205,7 +3281,31 @@
         );
         return;
       }
-      if (balance < MIN_WITHDRAW_ROL) {
+      openWithdrawModal();
+    }
+
+    async function submitWithdrawRequest() {
+      playSoundFX('click');
+      const isAr = curLang === 'ar';
+      const isRu = curLang === 'ru';
+
+      if (!isAccountVerified) {
+        closeAllModals();
+        triggerDirectGramVerification();
+        return;
+      }
+      if (!connectedWalletAddr) {
+        showCyberToast(
+          isAr ? "⚠️ اربط محفظة TON أولاً" : (isRu ? "⚠️ Сначала подключите TON кошелёк" : "⚠️ Connect your TON wallet first"),
+          true
+        );
+        return;
+      }
+
+      const inp = document.getElementById('withdraw-amount-input');
+      const amountToWithdraw = Number(parseFloat(inp?.value || '0').toFixed(2));
+
+      if (isNaN(amountToWithdraw) || amountToWithdraw < MIN_WITHDRAW_ROL) {
         showCyberToast(
           isAr
             ? `⚠️ الحد الأدنى للسحب هو ${MIN_WITHDRAW_ROL.toLocaleString('en-US')} ROL`
@@ -3217,18 +3317,30 @@
         return;
       }
 
-      const amountToWithdraw = Number(formatCleanNumber(balance));
+      if (amountToWithdraw > balance) {
+        showCyberToast(
+          isAr
+            ? "⚠️ الكمية المدخلة أكبر من رصيدك المتاح"
+            : (isRu
+                ? "⚠️ Сумма превышает ваш доступный баланс"
+                : "⚠️ Amount exceeds your available balance"),
+          true
+        );
+        return;
+      }
+
       const requiredWalletHold = Number((amountToWithdraw * 0.25).toFixed(2));
       const feeAmount = Number((amountToWithdraw * 0.05).toFixed(2));
       const netReceiveAmount = Number((amountToWithdraw * 0.95).toFixed(2));
 
       if (onChainRolBalance < requiredWalletHold) {
+        const missingAmount = Number((requiredWalletHold - onChainRolBalance).toFixed(2));
         showCyberToast(
           isAr
-            ? `⚠️ يجب امتلاك ${formatPrettyNumber(requiredWalletHold)} ROL (25%) في محفظتك لسحب ${formatPrettyNumber(amountToWithdraw)} ROL`
+            ? `⚠️ يجب شراء ما قيمته ${formatPrettyNumber(missingAmount)} ROL (ليصل رصيد محفظتك إلى ${formatPrettyNumber(requiredWalletHold)} ROL بنسبة 25%)`
             : (isRu
-                ? `⚠️ Держите минимум ${formatPrettyNumber(requiredWalletHold)} ROL (25%) в кошельке для вывода ${formatPrettyNumber(amountToWithdraw)} ROL`
-                : `⚠️ Hold at least ${formatPrettyNumber(requiredWalletHold)} ROL (25%) in your wallet to withdraw ${formatPrettyNumber(amountToWithdraw)} ROL`),
+                ? `⚠️ Купите ещё ${formatPrettyNumber(missingAmount)} ROL (чтобы в кошельке было ${formatPrettyNumber(requiredWalletHold)} ROL — 25%)`
+                : `⚠️ Buy ${formatPrettyNumber(missingAmount)} ROL worth so your wallet holds ${formatPrettyNumber(requiredWalletHold)} ROL (25%)`),
           true
         );
         return;
@@ -3260,9 +3372,10 @@
           body: JSON.stringify(payload)
         });
         if (res.ok) {
-          balance = 0;
-          localStorage.setItem(KEY_BALANCE, "0");
+          balance = Number(Math.max(0, balance - amountToWithdraw).toFixed(2));
+          localStorage.setItem(KEY_BALANCE, String(balance));
           updateBalance();
+          closeAllModals();
           await logUserHistory('Withdrawal Request', -amountToWithdraw, `Net: ${netReceiveAmount} ROL (Fee 5%)`);
           await syncUserToCloud();
           showCyberToast(
@@ -3943,6 +4056,18 @@
       document.getElementById('txt-wused-title').innerText = t.wUsedTitle;
       document.getElementById('txt-wused-desc').innerText = t.wUsedDesc;
       document.getElementById('txt-wused-btn').innerText = t.wUsedBtn;
+
+      const wdTitle = document.getElementById('withdraw-modal-title');
+      if (wdTitle) wdTitle.innerText = t.wdModalTitle;
+      const wdDesc = document.getElementById('withdraw-modal-desc');
+      if (wdDesc) wdDesc.innerHTML = t.wdModalDesc;
+      const wdInp = document.getElementById('withdraw-amount-input');
+      if (wdInp) wdInp.placeholder = t.wdAmountPh;
+      const wdSub = document.getElementById('submit-withdraw-req-btn');
+      if (wdSub) wdSub.innerText = t.wdSubmitBtn;
+      const wdCan = document.getElementById('withdraw-cancel-btn');
+      if (wdCan) wdCan.innerText = t.wdCancelBtn;
+      updateWithdrawModalPreview();
 
       document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
