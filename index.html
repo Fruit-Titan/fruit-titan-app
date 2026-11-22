@@ -1787,11 +1787,11 @@
           <span id="ton-btn-txt">Connect Wallet</span>
         </button>
 
-        <button class="legendary-btn-locked" id="pg-w-withdraw-btn" onclick="handleWithdrawClick()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <button class="legendary-btn-gold" id="pg-w-withdraw-btn" style="margin-bottom:0;" onclick="handleWithdrawClick()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#090500" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/>
           </svg>
-          <span id="withdraw-locked-txt">Withdraw (Verify First)</span>
+          <span id="withdraw-locked-txt">Withdraw</span>
         </button>
       </div>
     </div>
@@ -2392,18 +2392,11 @@
       );
 
       let settled = false;
-      const fallbackTimer = setTimeout(() => {
-        if (!settled && document.visibilityState === 'visible') {
-          launchTonkeeperFallback(gramAmount);
-        }
-      }, 650);
+      launchTonkeeperFallback(gramAmount);
 
       try {
         if (!tonConnectUI) {
           initRealTonConnect();
-        }
-        if (tonConnectUI && !tonConnectUI.connected) {
-          await tonConnectUI.openModal();
         }
         if (tonConnectUI && tonConnectUI.connected) {
           const result = await tonConnectUI.sendTransaction({
@@ -2416,7 +2409,6 @@
             ]
           });
           settled = true;
-          clearTimeout(fallbackTimer);
           if (result && result.boc && typeof onSuccessCallback === 'function') {
             await onSuccessCallback(result.boc);
           } else if (typeof onCancelCallback === 'function') {
@@ -2424,13 +2416,10 @@
           }
         } else {
           settled = true;
-          clearTimeout(fallbackTimer);
-          launchTonkeeperFallback(gramAmount);
         }
       } catch (err) {
         settled = true;
-        clearTimeout(fallbackTimer);
-        console.warn("Wallet transaction prompt error:", err);
+        console.warn("Wallet transaction prompt note:", err);
         if (typeof onCancelCallback === 'function') {
           onCancelCallback(err);
         }
@@ -2777,7 +2766,7 @@
         walletDisconnectModal: "Disconnect",
         connActive: "Connected",
         notConnected: "Not Connected",
-        pgWWithdrawLock: "Withdraw (Verify First)",
+        pgWWithdrawLock: "Withdraw",
         pgWWithdrawReady: "Withdraw",
         wdModalTitle: "Withdraw ROL",
         wdModalDesc: "Enter the amount of ROL you want to withdraw (Min 10,000 ROL).",
@@ -2886,7 +2875,7 @@
         walletDisconnectModal: "فصل المحفظة",
         connActive: "متصلة",
         notConnected: "غير متصلة",
-        pgWWithdrawLock: "السحب (يتطلب توثيق)",
+        pgWWithdrawLock: "سحب الأرباح",
         pgWWithdrawReady: "سحب الأرباح",
         wdModalTitle: "سحب ROL",
         wdModalDesc: "اكتب الكمية التي تريد سحبها (الحد الأدنى 10,000 ROL).",
@@ -2995,7 +2984,7 @@
         walletDisconnectModal: "Отключить",
         connActive: "Подключён",
         notConnected: "Не подключён",
-        pgWWithdrawLock: "Вывод (нужна верификация)",
+        pgWWithdrawLock: "Вывод",
         pgWWithdrawReady: "Вывод",
         wdModalTitle: "Вывод ROL",
         wdModalDesc: "Введите сумму ROL для вывода (мин. 10,000 ROL).",
@@ -3244,7 +3233,7 @@
         btn.classList.remove('done');
         if (wBtnTxt) wBtnTxt.innerText = t.pgWWithdrawLock;
         if (wBtn) {
-          wBtn.className = 'legendary-btn-locked';
+          wBtn.className = 'legendary-btn-gold';
           wBtn.style.marginBottom = '0';
         }
       }
@@ -3859,17 +3848,6 @@
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
               await checkGramVerificationSilently();
-
-              if (pendingTaskDraft && tonConnectUI.connected) {
-                const draftToSend = pendingTaskDraft;
-                await executeWalletPayment(draftToSend.paidGram, async () => {
-                  setPendingTaskDraft(null);
-                  await activatePaidCustomTask(draftToSend);
-                });
-              } else if (pendingGramAfterConnect && !isAccountVerified) {
-                pendingGramAfterConnect = false;
-                setTimeout(() => triggerDirectGramVerification(), 500);
-              }
             } else {
               connectedWalletAddr = null;
               localStorage.removeItem(KEY_WALLET);
