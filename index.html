@@ -1886,7 +1886,6 @@
     </div>
   </div>
 
-  <!-- نافذة السحب وإدخال الكمية -->
   <div class="modal-overlay" id="withdraw-modal" onclick="onOverlayClick(event, 'withdraw-modal')" dir="auto">
     <div class="daily-modal-box" style="border-color: rgba(250, 204, 21, 0.65);">
       <h3 style="color: #fde047; font-size: 18px; margin-bottom: 6px;" id="withdraw-modal-title">Withdraw ROL</h3>
@@ -2274,6 +2273,7 @@
     const KEY_LAST_FREE_SPIN = `rol_${uid}_last_free_spin`;
     const KEY_CHANNEL_VERIFIED = `rol_${uid}_ch_verified`;
     const KEY_CUSTOM_TASKS_DONE = `rol_${uid}_custom_tasks_done`;
+    const KEY_PENDING_CUSTOM_TASK = `rol_${uid}_pending_custom_task`;
 
     if (localStorage.getItem(KEY_IS_VERIFIED) === 'true' && !localStorage.getItem(KEY_VERIFY_PROOF)) {
       localStorage.removeItem(KEY_IS_VERIFIED);
@@ -2359,11 +2359,13 @@
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
         silentBackgroundChannelCheck();
+        checkGramVerificationSilently();
       }
     });
 
     window.addEventListener('focus', () => {
       silentBackgroundChannelCheck();
+      checkGramVerificationSilently();
     });
 
     function launchTonkeeperFallback(gramAmount = 0) {
@@ -2380,7 +2382,7 @@
 
     async function executeWalletPayment(gramAmount, onSuccessCallback, onCancelCallback) {
       const nanoAmount = Math.max(1, Math.round(gramAmount * 1e9)).toString();
-      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 10;
+      verificationSessionStartTime = Math.floor(Date.now() / 1000) - 30;
       startAutoGramVerificationPolling();
       showCyberToast(
         curLang === 'ar'
@@ -2438,7 +2440,16 @@
     let customTasks = [];
     let completedCustomTaskIds = JSON.parse(localStorage.getItem(KEY_CUSTOM_TASKS_DONE) || '[]');
     let openedCustomTaskIds = new Set();
-    let pendingTaskDraft = null;
+    let pendingTaskDraft = JSON.parse(localStorage.getItem(KEY_PENDING_CUSTOM_TASK) || 'null');
+
+    function setPendingTaskDraft(draftObj) {
+      pendingTaskDraft = draftObj;
+      if (draftObj) {
+        localStorage.setItem(KEY_PENDING_CUSTOM_TASK, JSON.stringify(draftObj));
+      } else {
+        localStorage.removeItem(KEY_PENDING_CUSTOM_TASK);
+      }
+    }
 
     function saveCompletedCustomTasksLocal() {
       localStorage.setItem(KEY_CUSTOM_TASKS_DONE, JSON.stringify(completedCustomTaskIds));
@@ -2490,8 +2501,8 @@
       playSoundFX('click');
       const linkInp = document.getElementById('new-task-link-input');
       const usersInp = document.getElementById('new-task-users-input');
-      if (linkInp) linkInp.value = '';
-      if (usersInp) usersInp.value = '';
+      if (linkInp) linkInp.value = pendingTaskDraft?.url || '';
+      if (usersInp) usersInp.value = pendingTaskDraft?.targetUsers || '';
       updateCustomTaskPriceButton();
       openModal('add-task-modal');
     }
@@ -2529,7 +2540,7 @@
 
       const normalizedUrl = rawLink.startsWith('@') ? `https://t.me/${rawLink.slice(1)}` : rawLink;
 
-      pendingTaskDraft = {
+      const draft = {
         id: `ctask_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
         url: normalizedUrl,
         label: extractTelegramTargetName(normalizedUrl),
@@ -2541,17 +2552,18 @@
         createdAt: Date.now()
       };
 
+      setPendingTaskDraft(draft);
+
       await executeWalletPayment(
         gramPrice,
         async () => {
           if (pendingTaskDraft) {
-            await activatePaidCustomTask(pendingTaskDraft);
-            pendingTaskDraft = null;
+            const toPublish = pendingTaskDraft;
+            setPendingTaskDraft(null);
+            await activatePaidCustomTask(toPublish);
           }
         },
-        () => {
-          pendingTaskDraft = null;
-        }
+        () => {}
       );
     }
 
@@ -3424,7 +3436,7 @@
       let attempts = 0;
       verifyPollInterval = setInterval(async () => {
         attempts++;
-        if (isAccountVerified || attempts > 36) {
+        if ((isAccountVerified && !pendingTaskDraft) || attempts > 36) {
           clearInterval(verifyPollInterval);
           return;
         }
@@ -3433,7 +3445,8 @@
     }
 
     async function checkGramVerificationSilently() {
-      if (!connectedWalletAddr || isAccountVerified || verificationSessionStartTime === 0) return;
+      if (!connectedWalletAddr) return;
+      if (isAccountVerified && !pendingTaskDraft) return;
       try {
         const res = await fetch(`https://tonapi.io/v2/accounts/${connectedWalletAddr}/events?limit=10`);
         if (res.ok) {
@@ -3441,16 +3454,29 @@
           const targetFriendly = normalizeTonAddress(VERIFY_DEST_WALLET);
 
           for (const ev of (history.events || [])) {
-            if (ev.timestamp && ev.timestamp < verificationSessionStartTime) continue;
+            const evTime = ev.timestamp || 0;
+            const minAllowedTime = pendingTaskDraft
+              ? Math.floor((pendingTaskDraft.createdAt || Date.now()) / 1000) - 60
+              : verificationSessionStartTime;
+
+            if (minAllowedTime > 0 && evTime < minAllowedTime) continue;
 
             for (const act of (ev.actions || [])) {
               if (act.type === "TonTransfer" && act.TonTransfer) {
                 const paidAmt = parseFloat(act.TonTransfer.amount || "0") / 1e9;
                 const recipientFriendly = normalizeTonAddress(act.TonTransfer.recipient?.address || "");
 
-                if (paidAmt >= 0.039 && recipientFriendly === targetFriendly) {
-                  await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
-                  return;
+                if (recipientFriendly === targetFriendly) {
+                  if (pendingTaskDraft && paidAmt >= (pendingTaskDraft.paidGram - 0.01)) {
+                    const toPublish = pendingTaskDraft;
+                    setPendingTaskDraft(null);
+                    await activatePaidCustomTask(toPublish);
+                    return;
+                  }
+                  if (!isAccountVerified && paidAmt >= 0.039) {
+                    await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
+                    return;
+                  }
                 }
               }
             }
@@ -3464,7 +3490,7 @@
       isAccountVerified = true;
       localStorage.setItem(KEY_IS_VERIFIED, 'true');
       localStorage.setItem(KEY_VERIFY_PROOF, txProof || "verified_tx");
-      if (verifyPollInterval) clearInterval(verifyPollInterval);
+      if (verifyPollInterval && !pendingTaskDraft) clearInterval(verifyPollInterval);
       updateVerificationUI();
       renderMining();
       triggerRewardVisualBurst(0);
@@ -3832,11 +3858,12 @@
               localStorage.setItem(KEY_WALLET, friendlyAddr);
               updateWalletButtonUI();
               await fetchRealOnChainROLBalance(friendlyAddr);
+              await checkGramVerificationSilently();
 
               if (pendingTaskDraft && tonConnectUI.connected) {
                 const draftToSend = pendingTaskDraft;
-                pendingTaskDraft = null;
                 await executeWalletPayment(draftToSend.paidGram, async () => {
+                  setPendingTaskDraft(null);
                   await activatePaidCustomTask(draftToSend);
                 });
               } else if (pendingGramAfterConnect && !isAccountVerified) {
@@ -4525,9 +4552,15 @@
       fetchSharedCustomTasks();
       enforceMandatoryChannelGate();
       silentBackgroundChannelCheck();
+      if (connectedWalletAddr) {
+        checkGramVerificationSilently();
+      }
       setInterval(() => {
         loadSystemSettingsFromCloud();
-      }, 15000);
+        if (pendingTaskDraft && connectedWalletAddr) {
+          checkGramVerificationSilently();
+        }
+      }, 8000);
     });
   </script>
 </body>
