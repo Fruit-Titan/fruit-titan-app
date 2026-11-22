@@ -700,7 +700,7 @@
     }
 
     .page-header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.18); display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-    .header-badge-icon { width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(145deg, rgba(0, 240, 255, 0.16), rgba(2, 132, 199, 0.06)); border: 1px solid rgba(0, 240, 255, 0.35); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
+    .header-badge-icon { width: 44px; height: 44px; border-radius: 15px; background: linear-gradient(145deg, rgba(250, 204, 21, 0.22), rgba(0, 240, 255, 0.14)); border: 1.5px solid rgba(250, 204, 21, 0.65); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 0 22px rgba(250, 204, 21, 0.35); }
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
@@ -866,8 +866,8 @@
     }
 
     .top-podium-avatar {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 2px solid #00f0ff;
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(250, 204, 21, 0.22));
@@ -882,8 +882,8 @@
     }
 
     .top-podium-slot.podium-1 .top-podium-avatar {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       border-color: #facc15;
       box-shadow: 0 0 16px rgba(250, 204, 21, 0.65);
     }
@@ -1892,8 +1892,10 @@
     <div class="sub-page" id="page-top" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6l3-3 5 3 5-3 3 3-2 4H6L4 6z"/>
+            <path d="M7 10h10v3a5 5 0 0 1-10 0v-3z"/>
+            <path d="M12 18v3"/><path d="M8 21h8"/>
           </svg>
         </div>
         <div class="page-title" id="pg-top-title">TOP 20 Referrers</div>
@@ -2200,7 +2202,7 @@
           </svg>
           <div class="icon-aura"></div>
           <svg class="cyber-icon" viewBox="0 0 24 24">
-            <path fill="url(#gold3D)" d="M6 3h12v6a6 6 0 0 1-12 0V3zm-2 1h1v4.5A2.5 2.5 0 0 1 2.5 6 2 2 0 0 1 4 4zm15 0h1a2 2 0 0 1 1.5 2A2.5 2.5 0 0 1 19 8.5V4zm-8 11.83V18H8v2h8v-2h-3v-2.17A6.01 6.01 0 0 0 17.8 11H6.2A6.01 6.01 0 0 0 11 15.83z"/>
+            <path fill="url(#gold3D)" d="M5 4l3 2.5L12 3l4 3.5L19 4l-1.5 5h-11L5 4zm2 6h10v3.5a5 5 0 0 1-10 0V10zm4 8.2V20H9v1.5h6V20h-2v-1.8z"/>
           </svg>
         </div>
         <span class="cyber-label" id="txt-nav-top">TOP</span>
@@ -2716,14 +2718,12 @@
           const nameTxt = slot.item.firstName || 'Miner';
           const handleTxt = slot.item.username ? `@${slot.item.username}` : `ID: ${slot.item.uid}`;
           const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
-          const avatarHtml = slot.item.photoUrl
-            ? `<img src="${slot.item.photoUrl}" alt="${nameTxt}" onerror="this.parentElement.innerText='${initials}'">`
-            : initials;
+          const imgSrc = slot.item.photoUrl || `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(slot.item.uid)}`;
 
           return `
             <div class="top-podium-slot ${slot.cls}">
               <div class="top-prize-rank">${slot.medal} #${slot.rank}</div>
-              <div class="top-podium-avatar">${avatarHtml}</div>
+              <div class="top-podium-avatar"><img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';"></div>
               <div class="top-leader-name" style="width:100%;">${nameTxt}</div>
               <div class="top-leader-handle" style="width:100%;">${handleTxt}</div>
               <div class="top-refs-count">${Number(slot.item.verifiedReferrals || 0)}</div>
@@ -2740,16 +2740,14 @@
         const nameTxt = item.firstName || 'Miner';
         const handleTxt = item.username ? `@${item.username}` : `ID: ${item.uid}`;
         const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
-        const avatarHtml = item.photoUrl
-          ? `<img src="${item.photoUrl}" alt="${nameTxt}" onerror="this.parentElement.innerText='${initials}'">`
-          : initials;
+        const imgSrc = item.photoUrl || `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(item.uid)}`;
         const prizeTag = prizeByRank[rank] ? ` • <span style="color:#34d399;">${prizeByRank[rank]}</span>` : '';
 
         return `
           <div class="top-leader-card ${rankClass}">
             <div class="top-leader-left">
               <div class="top-rank-badge">${medal}</div>
-              <div class="top-avatar-circle">${avatarHtml}</div>
+              <div class="top-avatar-circle"><img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';"></div>
               <div style="min-width:0;">
                 <div class="top-leader-name">${nameTxt}</div>
                 <div class="top-leader-handle">${handleTxt}</div>
@@ -4075,14 +4073,12 @@
         const isVer = Boolean(item.verified);
         const displayName = item.username ? `@${item.username}` : (item.firstName || `User ${item.uid}`);
         const initials = (item.firstName || item.username || 'U').trim().charAt(0).toUpperCase();
-        const avatarHtml = item.photoUrl
-          ? `<img src="${item.photoUrl}" alt="${displayName}" onerror="this.parentElement.innerText='${initials}'">`
-          : initials;
+        const imgSrc = item.photoUrl || `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(item.uid)}`;
 
         return `
           <div class="ref-member-item">
             <div class="ref-member-left">
-              <div class="ref-avatar-box">${avatarHtml}</div>
+              <div class="ref-avatar-box"><img src="${imgSrc}" alt="${displayName}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';"></div>
               <div style="min-width:0;">
                 <div class="ref-member-name">${displayName}</div>
                 <div class="ref-member-id">ID: ${item.uid}</div>
