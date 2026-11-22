@@ -857,13 +857,8 @@
       background: linear-gradient(165deg, rgba(69, 48, 7, 0.55), rgba(6, 16, 38, 0.96));
     }
 
-    .top-podium-slot.podium-2 {
-      border-color: #cbd5e1;
-    }
-
-    .top-podium-slot.podium-3 {
-      border-color: #d97706;
-    }
+    .top-podium-slot.podium-2 { border-color: #cbd5e1; }
+    .top-podium-slot.podium-3 { border-color: #d97706; }
 
     .top-podium-avatar {
       width: 46px;
@@ -2692,14 +2687,14 @@
       if (!container) return;
       const t = dictionary[curLang];
 
-      if (!top20LeadersData.length) {
+      const topList = top20LeadersData.slice(0, 20);
+      const prizeByRank = { 1: '10 GRAM', 2: '5 GRAM', 3: '3 GRAM', 4: '1 GRAM', 5: '1 GRAM' };
+
+      if (!topList.length) {
         if (podiumEl) podiumEl.innerHTML = '';
         container.innerHTML = `<div style="text-align:center; padding: 18px; font-size: 12px; color: #94a3b8; background: rgba(9,24,54,0.75); border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">${t.noTopLeadersYet}</div>`;
         return;
       }
-
-      const topList = top20LeadersData.slice(0, 20);
-      const prizeByRank = { 1: '10 GRAM', 2: '5 GRAM', 3: '3 GRAM', 4: '1 GRAM', 5: '1 GRAM' };
 
       if (podiumEl) {
         const first = topList[0];
@@ -2718,12 +2713,16 @@
           const nameTxt = slot.item.firstName || 'Miner';
           const handleTxt = slot.item.username ? `@${slot.item.username}` : `ID: ${slot.item.uid}`;
           const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
-          const imgSrc = slot.item.photoUrl || `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(slot.item.uid)}`;
+          const isRealUid = slot.item.uid && !String(slot.item.uid).startsWith('slot_');
+          const imgSrc = slot.item.photoUrl || (isRealUid ? `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(slot.item.uid)}` : '');
+          const avatarContent = imgSrc
+            ? `<img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';">`
+            : initials;
 
           return `
             <div class="top-podium-slot ${slot.cls}">
               <div class="top-prize-rank">${slot.medal} #${slot.rank}</div>
-              <div class="top-podium-avatar"><img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';"></div>
+              <div class="top-podium-avatar">${avatarContent}</div>
               <div class="top-leader-name" style="width:100%;">${nameTxt}</div>
               <div class="top-leader-handle" style="width:100%;">${handleTxt}</div>
               <div class="top-refs-count">${Number(slot.item.verifiedReferrals || 0)}</div>
@@ -2740,14 +2739,18 @@
         const nameTxt = item.firstName || 'Miner';
         const handleTxt = item.username ? `@${item.username}` : `ID: ${item.uid}`;
         const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
-        const imgSrc = item.photoUrl || `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(item.uid)}`;
+        const isRealUid = item.uid && !String(item.uid).startsWith('slot_');
+        const imgSrc = item.photoUrl || (isRealUid ? `${BOT_BASE_URL}/api/avatar?uid=${encodeURIComponent(item.uid)}` : '');
+        const avatarContent = imgSrc
+          ? `<img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';">`
+          : initials;
         const prizeTag = prizeByRank[rank] ? ` • <span style="color:#34d399;">${prizeByRank[rank]}</span>` : '';
 
         return `
           <div class="top-leader-card ${rankClass}">
             <div class="top-leader-left">
               <div class="top-rank-badge">${medal}</div>
-              <div class="top-avatar-circle"><img src="${imgSrc}" alt="${nameTxt}" onerror="this.style.display='none'; this.parentElement.innerText='${initials}';"></div>
+              <div class="top-avatar-circle">${avatarContent}</div>
               <div style="min-width:0;">
                 <div class="top-leader-name">${nameTxt}</div>
                 <div class="top-leader-handle">${handleTxt}</div>
