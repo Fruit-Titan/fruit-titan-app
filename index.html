@@ -704,6 +704,220 @@
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
+    .top-countdown-card {
+      background: linear-gradient(155deg, rgba(16, 40, 88, 0.95), rgba(5, 14, 34, 0.98));
+      border: 1.5px solid rgba(250, 204, 21, 0.6);
+      border-radius: 22px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 24px rgba(250, 204, 21, 0.2);
+      flex-shrink: 0;
+    }
+
+    .top-countdown-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #fde047;
+      margin-bottom: 10px;
+      letter-spacing: 0.4px;
+    }
+
+    .top-timer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .top-timer-box {
+      background: rgba(2, 9, 24, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 14px;
+      padding: 9px 6px;
+      text-align: center;
+    }
+
+    .top-timer-num {
+      font-family: ui-monospace, monospace;
+      font-size: 19px;
+      font-weight: 900;
+      color: #00f0ff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.75);
+      direction: ltr;
+    }
+
+    .top-timer-unit {
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .top-prizes-card {
+      background: rgba(9, 24, 54, 0.88);
+      border: 1px solid rgba(250, 204, 21, 0.38);
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .top-prizes-title {
+      font-size: 12px;
+      font-weight: 900;
+      color: #fde047;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .top-prizes-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .top-prize-pill {
+      background: rgba(2, 9, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 7px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .top-prize-pill.top-three {
+      border-color: rgba(250, 204, 21, 0.55);
+      background: rgba(245, 158, 11, 0.12);
+    }
+
+    .top-prize-rank {
+      font-size: 10px;
+      font-weight: 900;
+      color: #94a3b8;
+      font-family: ui-monospace, monospace;
+    }
+
+    .top-prize-pill.top-three .top-prize-rank { color: #fde047; }
+
+    .top-prize-val {
+      font-size: 10px;
+      font-weight: 900;
+      color: #00f0ff;
+      font-family: ui-monospace, monospace;
+      direction: ltr;
+      white-space: nowrap;
+    }
+
+    .top-leaders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .top-leader-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(12, 30, 66, 0.88), rgba(5, 14, 34, 0.95));
+      border: 1px solid rgba(0, 240, 255, 0.24);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .top-leader-card.rank-1 { border-color: #facc15; box-shadow: 0 0 18px rgba(250, 204, 21, 0.28); }
+    .top-leader-card.rank-2 { border-color: #cbd5e1; }
+    .top-leader-card.rank-3 { border-color: #d97706; }
+
+    .top-rank-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: rgba(2, 9, 24, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #fde047;
+      font-family: ui-monospace, monospace;
+      flex-shrink: 0;
+    }
+
+    .top-leader-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .top-avatar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(250, 204, 21, 0.25));
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #ffffff;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .top-avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .top-leader-name {
+      font-size: 12.5px;
+      font-weight: 900;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-leader-handle {
+      font-size: 10.5px;
+      color: #38bdf8;
+      font-family: ui-monospace, monospace;
+      direction: ltr;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-leader-right {
+      text-align: end;
+      flex-shrink: 0;
+    }
+
+    .top-refs-count {
+      font-size: 13px;
+      font-weight: 900;
+      color: #fde047;
+      font-family: ui-monospace, monospace;
+      direction: ltr;
+    }
+
+    .top-refs-sub {
+      font-size: 9.5px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
     .spin-arena-card {
       position: relative;
       background:
@@ -1111,9 +1325,9 @@
       border-top: 1px solid rgba(0, 229, 255, 0.3);
       box-shadow: 0 -8px 25px rgba(0, 150, 255, 0.18);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 6px 8px 8px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      padding: 6px 6px 8px;
       z-index: 80;
     }
 
@@ -1121,7 +1335,7 @@
     .cyber-tab:active { transform: scale(0.92); }
     .cyber-tab.active { transform: translateY(-2px); }
 
-    .cyber-box-wrap { position: relative; width: 100%; height: 54px; display: flex; align-items: center; justify-content: center; }
+    .cyber-box-wrap { position: relative; width: 100%; height: 52px; display: flex; align-items: center; justify-content: center; }
     .frame-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
     .frame-bg { fill: url(#blueCardBg); }
     .frame-border { fill: none; stroke: #00d2ff; stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.7)); }
@@ -1131,13 +1345,13 @@
     .cyber-tab.active .frame-border { stroke: #facc15; stroke-width: 2; filter: drop-shadow(0 0 7px rgba(250, 204, 21, 0.9)); }
     .cyber-tab.active .frame-accent { fill: #fef08a; }
 
-    .icon-aura { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, transparent 70%); pointer-events: none; }
-    .cyber-tab.active .icon-aura { width: 34px; height: 34px; background: radial-gradient(circle, rgba(250, 204, 21, 0.55) 0%, transparent 70%); }
+    .icon-aura { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, transparent 70%); pointer-events: none; }
+    .cyber-tab.active .icon-aura { width: 32px; height: 32px; background: radial-gradient(circle, rgba(250, 204, 21, 0.55) 0%, transparent 70%); }
 
-    .cyber-icon { position: relative; z-index: 2; width: 25px; height: 25px; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85)); }
+    .cyber-icon { position: relative; z-index: 2; width: 23px; height: 23px; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85)); }
     .cyber-tab.active .cyber-icon { transform: scale(1.08); filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.75)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.85)); }
 
-    .cyber-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-top: 3px; white-space: nowrap; }
+    .cyber-label { font-size: 9.5px; font-weight: 800; color: #94a3b8; margin-top: 2px; white-space: nowrap; }
     .cyber-tab.active .cyber-label { color: #fde047; text-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
 
     .modal-overlay {
@@ -1590,6 +1804,64 @@
       </div>
     </div>
 
+    <div class="sub-page" id="page-top" dir="auto">
+      <div class="page-header">
+        <div class="header-badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+        </div>
+        <div class="page-title" id="pg-top-title">TOP 20 Referrers</div>
+        <div class="page-subtitle" id="pg-top-sub">7-day referral contest ranked by verified referrals</div>
+      </div>
+
+      <div class="top-countdown-card">
+        <div class="top-countdown-label" id="top-contest-countdown-lbl">Contest Remaining Time (7 Days)</div>
+        <div class="top-timer-grid">
+          <div class="top-timer-box">
+            <div class="top-timer-num" id="top-days-val">07</div>
+            <div class="top-timer-unit" id="top-days-unit">Days</div>
+          </div>
+          <div class="top-timer-box">
+            <div class="top-timer-num" id="top-hours-val">00</div>
+            <div class="top-timer-unit" id="top-hours-unit">Hours</div>
+          </div>
+          <div class="top-timer-box">
+            <div class="top-timer-num" id="top-mins-val">00</div>
+            <div class="top-timer-unit" id="top-mins-unit">Minutes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-prizes-card">
+        <div class="top-prizes-title" id="top-prizes-heading">Contest Prizes</div>
+        <div class="top-prizes-grid">
+          <div class="top-prize-pill top-three">
+            <span class="top-prize-rank">#1</span>
+            <span class="top-prize-val">10 GRAM</span>
+          </div>
+          <div class="top-prize-pill top-three">
+            <span class="top-prize-rank">#2</span>
+            <span class="top-prize-val">5 GRAM</span>
+          </div>
+          <div class="top-prize-pill top-three">
+            <span class="top-prize-rank">#3</span>
+            <span class="top-prize-val">3 GRAM</span>
+          </div>
+          <div class="top-prize-pill">
+            <span class="top-prize-rank">#4</span>
+            <span class="top-prize-val">1 GRAM</span>
+          </div>
+          <div class="top-prize-pill">
+            <span class="top-prize-rank">#5</span>
+            <span class="top-prize-val">1 GRAM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-leaders-list" id="top-20-leaders-container"></div>
+    </div>
+
     <div class="sub-page" id="page-refs" dir="auto">
       <div class="page-header">
         <div class="header-badge-icon">
@@ -1831,6 +2103,22 @@
         <span class="cyber-label" id="txt-nav-tasks">Tasks</span>
       </div>
 
+      <div class="cyber-tab" id="tab-top" onclick="switchTab('top')">
+        <div class="cyber-box-wrap">
+          <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
+            <polygon class="frame-bg" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
+            <polygon class="frame-border" points="10,2 90,2 98,14 98,46 90,58 10,58 2,46 2,14"/>
+            <rect class="frame-accent" x="35" y="1" width="30" height="2.2" rx="1"/>
+            <rect class="frame-accent" x="35" y="56.8" width="30" height="2.2" rx="1"/>
+          </svg>
+          <div class="icon-aura"></div>
+          <svg class="cyber-icon" viewBox="0 0 24 24">
+            <path fill="url(#gold3D)" d="M6 3h12v6a6 6 0 0 1-12 0V3zm-2 1h1v4.5A2.5 2.5 0 0 1 2.5 6 2 2 0 0 1 4 4zm15 0h1a2 2 0 0 1 1.5 2A2.5 2.5 0 0 1 19 8.5V4zm-8 11.83V18H8v2h8v-2h-3v-2.17A6.01 6.01 0 0 0 17.8 11H6.2A6.01 6.01 0 0 0 11 15.83z"/>
+          </svg>
+        </div>
+        <span class="cyber-label" id="txt-nav-top">TOP</span>
+      </div>
+
       <div class="cyber-tab" id="tab-refs" onclick="switchTab('refs')">
         <div class="cyber-box-wrap">
           <svg class="frame-svg" viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -1997,6 +2285,7 @@
     const BOT_WITHDRAW_ENDPOINT = `${BOT_BASE_URL}/api/withdraw`;
     const BOT_REF_TRACK_ENDPOINT = `${BOT_BASE_URL}/api/referral/track`;
     const BOT_REF_CONFIRM_ENDPOINT = `${BOT_BASE_URL}/api/referral/confirm`;
+    const BOT_TOP_REFERRALS_ENDPOINT = `${BOT_BASE_URL}/api/top-referrals`;
     const REQUIRED_CHANNEL_URL = "https://t.me/ROL_TOKN";
     const MIN_WITHDRAW_ROL = 10000;
     const CUSTOM_TASK_REWARD_ROL = 10;
@@ -2283,6 +2572,89 @@
     let isCheckingChannel = false;
     let referralsListData = [];
     let currentReferralFilter = 'all';
+    let top20LeadersData = [];
+    let contestEndsAt = Date.now() + (7 * 24 * 60 * 60 * 1000);
+
+    function renderContestCountdown() {
+      const daysEl = document.getElementById('top-days-val');
+      const hoursEl = document.getElementById('top-hours-val');
+      const minsEl = document.getElementById('top-mins-val');
+      if (!daysEl || !hoursEl || !minsEl) return;
+
+      const weekMs = 7 * 24 * 60 * 60 * 1000;
+      let diffMs = contestEndsAt - Date.now();
+      while (diffMs <= 0) {
+        contestEndsAt += weekMs;
+        diffMs = contestEndsAt - Date.now();
+      }
+
+      const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+      const hours = Math.floor((diffMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+      const mins = Math.floor((diffMs % (60 * 60 * 1000)) / (60 * 1000));
+
+      daysEl.innerText = String(days).padStart(2, '0');
+      hoursEl.innerText = String(hours).padStart(2, '0');
+      minsEl.innerText = String(mins).padStart(2, '0');
+    }
+
+    function renderTop20Leaders() {
+      const container = document.getElementById('top-20-leaders-container');
+      if (!container) return;
+      const t = dictionary[curLang];
+
+      if (!top20LeadersData.length) {
+        container.innerHTML = `<div style="text-align:center; padding: 18px; font-size: 12px; color: #94a3b8; background: rgba(9,24,54,0.75); border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">${t.noTopLeadersYet}</div>`;
+        return;
+      }
+
+      container.innerHTML = top20LeadersData.slice(0, 20).map((item, idx) => {
+        const rank = idx + 1;
+        const rankClass = rank <= 3 ? `rank-${rank}` : '';
+        const medal = rank === 1 ? '🥇' : (rank === 2 ? '🥈' : (rank === 3 ? '🥉' : `#${rank}`));
+        const nameTxt = item.firstName || 'Miner';
+        const handleTxt = item.username ? `@${item.username}` : `ID: ${item.uid}`;
+        const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
+        const avatarHtml = item.photoUrl
+          ? `<img src="${item.photoUrl}" alt="${nameTxt}" onerror="this.parentElement.innerText='${initials}'">`
+          : initials;
+
+        return `
+          <div class="top-leader-card ${rankClass}">
+            <div class="top-leader-left">
+              <div class="top-rank-badge">${medal}</div>
+              <div class="top-avatar-circle">${avatarHtml}</div>
+              <div style="min-width:0;">
+                <div class="top-leader-name">${nameTxt}</div>
+                <div class="top-leader-handle">${handleTxt}</div>
+              </div>
+            </div>
+            <div class="top-leader-right">
+              <div class="top-refs-count">${Number(item.verifiedReferrals || 0)}</div>
+              <div class="top-refs-sub">${t.topVerifiedRefsLabel}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function fetchTop20Referrals() {
+      try {
+        const res = await fetch(BOT_TOP_REFERRALS_ENDPOINT);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.ok) {
+            if (Array.isArray(data.top20)) {
+              top20LeadersData = data.top20;
+            }
+            if (data.contest && Number(data.contest.endsAt) > 0) {
+              contestEndsAt = Number(data.contest.endsAt);
+            }
+            renderContestCountdown();
+            renderTop20Leaders();
+          }
+        }
+      } catch (e) {}
+    }
 
     function isChannelAccessGranted() {
       return localStorage.getItem(KEY_CHANNEL_VERIFIED) === 'true';
@@ -2691,8 +3063,18 @@
         verifyToContinue: "Verify Account (0.05 GRAM)",
         navHome: "Home",
         navTasks: "Tasks",
+        navTop: "TOP",
         navRefs: "Referrals",
         navWallet: "Wallet",
+        pgTopTitle: "TOP 20 Referrers",
+        pgTopSub: "7-day referral contest ranked by verified referrals",
+        topCountdownLbl: "Contest Remaining Time (7 Days)",
+        topDaysUnit: "Days",
+        topHoursUnit: "Hours",
+        topMinsUnit: "Minutes",
+        topPrizesHeading: "Contest Prizes",
+        topVerifiedRefsLabel: "Verified Refs",
+        noTopLeadersYet: "No verified referrers yet",
         modalCheckinTitle: "Daily Rewards (30 Days)",
         modalCheckinDesc: "Check in daily to grow rewards up to 250 ROL. Missing >48h resets streak to Day 1!",
         streakTxt: "Check-in Streak: Day",
@@ -2800,8 +3182,18 @@
         verifyToContinue: "توثيق الحساب للاستمرار (0.05 GRAM)",
         navHome: "الرئيسية",
         navTasks: "المهام",
+        navTop: "TOP",
         navRefs: "الإحالات",
         navWallet: "المحفظة",
+        pgTopTitle: "أفضل 20 متسابقاً (TOP)",
+        pgTopSub: "مسابقة إحالات لمدة 7 أيام مرتبة حسب الإحالات المؤكدة",
+        topCountdownLbl: "الوقت المتبقي لنهاية المسابقة (7 أيام)",
+        topDaysUnit: "أيام",
+        topHoursUnit: "ساعات",
+        topMinsUnit: "دقائق",
+        topPrizesHeading: "جوائز المسابقة",
+        topVerifiedRefsLabel: "إحالة مؤكدة",
+        noTopLeadersYet: "لا توجد إحالات مؤكدة في الترتيب بعد",
         modalCheckinTitle: "المكافآت اليومية (30 يوماً)",
         modalCheckinDesc: "سجّل حضورك يومياً لترتفع مكافأتك تدريجياً حتى 250 ROL. الغياب لأكثر من 48 ساعة يعيد السلسلة لليوم الأول!",
         streakTxt: "سلسلة الحضور: يوم",
@@ -2909,8 +3301,18 @@
         verifyToContinue: "Верификация (0.05 GRAM)",
         navHome: "Главная",
         navTasks: "Задания",
+        navTop: "TOP",
         navRefs: "Друзья",
         navWallet: "Кошелёк",
+        pgTopTitle: "ТОП-20 рефералов",
+        pgTopSub: "Конкурс на 7 дней по подтверждённым рефералам",
+        topCountdownLbl: "До конца конкурса (7 дней)",
+        topDaysUnit: "Дней",
+        topHoursUnit: "Часов",
+        topMinsUnit: "Минут",
+        topPrizesHeading: "Призы конкурса",
+        topVerifiedRefsLabel: "Подтв. реф.",
+        noTopLeadersYet: "Подтверждённых рефералов пока нет",
         modalCheckinTitle: "Ежедневные награды (30 дней)",
         modalCheckinDesc: "Заходите каждый день, чтобы увеличить награду до 250 ROL. Пропуск >48ч сбрасывает серию!",
         streakTxt: "Серия входов: День",
@@ -3627,6 +4029,10 @@
         const res = await fetch(`${BOT_USER_ENDPOINT}?uid=${encodeURIComponent(uid)}`);
         if (!res.ok) return;
         const resp = await res.json();
+        if (resp?.contest && Number(resp.contest.endsAt) > 0) {
+          contestEndsAt = Number(resp.contest.endsAt);
+          renderContestCountdown();
+        }
         const data = resp?.user;
         if (data && !data.error) {
           if (typeof data.balance === 'number') {
@@ -3935,6 +4341,14 @@
         renderCustomTasksList();
         refreshTasksUI();
         updateSpinUI();
+      } else if (tabName === 'top') {
+        const pTop = document.getElementById('page-top');
+        pTop.classList.add('active');
+        pTop.scrollTop = 0;
+        document.getElementById('tab-top').classList.add('active');
+        renderContestCountdown();
+        renderTop20Leaders();
+        fetchTop20Referrals();
       } else if (tabName === 'refs') {
         const pRefs = document.getElementById('page-refs');
         pRefs.classList.add('active');
@@ -4044,8 +4458,26 @@
 
       document.getElementById('txt-nav-home').innerText = t.navHome;
       document.getElementById('txt-nav-tasks').innerText = t.navTasks;
+      const navTopEl = document.getElementById('txt-nav-top');
+      if (navTopEl) navTopEl.innerText = t.navTop;
       document.getElementById('txt-nav-refs').innerText = t.navRefs;
       document.getElementById('txt-nav-wallet').innerText = t.navWallet;
+
+      const pgTopTitle = document.getElementById('pg-top-title');
+      if (pgTopTitle) pgTopTitle.innerText = t.pgTopTitle;
+      const pgTopSub = document.getElementById('pg-top-sub');
+      if (pgTopSub) pgTopSub.innerText = t.pgTopSub;
+      const topCountdownLbl = document.getElementById('top-contest-countdown-lbl');
+      if (topCountdownLbl) topCountdownLbl.innerText = t.topCountdownLbl;
+      const topDaysUnit = document.getElementById('top-days-unit');
+      if (topDaysUnit) topDaysUnit.innerText = t.topDaysUnit;
+      const topHoursUnit = document.getElementById('top-hours-unit');
+      if (topHoursUnit) topHoursUnit.innerText = t.topHoursUnit;
+      const topMinsUnit = document.getElementById('top-mins-unit');
+      if (topMinsUnit) topMinsUnit.innerText = t.topMinsUnit;
+      const topPrizesHeading = document.getElementById('top-prizes-heading');
+      if (topPrizesHeading) topPrizesHeading.innerText = t.topPrizesHeading;
+      renderTop20Leaders();
 
       document.getElementById('txt-modal-checkin-title').innerText = t.modalCheckinTitle;
       document.getElementById('txt-modal-checkin-desc').innerText = t.modalCheckinDesc;
@@ -4464,6 +4896,7 @@
     setInterval(() => {
       renderMining();
       updateNotificationDots();
+      renderContestCountdown();
       if (document.getElementById('page-tasks').classList.contains('active')) {
         updateSpinUI();
       }
@@ -4478,6 +4911,8 @@
     enforceMandatoryChannelGate();
     fetchSharedCustomTasks();
     renderReferralsList();
+    renderContestCountdown();
+    fetchTop20Referrals();
 
     const ADMIN_IDS = ["1932161126"];
     let maintenanceEnabled = false;
@@ -4510,6 +4945,10 @@
         const res = await fetch(`${BOT_USER_ENDPOINT}?uid=${encodeURIComponent(uid)}`);
         if (res.ok) {
           const data = await res.json();
+          if (resp?.contest && Number(resp.contest.endsAt) > 0) {
+            contestEndsAt = Number(resp.contest.endsAt);
+            renderContestCountdown();
+          }
           const cfg = data?.system;
           if (cfg && typeof cfg === 'object') {
             maintenanceEnabled = Boolean(cfg.maintenanceEnabled);
@@ -4528,6 +4967,7 @@
       publishVipConfigToDatabase();
       loadUserFromCloud();
       fetchSharedCustomTasks();
+      fetchTop20Referrals();
       enforceMandatoryChannelGate();
       silentBackgroundChannelCheck();
       if (connectedWalletAddr) {
