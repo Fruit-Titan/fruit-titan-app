@@ -1632,7 +1632,7 @@
       </div>
 
       <div class="ref-verify-note" id="ref-verify-rule-box">
-        Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.
+        Referral Requirement: Invited friends must verify their account with <b>0.05 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.
       </div>
 
       <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 6px; font-weight: 700;" id="pg-refs-link-lbl">Your Personal Invite Link</div>
@@ -1720,7 +1720,7 @@
 
       <div class="gram-verify-card" id="gram-verify-card">
         <div style="display: flex; flex-direction: column; gap: 3px;">
-          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.04 GRAM)</div>
+          <div style="font-size: 13px; font-weight: 900; color: #ffffff;" id="gram-card-title">Wallet Verification (0.05 GRAM)</div>
           <div style="font-size: 11px; color: #cbd5e1;" id="gram-card-desc">Required to continue mining after 1st session & unlock withdrawals</div>
         </div>
         <button class="action-pill-btn" id="gram-verify-btn" onclick="triggerDirectGramVerification()">Verify</button>
@@ -2001,6 +2001,7 @@
     const MIN_WITHDRAW_ROL = 10000;
     const CUSTOM_TASK_REWARD_ROL = 10;
     const MIN_CUSTOM_TASK_USERS = 50;
+    const VERIFY_FEE_GRAM = 0.05;
 
     let toastTimer = null;
     function showCyberToast(msg, isWarn = false) {
@@ -2436,7 +2437,6 @@
       }
     }
 
-    // ==================== نظام المهام المدفوعة (Add Task) ====================
     let customTasks = [];
     let completedCustomTaskIds = JSON.parse(localStorage.getItem(KEY_CUSTOM_TASKS_DONE) || '[]');
     let openedCustomTaskIds = new Set();
@@ -2699,7 +2699,7 @@
         start: "Start Mining",
         mining: "Mining Now...",
         claim: "Claim Rewards",
-        verifyToContinue: "Verify Account (0.04 GRAM)",
+        verifyToContinue: "Verify Account (0.05 GRAM)",
         navHome: "Home",
         navTasks: "Tasks",
         navRefs: "Referrals",
@@ -2745,7 +2745,7 @@
         pgRefsEarned: "Referral Earnings (ROL)",
         perk1: "+60 ROL instant bonus + 1 Free Spin per verified referral",
         perk2: "5% continuous commission from your invited friends' mining profits",
-        refVerifyNote: "Referral Requirement: Invited friends must verify their account with <b>0.04 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.",
+        refVerifyNote: "Referral Requirement: Invited friends must verify their account with <b>0.05 GRAM</b> to confirm the referral and grant your 60 ROL + 1 Spin.",
         pgRefsLinkLbl: "Your Personal Invite Link",
         copyBtn: "Copy",
         copiedBtn: "Copied ✓",
@@ -2762,7 +2762,7 @@
         pgWBalLbl: "Total Bot Mining Balance",
         pgWVipLbl: "Active Tier",
         pgWChainLbl: "TON Wallet Balance",
-        gramTitle: "Wallet Verification (0.04 GRAM)",
+        gramTitle: "Wallet Verification (0.05 GRAM)",
         gramDesc: "Required to continue mining after 1st session & unlock withdrawals",
         gramVerifiedTitle: "Account Verified ✓",
         gramVerifiedDesc: "Your wallet is verified for continuous mining & withdrawals",
@@ -2791,8 +2791,8 @@
         wUsedBtn: "Understood",
         dayLabel: "Day",
         toastCopied: "✓ Copied to clipboard",
-        toastVerified: "✓ Account verified with 0.04 GRAM!",
-        toastWaitingGram: "Opening wallet to confirm 0.04 GRAM payment..."
+        toastVerified: "✓ Account verified with 0.05 GRAM!",
+        toastWaitingGram: "Opening wallet to confirm 0.05 GRAM payment..."
       },
       ar: {
         flagBadge: "AR 🇸🇦",
@@ -2808,7 +2808,7 @@
         start: "ابدأ التعدين الآن",
         mining: "جاري التعدين...",
         claim: "استلام الأرباح",
-        verifyToContinue: "توثيق الحساب للاستمرار (0.04 GRAM)",
+        verifyToContinue: "توثيق الحساب للاستمرار (0.05 GRAM)",
         navHome: "الرئيسية",
         navTasks: "المهام",
         navRefs: "الإحالات",
@@ -2854,7 +2854,7 @@
         pgRefsEarned: "أرباح الإحالات (ROL)",
         perk1: "+60 ROL مكافأة فورية + لفة مجانية في السبين لكل إحالة مؤكدة",
         perk2: "5% عمولة مستمرة من أرباح تعدين كل صديق قمت بدعوته",
-        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.04 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
+        refVerifyNote: "شرط احتساب الإحالة: يجب على الصديق المدعو توثيق حسابه بإرسال <b>0.05 GRAM</b> لتأكيد الإحالة واستلامك الـ 60 ROL ولفة السبين.",
         pgRefsLinkLbl: "رابط الدعوة الخاص بك",
         copyBtn: "نسخ",
         copiedBtn: "تم النسخ ✓",
@@ -2871,7 +2871,7 @@
         pgWBalLbl: "الرصيد الإجمالي في البوت",
         pgWVipLbl: "المستوى النشط",
         pgWChainLbl: "رصيد محفظة TON",
-        gramTitle: "توثيق المحفظة (0.04 GRAM)",
+        gramTitle: "توثيق المحفظة (0.05 GRAM)",
         gramDesc: "مطلوب لاستمرار التعدين بعد الجلسة الأولى وفتح السحب",
         gramVerifiedTitle: "الحساب موثّق بنجاح ✓",
         gramVerifiedDesc: "محفظتك موثقة ومؤهلة للتعدين المستمر والسحب",
@@ -2900,8 +2900,8 @@
         wUsedBtn: "حسناً، فهمت",
         dayLabel: "يوم",
         toastCopied: "✓ تم النسخ إلى الحافظة",
-        toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.04 GRAM!",
-        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.04 GRAM..."
+        toastVerified: "✓ تم توثيق حسابك بنجاح بـ 0.05 GRAM!",
+        toastWaitingGram: "جاري فتح المحفظة لتأكيد دفع 0.05 GRAM..."
       },
       ru: {
         flagBadge: "RU 🇷🇺",
@@ -2917,7 +2917,7 @@
         start: "Начать майнинг",
         mining: "Идёт майнинг...",
         claim: "Забрать награду",
-        verifyToContinue: "Верификация (0.04 GRAM)",
+        verifyToContinue: "Верификация (0.05 GRAM)",
         navHome: "Главная",
         navTasks: "Задания",
         navRefs: "Друзья",
@@ -2963,7 +2963,7 @@
         pgRefsEarned: "Доход от друзей (ROL)",
         perk1: "+60 ROL бонус + 1 спин за каждого подтверждённого друга",
         perk2: "5% постоянный доход от майнинга приглашённых друзей",
-        refVerifyNote: "Условие: приглашённый друг должен пройти верификацию <b>0.04 GRAM</b>, чтобы вы получили 60 ROL и 1 спин.",
+        refVerifyNote: "Условие: приглашённый друг должен пройти верификацию <b>0.05 GRAM</b>, чтобы вы получили 60 ROL и 1 спин.",
         pgRefsLinkLbl: "Ваша реферальная ссылка",
         copyBtn: "Копия",
         copiedBtn: "Скопировано ✓",
@@ -2980,7 +2980,7 @@
         pgWBalLbl: "Общий баланс в боте",
         pgWVipLbl: "Активный уровень",
         pgWChainLbl: "Баланс в TON кошельке",
-        gramTitle: "Верификация (0.04 GRAM)",
+        gramTitle: "Верификация (0.05 GRAM)",
         gramDesc: "Необходима после 1-й сессии майнинга и для вывода",
         gramVerifiedTitle: "Аккаунт подтверждён ✓",
         gramVerifiedDesc: "Ваш кошелёк подтверждён для майнинга и вывода",
@@ -3009,8 +3009,8 @@
         wUsedBtn: "Понятно",
         dayLabel: "День",
         toastCopied: "✓ Скопировано в буфер",
-        toastVerified: "✓ Аккаунт подтверждён (0.04 GRAM)!",
-        toastWaitingGram: "Открываем кошелёк для оплаты 0.04 GRAM..."
+        toastVerified: "✓ Аккаунт подтверждён (0.05 GRAM)!",
+        toastWaitingGram: "Открываем кошелёк для оплаты 0.05 GRAM..."
       }
     };
 
@@ -3420,7 +3420,7 @@
       }
 
       await executeWalletPayment(
-        0.04,
+        VERIFY_FEE_GRAM,
         async (boc) => {
           await completeAccountVerificationSuccess(boc);
         },
@@ -3473,7 +3473,7 @@
                     await activatePaidCustomTask(toPublish);
                     return;
                   }
-                  if (!isAccountVerified && paidAmt >= 0.039) {
+                  if (!isAccountVerified && paidAmt >= (VERIFY_FEE_GRAM - 0.001)) {
                     await completeAccountVerificationSuccess(ev.event_id || "verified_onchain");
                     return;
                   }
