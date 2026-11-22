@@ -704,23 +704,39 @@
     .page-title { font-size: 19px; font-weight: 900; color: #ffffff; letter-spacing: 0.3px; text-shadow: 0 0 14px rgba(0, 240, 255, 0.55); }
     .page-subtitle { font-size: 11.5px; color: #94a3b8; margin-top: 4px; line-height: 1.45; max-width: 320px; }
 
-    .top-countdown-card {
-      background: linear-gradient(155deg, rgba(16, 40, 88, 0.95), rgba(5, 14, 34, 0.98));
-      border: 1.5px solid rgba(250, 204, 21, 0.6);
-      border-radius: 22px;
-      padding: 14px;
+    .top-hero-banner {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.24), transparent 62%),
+        radial-gradient(circle at 85% 90%, rgba(0, 240, 255, 0.22), transparent 58%),
+        linear-gradient(155deg, #102b5e 0%, #061533 58%, #020817 100%);
+      border: 1.5px solid rgba(250, 204, 21, 0.68);
+      border-radius: 24px;
+      padding: 15px 14px;
       margin-bottom: 12px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 24px rgba(250, 204, 21, 0.2);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.72), 0 0 28px rgba(250, 204, 21, 0.22);
+      overflow: hidden;
       flex-shrink: 0;
+    }
+
+    .top-hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 18%;
+      right: 18%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #fde047, #00f0ff, transparent);
     }
 
     .top-countdown-label {
       text-align: center;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 900;
       color: #fde047;
       margin-bottom: 10px;
       letter-spacing: 0.4px;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
     }
 
     .top-timer-grid {
@@ -730,35 +746,37 @@
     }
 
     .top-timer-box {
-      background: rgba(2, 9, 24, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      border-radius: 14px;
+      background: rgba(2, 9, 24, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.42);
+      border-radius: 15px;
       padding: 9px 6px;
       text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 14px rgba(0, 240, 255, 0.14);
     }
 
     .top-timer-num {
       font-family: ui-monospace, monospace;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 900;
       color: #00f0ff;
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.75);
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.85);
       direction: ltr;
     }
 
     .top-timer-unit {
       font-size: 10px;
       font-weight: 800;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-top: 2px;
     }
 
     .top-prizes-card {
-      background: rgba(9, 24, 54, 0.88);
-      border: 1px solid rgba(250, 204, 21, 0.38);
-      border-radius: 18px;
+      background: linear-gradient(150deg, rgba(12, 31, 68, 0.92), rgba(4, 12, 29, 0.96));
+      border: 1.5px solid rgba(0, 240, 255, 0.34);
+      border-radius: 20px;
       padding: 12px;
       margin-bottom: 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
       flex-shrink: 0;
     }
 
@@ -766,8 +784,9 @@
       font-size: 12px;
       font-weight: 900;
       color: #fde047;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
       text-align: center;
+      letter-spacing: 0.3px;
     }
 
     .top-prizes-grid {
@@ -777,19 +796,20 @@
     }
 
     .top-prize-pill {
-      background: rgba(2, 9, 24, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
+      background: rgba(2, 9, 24, 0.88);
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      border-radius: 13px;
       padding: 7px 4px;
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .top-prize-pill.top-three {
-      border-color: rgba(250, 204, 21, 0.55);
-      background: rgba(245, 158, 11, 0.12);
+      border-color: #facc15;
+      background: linear-gradient(180deg, rgba(250, 204, 21, 0.2), rgba(146, 64, 14, 0.16));
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.22);
     }
 
     .top-prize-rank {
@@ -810,6 +830,71 @@
       white-space: nowrap;
     }
 
+    .top-podium-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .top-podium-slot {
+      background: linear-gradient(160deg, rgba(14, 34, 74, 0.92), rgba(4, 12, 28, 0.98));
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: 18px;
+      padding: 10px 6px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .top-podium-slot.podium-1 {
+      border-color: #facc15;
+      box-shadow: 0 0 20px rgba(250, 204, 21, 0.28);
+      background: linear-gradient(165deg, rgba(69, 48, 7, 0.55), rgba(6, 16, 38, 0.96));
+    }
+
+    .top-podium-slot.podium-2 {
+      border-color: #cbd5e1;
+    }
+
+    .top-podium-slot.podium-3 {
+      border-color: #d97706;
+    }
+
+    .top-podium-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #00f0ff;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(250, 204, 21, 0.22));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+      color: #ffffff;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .top-podium-slot.podium-1 .top-podium-avatar {
+      width: 50px;
+      height: 50px;
+      border-color: #facc15;
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.65);
+    }
+
+    .top-podium-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .top-leaders-list {
       display: flex;
       flex-direction: column;
@@ -823,10 +908,10 @@
       justify-content: space-between;
       gap: 10px;
       padding: 10px 12px;
-      border-radius: 16px;
-      background: linear-gradient(145deg, rgba(12, 30, 66, 0.88), rgba(5, 14, 34, 0.95));
-      border: 1px solid rgba(0, 240, 255, 0.24);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+      border-radius: 17px;
+      background: linear-gradient(145deg, rgba(12, 30, 66, 0.9), rgba(5, 14, 34, 0.96));
+      border: 1px solid rgba(0, 240, 255, 0.26);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.48);
     }
 
     .top-leader-card.rank-1 { border-color: #facc15; box-shadow: 0 0 18px rgba(250, 204, 21, 0.28); }
@@ -834,10 +919,10 @@
     .top-leader-card.rank-3 { border-color: #d97706; }
 
     .top-rank-badge {
-      width: 26px;
-      height: 26px;
-      border-radius: 9px;
-      background: rgba(2, 9, 24, 0.85);
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: rgba(2, 9, 24, 0.88);
       border: 1px solid rgba(0, 240, 255, 0.35);
       display: flex;
       align-items: center;
@@ -858,11 +943,11 @@
     }
 
     .top-avatar-circle {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(250, 204, 21, 0.25));
-      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      border: 1.5px solid rgba(0, 240, 255, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -905,7 +990,7 @@
     }
 
     .top-refs-count {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 900;
       color: #fde047;
       font-family: ui-monospace, monospace;
@@ -1815,7 +1900,7 @@
         <div class="page-subtitle" id="pg-top-sub">7-day referral contest ranked by verified referrals</div>
       </div>
 
-      <div class="top-countdown-card">
+      <div class="top-hero-banner">
         <div class="top-countdown-label" id="top-contest-countdown-lbl">Contest Remaining Time (7 Days)</div>
         <div class="top-timer-grid">
           <div class="top-timer-box">
@@ -1858,6 +1943,8 @@
           </div>
         </div>
       </div>
+
+      <div class="top-podium-row" id="top-podium-container"></div>
 
       <div class="top-leaders-list" id="top-20-leaders-container"></div>
     </div>
@@ -2598,16 +2685,55 @@
     }
 
     function renderTop20Leaders() {
+      const podiumEl = document.getElementById('top-podium-container');
       const container = document.getElementById('top-20-leaders-container');
       if (!container) return;
       const t = dictionary[curLang];
 
       if (!top20LeadersData.length) {
+        if (podiumEl) podiumEl.innerHTML = '';
         container.innerHTML = `<div style="text-align:center; padding: 18px; font-size: 12px; color: #94a3b8; background: rgba(9,24,54,0.75); border-radius: 16px; border: 1px solid rgba(0,240,255,0.2);">${t.noTopLeadersYet}</div>`;
         return;
       }
 
-      container.innerHTML = top20LeadersData.slice(0, 20).map((item, idx) => {
+      const topList = top20LeadersData.slice(0, 20);
+      const prizeByRank = { 1: '10 GRAM', 2: '5 GRAM', 3: '3 GRAM', 4: '1 GRAM', 5: '1 GRAM' };
+
+      if (podiumEl) {
+        const first = topList[0];
+        const second = topList[1];
+        const third = topList[2];
+        const orderSlots = [
+          { item: second, rank: 2, medal: '🥈', cls: 'podium-2' },
+          { item: first, rank: 1, medal: '👑', cls: 'podium-1' },
+          { item: third, rank: 3, medal: '🥉', cls: 'podium-3' }
+        ];
+
+        podiumEl.innerHTML = orderSlots.map(slot => {
+          if (!slot.item) {
+            return `<div class="top-podium-slot ${slot.cls}" style="opacity:0.45;"><div class="top-prize-rank">${slot.medal} #${slot.rank}</div><div style="font-size:10px;color:#94a3b8;">--</div></div>`;
+          }
+          const nameTxt = slot.item.firstName || 'Miner';
+          const handleTxt = slot.item.username ? `@${slot.item.username}` : `ID: ${slot.item.uid}`;
+          const initials = nameTxt.trim().charAt(0).toUpperCase() || 'U';
+          const avatarHtml = slot.item.photoUrl
+            ? `<img src="${slot.item.photoUrl}" alt="${nameTxt}" onerror="this.parentElement.innerText='${initials}'">`
+            : initials;
+
+          return `
+            <div class="top-podium-slot ${slot.cls}">
+              <div class="top-prize-rank">${slot.medal} #${slot.rank}</div>
+              <div class="top-podium-avatar">${avatarHtml}</div>
+              <div class="top-leader-name" style="width:100%;">${nameTxt}</div>
+              <div class="top-leader-handle" style="width:100%;">${handleTxt}</div>
+              <div class="top-refs-count">${Number(slot.item.verifiedReferrals || 0)}</div>
+              <div style="font-size:9.5px;font-weight:900;color:#34d399;font-family:ui-monospace,monospace;">${prizeByRank[slot.rank] || ''}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      container.innerHTML = topList.map((item, idx) => {
         const rank = idx + 1;
         const rankClass = rank <= 3 ? `rank-${rank}` : '';
         const medal = rank === 1 ? '🥇' : (rank === 2 ? '🥈' : (rank === 3 ? '🥉' : `#${rank}`));
@@ -2617,6 +2743,7 @@
         const avatarHtml = item.photoUrl
           ? `<img src="${item.photoUrl}" alt="${nameTxt}" onerror="this.parentElement.innerText='${initials}'">`
           : initials;
+        const prizeTag = prizeByRank[rank] ? ` • <span style="color:#34d399;">${prizeByRank[rank]}</span>` : '';
 
         return `
           <div class="top-leader-card ${rankClass}">
@@ -2630,7 +2757,7 @@
             </div>
             <div class="top-leader-right">
               <div class="top-refs-count">${Number(item.verifiedReferrals || 0)}</div>
-              <div class="top-refs-sub">${t.topVerifiedRefsLabel}</div>
+              <div class="top-refs-sub">${t.topVerifiedRefsLabel}${prizeTag}</div>
             </div>
           </div>
         `;
@@ -4945,8 +5072,8 @@
         const res = await fetch(`${BOT_USER_ENDPOINT}?uid=${encodeURIComponent(uid)}`);
         if (res.ok) {
           const data = await res.json();
-          if (resp?.contest && Number(resp.contest.endsAt) > 0) {
-            contestEndsAt = Number(resp.contest.endsAt);
+          if (data?.contest && Number(data.contest.endsAt) > 0) {
+            contestEndsAt = Number(data.contest.endsAt);
             renderContestCountdown();
           }
           const cfg = data?.system;
