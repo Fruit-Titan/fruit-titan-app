@@ -1583,6 +1583,53 @@
       color: #cbd5e1;
       line-height: 1.6;
     }
+
+    .history-list-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      max-height: 52vh;
+      margin: 10px 0 14px;
+      padding-right: 3px;
+      text-align: start;
+    }
+
+    .history-item-row {
+      background: rgba(3, 12, 30, 0.9);
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      border-radius: 13px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .history-item-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .history-item-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .history-item-amt {
+      font-family: ui-monospace, monospace;
+      font-size: 12.5px;
+      font-weight: 900;
+      color: #34d399;
+      direction: ltr;
+      white-space: nowrap;
+    }
+
+    .history-item-amt.negative {
+      color: #f87171;
+    }
   </style>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -2133,6 +2180,11 @@
         <b>Withdrawal Rule:</b> Min <b>10,000 ROL</b>; hold at least <b>25%</b> of your withdrawal amount in your connected TON wallet; a <b>5%</b> withdrawal fee applies (e.g., withdrawing 10,000 ROL requires 2,500 ROL in wallet and delivers 9,500 ROL).
       </div>
 
+      <button onclick="openUserHistoryModal()" style="width:100%; padding:11px 14px; border-radius:13px; border:1px solid rgba(0,240,255,0.4); background:rgba(0,240,255,0.12); color:#00f0ff; font-size:12.5px; font-weight:900; cursor:pointer; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:7px;">
+        <span>📜</span>
+        <span id="open-history-btn-lbl">Account Activity History</span>
+      </button>
+
       <div class="wallet-bottom-actions">
         <button class="legendary-btn-cyan" onclick="handleRealTonConnect()" id="modal-ton-connect-action">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -2254,6 +2306,17 @@
           </linearGradient>
         </defs>
       </svg>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="user-history-modal" onclick="onOverlayClick(event, 'user-history-modal')" dir="auto">
+    <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.55);">
+      <h3 style="color: #00f0ff; font-size: 18px; margin-bottom: 4px;" id="history-modal-title">Account History</h3>
+      <p style="font-size: 11px; color: #94a3b8; margin-bottom: 6px;" id="history-modal-sub">Recent mining rewards, tasks, referrals & withdrawals</p>
+
+      <div class="history-list-box" id="user-history-list-container"></div>
+
+      <button onclick="closeAllModals()" class="legendary-btn-cyan" style="margin-bottom: 0;" id="history-close-btn">Close</button>
     </div>
   </div>
 
@@ -2657,6 +2720,7 @@
     let currentReferralFilter = 'all';
     let top20LeadersData = [];
     let contestEndsAt = Date.now() + (7 * 24 * 60 * 60 * 1000);
+    let userHistoryList = [];
 
     function renderContestCountdown() {
       const daysEl = document.getElementById('top-days-val');
@@ -3276,6 +3340,10 @@
         wdAmountPh: "Enter ROL amount (Min 10,000)",
         wdSubmitBtn: "Submit Withdrawal Request",
         wdCancelBtn: "Cancel",
+        openHistoryBtn: "Account Activity History",
+        historyTitle: "Account History",
+        historySub: "Recent mining rewards, tasks, referrals & withdrawals",
+        noHistoryYet: "No activity recorded yet",
         nextVipProg: "Progress to",
         maxVipReached: "Max Tier VIP 100 Reached",
         wUsedTitle: "Wallet Already Linked",
@@ -3395,6 +3463,10 @@
         wdAmountPh: "أدخل كمية السحب (الحد الأدنى 10,000)",
         wdSubmitBtn: "إرسال طلب السحب",
         wdCancelBtn: "إغلاق",
+        openHistoryBtn: "سجل عمليات الحساب",
+        historyTitle: "سجل العمليات",
+        historySub: "آخر أرباح التعدين، المهام، الإحالات وطلبات السحب",
+        noHistoryYet: "لا توجد عمليات مسجلة في حسابك بعد",
         nextVipProg: "التقدم نحو",
         maxVipReached: "وصلت للحد الأقصى VIP 100",
         wUsedTitle: "المحفظة مربوطة بحساب آخر",
@@ -3514,6 +3586,10 @@
         wdAmountPh: "Введите сумму (мин. 10,000)",
         wdSubmitBtn: "Отправить заявку",
         wdCancelBtn: "Закрыть",
+        openHistoryBtn: "История операций",
+        historyTitle: "История аккаунта",
+        historySub: "Награды за майнинг, задания, рефералы и выводы",
+        noHistoryYet: "Операций пока нет",
         nextVipProg: "Прогресс до",
         maxVipReached: "Достигнут максимум VIP 100",
         wUsedTitle: "Кошелёк уже используется",
@@ -4017,7 +4093,59 @@
 
     async function publishVipConfigToDatabase() {}
 
+    function renderUserHistoryModal() {
+      const container = document.getElementById('user-history-list-container');
+      if (!container) return;
+      const t = dictionary[curLang];
+
+      if (!Array.isArray(userHistoryList) || userHistoryList.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:18px; font-size:12px; color:#94a3b8;">${t.noHistoryYet}</div>`;
+        return;
+      }
+
+      const recent = [...userHistoryList].reverse().slice(0, 25);
+      container.innerHTML = recent.map(item => {
+        const amt = Number(item.amount || 0);
+        const isNeg = amt < 0;
+        const sign = isNeg ? '' : '+';
+        const dateStr = item.timestamp
+          ? new Date(item.timestamp).toLocaleString('en-GB', { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+          : '';
+        const detailTxt = item.details ? `${item.details}${dateStr ? ' • ' + dateStr : ''}` : dateStr;
+
+        return `
+          <div class="history-item-row">
+            <div style="min-width:0; flex:1;">
+              <div class="history-item-title">${item.source || 'Activity'}</div>
+              <div class="history-item-sub">${detailTxt}</div>
+            </div>
+            <div class="history-item-amt ${isNeg ? 'negative' : ''}">${sign}${formatCleanNumber(amt)} ROL</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function openUserHistoryModal() {
+      playSoundFX('click');
+      renderUserHistoryModal();
+      openModal('user-history-modal');
+      await loadUserFromCloud();
+      renderUserHistoryModal();
+    }
+
     async function logUserHistory(source, amount, details = "") {
+      const cleanAmt = Number(formatCleanNumber(amount));
+      userHistoryList.push({
+        source: source,
+        amount: cleanAmt,
+        details: details,
+        balanceAfter: Number(formatCleanNumber(balance)),
+        timestamp: Date.now()
+      });
+      if (userHistoryList.length > 100) {
+        userHistoryList = userHistoryList.slice(-100);
+      }
+
       if (!uid || uid === "guest_miner") return;
       try {
         await fetch(BOT_SYNC_USER_ENDPOINT, {
@@ -4027,7 +4155,7 @@
             uid: uid,
             historyEntry: {
               source: source,
-              amount: Number(formatCleanNumber(amount)),
+              amount: cleanAmt,
               details: details,
               balanceAfter: Number(formatCleanNumber(balance)),
               timestamp: Date.now()
@@ -4208,6 +4336,9 @@
           if (Array.isArray(data.referralsList)) {
             referralsListData = data.referralsList;
             renderReferralsList();
+          }
+          if (Array.isArray(data.history)) {
+            userHistoryList = data.history;
           }
           const refCountEl = document.getElementById('ref-count-val');
           const refEarnEl = document.getElementById('ref-earn-val');
@@ -4628,6 +4759,16 @@
       const wdCan = document.getElementById('withdraw-cancel-btn');
       if (wdCan) wdCan.innerText = t.wdCancelBtn;
       updateWithdrawModalPreview();
+
+      const histBtnLbl = document.getElementById('open-history-btn-lbl');
+      if (histBtnLbl) histBtnLbl.innerText = t.openHistoryBtn;
+      const histTitle = document.getElementById('history-modal-title');
+      if (histTitle) histTitle.innerText = t.historyTitle;
+      const histSub = document.getElementById('history-modal-sub');
+      if (histSub) histSub.innerText = t.historySub;
+      const histClose = document.getElementById('history-close-btn');
+      if (histClose) histClose.innerText = t.close;
+      renderUserHistoryModal();
 
       document.getElementById('pg-tasks-title').innerText = t.pgTasksTitle;
       document.getElementById('pg-tasks-sub').innerText = t.pgTasksSub;
