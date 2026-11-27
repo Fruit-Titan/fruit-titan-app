@@ -447,7 +447,7 @@
 
     .home-buy-rol-pill {
       position: absolute;
-      top: 41.2%;
+      top: 39.2%;
       right: 2.6%;
       transform: translateY(-50%);
       background: linear-gradient(145deg, rgba(16, 36, 78, 0.92), rgba(5, 14, 34, 0.96));
@@ -475,6 +475,62 @@
     .buy-pill-icon { width: 23px; height: 23px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fde047); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(250, 204, 21, 0.6); }
     .buy-pill-text { font-size: 9px; font-weight: 900; color: #fde047; text-shadow: 0 0 6px rgba(250, 204, 21, 0.6); white-space: nowrap; }
     .buy-pill-sub { font-size: 7.2px; font-weight: 800; color: #38bdf8; letter-spacing: 0.3px; direction: ltr; }
+
+    .home-promo-pill {
+      position: absolute;
+      top: 48.2%;
+      right: 2.6%;
+      transform: translateY(-50%);
+      background: linear-gradient(145deg, rgba(10, 32, 72, 0.94), rgba(4, 12, 29, 0.98));
+      border: 1.5px solid rgba(0, 240, 255, 0.82);
+      border-radius: 15px;
+      padding: 7px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      z-index: 35;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75), 0 0 18px rgba(0, 240, 255, 0.42);
+      animation: promoPillPulse 2.8s infinite ease-in-out;
+      transition: transform 0.15s ease;
+    }
+
+    .home-promo-pill:active { transform: translateY(-50%) scale(0.92); }
+    @keyframes promoPillPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(0, 240, 255, 0.35); border-color: rgba(0, 240, 255, 0.7); }
+      50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.85), 0 0 24px rgba(250, 204, 21, 0.55); border-color: #fde047; }
+    }
+
+    .promo-pill-icon {
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00f0ff, #0284c7);
+      border: 1px solid #fef08a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.65);
+    }
+
+    .promo-pill-text {
+      font-size: 8.8px;
+      font-weight: 900;
+      color: #00f0ff;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.75);
+      white-space: nowrap;
+    }
+
+    .promo-pill-sub {
+      font-size: 7px;
+      font-weight: 800;
+      color: #fde047;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
 
     .coin-fx-layer {
       position: absolute;
@@ -707,14 +763,14 @@
     .secret-code-banner {
       position: relative;
       background:
-        radial-gradient(circle at 15% 15%, rgba(250, 204, 21, 0.24), transparent 55%),
-        radial-gradient(circle at 88% 85%, rgba(0, 240, 255, 0.24), transparent 55%),
-        linear-gradient(155deg, rgba(16, 39, 86, 0.96) 0%, rgba(5, 14, 34, 0.98) 65%, rgba(2, 7, 18, 0.99) 100%);
-      border: 1.5px solid rgba(250, 204, 21, 0.72);
+        radial-gradient(circle at 12% 15%, rgba(0, 240, 255, 0.26), transparent 55%),
+        radial-gradient(circle at 88% 85%, rgba(250, 204, 21, 0.22), transparent 55%),
+        linear-gradient(155deg, rgba(13, 35, 78, 0.96) 0%, rgba(5, 14, 34, 0.98) 65%, rgba(2, 7, 18, 0.99) 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.72);
       border-radius: 22px;
       padding: 13px 14px;
       margin-bottom: 14px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.72), 0 0 24px rgba(250, 204, 21, 0.22);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.72), 0 0 24px rgba(0, 240, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -730,16 +786,31 @@
       left: 14%;
       right: 14%;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #fde047, #00f0ff, transparent);
+      background: linear-gradient(90deg, transparent, #00f0ff, #fde047, transparent);
+    }
+
+    .secret-code-banner::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -65%;
+      width: 45%;
+      height: 180%;
+      background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.14), transparent);
+      transform: rotate(22deg);
+      animation: vaultHoloSweep 5.5s infinite ease-in-out;
+      pointer-events: none;
     }
 
     .secret-code-icon {
+      position: relative;
+      z-index: 2;
       width: 44px;
       height: 44px;
       border-radius: 15px;
-      background: linear-gradient(145deg, rgba(250, 204, 21, 0.25), rgba(0, 240, 255, 0.16));
-      border: 1.5px solid rgba(253, 224, 71, 0.75);
-      box-shadow: 0 0 18px rgba(250, 204, 21, 0.4);
+      background: linear-gradient(145deg, rgba(0, 240, 255, 0.24), rgba(250, 204, 21, 0.18));
+      border: 1.5px solid rgba(0, 240, 255, 0.75);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.42);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -748,13 +819,17 @@
     }
 
     .secret-code-title {
+      position: relative;
+      z-index: 2;
       font-size: 13.5px;
       font-weight: 900;
-      color: #fde047;
-      text-shadow: 0 0 10px rgba(250, 204, 21, 0.45);
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.65);
     }
 
     .secret-code-sub {
+      position: relative;
+      z-index: 2;
       font-size: 10.5px;
       color: #cbd5e1;
       margin-top: 2px;
@@ -762,6 +837,8 @@
     }
 
     .secret-open-btn {
+      position: relative;
+      z-index: 2;
       padding: 9px 13px;
       border-radius: 12px;
       border: 1px solid #fef08a;
@@ -773,7 +850,10 @@
       white-space: nowrap;
       box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
       flex-shrink: 0;
+      transition: transform 0.14s ease;
     }
+
+    .secret-open-btn:active { transform: scale(0.93); }
 
     .secret-code-input {
       width: 100%;
@@ -1344,6 +1424,12 @@
         <span class="buy-pill-sub">STON.fi</span>
       </div>
 
+      <div class="home-promo-pill" onclick="openSecretCodeModal()">
+        <div class="promo-pill-icon">⚡</div>
+        <span class="promo-pill-text" id="home-promo-txt">Promo</span>
+        <span class="promo-pill-sub" id="home-promo-sub">Code</span>
+      </div>
+
       <div class="coin-fx-layer" id="coin-fx-layer" onclick="onCoinInteractiveTap(event)">
         <div class="coin-orbit-ring"></div>
         <div class="coin-pulse-ring"></div>
@@ -1381,10 +1467,10 @@
 
       <div class="secret-code-banner">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <div class="secret-code-icon">🔐</div>
+          <div class="secret-code-icon">⚡</div>
           <div style="min-width:0;">
-            <div class="secret-code-title" id="secret-banner-title">Daily Secret Combo (+2,500 ROL)</div>
-            <div class="secret-code-sub" id="secret-banner-sub">Enter today’s code from @ROL_TOKN for a fast boost</div>
+            <div class="secret-code-title" id="secret-banner-title">Promo Code Vault</div>
+            <div class="secret-code-sub" id="secret-banner-sub">Redeem active codes from @ROL_TOKN for instant ROL</div>
           </div>
         </div>
         <button class="secret-open-btn" id="secret-open-btn" onclick="openSecretCodeModal()">Enter Code</button>
@@ -1904,16 +1990,16 @@
   </div>
 
   <div class="modal-overlay" id="secret-code-modal" onclick="onOverlayClick(event, 'secret-code-modal')" dir="auto">
-    <div class="daily-modal-box" style="border-color: rgba(250, 204, 21, 0.75); box-shadow: 0 20px 48px rgba(0,0,0,0.9), 0 0 36px rgba(250, 204, 21, 0.25);">
-      <div class="streak-banner" id="secret-modal-badge">⚡ SECRET CODE BOOST • +2,500 ROL</div>
-      <h3 style="color: #fde047; font-size: 18px; margin-bottom: 4px;" id="secret-modal-title">Claim Secret Promo Code</h3>
+    <div class="daily-modal-box" style="border-color: rgba(0, 240, 255, 0.72); box-shadow: 0 20px 48px rgba(0,0,0,0.9), 0 0 36px rgba(0, 240, 255, 0.25);">
+      <div class="streak-banner" id="secret-modal-badge">⚡ PROMO CODE</div>
+      <h3 style="color: #ffffff; font-size: 18px; margin-bottom: 4px; text-shadow: 0 0 12px rgba(0, 240, 255, 0.55);" id="secret-modal-title">Redeem Code</h3>
       <p style="font-size: 11.5px; color: #cbd5e1; line-height: 1.5;" id="secret-modal-desc">
-        Check <b>@ROL_TOKN</b> for the daily drop code and claim instant ROL toward your 10,000 ROL goal.
+        Enter an active code from <b>@ROL_TOKN</b> to claim your ROL reward.
       </p>
 
-      <input type="text" id="secret-code-input" class="secret-code-input" placeholder="ROL10K" maxlength="24" dir="ltr" autocomplete="off">
+      <input type="text" id="secret-code-input" class="secret-code-input" placeholder="CODE" maxlength="24" dir="ltr" autocomplete="off">
 
-      <button class="legendary-btn-gold" id="secret-claim-btn" onclick="redeemSecretPromoCode()">Unlock +2,500 ROL</button>
+      <button class="legendary-btn-gold" id="secret-claim-btn" onclick="redeemSecretPromoCode()">Claim Reward</button>
       <button onclick="closeAllModals()" style="width: 100%; padding: 11px; border-radius: 12px; border: none; background: rgba(255,255,255,0.12); color: #ffffff; font-weight: 800; cursor: pointer;" id="secret-close-btn">Close</button>
     </div>
   </div>
@@ -2338,26 +2424,32 @@
     function applySecretCodeLabels() {
       const isAr = curLang === 'ar';
       const isRu = curLang === 'ru';
+      const hTxt = document.getElementById('home-promo-txt');
+      const hSub = document.getElementById('home-promo-sub');
       const bTitle = document.getElementById('secret-banner-title');
       const bSub = document.getElementById('secret-banner-sub');
       const bBtn = document.getElementById('secret-open-btn');
       const mBadge = document.getElementById('secret-modal-badge');
       const mTitle = document.getElementById('secret-modal-title');
       const mDesc = document.getElementById('secret-modal-desc');
+      const mInp = document.getElementById('secret-code-input');
       const mClaim = document.getElementById('secret-claim-btn');
       const mClose = document.getElementById('secret-close-btn');
 
-      if (bTitle) bTitle.innerText = isAr ? 'الكود السري اليومي (+2,500 ROL)' : (isRu ? 'Секретный код дня (+2,500 ROL)' : 'Daily Secret Combo (+2,500 ROL)');
-      if (bSub) bSub.innerText = isAr ? 'أدخل كود قناة @ROL_TOKN لقفزة سريعة نحو 10,000 ROL' : (isRu ? 'Введите код из @ROL_TOKN для ускорения к 10,000 ROL' : 'Enter today’s code from @ROL_TOKN for a fast boost');
+      if (hTxt) hTxt.innerText = isAr ? 'أكواد' : (isRu ? 'Коды' : 'Promo');
+      if (hSub) hSub.innerText = isAr ? 'مكافأة' : (isRu ? 'Бонус' : 'Code');
+      if (bTitle) bTitle.innerText = isAr ? 'خزنة الأكواد الترويجية' : (isRu ? 'Промокоды ROL' : 'Promo Code Vault');
+      if (bSub) bSub.innerText = isAr ? 'فعّل الأكواد الفعّالة من قناة @ROL_TOKN لاستلام ROL' : (isRu ? 'Активируйте коды из @ROL_TOKN для получения ROL' : 'Redeem active codes from @ROL_TOKN for instant ROL');
       if (bBtn) bBtn.innerText = isAr ? 'إدخال الكود' : (isRu ? 'Ввести код' : 'Enter Code');
-      if (mBadge) mBadge.innerText = isAr ? '⚡ دفعة الكود السري • +2,500 ROL' : (isRu ? '⚡ СЕКРЕТНЫЙ КОД • +2,500 ROL' : '⚡ SECRET CODE BOOST • +2,500 ROL');
-      if (mTitle) mTitle.innerText = isAr ? 'تفعيل كود المكافأة السري' : (isRu ? 'Активация промокода' : 'Claim Secret Promo Code');
+      if (mBadge) mBadge.innerText = isAr ? '⚡ نظام الأكواد الترويجية' : (isRu ? '⚡ ПРОМОКОДЫ ROL' : '⚡ PROMO CODE');
+      if (mTitle) mTitle.innerText = isAr ? 'تفعيل كود المكافأة' : (isRu ? 'Активация промокода' : 'Redeem Code');
       if (mDesc) mDesc.innerHTML = isAr
-        ? 'تابع قناة <b>@ROL_TOKN</b> للحصول على الكود اليومي واستلم دفعة قوية للوصول إلى 10,000 ROL.'
+        ? 'أدخل الكود المنشور في قناة <b>@ROL_TOKN</b> قبل انتهاء مدته أو عدده لاستلام المكافأة.'
         : (isRu
-            ? 'Следите за <b>@ROL_TOKN</b>, чтобы получить код и быстрее достичь 10,000 ROL.'
-            : 'Check <b>@ROL_TOKN</b> for the daily drop code and claim instant ROL toward your 10,000 ROL goal.');
-      if (mClaim) mClaim.innerText = isAr ? 'استلام +2,500 ROL' : (isRu ? 'Получить +2,500 ROL' : 'Unlock +2,500 ROL');
+            ? 'Введите код из канала <b>@ROL_TOKN</b> до истечения срока или лимита, чтобы получить награду.'
+            : 'Enter an active code from <b>@ROL_TOKN</b> to claim your ROL reward.');
+      if (mInp) mInp.placeholder = isAr ? 'اكتب الكود هنا' : (isRu ? 'ВВЕДИТЕ КОД' : 'CODE');
+      if (mClaim) mClaim.innerText = isAr ? 'تفعيل الكود' : (isRu ? 'Активировать' : 'Claim Reward');
       if (mClose) mClose.innerText = dictionary[curLang].close;
     }
 
@@ -2376,14 +2468,15 @@
       const inp = document.getElementById('secret-code-input');
       const codeVal = (inp?.value || '').trim().toUpperCase();
       const isAr = curLang === 'ar';
+      const isRu = curLang === 'ru';
 
       if (!codeVal) {
-        showCyberToast(isAr ? '⚠️ يرجى إدخال الكود السري أولاً' : '⚠️ Please enter a promo code first', true);
+        showCyberToast(isAr ? '⚠️ يرجى إدخال الكود أولاً' : (isRu ? '⚠️ Введите код' : '⚠️ Please enter a code first'), true);
         return;
       }
 
       if (localRedeemedCodes.includes(codeVal)) {
-        showCyberToast(isAr ? '⚠️ لقد استخدمت هذا الكود مسبقاً' : '⚠️ You already redeemed this code', true);
+        showCyberToast(isAr ? '⚠️ لقد استخدمت هذا الكود مسبقاً' : (isRu ? '⚠️ Код уже использован' : '⚠️ You already redeemed this code'), true);
         return;
       }
 
@@ -2406,7 +2499,7 @@
         const data = await res.json();
 
         if (res.ok && data && data.ok) {
-          const reward = Number(data.rewardRol || 2500);
+          const reward = Number(data.rewardRol || 0);
           localRedeemedCodes.push(codeVal);
           localStorage.setItem(KEY_REDEEMED_CODES, JSON.stringify(localRedeemedCodes));
           if (typeof data.balance === 'number') {
@@ -2420,17 +2513,20 @@
           updateBalance();
           closeAllModals();
           triggerRewardVisualBurst(reward);
-          showCyberToast(isAr ? `✓ تم تفعيل الكود وإضافة +${reward.toLocaleString('en-US')} ROL!` : `✓ Code redeemed! +${reward.toLocaleString('en-US')} ROL added!`);
+          showCyberToast(isAr ? `✓ تم تفعيل الكود وإضافة +${formatPrettyNumber(reward)} ROL` : (isRu ? `✓ Код активирован! +${formatPrettyNumber(reward)} ROL` : `✓ Code redeemed! +${formatPrettyNumber(reward)} ROL`));
         } else {
-          const errMsg = data?.error === 'already_redeemed'
-            ? (isAr ? '⚠️ لقد استخدمت هذا الكود مسبقاً' : '⚠️ Already redeemed')
-            : (data?.error === 'limit_reached'
-                ? (isAr ? '⚠️ انتهى حد استخدام هذا الكود' : '⚠️ Code claim limit reached')
-                : (isAr ? '⚠️ الكود السري غير صحيح' : '⚠️ Invalid promo code'));
+          let errMsg = isAr ? '⚠️ الكود غير صحيح' : (isRu ? '⚠️ Неверный код' : '⚠️ Invalid code');
+          if (data?.error === 'already_redeemed') {
+            errMsg = isAr ? '⚠️ لقد استخدمت هذا الكود مسبقاً' : (isRu ? '⚠️ Код уже использован' : '⚠️ Already redeemed');
+          } else if (data?.error === 'limit_reached') {
+            errMsg = isAr ? '⚠️ اكتمل العدد المسموح لهذا الكود' : (isRu ? '⚠️ Лимит активаций исчерпан' : '⚠️ Code claim limit reached');
+          } else if (data?.error === 'expired_code') {
+            errMsg = isAr ? '⚠️ انتهت صلاحية هذا الكود' : (isRu ? '⚠️ Срок действия кода истёк' : '⚠️ Promo code expired');
+          }
           showCyberToast(errMsg, true);
         }
       } catch (e) {
-        showCyberToast(isAr ? '⚠️ تعذر الاتصال بالخادم، حاول مجدداً' : '⚠️ Network error, try again', true);
+        showCyberToast(isAr ? '⚠️ تعذر الاتصال بالخادم، حاول مجدداً' : (isRu ? '⚠️ Ошибка сети' : '⚠️ Network error, try again'), true);
       } finally {
         isRedeemingCode = false;
         if (btn) btn.innerText = prevTxt;
